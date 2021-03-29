@@ -17,7 +17,7 @@ const RegisterService = () => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(http://localhost:3000/backGround.png)`
+				backgroundImage: `url(https://3000-beige-walrus-q8a5cocf.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -151,13 +151,15 @@ const RegisterService = () => {
 								/>
 							</Form.Group>
 							<Row style={{ justifyContent: "center" }}>
-								<Button
-									variant="primary"
-									size="lg"
-									type="submit"
-									style={{ marginBottom: "40px", marginTop: "40px" }}>
-									<strong>Registra tu servicio</strong>
-								</Button>
+								<Link to="/home">
+									<Button
+										variant="primary"
+										size="lg"
+										type="submit"
+										style={{ marginBottom: "40px", marginTop: "40px" }}>
+										<strong>Registra tu servicio</strong>
+									</Button>
+								</Link>
 							</Row>
 						</Form>
 					</div>

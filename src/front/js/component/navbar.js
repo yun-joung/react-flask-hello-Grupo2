@@ -41,12 +41,7 @@ const MyNavbar = props => {
 							</Form>
 						</Col>
 						<Col sm={6} md={3}>
-							<div className="ml-auto float-right mt-2">
-								<Link to="/register">
-									<Button variant="outline-primary " className="no-outline mr-2">
-										&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
-									</Button>
-								</Link>
+							<div className="ml-auto">
 								<LoginModal user={store.user} />
 							</div>
 						</Col>

@@ -4,6 +4,7 @@ import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Row, Col, Jumbotron, Button } from "react-bootstrap";
 import { personB } from "../../img/image.js";
+import { Link } from "react-router-dom";
 
 export const Individuallnfo = () => {
 	const { store, actions } = useContext(Context);
@@ -50,9 +51,11 @@ export const Individuallnfo = () => {
 					</Col>
 				</Row>
 				<p>
-					<Button variant="primary" size="lg" block>
-						Comprar Servicio
-					</Button>
+					<Link to="/compra">
+						<Button variant="primary" size="lg" block>
+							Comprar Servicio
+						</Button>
+					</Link>
 				</p>
 			</Jumbotron>
 		</>

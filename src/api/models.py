@@ -42,6 +42,8 @@ class Servicio_registrados(db.Model):
     merit = db.Column(db.String(250))
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
     favoritos = db.relationship('Favoritos', backref='servicio_registrados',lazy=True)
+    comentarios = db.relationship('Comentarios', backref='servicio_registrados',lazy=True)
+    
 
     def __repr__(self):
         return "<Servicio_registrados %r>" % self.id
@@ -64,7 +66,7 @@ class Servicio_registrados(db.Model):
             "experiencia": self.experiencia,
             "portafolio": self.portafolio,
             "merit":self.merit,
-            "evaluacion": self.servicios_prestados.evaluacion
+            "evaluacion": self.comentarios.evaluacion
         }
 
 class Servicios_prestados(db.Model):
@@ -76,9 +78,7 @@ class Servicios_prestados(db.Model):
     total_valor_servicio = db.Column(db.Integer,nullable=False)
     fecha_inicio = db.Column(db.DateTime)
     fecha_termino = db.Column(db.DateTime)
-    text_comment = db.Column(db.String(250), nullable=True)
-    evaluacion = db.Column(db.Integer, nullable=True)
-    
+    comentarios = db.relationship('Comentarios', backref='servicios_prestados',lazy=True)
 
     def __repr__(self):
         return "<Servicios_prestados %r>" % self.id
@@ -93,9 +93,7 @@ class Servicios_prestados(db.Model):
             "cantidad_servicio": self.cantidad_servicio,
             "total_valor_servicio":self.total_valor_servicio,
             "fecha_inicio": self.fecha_inicio,
-            "fecha_termino": self.fecha_termino,
-            "text_comment": self.text_comment,
-            "evaluacion": self.evaluacion
+            "fecha_termino": self.fecha_termino
         }
 
 class Favoritos(db.Model):
@@ -105,7 +103,7 @@ class Favoritos(db.Model):
     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
 
     def __repr__(self):
-        return "<Servicios_prestados %r>" % self.id
+        return "<favoritos %r>" % self.id
     
 
     def serialize(self):
@@ -114,4 +112,24 @@ class Favoritos(db.Model):
             "id_user": self.user.id,
             "id_servicio_registrados": self.servicio_registrados.id,
             "name_servicio": self.servicio_registrados.name_servicio
+        }
+
+class Comentarios(db.Model):
+    __tablename__ = 'comentarios'
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id_servicios_prestados = db.Column(db.Integer, db.ForeignKey('servicios_prestados.id'), nullable=False)
+    id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
+    text_comment = db.Column(db.String(250), nullable=True)
+    evaluacion = db.Column(db.Integer, nullable=True)
+
+    def __repr__(self):
+        return "<Comentarios %r>" % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "id_servicios_prestados": self.servicios_prestados.id,
+            "id_servicio_registrados": self.servicio_registrados.id,
+            "text_comment":self.text_comment,
+            "evaluacion": self.evaluacion
         }

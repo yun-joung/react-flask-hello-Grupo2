@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { DropdownButton, Dropdown } from "react-bootstrap";
+import { NavDropdown, Dropdown } from "react-bootstrap";
 import PropTypes from "prop-types";
 // import useUserSession from "./userSession";
 
@@ -46,6 +46,7 @@ function MyVerticallyCenteredModal(props) {
 					</Form.Group>
 					<Button
 						variant="primary"
+						href="/home"
 						size="lg"
 						type="submit"
 						block
@@ -76,37 +77,44 @@ export function LoginModal(props) {
 		<>
 			{props.user.id !== undefined ? (
 				<>
-					<DropdownButton menuAlign="right" title="Mi favoritos" id="dropdown-menu-align-right">
-						<Dropdown.Item eventKey="1" style={{ width: "200px" }}>
-							servicio_name
-							<Button variant="light" className="float-right">
-								<i className="fas fa-trash-alt float-right" />
-							</Button>
-						</Dropdown.Item>
-
-						{/* {store.favoritos.map(item => {
+					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
+						{store.favoritos.map((item, index) => {
 							return (
-								<Dropdown.Item eventkey={index} key={item.id_servicio_registrados}>
+								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
 									{item.name_servicio}
 									<Button
-										variant="outline-dark float-right"
-										style={{ width: "100px" }}
-										onClick={() => actions.eliminaFavorito(item)}>
-										<i className="fas fa-trash-alt float-right"></i>
+										variant="light"
+										className="float-right"
+										onClick={() => actions.eliminaFavorito(item.id)}>
+										<i className="fas fa-trash-alt float-right" />
 									</Button>
-								</Dropdown.Item>
+								</NavDropdown.Item>
 							);
-						})} */}
-						<Dropdown.Divider />
-						<Dropdown.Item eventKey="3">Salir</Dropdown.Item>
-					</DropdownButton>
+						})}
+					</NavDropdown>
+					<NavDropdown title="Mi cuenta" id="basic-nav-dropdown" className="float-right">
+						<NavDropdown.Item href="#action/3.1">Mis datos</NavDropdown.Item>
+						<NavDropdown.Item href="#action/3.2">Compra</NavDropdown.Item>
+						<NavDropdown.Item href="/registerservice">Vender</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item href="#action/3.4">Salir</NavDropdown.Item>
+					</NavDropdown>
 				</>
 			) : (
 				<>
-					<Button variant="primary" onClick={() => setModalShow(true)}>
+					<Button
+						variant="outline-primary "
+						className="no-outline mr-2"
+						style={{ borderRadius: "1.75rem" }}
+						onClick={() => setModalShow(true)}>
 						Ingresa
 					</Button>
 					<MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
+					<Link to="/register">
+						<button className="btn btn-primary float-right" style={{ borderRadius: "1.75rem" }}>
+							&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
+						</button>
+					</Link>
 				</>
 			)}
 		</>

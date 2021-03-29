@@ -186,3 +186,22 @@ def add_favoritos():
 
         db.session.add(favoritos)
         db.session.commit()
+
+@api.route('/servicios_prestados', methods=["GET, POST"])
+def add_serviciocompra ():
+        if request.method == 'GET':
+            pass
+
+        if request.method == 'POST':
+            id_user_compra= request.json.get(id_user_compra)
+            id_servicio_registrados= request.json.get(id_servicio_registrados)
+            name_servicio= request.json.get(name_servicio)
+
+            if not id_user_compra:
+                return jsonify({"msg":"id_user_compra id esta vacio"}), 400
+       
+
+        servicios_prestados = Servicios_prestados()
+     
+        db.session.add(servicios_prestados)
+        db.session.commit()
