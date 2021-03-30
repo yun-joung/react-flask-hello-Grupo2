@@ -35,7 +35,7 @@ const MyNavbar = props => {
 						<Col sm={6} md={4} className="hidden-sm">
 							<Form inline className="Buscar sb d-flex float-right mt-2 hidden-sm">
 								<FormControl type="text" placeholder="Buscar" className="mr-sm-4 search" />
-								<Button variant="btn">
+								<Button variant="btn" onChange={event => props.handledChange(event)}>
 									<i className="fas fa-search pr-3" />
 								</Button>
 							</Form>

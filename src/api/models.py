@@ -83,7 +83,6 @@ class Servicios_prestados(db.Model):
     def __repr__(self):
         return "<Servicios_prestados %r>" % self.id
     
-
     def serialize(self):
         return {
             "id": self.id,
@@ -105,7 +104,6 @@ class Favoritos(db.Model):
     def __repr__(self):
         return "<favoritos %r>" % self.id
     
-
     def serialize(self):
         return {
             "id": self.id,

@@ -11,18 +11,17 @@ import datetime
 
 api = Blueprint('api', __name__)
 
+# @api.route('/hash', methods=['POST', 'GET'])
+# def handle_hash():
 
-@api.route('/hash', methods=['POST', 'GET'])
-def handle_hash():
-    
-    expiracion = datetime.timedelta(days=3)
-    access_token = create_access_token(identity='mortega@4geeks.co', expires_delta=expiracion)
-    response_token = {
-        "users": "Manu",
-        "token": access_token
-    }
+#     expiracion = datetime.timedelta(days=3)
+#     access_token = create_access_token(identity='mortega@4geeks.co', expires_delta=expiracion)
+#     response_token = {
+#         "users": "Manu",
+#         "token": access_token
+#     }
 
-    return jsonify(response_token), 200
+#     return jsonify(response_token), 200
 
 @api.route('/login', methods=['POST'])
 def login():
@@ -164,9 +163,10 @@ def servicio_individual(id_servicio_registrados):
 
 @api.route('/favoritos', methods=["GET, POST"])
 def add_favoritos():
+        #print("test")
         if request.method == 'GET':
             pass
-
+            #print("test")
         if request.method == 'POST':
             id_user= request.json.get(id_user)
             id_servicio_registrados= request.json.get(id_servicio_registrados)
@@ -180,7 +180,7 @@ def add_favoritos():
                 return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
 
         favoritos = Favoritos()
-        favoritos.id_users = request.json.get("id_users", None)
+        favoritos.id_user = request.json.get("id_user", None)
         favoritos.id_servicio_registrados = request.json.get("id_servicio_registrados", None)
         favoritos.name_servicio= request.json.get("name_servicio", None)
 

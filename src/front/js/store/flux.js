@@ -6,42 +6,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				userPass: ""
 			},
 			user: {
-				token: "12345",
-				email: "yunjoug@gmail.com",
-				id: "1"
+				token: "",
+				email: "",
+				id: ""
 			},
-			favoritos: [
-				{
-					id_user: "1",
-					id_servicio_registrados: "1",
-					name_servicio: "asd"
-				}
-			],
-			serviceInfo: [
-                {
-                    id="2",
-					name_servicio="bbb",
-					valor="5000",
-                    tipo_cobro="hora"
-                }
-            ],
+			favoritos: [],
+			serviceInfo: [],
 			serviceInfoIndividual: {}
 		},
 
 		actions: {
-			// getServiceInfo : async () => {
-			// 	try {
-			// 		const response = await fetch(`process.env.BACKEND_URL/servicio-registrados`, {
-			// 			method: "GET",
-			// 			headers: { "Content-Type": "application/json" }
-			// 		});
-			// 		const json = await response.json();
-			// 		console.log(json);
-			// 		setStore({ serviceInfo: JSON.stringify(json) });
-			// 	} catch (error) {
-			// 		console.log("Error loading message from backend", error);
-			// 	}
-			// },
+			getServiceInfo: async () => {
+				try {
+					const response = await fetch(`process.env.BACKEND_URL/servicio-registrados`, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log(json);
+					setStore({ serviceInfo: JSON.stringify(json) });
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
 
 			getServiceInfoIndividual: async id => {
 				try {
@@ -61,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				setStore({ favoritos: [...store.favoritos, item] });
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/favoritos", {
+					const response = await fetch(`process.env.BACKEND_URL/favoritos`, {
 						mode: "no-cors",
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -128,20 +115,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			// listComments: async () => {
-			// 	e.preventDefault();
-			// 	try {
-			// 		const response = await fetch(process.env.BACKEND_URL + "/comments", {
-			// 			method: "GET",
-			// 			headers: { "Content-Type": "application/json" }
-			// 		});
-			// 		const json = await response.json();
-			// 		console.log(json);
-			// 		setStore({ Comments: JSON.stringify(json) });
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// },
+			listComments: async () => {
+				e.preventDefault();
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/comments", {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log(json);
+					setStore({ Comments: JSON.stringify(json) });
+				} catch (error) {
+					console.log(error);
+				}
+			},
 			setRegister: user => {
 				console.log(user);
 				fetch(process.env.BACKEND_URL + "/api/register", {
