@@ -181,6 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							templateParams,
 							"user_Lg37b3jwPEh5fSo53yOsV"
 						);
+						alert("Una nueva contraseña ha sido enviada a tu correo registrado");
 					})
 					.catch(error => console.log("Error sending email", error));
 			}
