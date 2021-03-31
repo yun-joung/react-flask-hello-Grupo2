@@ -1,9 +1,14 @@
+import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			login_data: {
 				userLogin: "",
 				userPass: ""
+			},
+			recovery_data: {
+				userEmail: "",
+				userToken: ""
 			},
 			user: {
 				token: "",
@@ -134,7 +139,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/register", {
 					method: "POST",
 					body: JSON.stringify(user),
-					headers: { "Content-type": "application/json; charset=UTF-8" }
+					headers: { "Content-type": "application/json" }
 				})
 					.then(resp => resp.json())
 					.then(data => {
@@ -144,6 +149,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						if (typeof Storage !== "undefined") {
 							localStorage.setItem("token", data.token);
 							localStorage.setItem("user", JSON.stringify(data.email));
+							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
@@ -160,10 +166,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ user: data });
 						if (typeof Storage !== "undefined") {
 							localStorage.setItem("token", data.token);
-							localStorage.setItem("email", data.email);
+							localStorage.setItem("user", JSON.stringify(data.email));
+							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
 						}
 					})
 					.catch(error => console.log("Error loading message from backend", error));
+			},
+			sendEmail: user => {
+				fetch(process.env.BACKEND_URL + "/api/passwordrecovery1", {
+					method: "POST",
+					body: JSON.stringify(user),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(data => data.json())
+					.then(data => {
+						setStore({ recovery_data: data });
+						console.log(data);
+						const templateParams = {
+							to_email: data.email,
+							recovery_hash: data.recovery_hash
+						};
+						emailjs.send(
+							"service_gtr9nn8",
+							"template_xht2g6m",
+							templateParams,
+							"user_Lg37b3jwPEh5fSo53yOsV"
+						);
+						alert("Una nueva contraseña ha sido enviada a tu correo registrado");
+					})
+					.catch(error => console.log("Error sending email", error));
 			}
 		}
 	};

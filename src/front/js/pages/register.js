@@ -15,6 +15,7 @@ const Register = () => {
 	const [password, setPassword] = useState("");
 	const [password2, setPassword2] = useState("");
 	const [typeUser, setTypeuser] = useState("");
+	const [userName, setUsername] = useState("");
 
 	const handlerClick = e => {
 		e.preventDefault();
@@ -24,7 +25,8 @@ const Register = () => {
 			actions.setRegister({
 				email: email,
 				password: password,
-				typeUser: typeUser
+				tipo_user: typeUser,
+				userName: userName
 			});
 		}
 	};
@@ -37,7 +39,7 @@ const Register = () => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-beige-walrus-q8a5cocf.ws-us03.gitpod.io/loginBackGround.png)`
+				backgroundImage: `url(https://3000-cyan-weasel-gy3wtkg2.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -76,7 +78,21 @@ const Register = () => {
 							</div>
 						) : (
 							<Form>
-								<Form.Group as={Row} controlId="formHorizontalEmail">
+								<Form.Group as={Row} controlId="formHorizontaluserName">
+									<Col sm={1}></Col>
+									<Form.Label column sm={3}>
+										<h6>Nombre de usuario</h6>
+									</Form.Label>
+									<Col sm={6}>
+										<Form.Control
+											type="user"
+											value={userName}
+											onChange={e => setUsername(e.target.value)}
+										/>
+									</Col>
+									<Col sm={1}></Col>
+								</Form.Group>
+								<Form.Group as={Row} controlId="formHorizontalemail">
 									<Col sm={1}></Col>
 									<Form.Label column sm={3}>
 										<h6>Correo electrónico</h6>
@@ -91,7 +107,7 @@ const Register = () => {
 									<Col sm={1}></Col>
 								</Form.Group>
 
-								<Form.Group as={Row} controlId="formHorizontalPassword">
+								<Form.Group as={Row} controlId="formHorizontalpassword">
 									<Col sm={1}></Col>
 									<Form.Label column sm={3}>
 										<h6>Contraseña</h6>
@@ -105,7 +121,7 @@ const Register = () => {
 									</Col>
 									<Col sm={1}></Col>
 								</Form.Group>
-								<Form.Group as={Row} className="pb-3" controlId="formHorizontalPassword2">
+								<Form.Group as={Row} className="pb-3" controlId="formHorizontalpassword2">
 									<Col sm={1}></Col>
 									<Form.Label column sm={3}>
 										<h6>Confirmar contraseña</h6>
