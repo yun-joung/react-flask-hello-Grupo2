@@ -14,16 +14,59 @@ const getState = ({ getStore, getActions, setStore }) => {
 				token: "",
 				email: "",
 				id: ""
-			},
+            },
+            serviceRegistrado:{
+                id_user= "",
+                tipo_membresia = "",
+                category = "",
+                subcategory = "",
+                tipo_cobro = "",
+                valor = "",
+                name_servicio = "",
+                descrip_servicio = "",
+                duracion = "",
+                revision = "",
+                proceso = "",
+                experiencia = "",
+                portafolio = "",
+                merit = ""
+            },
+
 			favoritos: [],
 			serviceInfo: [],
 			serviceInfoIndividual: {}
 		},
 
 		actions: {
+            addServicio: async (id_user, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit) => {
+                fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+                    method: "POST",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify({
+                        id_user= id_user,
+                        tipo_membresia = tipo_membresia,
+                        category = category,
+                        subcategory = subcategory,
+                        tipo_cobro = tipo_cobro,
+                        valor = valor,
+                        name_servicio = name_servicio,
+                        descrip_servicio = descrip_servicio,
+                        duracion = duracion,
+                        revision = revision,
+                        proceso = proceso,
+                        experiencia = experiencia,
+                        portafolio = portafolio,
+                        merit = merit
+                    }),
+                })
+                const json = await response.json();
+                console.log("--service_registrado--", json);
+                setStore({ serviceRegistrado: JSON.stringify(json) });
+            },
+
 			getServiceInfo: async () => {
 				try {
-					const response = await fetch(`process.env.BACKEND_URL/servicio-registrados`, {
+					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					});
@@ -49,26 +92,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			addFavorito: async item => {
-				const store = getStore();
-				setStore({ favoritos: [...store.favoritos, item] });
-				try {
-					const response = await fetch(`process.env.BACKEND_URL/favoritos`, {
-						mode: "no-cors",
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							id_user: item.id_user,
-							id_servicio_registrados: item.id_servicio_registrados,
-							name_servicio: item.name_servicio
-						})
-					});
-					const json = await response.json();
-					console.log({ "--favoritos--": json });
-					setStore({ favoritos: JSON.stringify(json) });
-				} catch (error) {
-					console.log("Error loading message from backend", error);
-				}
+			addUserFavorites: async (id_user, id_servicio_registrados, name_servicio) => {
+				const response = await fetch(process.env.BACKEND_URL + "/api/favoritos", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						id_user: id_user,
+						id_servicio_registrados: id_servicio_registrados,
+						name_servicio: name_servicio
+					})
+				});
+				const json = await response.json();
+				console.log({ "--favoritos--": json });
+			},
+
+			showUserFavorites: async id => {
+				const response = await fetch(
+					`https://3001-beige-walrus-q8a5cocf.ws-us03.gitpod.io/api/favoritos/${id}`,
+					{
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					}
+				);
+				const json = await response.json();
+				console.log({ "--favoritos--": json });
+				setStore({ favoritos: JSON.stringify(json) });
+				//}
+				// catch (error) {
+				// 	console.log("Error loading message from backend", error);
+				// }
 			},
 
 			eliminaFavorito: async id => {
@@ -78,7 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					favoritos: newList
 				});
 				try {
-					const response = await fetch(`process.env.BACKEND_URL/favoritos/${id}`, {
+					const response = await fetch(`process.env.BACKEND_URL/api/favoritos/${id}`, {
 						method: "DELETE",
 						headers: { "Content-Type": "application/json" }
 					});
