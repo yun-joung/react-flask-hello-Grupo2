@@ -183,6 +183,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						);
 						alert("Una nueva contraseña ha sido enviada a tu correo registrado");
 					})
+					.then(data => {
+						fetch(process.env.BACKEND_URL + "/changepassword", {
+							method: "PUT",
+							body: JSON.stringify(data),
+							headers: { "Content-type": "application/json" }
+						});
+					})
 					.catch(error => console.log("Error sending email", error));
 			}
 		}

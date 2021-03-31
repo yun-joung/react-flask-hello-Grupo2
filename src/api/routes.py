@@ -216,28 +216,13 @@ def passwordrecovery1():
   
     return jsonify(response), 200  
 
-# @api.route('/changepassword', methods=['PUT'])
-# def changepassword():
+@api.route('/changepassword', methods=['PUT'])
+def changepassword():
     
-#     email = request.json.get("email", None)
-#     password = request.json.get("password", None)
-    
-#     email_query = User.query.filter_by(email=email).first()
-#     if not email_query:
-#         return "This email isn't in our database", 401
-
-#     user = User()
-#     user.email = email
-#     recovery_hash = generate_password_hash(email)
-#     subcadena = recovery_hash[-7:]
-#     user.hash = subcadena
-#     user.password = subcadena 
-#     print(user)
-
-#     response = {
-#         "msg": "User found and Hash generated successfully",
-#         "email": user.email,
-#         "recovery_hash": user.hash
-#     }
+    _email = request.json.get("email", None)
+    _password = request.json.get("recovery_hash", None)
+    _id = User.query.filter_by(email=email).first()
+ 
+    User.update_password(_id,_email,_password)
   
-#     return jsonify(response), 200
+    return jsonify({"success":TRUE})
