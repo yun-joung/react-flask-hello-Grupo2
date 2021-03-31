@@ -21,7 +21,7 @@ export const PersonCategory = props => {
 };
 
 PersonCategory.propTypes = {
-	img: PropTypes.object,
+	img: PropTypes.string,
 	name: PropTypes.string,
 	title: PropTypes.string,
 	valor: PropTypes.string

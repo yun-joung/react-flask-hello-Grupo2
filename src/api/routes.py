@@ -152,12 +152,12 @@ def add_servicio():
     servicio_registrados.portafolio = request.json.get("portafolio", None)
     servicio_registrados.merit = request.json.get("merit", None)
         
-    db.session.add(servicio_registrados)
+    db.session.add(Servicio_registrados)
     db.session.commit()
 
     Servicio_registrados.add_servicio(
         tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, 
-        descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit )
+        descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit)
 
     return jsonify({
         "msg": "me he guardado exitosamente"

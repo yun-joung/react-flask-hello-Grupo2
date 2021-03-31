@@ -14,55 +14,71 @@ const getState = ({ getStore, getActions, setStore }) => {
 				token: "",
 				email: "",
 				id: ""
-            },
-            serviceRegistrado:{
-                id_user= "",
-                tipo_membresia = "",
-                category = "",
-                subcategory = "",
-                tipo_cobro = "",
-                valor = "",
-                name_servicio = "",
-                descrip_servicio = "",
-                duracion = "",
-                revision = "",
-                proceso = "",
-                experiencia = "",
-                portafolio = "",
-                merit = ""
-            },
-
+			},
+			// serviceRegistrado: {
+			//     //id_user= "",
+			//     tipo_membresia = "",
+			//     category = "",
+			//     subcategory = "",
+			//     tipo_cobro = "",
+			//     valor = "",
+			//     name_servicio = "",
+			//     descrip_servicio = "",
+			//     duracion = "",
+			//     revision = "",
+			//     proceso = "",
+			//     experiencia = "",
+			//     portafolio = "",
+			//     merit = ""
+			// },
 			favoritos: [],
 			serviceInfo: [],
 			serviceInfoIndividual: {}
 		},
 
 		actions: {
-            addServicio: async (id_user, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit) => {
-                fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
-                    method: "POST",
-                    headers: { "Content-type": "application/json" },
-                    body: JSON.stringify({
-                        id_user= id_user,
-                        tipo_membresia = tipo_membresia,
-                        category = category,
-                        subcategory = subcategory,
-                        tipo_cobro = tipo_cobro,
-                        valor = valor,
-                        name_servicio = name_servicio,
-                        descrip_servicio = descrip_servicio,
-                        duracion = duracion,
-                        revision = revision,
-                        proceso = proceso,
-                        experiencia = experiencia,
-                        portafolio = portafolio,
-                        merit = merit
-                    }),
-                })
-                const json = await response.json();
-                console.log("--service_registrado--", json);
-                setStore({ serviceRegistrado: JSON.stringify(json) });
-            },
+			// addServicio: async (
+			//     tipo_membresia,
+			//     category,
+			//     subcategory,
+			//     tipo_cobro,
+			//     valor,
+			//     name_servicio,
+			//     descrip_servicio,
+			//     duracion,
+			//     revision,
+			//     proceso,
+			//     experiencia,
+			//     portafolio,
+			//     merit
+			// ) => {
+			//     try {
+			//         const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+			//             method: "POST",
+			//             headers: { "Content-type": "application/json" },
+			//             body: JSON.stringify({
+			//                 tipo_membresia: `${tipo_membresia}`,
+			//                 category: `${category}`,
+			//                 subcategory: `${subcategory}`,
+			//                 tipo_cobro: `${tipo_cobro}`,
+			//                 valor: `${valor}`,
+			//                 name_servicio: `${name_servicio}`,
+			//                 descrip_servicio: `${descrip_servicio}`,
+			//                 duracion: `${duracion}`,
+			//                 revision: `${revision}`,
+			//                 proceso: `${proceso}`,
+			//                 experiencia: `${experiencia}`,
+			//                 portafolio: `${portafolio}`,
+			//                 merit: `${merit}`
+			//             }),
+			//         })
+			//         const json = await response.json();
+			//         console.log("--service_registrado--", json);
+			//         setStore({ serviceRegistrado: JSON.stringify(json) });
+			//     } catch (error) {
+			//         console.log(error);
+			//     }
+			// },
 
 			getServiceInfo: async () => {
 				try {
@@ -97,9 +113,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						id_user: id_user,
-						id_servicio_registrados: id_servicio_registrados,
-						name_servicio: name_servicio
+						id_user: "1",
+						id_servicio_registrados: "1",
+						name_servicio: "name_servicio"
 					})
 				});
 				const json = await response.json();
