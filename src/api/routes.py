@@ -65,6 +65,7 @@ def register():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     tipo_user = request.json.get("tipo_user", None)
+    userName = request.json.get("userName",None)
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
@@ -74,6 +75,7 @@ def register():
     user.email = email
     user.password = password
     user.tipo_user = tipo_user
+    user.userName = userName
     print(user)
     db.session.add(user)
     db.session.commit()
@@ -86,11 +88,11 @@ def register():
         "email": user.email,
         "userId":user.id,
         "tipo_user": user.tipo_user,
-        "token": access_token
+        "token": access_token,
+        "userName" : user.userName
     }
   
     return jsonify(response_token), 200    
-
 
 @api.route('/servicio-registrados/<int:id_servicio_registrados>', methods=['POST', 'GET'])
 def servicio_individual(id_servicio_registrados):
@@ -201,7 +203,9 @@ def passwordrecovery1():
     user = User()
     user.email = email
     recovery_hash = generate_password_hash(email)
-    user.hash = recovery_hash 
+    subcadena = recovery_hash[-7:]
+    user.hash = subcadena
+    user.password = subcadena 
     print(user)
 
     response = {
@@ -211,3 +215,29 @@ def passwordrecovery1():
     }
   
     return jsonify(response), 200  
+
+# @api.route('/changepassword', methods=['PUT'])
+# def changepassword():
+    
+#     email = request.json.get("email", None)
+#     password = request.json.get("password", None)
+    
+#     email_query = User.query.filter_by(email=email).first()
+#     if not email_query:
+#         return "This email isn't in our database", 401
+
+#     user = User()
+#     user.email = email
+#     recovery_hash = generate_password_hash(email)
+#     subcadena = recovery_hash[-7:]
+#     user.hash = subcadena
+#     user.password = subcadena 
+#     print(user)
+
+#     response = {
+#         "msg": "User found and Hash generated successfully",
+#         "email": user.email,
+#         "recovery_hash": user.hash
+#     }
+  
+#     return jsonify(response), 200
