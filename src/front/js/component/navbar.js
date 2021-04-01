@@ -35,18 +35,13 @@ const MyNavbar = props => {
 						<Col sm={6} md={4} className="hidden-sm">
 							<Form inline className="Buscar sb d-flex float-right mt-2 hidden-sm">
 								<FormControl type="text" placeholder="Buscar" className="mr-sm-4 search" />
-								<Button variant="btn">
+								<Button variant="btn" onChange={event => props.handledChange(event)}>
 									<i className="fas fa-search pr-3" />
 								</Button>
 							</Form>
 						</Col>
 						<Col sm={6} md={3}>
-							<div className="ml-auto float-right mt-2">
-								<Link to="/register">
-									<Button variant="outline-primary " className="no-outline mr-2">
-										&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
-									</Button>
-								</Link>
+							<div className="ml-auto">
 								<LoginModal user={store.user} />
 							</div>
 						</Col>

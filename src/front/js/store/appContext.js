@@ -16,6 +16,7 @@ const injectContext = PassedComponent => {
 			})
 		);
 		useEffect(() => {
+			//state.actions.isAuthenticated();
 			state.actions.getServiceInfo();
 			state.actions.listComments();
 		}, []);
