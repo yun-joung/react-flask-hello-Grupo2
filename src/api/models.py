@@ -85,7 +85,7 @@ class Servicio_registrados(db.Model):
         return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]
     
     def get_all_servicios():
-        return [Servicio_registrados.serialize(servicio_registrados) for servicio_registrados in servicio_registrados.query.all()]
+        return [Servicio_registrados.serialize(servicio_registrados) for servicio_registrados in Servicio_registrados.query.all()]
 
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'

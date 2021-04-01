@@ -21,7 +21,7 @@ export const CardIndividual = props => {
 					variant="btn"
 					className="favorito"
 					onClick={() =>
-						actions.addFavorito({
+						actions.addUserFavorites({
 							id_user: store.serviceInfoIndividual.id_user,
 							id_servicio_registrado: store.serviceInfoIndividual.id_servicio_registrado,
 							name_servicio: store.serviceInfoIndividual.name_servicio

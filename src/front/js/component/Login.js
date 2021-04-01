@@ -32,6 +32,15 @@ function MyVerticallyCenteredModal(props) {
 					<div className="text-center mt-3 mb-5">
 						{/* <span>User: {JSON.stringify(store.user)}</span> */}
 						La sesión ha sido iniciada
+						<Link to="/home">
+							<Button
+								variant="primary"
+								size="lg"
+								type="submit"
+								style={{ marginBottom: "40px", marginTop: "40px" }}>
+								<strong>Volver a home</strong>
+							</Button>
+						</Link>
 					</div>
 				) : (
 					<Form style={{ paddingRight: "30px", paddingLeft: "20px", marginTop: "50px" }}>

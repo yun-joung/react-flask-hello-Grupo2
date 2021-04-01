@@ -165,37 +165,39 @@ def add_servicio():
 
 @api.route('/servicio-registrados', methods=["GET"])
 def get_all_servicios():
-    return jsonify({"servicio-registrados": servicio-registrados.get_all_servicios()})
+    return jsonify({"serviceRegistrado": Servicio_registrados.get_all_servicios()})
 
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
-    servicioById = Servicio-registrados.get_servicio(id)
+    servicioById = Servicio_registrados.get_servicio(id)
     return jsonify(servicioById)
 
 @api.route('/favoritos', methods=["POST"])
 def add_favoritos():
-        if request.method == 'POST':
-            id_user= request.json.get("id_user")
-            id_servicio_registrados= request.json.get("id_servicio_registrados")
-            name_servicio= request.json.get("name_servicio")
-            
+    if request.method == 'POST':
+        id_user= request.json.get("id_user")
+        id_servicio_registrados= request.json.get("id_servicio_registrados")
+        name_servicio= request.json.get("name_servicio")
 
-            if not id_user:
-                return jsonify({"msg":"user id esta vacio"}), 400
-            if not id_servicio_registrados:
-                return jsonify({"msg":"servicio id esta vacio"}), 400
-            if not name_servicio:
-                return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
+        if not id_user:
+            return jsonify({"msg":"user id esta vacio"}), 400
+        if not id_servicio_registrados:
+            return jsonify({"msg":"servicio id esta vacio"}), 400
+        if not name_servicio:
+            return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
 
-            favoritos = Favoritos()
-            favoritos.id_user = request.json.get("id_user", None)
-            favoritos.id_servicio_registrados = request.json.get("id_servicio_registrados", None)
-            favoritos.name_servicio= request.json.get("name_servicio", None)
+        favoritos = Favoritos()
+        favoritos.id_user = request.json.get("id_user", None)
+        favoritos.id_servicio_registrados = request.json.get("id_servicio_registrados", None)
+        favoritos.name_servicio= request.json.get("name_servicio", None)
 
-            db.session.add(favoritos)
-            db.session.commit()
+        db.session.add(favoritos)
+        db.session.commit()
 
-            return jsonify({"msg":"mission success"}), 200
+        Favoritos.add_servicio(
+        id_user, id_servicio_registrados, name_servicio)
+
+        return jsonify({"msg":"mission success"}), 200
 
 @api.route('/favoritos/<int:id_user>', methods=["GET"])
 def get_favoritos_by_user(id_user):
