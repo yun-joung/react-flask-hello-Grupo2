@@ -2,11 +2,12 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { ProgressBar } from "react-bootstrap";
 import ButtomStar from "./ButtomStar.jsx";
+import ButtomStar2 from "./ButtomStar2.jsx";
 import { Form, Button } from "react-bootstrap";
 
 export const Formcomment = () => {
 	const { store, actions } = useContext(Context);
-	const [commentText, addComment] = useState(null);
+	const [text_comment, setComment] = useState(null);
 	return (
 		<>
 			<div className="container">
@@ -14,26 +15,23 @@ export const Formcomment = () => {
 					<div className="col-md-8">
 						<section className="comment-list">
 							<article className="row">
-								<div className="col-md-2 col-sm-2 hidden-xs">
-									<figure className="thumbnail">
-										<img
-											className="img-responsive"
-											src="http://dummyimage.com/60x60/666/ffffff&text=No+Image"
-										/>
-										<div classNameName="review-block-name">
-											<a href="#">Romina Fuentes</a>
-										</div>
-									</figure>
-								</div>
+								<div className="col-md-2 col-sm-2 hidden-xs"></div>
 								<div className="col-md-10 col-sm-10">
 									<div className="panel panel-default arrow left">
 										<div className="panel-body">
+											<div className="col-sm-3">
+												<div className="review-block-date">
+													24 Marzo 2021
+													<br />
+													Hoy
+												</div>
+											</div>
 											<header className="text-left">
 												<ButtomStar />
 												<ButtomStar />
 												<ButtomStar />
-												<ButtomStar />
-												<ButtomStar />
+												<ButtomStar2 />
+												<ButtomStar2 />
 											</header>
 											<div className="comment-post">
 												{/*<Form.Label>Titulo</Form.Label>
@@ -42,18 +40,28 @@ export const Formcomment = () => {
 												<Form.Control
 													type="text"
 													placeholder="Escribe el comentario"
-													value={commentText}
+													value={text_comment}
+													onChange={e => setComment(e.target.value)}
 												/>
 											</div>
 											<p className="text-right">
 												<Button
 													variant="info"
 													onClick={() => {
-														addComment(commentText);
+														actions.addComment(text_comment);
 													}}>
 													<i className="fa fa-reply"></i> reply
 												</Button>{" "}
 											</p>
+											<ul>
+												{store.comments
+													.filter(item => {
+														return item;
+													})
+													.map((item, index) => {
+														return <li key={index}>{item.text_comment}</li>;
+													})}
+											</ul>
 										</div>
 									</div>
 								</div>

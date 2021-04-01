@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Comentarios
 # from flask_cors import CORS, cross_origin
 from api.utils import generate_sitemap, APIException
 from werkzeug.security import generate_password_hash, check_password_hash       ## Nos permite manejar tokens por authentication (usuarios)    
@@ -166,6 +166,7 @@ def servicio_individual(id_servicio_registrados):
             "name_servicio":"name_servicio"
             }), 200
 
+
 @api.route('/favoritos', methods=["GET, POST"])
 def add_favoritos():
         if request.method == 'GET':
@@ -192,6 +193,49 @@ def add_favoritos():
         db.session.commit()
 
 @api.route('/passwordrecovery1', methods=['PUT'])
+#  id = db.Column(db.Integer, primary_key=True, nullable=False)
+#     id_servicios_prestados = db.Column(db.Integer, db.ForeignKey('servicios_prestados.id'), nullable=False)
+#     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
+#     text_comment = db.Column(db.String(250), nullable=True)
+#     evaluacion = db.Column(db.Integer, nullable=True)
+
+@api.route('/comentarios', methods=["POST"])
+def addComment():  
+        if request.method == 'POST':
+            if not request.is_json:
+                return jsonify({"msg": "El body o contenido esta vacio"}), 400
+
+            # id_servicios_prestados= request.json.get(id_servicios_prestados)
+            # id_servicio_registrados= request.json.get(id_servicio_registrados)
+            # text_comment= request.json.get(text_comment)
+            # evaluacion= request.json.get(evaluacion)
+
+            # if not id_servicios_prestados:
+            #     return jsonify({"msg":"id_servicios_prestados esta vacio"}), 400
+            # if not id_servicio_registrados:
+            #     return jsonify({"msg":"id_servicio_registrados esta vacio"}), 400
+            # if not text_comment:
+            #     return jsonify({"msg":"el texto del comentario esta vacio"}), 400
+            # if not evaluacion:
+            #     return jsonify({"msg":"la evaluacion esta vacia"}), 400
+
+            comentarios = Comentarios()
+            comentarios.id_servicios_prestados = request.json.get("id_servicios_prestados", None)
+            comentarios.id_servicio_registrados = request.json.get("id_servicio_registrados", None)
+            comentarios.text_comment= request.json.get("text_comment", None)
+            comentarios.evaluacion= request.json.get("evaluacion", None)
+
+            db.session.add(comentarios)
+            db.session.commit()
+            return jsonify({"Respuesta":"OK"}), 200    
+
+@api.route('/comentarios', methods=["GET"])
+def listComments ():  
+    return jsonify({"Comentarios": Comentarios.get_all_comentarios()})
+
+
+       
+@api.route('/passwordrecovery1', methods=['POST'])
 def passwordrecovery1():
     
     emailrecovery = request.json.get("email", None)
