@@ -28,10 +28,22 @@ class User(db.Model):
     
     def get_user(_id):
         return [User.serialize(User.query.filter_by(id=_id).first())]
+<<<<<<< HEAD
     
     def get_all_users():
         return [User.serialize(user) for user in User.query.all()]
     
+=======
+    def get_user_by_mail(_email):
+        return [User.serialize(User.query.filter_by(email=_email).first())]    
+    def get_all_users():
+        return [User.serialize(user) for user in User.query.all()]
+    def update_password(_id,_email,_password):
+        user_to_update = User.query.filter_by(id=id).first()
+        user_to_update.email = _email if _email is not None else user_to_update.email
+        user_to_update.password = _password if _password is not None else user_to_update.password
+        db.session.commit()
+>>>>>>> 17066152ec5ef042560394d90777ad9e8240c4f0
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
@@ -144,7 +156,7 @@ class Favoritos(db.Model):
 
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
     id_servicios_prestados = db.Column(db.Integer, db.ForeignKey('servicios_prestados.id'), nullable=False)
     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
     text_comment = db.Column(db.String(250), nullable=True)
@@ -159,3 +171,10 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
+
+        
+    def get_all_comentarios():
+        comentarios_query = Comentarios.query.all()
+        comentarios_query = Comentarios.query.filter_by(id_servicios_prestados=1)
+        db.session.commit()
+        return [list(map(lambda x: x.serialize(), Comentarios.query.all()))]

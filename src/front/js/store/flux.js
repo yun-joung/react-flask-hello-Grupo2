@@ -1,4 +1,5 @@
 import emailjs from "emailjs-com";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -31,9 +32,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				portafolio: "",
 				merit: ""
 			},
+<<<<<<< HEAD
 			favoritos: [],
 			serviceInfo: [],
 			serviceInfoIndividual: []
+=======
+			serviceInfo: [],
+
+			comments: []
+>>>>>>> 17066152ec5ef042560394d90777ad9e8240c4f0
 		},
 
 		actions: {
@@ -197,34 +204,59 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("-->", JSON.stringify(userLocal));
 			},
 
-			addComment: async commentText => {
+			createContact: async (e, email, password, confirm, checked) => {
 				e.preventDefault();
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/comments", {
+					const response = await fetch("http://0.0.0.0:3001/register", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
-							comment_text: `${commentText}`
+							email: `${email}`,
+							password: `${password}`,
+							confirm: `${confirm}`,
+							checked: `${checked}`
 						})
 					});
 					const json = await response.json();
 					console.log(json);
-					//setStore({ newContact: JSON.stringify(json) });
+					setStore({ newContact: JSON.stringify(json) });
+					getActions().getAgenda();
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			addComment: async text_comment => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({
+							id_servicios_prestados: "1",
+							id_servicio_registrados: "1",
+							text_comment: text_comment,
+							evaluacion: "4"
+						})
+					});
+
+					const json = await response.json();
+					console.log(json);
+					// setStore({ comments: JSON.stringify(json) });
 					getActions().listComments();
 				} catch (error) {
 					console.log(error);
 				}
 			},
 			listComments: async () => {
-				e.preventDefault();
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/comments", {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
 					console.log(json);
-					setStore({ Comments: JSON.stringify(json) });
+					setStore({ comments: json.Comentarios[0] });
 				} catch (error) {
 					console.log(error);
 				}
@@ -269,7 +301,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			sendEmail: user => {
 				fetch(process.env.BACKEND_URL + "/api/passwordrecovery1", {
-					method: "POST",
+					method: "PUT",
 					body: JSON.stringify(user),
 					headers: { "Content-type": "application/json" }
 				})
