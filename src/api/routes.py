@@ -191,38 +191,23 @@ def add_favoritos():
         db.session.add(favoritos)
         db.session.commit()
 
-@api.route('/passwordrecovery1', methods=['POST'])
+@api.route('/passwordrecovery1', methods=['PUT'])
 def passwordrecovery1():
     
-    email = request.json.get("email", None)
-    
-    email_query = User.query.filter_by(email=email).first()
+    emailrecovery = request.json.get("email", None)
     if not email_query:
         return "This email isn't in our database", 401
-
-    user = User()
-    user.email = email
-    recovery_hash = generate_password_hash(email)
-    subcadena = recovery_hash[-7:]
-    user.hash = subcadena
-    user.password = subcadena 
+    recovery_hash = generate_password_hash(emailrecovery)
+    hash = recovery_hash[-7:]
+    user = User.query.filter_by(email=emailrecovery).first()
+    user.password = hash
+    db.session.commit()
     print(user)
-
+    
     response = {
         "msg": "User found and Hash generated successfully",
-        "email": user.email,
-        "recovery_hash": user.hash
+        "email": emailrecovery,
+        "recovery_hash": hash
     }
   
-    return jsonify(response), 200  
-
-@api.route('/changepassword', methods=['PUT'])
-def changepassword():
-    
-    _email = request.json.get("email", None)
-    _password = request.json.get("recovery_hash", None)
-    _id = User.query.filter_by(email=email).first()
- 
-    User.update_password(_id,_email,_password)
-  
-    return jsonify({"success":TRUE})
+    return jsonify(response), 200

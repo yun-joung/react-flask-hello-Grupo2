@@ -163,7 +163,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			sendEmail: user => {
 				fetch(process.env.BACKEND_URL + "/api/passwordrecovery1", {
-					method: "POST",
+					method: "PUT",
 					body: JSON.stringify(user),
 					headers: { "Content-type": "application/json" }
 				})
@@ -182,13 +182,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"user_Lg37b3jwPEh5fSo53yOsV"
 						);
 						alert("Una nueva contraseña ha sido enviada a tu correo registrado");
-					})
-					.then(data => {
-						fetch(process.env.BACKEND_URL + "/changepassword", {
-							method: "PUT",
-							body: JSON.stringify(data),
-							headers: { "Content-type": "application/json" }
-						});
 					})
 					.catch(error => console.log("Error sending email", error));
 			}
