@@ -23,8 +23,15 @@ class User(db.Model):
         db.session.commit()
     def get_user(_id):
         return [User.serialize(User.query.filter_by(id=_id).first())]
+    def get_user_by_mail(_email):
+        return [User.serialize(User.query.filter_by(email=_email).first())]    
     def get_all_users():
         return [User.serialize(user) for user in User.query.all()]
+    def update_password(_id,_email,_password):
+        user_to_update = User.query.filter_by(id=id).first()
+        user_to_update.email = _email if _email is not None else user_to_update.email
+        user_to_update.password = _password if _password is not None else user_to_update.password
+        db.session.commit()
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)

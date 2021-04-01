@@ -191,7 +191,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			sendEmail: user => {
 				fetch(process.env.BACKEND_URL + "/api/passwordrecovery1", {
-					method: "POST",
+					method: "PUT",
 					body: JSON.stringify(user),
 					headers: { "Content-type": "application/json" }
 				})
