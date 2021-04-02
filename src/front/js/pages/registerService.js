@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { logoBlanco, man } from "../../img/image";
@@ -19,7 +19,6 @@ const RegisterService = () => {
 	const [valor, setValor] = useState("");
 	const [name_servicio, setName_servicio] = useState("");
 	const [descrip_servicio, setDescrip_servicio] = useState("");
-
 	const [duracion, setDuracion] = useState("");
 	const [revision, setRevision] = useState("");
 	const [proceso, setProceso] = useState("");
@@ -66,33 +65,35 @@ const RegisterService = () => {
 		// 	setError("ingresar el tiempo llevas trabajando en esta área");
 		// 	return;
 		// } else {
-		console.log("ENVIAR FORM");
-		// actions.addServicio({
-		// 	//props.id_user,
-		// 	tipo_membresia: tipo_membresia,
-		// 	category: category,
-		// 	subcategory: subcategory,
-		// 	tipo_cobro: tipo_cobro,
-		// 	valor: valor,
-		// 	name_servicio: name_servicio,
-		// 	descrip_servicio: descrip_servicio,
-		// 	duracion: duracion,
-		// 	revision: revision,
-		// 	proceso: proceso,
-		// 	experiencia: experiencia,
-		// 	portafolio: portafolio,
-		// 	merit: merit
-		// });
+		const usuario = JSON.parse(JSON.stringify(store.user.id));
+		actions.addServicio({
+			id_user: usuario,
+			tipo_membresia: tipo_membresia,
+			category: category,
+			subcategory: subcategory,
+			tipo_cobro: tipo_cobro,
+			valor: valor,
+			name_servicio: name_servicio,
+			descrip_servicio: descrip_servicio,
+			duracion: duracion,
+			revision: revision,
+			proceso: proceso,
+			experiencia: experiencia,
+			portafolio: portafolio,
+			merit: merit
+		});
 		console.log("pasando todas validacion");
 		//setError(null);
 		//}
 	};
-
+	useEffect(() => {
+		actions.getToken();
+	}, []);
 	return (
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-blush-goat-luq9mq5y.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-violet-manatee-x97b6rov.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -122,17 +123,17 @@ const RegisterService = () => {
 					</Row>
 				</div>
 				<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
-					<Form onSubmit={e => handleSubmit(e)}>
+					<Form>
 						{error && <div className="alert alert-danger">{error}</div>}
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Numero de tu Equipo<span style={{ color: "red" }}>*</span>
+									Tamaño de tu equipo<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
 								as="select"
-								name="tipo_membresia"
+								value={tipo_membresia}
 								onChange={e => setTipo_membresia(e.target.value)}
 								//isInvalid={!!errors.tipo_membresia}
 								style={{
@@ -140,15 +141,15 @@ const RegisterService = () => {
 									marginBottom: "10px"
 								}}>
 								<option defaultValue>Seleccionar su tipo_membresia</option>
-								<option>Freelancer</option>
-								<option>Equipo(1-3personas)</option>
+								<option>Freelancer (solo yo)</option>
+								<option>Equipo(2-3personas)</option>
 								<option>Equipo(4-6personas)</option>
-								<option>Equipo(más que 7personas)</option>
+								<option>Equipo(más de 7personas)</option>
 							</Form.Control>
 						</Form.Group>
 						<br />
 
-						{/* <Form.Group>
+						<Form.Group>
 							<Form.Label>
 								<h5>
 									Categoria de tu servicio<span style={{ color: "red" }}>*</span>
@@ -157,6 +158,7 @@ const RegisterService = () => {
 							<Form.Control
 								as="select"
 								name="category"
+								value={category}
 								onChange={e => setCategory(e.target.value)}
 								//isInvalid={!!errors.category}
 								style={{
@@ -164,11 +166,11 @@ const RegisterService = () => {
 									marginBottom: "10px"
 								}}>
 								<option defaultValue>Seleccionar categoría de servicio</option>
-								<option>Desarrollar IT</option>
+								<option>Desarrollo IT</option>
 								<option>Diseño</option>
 								<option>Marketing</option>
-								<option>Contabilida</option>
-								<option>Ley/Derecho</option>
+								<option>Contabilidad</option>
+								<option>Leyes/Abogados</option>
 								<option>Otros</option>
 							</Form.Control>
 						</Form.Group>
@@ -177,6 +179,7 @@ const RegisterService = () => {
 							<Form.Control
 								as="select"
 								name="subcategory"
+								value={subcategory}
 								onChange={e => setSubcategory(e.target.value)}
 								//isInvalid={!!errors.subcategory}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
@@ -185,7 +188,7 @@ const RegisterService = () => {
 								<option>Mobile develop</option>
 								<option>Softwear develop</option>
 								<option>Game develop</option>
-								<option>Wordpress/Shopfy</option>
+								<option>Wordpress/Shopify</option>
 								<option>Otros</option>
 							</Form.Control>
 						</Form.Group>
@@ -194,16 +197,17 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									El valor de tu servicio<span style={{ color: "red" }}>*</span>
+									Costo del servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
 								as="select"
 								name="tipo_cobro"
+								value={tipo_cobro}
 								onChange={e => setTipo_cobro(e.target.value)}
 								//isInvalid={!!errors.tipo_cobro}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
-								<option defaultValue>Seleccionar el tipo de cobro entre por hora y por proyecto</option>
+								<option defaultValue>Seleccionar si el tipo de cobro es Por hora o Por proyecto</option>
 								<option>Hora</option>
 								<option>Proyecto</option>
 							</Form.Control>
@@ -215,6 +219,7 @@ const RegisterService = () => {
 								type="text"
 								placeholder="Ingresa el valor del servicio"
 								name="valor"
+								value={valor}
 								onChange={e => setValor(e.target.value)}
 								//isInvalid={!!errors.valor}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
@@ -228,7 +233,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Titulo de tu servicio<span style={{ color: "red" }}>*</span>
+									Nombre del Servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -237,6 +242,7 @@ const RegisterService = () => {
 								placeholder="ej: ¡Crea tu propia página!"
 								rows={2}
 								name="name_servicio"
+								value={name_servicio}
 								onChange={e => setName_servicio(e.target.value)}
 								//isInvalid={!!errors.name_servicio}
 							/>
@@ -247,7 +253,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Describe sobre tu servicio<span style={{ color: "red" }}>*</span>
+									Descripción de tu servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -256,13 +262,14 @@ const RegisterService = () => {
 								rows={3}
 								type="text"
 								name="descrip_servicio"
+								value={descrip_servicio}
 								onChange={e => setDescrip_servicio(e.target.value)}
 								//isInvalid={!!errors.descrip_servicio}
 							/>
 						</Form.Group>
 						<br />
 
-						<Form.Group>
+						{/* <Form.Group>
 							<Form.Label>
 								<h5>Plazo estimado (meses) para exjecutar el projecto</h5>
 							</Form.Label>
@@ -311,29 +318,30 @@ const RegisterService = () => {
 								//isInvalid={!!errors.proceso}
 							/>
 						</Form.Group>
-						<br />
+						<br /> */}
 
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Tiempo llevas trabajando en esta área
+									Años de experiencia en esta área
 									<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
 								as="select"
 								name="tipo_membresia"
+								value={experiencia}
 								onChange={e => setExperiencia(e.target.value)}
 								//isInvalid={!!errors.experiencia}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 								<option defaultValue>Seleccionar rango de años</option>
-								<option>1 año</option>
-								<option>2 años</option>
-								<option>3 años</option>
-								<option>4 años</option>
-								<option>5-10 años</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								{/* <option>5-10 años</option>
 								<option>10-15 años</option>
-								<option>Más que 15 años</option>
+								<option>Más que 15 años</option> */}
 							</Form.Control>
 						</Form.Group>
 						<br />
@@ -348,15 +356,16 @@ const RegisterService = () => {
 								rows={2}
 								type="text"
 								name="portafolio"
+								value={portafolio}
 								onChange={e => setPortafolio(e.target.value)}
 								//isInvalid={!!errors.portafolio}
 							/>
 						</Form.Group>
-						<br /> */}
+						<br />
 
 						<Form.Group>
 							<Form.Label>
-								<h5>Merit de mi servicio</h5>
+								<h5>Detalla los trabajos que haz realizado</h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
@@ -364,20 +373,33 @@ const RegisterService = () => {
 								rows={3}
 								type="text"
 								name="merit"
+								value={merit}
 								onChange={e => setMerit(e.target.value)}
 								//isInvalid={!!errors.merit}
 							/>
 						</Form.Group>
 						<Row style={{ justifyContent: "center" }}>
-							<Link to="/home">
-								<Button
-									variant="primary"
-									size="lg"
-									type="submit"
-									style={{ marginBottom: "40px", marginTop: "40px" }}>
-									<strong>Registra tu servicio</strong>
-								</Button>
-							</Link>
+							{/* <Link to="/home"> */}
+							<Button
+								variant="primary"
+								size="lg"
+								type="submit"
+								style={{ marginBottom: "40px", marginTop: "40px" }}
+								onClick={e => handleSubmit(e)}>
+								<strong>Registra tu servicio</strong>
+							</Button>
+							{/* </Link> */}
+							{/* {JSON.stringify(store.user.id)}
+							{JSON.stringify(tipo_membresia)}
+							{JSON.stringify(category)}
+							{JSON.stringify(subcategory)}
+							{JSON.stringify(tipo_cobro)}
+							{JSON.stringify(valor)}
+							{JSON.stringify(name_servicio)}
+							{JSON.stringify(descrip_servicio)}
+							{JSON.stringify(experiencia)}
+							{JSON.stringify(portafolio)}
+							{JSON.stringify(merit)} */}
 						</Row>
 					</Form>
 				</Jumbotron>
