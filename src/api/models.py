@@ -81,7 +81,7 @@ class Servicio_registrados(db.Model):
         db.session.commit()
     
     def get_servicio(_id):
-        return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]
+        return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]  
     
     def get_all_servicios():
         return [Servicio_registrados.serialize(servicio_registrados) for servicio_registrados in Servicio_registrados.query.all()]
@@ -133,7 +133,13 @@ class Favoritos(db.Model):
         db.session.commit()
     
     def get_favoritos_by_user(_id_user):
-        return [Favoritos.serialize(Favoritos.query.filter_by(id_user=_id_user).first())]
+        favoritos_query = Favoritos.query.all()
+        favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
+        db.session.commit()
+        return [list(map(lambda x: x.serialize(), Favoritos.query.all()))]
+    # def get_favoritos_by_user(_id_user):
+    #     return [Favoritos.serialize(Favoritos.query.filter_by(id_user=_id_user).all())]
+        
     # @staticmethod
     # def get_favoritos_by_user(self,_id_user):
     #     db.session.commit()

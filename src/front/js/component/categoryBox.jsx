@@ -24,9 +24,9 @@ export const CategoryBox = props => {
 							trabajo="50"
 						/>
 					</Col>
-					{store.serviceInfo.map(item => {
+					{/* {store.serviceInfo.map((item, index) => {
 						return (
-							<Col className="mb-4" key={item.id}>
+							<Col className="mb-4" key={index}>
 								<CardIndividual
 									id={item.id}
 									img={serviceIt}
@@ -38,7 +38,7 @@ export const CategoryBox = props => {
 								/>
 							</Col>
 						);
-					})}
+					})} */}
 				</Row>
 			</Container>
 		</>

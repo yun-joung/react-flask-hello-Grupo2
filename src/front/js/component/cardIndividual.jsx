@@ -8,11 +8,11 @@ import { Context } from "../store/appContext";
 
 export const CardIndividual = props => {
 	const { store, actions } = useContext(Context);
-	const { id } = props;
+	// const { id } = 4;
 
-	useEffect(() => {
-		actions.getServiceInfoById(id);
-	}, []);
+	// useEffect(() => {
+	// 	actions.getServiceInfoById(id);
+	// }, []);
 
 	return (
 		<div>
@@ -22,15 +22,20 @@ export const CardIndividual = props => {
 					className="favorito"
 					onClick={() =>
 						actions.addUserFavorites({
-							id_user: store.serviceInfoIndividual.id_user,
-							id_servicio_registrado: store.serviceInfoIndividual.id_servicio_registrado,
-							name_servicio: store.serviceInfoIndividual.name_servicio
+							id_user: store.user.id,
+							id_servicio_registrado: 1,
+							name_servicio: "crea tu mobil-app"
 						})
 					}>
 					<i className="far fa-heart" />
 				</Button>
 				<Link to="/category/individual">
-					<img src={props.img} className="card-img-top caimg" alt="image" />
+					<img
+						src={props.img}
+						className="card-img-top caimg"
+						alt="image"
+						onClick={() => actions.getServiceInfoById(id)}
+					/>
 				</Link>
 				<Card.Body className="text-dark">
 					<Card.Text style={{ marginBottom: "3px" }}>{props.name_servicio}</Card.Text>
@@ -54,7 +59,6 @@ CardIndividual.propTypes = {
 	punta: PropTypes.string,
 	valor: PropTypes.string,
 	trabajo: PropTypes.string,
-	name: PropTypes.function,
 	tipoCobro: PropTypes.string,
 	match: PropTypes.object,
 	id: PropTypes.number

@@ -19,6 +19,7 @@ const injectContext = PassedComponent => {
 			//state.actions.isAuthenticated();
 			state.actions.getServiceInfo();
 			state.actions.listComments();
+			state.actions.getUserInfoById();
 		}, []);
 		return (
 			<Context.Provider value={state}>
