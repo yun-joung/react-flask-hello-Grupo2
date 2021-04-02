@@ -31,7 +31,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				experiencia: "",
 				portafolio: "",
 				merit: ""
-			},
+            },
+            userAll:[],
 			favoritos: [],
 			serviceInfo: [{}],
 			serviceInfoById: [{}],
@@ -80,8 +81,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log(error);
 				}
-			},
-
+            },
+            
 			// isAuthenticated: () => {
 			// 	if (localStorage.getItem("token")) {
 			// 		setStore({
@@ -94,16 +95,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	} else {
 			// 		return false;
 			// 	}
-			// },
+            // },
+            
 			getUserInfo: async () => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+					const response = await fetch(process.env.BACKEND_URL + "/api/user", {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
 					console.log(json);
-					setStore({ serviceInfo: JSON.stringify(json) });
+					setStore({ userAll: JSON.stringify(json) });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -138,35 +140,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			addUserFavorites: async (id_user, id_servicio_registrados, name_servicio) => {
-				const response = await fetch(process.env.BACKEND_URL + "/api/favoritos", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						id_user: "1",
-						id_servicio_registrados: "1",
-						name_servicio: "name_servicio"
-					})
-				});
-				const json = await response.json();
-				console.log({ "--favoritos--": json });
-			},
+                try{
+                    const response = await fetch(process.env.BACKEND_URL + "/api/favoritos", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            id_user: "1",
+                            id_servicio_registrados: "1",
+                            name_servicio: "name_servicio"
+                        })
+                    });
+                    const json = await response.json();
+                    console.log({ "--favorito--": json });
+                } catch (error) {
+                        console.log("Error loading message from backend", error);
+                    }
+                },
 
 			showUserFavorites: async id => {
-				const response = await fetch(
-					`https://3001-beige-walrus-q8a5cocf.ws-us03.gitpod.io/api/favoritos/${id}`,
-					{
-						method: "GET",
-						headers: { "Content-Type": "application/json" }
-					}
-				);
-				const json = await response.json();
-				console.log({ "--favoritos--": json });
-				setStore({ favoritos: JSON.stringify(json) });
-				//}
-				// catch (error) {
-				// 	console.log("Error loading message from backend", error);
-				// }
-			},
+                try{
+                    const response = await fetch(
+                        `https://3001-beige-walrus-q8a5cocf.ws-us03.gitpod.io/api/favoritos/${id}`, {
+                            method: "GET",
+                            headers: { "Content-Type": "application/json" }
+                        }
+                    );
+                    const json = await response.json();
+                    console.log({ "--userFavoritos--": json });
+                    setStore({ favoritos: JSON.stringify(json) });
+                    }
+                    catch (error) {
+                    	console.log("Error loading message from backend", error);
+                    }
+                },
 
 			eliminaFavorito: async id => {
 				const store = getStore();

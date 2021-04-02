@@ -118,7 +118,7 @@ class Favoritos(db.Model):
     name_servicio = db.Column(db.String(50))
     user= db.relationship('User', backref=db.backref('favoritos', lazy=True))
     def __repr__(self):
-        return "<favoritos %r>" % self.id
+        return "<Favoritos %r>" % self.id
     def serialize(self):
         return {
             "id": self.id,
@@ -131,11 +131,14 @@ class Favoritos(db.Model):
         new_favorito = Favoritos(id_user=_id_user, id_servicio_registrados=_id_servicio_registrados, name_servicio=name_servicio)
         db.session.add(new_favorito)
         db.session.commit()
-        
-    def get_favoritos_by_user(self, id_user):
-        db.session.commit()
-        favoritos = Favoritos.query.filter_by(id_user = id_user).all()
-        return list(map(lambda favorito: favorito.serialize(), favoritos))
+    
+    def get_favoritos_by_user(_id_user):
+        return [Favoritos.serialize(Favoritos.query.filter_by(id_user=_id_user).first())]
+    # @staticmethod
+    # def get_favoritos_by_user(self,_id_user):
+    #     db.session.commit()
+    #     favoritos = Favoritos.query.filter_by(id_user = _id_user).all()
+    #     return list(map(lambda favoritos: Favoritos.serialize(), favoritos))
 
     def delete_favorito(_id):
         Favoritos.query.filter_by(id=_id).delete()

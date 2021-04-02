@@ -172,8 +172,13 @@ def get_servicio_id(id):
     servicioById = Servicio_registrados.get_servicio(id)
     return jsonify(servicioById)
 
+@api.route('/favoritos/<int:_id_user>', methods=["GET"])
+def get_favoritos_by_user(_id_user):
+    favoritos = Favoritos.get_favoritos_by_user(_id_user)
+    return jsonify(favoritos)
+
 @api.route('/favoritos', methods=["POST"])
-def add_favoritos():
+def add_favorito():
     if request.method == 'POST':
         id_user= request.json.get("id_user")
         id_servicio_registrados= request.json.get("id_servicio_registrados")
@@ -194,16 +199,7 @@ def add_favoritos():
         db.session.add(favoritos)
         db.session.commit()
 
-        Favoritos.add_servicio(
-        id_user, id_servicio_registrados, name_servicio)
-
         return jsonify({"msg":"mission success"}), 200
-
-@api.route('/favoritos/<int:id_user>', methods=["GET"])
-def get_favoritos_by_user(id_user):
-    favoritos = Favoritos()
-    return jsonify({"favoritos": favoritos.get_favoritos_by_user(id_user)})
-
 
 @api.route('/passwordrecovery1', methods=['POST'])
 def passwordrecovery1():
