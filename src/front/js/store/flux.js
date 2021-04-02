@@ -14,10 +14,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {
 				token: "",
 				email: "",
-				id: ""
+				id: "",
+				type_user: ""
 			},
 			serviceRegistrado: {
-				//id_user= "",
+				id_user: "",
 				tipo_membresia: "",
 				category: "",
 				subcategory: "",
@@ -32,60 +33,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 				portafolio: "",
 				merit: ""
 			},
-<<<<<<< HEAD
 			favoritos: [],
 			serviceInfo: [],
 			serviceInfoIndividual: []
-=======
-			serviceInfo: [],
-
-			comments: []
->>>>>>> 17066152ec5ef042560394d90777ad9e8240c4f0
 		},
 
 		actions: {
-			addServicio: async (
-				tipo_membresia,
-				category,
-				subcategory,
-				tipo_cobro,
-				valor,
-				name_servicio,
-				descrip_servicio,
-				duracion,
-				revision,
-				proceso,
-				experiencia,
-				portafolio,
-				merit
-			) => {
-				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
-						method: "POST",
-						headers: { "Content-type": "application/json" },
-						body: JSON.stringify({
-							tipo_membresia: `${tipo_membresia}`,
-							category: `${category}`,
-							subcategory: `${subcategory}`,
-							tipo_cobro: `${tipo_cobro}`,
-							valor: `${valor}`,
-							name_servicio: `${name_servicio}`,
-							descrip_servicio: `${descrip_servicio}`,
-							duracion: `${duracion}`,
-							revision: `${revision}`,
-							proceso: `${proceso}`,
-							experiencia: `${experiencia}`,
-							portafolio: `${portafolio}`,
-							merit: `${merit}`
-						})
-					});
-					const json = await response.json();
-					console.log("--service_registrado--", json);
-					setStore({ serviceRegistrado: JSON.stringify(json) });
-				} catch (error) {
-					console.log(error);
-				}
+			addServicio: servicio => {
+				fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+					method: "POST",
+					body: JSON.stringify(servicio),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("--servicio registrado --", data);
+						setStore({ serviceRegistrado: data });
+					})
+					.catch(error => console.log("Error loading message from backend", error));
 			},
+			// addServicio: async servicio => {
+			// 	try {
+			// 		const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+			// 			method: "POST",
+			// 			headers: { "Content-Type": "application/json" },
+			// 			body: JSON.stringify(servicio)
+			// 		});
+			// 		const json = await response.json();
+			// 		console.log("--service_registrado--", json);
+			// 		setStore({ serviceRegistrado: JSON.stringify(json) });
+			// 	} catch (error) {
+			// 		console.log(error);
+			// 	}
+			// },
 
 			// isAuthenticated: () => {
 			// 	if (localStorage.getItem("token")) {
@@ -194,10 +174,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getToken: () => {
 				const tokenLocal = localStorage.getItem("token");
 				const userLocal = JSON.parse(localStorage.getItem("user"));
+				const typeuserLocal = JSON.parse(localStorage.getItem("tipo_user"));
+				const idLocal = JSON.parse(localStorage.getItem("id"));
 				setStore({
 					user: {
 						token: tokenLocal,
-						user: userLocal
+						user: userLocal,
+						type_user: typeuserLocal,
+						id: idLocal
 					}
 				});
 				console.log("-->", tokenLocal);
@@ -277,6 +261,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("token", data.token);
 							localStorage.setItem("user", JSON.stringify(data.email));
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
+							localStorage.setItem("id", JSON.stringify(data.userId));
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
