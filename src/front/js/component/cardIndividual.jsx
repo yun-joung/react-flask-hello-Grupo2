@@ -11,7 +11,7 @@ export const CardIndividual = props => {
 	const { id } = props;
 
 	useEffect(() => {
-		actions.getServiceInfoIndividual(id);
+		actions.getServiceInfoById(id);
 	}, []);
 
 	return (

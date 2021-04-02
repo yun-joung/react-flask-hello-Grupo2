@@ -32,15 +32,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				portafolio: "",
 				merit: ""
 			},
-<<<<<<< HEAD
 			favoritos: [],
-			serviceInfo: [],
-			serviceInfoIndividual: []
-=======
-			serviceInfo: [],
-
+			serviceInfo: [{}],
+			serviceInfoById: [{}],
 			comments: []
->>>>>>> 17066152ec5ef042560394d90777ad9e8240c4f0
 		},
 
 		actions: {
@@ -128,7 +123,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getServiceInfoIndividual: async id => {
+			getServiceInfoById: async id => {
 				try {
 					const response = await fetch(`process.env.BACKEND_URL/servicio-registrados/${id}`, {
 						method: "GET",
@@ -136,7 +131,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const json = await response.json();
 					console.log(json);
-					setStore({ serviceInfoIndividual: JSON.stringify(json) });
+					setStore({ serviceInfoById: JSON.stringify(json) });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}

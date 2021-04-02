@@ -122,7 +122,7 @@ const RegisterService = () => {
 					</Row>
 				</div>
 				<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
-					<Form onSubmit={e => handleSubmit(e)}>
+					<Form onSubmit={e => handleSubmit(evento)}>
 						{error && <div className="alert alert-danger">{error}</div>}
 						<Form.Group>
 							<Form.Label>
@@ -148,7 +148,7 @@ const RegisterService = () => {
 						</Form.Group>
 						<br />
 
-						{/* <Form.Group>
+						<Form.Group>
 							<Form.Label>
 								<h5>
 									Categoria de tu servicio<span style={{ color: "red" }}>*</span>
@@ -352,7 +352,7 @@ const RegisterService = () => {
 								//isInvalid={!!errors.portafolio}
 							/>
 						</Form.Group>
-						<br /> */}
+						<br />
 
 						<Form.Group>
 							<Form.Label>

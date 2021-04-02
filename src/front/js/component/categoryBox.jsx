@@ -9,7 +9,7 @@ import { Context } from "../store/appContext";
 
 export const CategoryBox = props => {
 	const { store, actions } = useContext(Context);
-	const item = store.serviceInfo;
+	console.log(store.serviceInfo);
 
 	return (
 		<>
@@ -24,7 +24,7 @@ export const CategoryBox = props => {
 							trabajo="50"
 						/>
 					</Col>
-					{item.map(() => {
+					{store.serviceInfo.map(item => {
 						return (
 							<Col className="mb-4" key={item.id}>
 								<CardIndividual
