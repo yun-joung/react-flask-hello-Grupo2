@@ -28,6 +28,12 @@ class User(db.Model):
     
     def get_user(_id):
         return [User.serialize(User.query.filter_by(id=_id).first())]
+<<<<<<< HEAD
+    
+    def get_all_users():
+        return [User.serialize(user) for user in User.query.all()]
+    
+=======
     def get_user_by_mail(_email):
         return [User.serialize(User.query.filter_by(email=_email).first())]    
     def get_all_users():
@@ -37,6 +43,7 @@ class User(db.Model):
         user_to_update.email = _email if _email is not None else user_to_update.email
         user_to_update.password = _password if _password is not None else user_to_update.password
         db.session.commit()
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
@@ -51,7 +58,7 @@ class Servicio_registrados(db.Model):
     duracion = db.Column(db.String(30))
     revision = db.Column(db.String(30))
     proceso = db.Column(db.String(250))
-    experiencia = db.Column(db.Integer, nullable=False)
+    experiencia = db.Column(db.String(50), nullable=False)
     portafolio = db.Column(db.String(250), nullable=True)
     merit = db.Column(db.String(250))
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
@@ -77,8 +84,7 @@ class Servicio_registrados(db.Model):
             "proceso":self.proceso,
             "experiencia": self.experiencia,
             "portafolio": self.portafolio,
-            "merit":self.merit,
-            "evaluacion": self.comentarios.evaluacion
+            "merit":self.merit
         }
 
     def add_servicio(_id_user, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit ):
@@ -86,11 +92,14 @@ class Servicio_registrados(db.Model):
         db.session.add(new_servicio)
         db.session.commit()
     
+    
     def get_servicio(_id):
-        return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]
+        return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]  
     
     def get_all_servicios():
-        return [Servicio_registrados.serialize(servicio_registrados) for servicio_registrados in Servicio_registrados.query.all()]
+        servicio_registrados = Servicio_registrados.query.all()
+        db.session.commit()
+        return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
 
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'
@@ -124,7 +133,7 @@ class Favoritos(db.Model):
     name_servicio = db.Column(db.String(50))
     user= db.relationship('User', backref=db.backref('favoritos', lazy=True))
     def __repr__(self):
-        return "<favoritos %r>" % self.id
+        return "<Favoritos %r>" % self.id
     def serialize(self):
         return {
             "id": self.id,
@@ -137,11 +146,20 @@ class Favoritos(db.Model):
         new_favorito = Favoritos(id_user=_id_user, id_servicio_registrados=_id_servicio_registrados, name_servicio=name_servicio)
         db.session.add(new_favorito)
         db.session.commit()
-        
-    def get_favoritos_by_user(self, id_user):
+    
+    def get_favoritos_by_user(_id_user):
+        favoritos_query = Favoritos.query.all()
+        favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
         db.session.commit()
-        favoritos = Favoritos.query.filter_by(id_user = id_user).all()
-        return list(map(lambda favorito: favorito.serialize(), favoritos))
+        return list(map(lambda x: x.serialize(), Favoritos.query.all()))
+    # def get_favoritos_by_user(_id_user):
+    #     return [Favoritos.serialize(Favoritos.query.filter_by(id_user=_id_user).all())]
+        
+    # @staticmethod
+    # def get_favoritos_by_user(self,_id_user):
+    #     db.session.commit()
+    #     favoritos = Favoritos.query.filter_by(id_user = _id_user).all()
+    #     return list(map(lambda favoritos: Favoritos.serialize(), favoritos))
 
     def delete_favorito(_id):
         Favoritos.query.filter_by(id=_id).delete()
@@ -149,7 +167,7 @@ class Favoritos(db.Model):
 
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     id_servicios_prestados = db.Column(db.Integer, db.ForeignKey('servicios_prestados.id'), nullable=False)
     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
     text_comment = db.Column(db.String(250), nullable=True)
@@ -164,10 +182,3 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
-
-        
-    def get_all_comentarios():
-        comentarios_query = Comentarios.query.all()
-        comentarios_query = Comentarios.query.filter_by(id_servicios_prestados=1)
-        db.session.commit()
-        return [list(map(lambda x: x.serialize(), Comentarios.query.all()))]

@@ -52,7 +52,7 @@ def login():
         "user": user.serialize(),
         "token": access_token,
         "expires": expiracion.total_seconds()*1000,
-        "userId": user.id,
+        "id": user.id,
         "email": user.email,
         "tipo_user": user.tipo_user
         }
@@ -66,6 +66,10 @@ def register():
     password = request.json.get("password", None)
     tipo_user = request.json.get("tipo_user", None)
     userName = request.json.get("userName", None)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
@@ -87,6 +91,7 @@ def register():
         "msg": "Added successfully",
         "email": user.email,
         "userId":user.id,
+        "userName": user.userName,
         "tipo_user": user.tipo_user,
         "token": access_token,
         "userName" : user.userName
@@ -96,7 +101,8 @@ def register():
 
 @api.route('/user', methods=["GET"])
 def get_all_users():
-    return jsonify({"Users": User.get_all_users()})
+    users = User.get_all_users()
+    return jsonify(users)
 
 @api.route('/user/<int:id>', methods=["GET"])
 def get_user_by_id(id):
@@ -105,6 +111,22 @@ def get_user_by_id(id):
 
 @api.route('/servicio-registrados', methods=["POST"])
 def add_servicio():
+<<<<<<< HEAD
+    id_user= request.json.get('id_user', None)
+    tipo_membresia = request.json.get('tipo_membresia', None)
+    category = request.json.get('category', None)
+    subcategory = request.json.get('subcategory', None)
+    tipo_cobro = request.json.get('tipo_cobro', None)
+    valor = request.json.get('valor')
+    name_servicio = request.json.get('name_servicio', None)
+    descrip_servicio = request.json.get('descrip_servicio', None)
+    duracion = request.json.get('duracion', None)
+    revision = request.json.get('revision', None)
+    proceso = request.json.get('proceso', None)
+    experiencia = request.json.get('experiencia', None)
+    portafolio = request.json.get('portafolio', None)
+    merit = request.json.get('merit', None)
+=======
 
     id_user= request.json.get("id_user",None)
     tipo_membresia = request.json.get("tipo_membresia",None)
@@ -120,6 +142,7 @@ def add_servicio():
     experiencia = request.json.get('experiencia',None)
     portafolio = request.json.get('portafolio',None)
     merit = request.json.get('merit',None)
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
             
     if not tipo_membresia:
         return jsonify({"msg":"el tipo_membresia esta vacio"}), 400
@@ -139,6 +162,38 @@ def add_servicio():
         return jsonify({"msg":"su experiencia esta vacio"}), 400 
             
     servicio_registrados = Servicio_registrados()
+<<<<<<< HEAD
+    servicio_registrados.id_user = id_user,
+    servicio_registrados.tipo_membresia = tipo_membresia,
+    servicio_registrados.category = category,
+    servicio_registrados.subcategory = subcategory,
+    servicio_registrados.tipo_cobro = tipo_cobro,
+    servicio_registrados.valor = valor,
+    servicio_registrados.name_servicio = name_servicio,
+    servicio_registrados.descrip_servicio = descrip_servicio,
+    servicio_registrados.duracion = duracion,
+    servicio_registrados.revision = revision,
+    servicio_registrados.proceso = proceso,
+    servicio_registrados.experiencia = experiencia,
+    servicio_registrados.portafolio = portafolio,
+    servicio_registrados.merit = merit
+    print(servicio_registrados)
+    db.session.add(Servicio_registrados)
+    db.session.commit()
+
+    return jsonify({
+        "msg": "me he guardado exitosamente"
+        }), 200
+
+@api.route('/servicio-registrados', methods=["GET"])
+def get_all_servicios():
+    services = Servicio_registrados.get_all_servicios()
+    return jsonify(services)
+
+@api.route('/servicio-registrados/<int:id>', methods=["GET"])
+def get_servicio_id(id):
+    return jsonify(Servicio_registrados.get_servicio(id))
+=======
     servicio_registrados.id_user = id_user
     servicio_registrados.tipo_membresia = tipo_membresia
     servicio_registrados.category = category
@@ -192,12 +247,27 @@ def add_favoritos():
             return jsonify({"msg":"servicio id esta vacio"}), 400
         if not name_servicio:
             return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
 
-        favoritos = Favoritos()
-        favoritos.id_user = request.json.get("id_user", None)
-        favoritos.id_servicio_registrados = request.json.get("id_servicio_registrados", None)
-        favoritos.name_servicio= request.json.get("name_servicio", None)
+@api.route('/favoritos/<int:_id_user>', methods=["GET"])
+def get_favoritos_by_user(_id_user):
+    favoritos = Favoritos.get_favoritos_by_user(_id_user)
+    return jsonify(favoritos)
 
+<<<<<<< HEAD
+@api.route('/favoritos', methods=["POST"])
+def add_favorito():
+    id_user= request.json.get("id_user", None)
+    id_servicio_registrados= request.json.get("id_servicio_registrados", None)
+    name_servicio= request.json.get("name_servicio", None)
+
+    if not id_user:
+        return jsonify({"msg":"user id esta vacio"}), 400
+    if not id_servicio_registrados:
+        return jsonify({"msg":"servicio id esta vacio"}), 400
+    if not name_servicio:
+        return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
+=======
         db.session.add(favoritos)
         db.session.commit()
 
@@ -205,10 +275,20 @@ def add_favoritos():
         id_user, id_servicio_registrados, name_servicio)
 
         return jsonify({"msg":"mission success"}), 200
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
 
-@api.route('/favoritos/<int:id_user>', methods=["GET"])
-def get_favoritos_by_user(id_user):
     favoritos = Favoritos()
+<<<<<<< HEAD
+    favoritos.id_user = id_user
+    favoritos.id_servicio_registrados = id_servicio_registrados
+    favoritos.name_servicio= name_servicio
+    print(favoritos)
+    db.session.add(favoritos)
+    db.session.commit()
+
+    return jsonify({"msg":"mission success"}), 200
+
+=======
     return jsonify({"favoritos": favoritos.get_favoritos_by_user(id_user)})
 
 
@@ -247,23 +327,38 @@ def get_favoritos_by_user(id_user):
 #     return jsonify({"Comentarios": Comentarios.get_all_comentarios()})
 
       
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
 @api.route('/passwordrecovery1', methods=['POST'])
 def passwordrecovery1():
     
-    emailrecovery = request.json.get("email", None)
+    email = request.json.get("email", None)
+    
+    email_query = User.query.filter_by(email=email).first()
     if not email_query:
         return "This email isn't in our database", 401
+<<<<<<< HEAD
+
+    user = User()
+    user.email = email
+    recovery_hash = generate_password_hash(email)
+    user.hash = recovery_hash 
+=======
     recovery_hash = generate_password_hash(emailrecovery)
     hash = recovery_hash[-7:]
     user = User.query.filter_by(email=emailrecovery).first()
     user.password = hash
     db.session.commit()
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
     print(user)
-    
+
     response = {
         "msg": "User found and Hash generated successfully",
-        "email": emailrecovery,
-        "recovery_hash": hash
+        "email": user.email,
+        "recovery_hash": user.hash
     }
   
+<<<<<<< HEAD
     return jsonify(response), 200  
+=======
+    return jsonify(response), 200  
+>>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e

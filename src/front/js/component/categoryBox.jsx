@@ -9,22 +9,13 @@ import { Context } from "../store/appContext";
 
 export const CategoryBox = props => {
 	const { store, actions } = useContext(Context);
-	const item = store.serviceInfo;
+	console.log(store.serviceInfo);
 
 	return (
 		<>
 			<Container>
-				<Row className="row-cols-sm-2 row-cols-md-3  row-cols-lg-3 align-items-center">
-					<Col className="mb-4">
-						<CardIndividual
-							img={serviceIt}
-							title="Crearé un sitio web"
-							valor="50.000/hora"
-							punta="4.5"
-							trabajo="50"
-						/>
-					</Col>
-					{item.map(() => {
+				<Row className="row-cols-sm-2 row-cols-md-4  row-cols-lg-4 align-items-center">
+					{store.serviceInfo.map(item => {
 						return (
 							<Col className="mb-4" key={item.id}>
 								<CardIndividual
@@ -33,8 +24,8 @@ export const CategoryBox = props => {
 									name_servicio={item.name_servicio}
 									valor={item.valor}
 									tipo_cobro={item.tipo_cobro}
-									punta="4.5"
-									trabajo="50"
+									// punta="4.5"
+									// trabajo="50"
 								/>
 							</Col>
 						);

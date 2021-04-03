@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { NavDropdown, Dropdown } from "react-bootstrap";
+import { NavDropdown, Dropdown, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 // import useUserSession from "./userSession";
 
@@ -32,15 +32,17 @@ function MyVerticallyCenteredModal(props) {
 					<div className="text-center mt-3 mb-5">
 						{/* <span>User: {JSON.stringify(store.user)}</span> */}
 						La sesión ha sido iniciada
-						<Link to="/home">
-							<Button
-								variant="primary"
-								size="lg"
-								type="submit"
-								style={{ marginBottom: "40px", marginTop: "40px" }}>
-								<strong>Volver a home</strong>
-							</Button>
-						</Link>
+						<Row style={{ justifyContent: "center" }}>
+							<Link to="/home">
+								<Button
+									variant="primary"
+									size="lg"
+									type="submit"
+									style={{ marginBottom: "40px", marginTop: "40px" }}>
+									<strong>Volver a home</strong>
+								</Button>
+							</Link>
+						</Row>
 					</div>
 				) : (
 					<Form style={{ paddingRight: "30px", paddingLeft: "20px", marginTop: "50px" }}>
@@ -90,10 +92,15 @@ export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 	const { store, actions } = useContext(Context);
 	console.log(store.favoritos);
+	const id = props;
+
+	useEffect(() => {
+		actions.showUserFavorites(id);
+	}, []);
 
 	return (
 		<>
-			{props.user.id !== undefined ? (
+			{store.user.token !== null ? (
 				<>
 					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
 						{store.favoritos.map((item, index) => {
@@ -138,6 +145,7 @@ export function LoginModal(props) {
 		</>
 	);
 }
+
 export function LoginModalA() {
 	const [modalShow, setModalShow] = React.useState(false);
 	return (
@@ -152,7 +160,8 @@ export function LoginModalA() {
 
 LoginModal.propTypes = {
 	user: PropTypes.object,
-	name_servicio: PropTypes.string
+	name_servicio: PropTypes.string,
+	id: PropTypes.number
 };
 
 Modal.propTypes = {

@@ -20,7 +20,7 @@ export const PersonBox = props => {
 							<PersonCategory
 								img={personB}
 								name="Marcia Canales"
-								title="Desarrollador Fullstack"
+								title="Programadora"
 								valor="$250.000/proyecto"
 								numero="3"
 							/>

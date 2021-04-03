@@ -5,7 +5,7 @@ import { logoBlanco, man } from "../../img/image";
 import { withRouter } from "react-router-dom";
 import { Container, Button, Form, FormControl, Row, Col } from "react-bootstrap";
 import { IconBox } from "../component/IconBox.jsx";
-import { CardBox } from "../component/cardBox.jsx";
+import { PersonBox } from "../component/personBox.jsx";
 import { ServiceBox } from "../component/serviceBox.jsx";
 import { Footer } from "../component/footer";
 import { LoginModal, LoginModalA } from "../component/Login";
@@ -23,7 +23,7 @@ const LandingPage = props => {
 
 	const { id } = props.match.params;
 
-	if (props.user == null) {
+	if (store.user.token == null) {
 		console.log("no existe un usuario");
 	} else {
 		console.log("existe un usuario");
@@ -105,7 +105,7 @@ const LandingPage = props => {
 						</Col>
 					</Row>
 					<IconBox />
-					<CardBox title="Categorias más buscadas" className="whiteBox" />
+					<PersonBox title="Profesionales más solicitados" />
 					<ServiceBox />
 					<br />
 
