@@ -15,11 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				token: "",
 				email: "",
 				id: "",
-<<<<<<< HEAD
-				userName: ""
-=======
+				userName: "",
 				type_user: ""
->>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
 			},
 			serviceRegistrado: {
 				id_user: "",
