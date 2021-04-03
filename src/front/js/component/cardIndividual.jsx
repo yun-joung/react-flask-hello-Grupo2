@@ -8,7 +8,7 @@ import { Context } from "../store/appContext";
 
 export const CardIndividual = props => {
 	const { store, actions } = useContext(Context);
-	// const { id } = 4;
+	const { id } = 1;
 
 	// useEffect(() => {
 	// 	actions.getServiceInfoById(id);
@@ -16,7 +16,7 @@ export const CardIndividual = props => {
 
 	return (
 		<div>
-			<Card style={{ width: "14rem" }}>
+			<Card md={3}>
 				<Button
 					variant="btn"
 					className="favorito"
@@ -38,10 +38,13 @@ export const CardIndividual = props => {
 					/>
 				</Link>
 				<Card.Body className="text-dark">
-					<Card.Text style={{ marginBottom: "3px" }}>{props.name_servicio}</Card.Text>
-					<Card.Title style={{ marginBottom: "3px" }}>
-						{props.valor} / {props.tipoCobro}
-					</Card.Title>
+					<Card.Text className="textOverFlow" style={{ marginBottom: "3px" }}>
+						{props.name_servicio}
+					</Card.Text>
+					<Card.Text style={{ marginBottom: "3px" }}>
+						<strong style={{ fontSize: "22px" }}>{props.valor}</strong>{" "}
+						<span style={{ color: "gray" }}>/{props.tipo_cobro}</span>
+					</Card.Text>
 					<Card.Text className="d-inline" style={{ marginBottom: "3px", fontSize: "14px", color: "#606060" }}>
 						<i className="fas fa-star" />
 						{props.punta} / {props.trabajo} trabajo
@@ -59,7 +62,7 @@ CardIndividual.propTypes = {
 	punta: PropTypes.string,
 	valor: PropTypes.string,
 	trabajo: PropTypes.string,
-	tipoCobro: PropTypes.string,
+	tipo_cobro: PropTypes.string,
 	match: PropTypes.object,
 	id: PropTypes.number
 };

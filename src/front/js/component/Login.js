@@ -100,9 +100,9 @@ export function LoginModal(props) {
 
 	return (
 		<>
-			{props.user.id !== undefined ? (
+			{store.user.token !== null ? (
 				<>
-					{/* <NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
+					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
 						{store.favoritos.map((item, index) => {
 							return (
 								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
@@ -116,7 +116,7 @@ export function LoginModal(props) {
 								</NavDropdown.Item>
 							);
 						})}
-					</NavDropdown> */}
+					</NavDropdown>
 					<NavDropdown title="Mi cuenta" id="basic-nav-dropdown" className="float-right">
 						<NavDropdown.Item href="#action/3.1">Mis datos</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.2">Compra</NavDropdown.Item>

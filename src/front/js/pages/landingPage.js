@@ -23,7 +23,7 @@ const LandingPage = props => {
 
 	const { id } = props.match.params;
 
-	if (props.user == null) {
+	if (store.user.token == null) {
 		console.log("no existe un usuario");
 	} else {
 		console.log("existe un usuario");

@@ -52,7 +52,7 @@ def login():
         "user": user.serialize(),
         "token": access_token,
         "expires": expiracion.total_seconds()*1000,
-        "userId": user.id,
+        "id": user.id,
         "email": user.email,
         "tipo_user": user.tipo_user
         }
@@ -97,12 +97,13 @@ def register():
 
 @api.route('/user', methods=["GET"])
 def get_all_users():
-    return jsonify({"Users": User.get_all_users()})
+    users = User.get_all_users()
+    return jsonify(users)
 
 @api.route('/user/<int:id>', methods=["GET"])
 def get_user_by_id(id):
     user = User.get_user(id)
-    return jsonify({"User_Id":user})
+    return jsonify(user)
 
 @api.route('/servicio-registrados', methods=['POST'])
 def add_servicio():
@@ -165,16 +166,17 @@ def add_servicio():
 
 @api.route('/servicio-registrados', methods=["GET"])
 def get_all_servicios():
-    return jsonify({"serviceRegistrado": Servicio_registrados.get_all_servicios()})
+    services = Servicio_registrados.get_all_servicios()
+    return jsonify(services)
 
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
-    return jsonify({"serviceRegistrado_Id":Servicio_registrados.get_servicio(id)})
+    return jsonify(Servicio_registrados.get_servicio(id))
 
 @api.route('/favoritos/<int:_id_user>', methods=["GET"])
 def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)
-    return jsonify({"userFavoritos":favoritos})
+    return jsonify(favoritos)
 
 @api.route('/favoritos', methods=["POST"])
 def add_favorito():
