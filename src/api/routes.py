@@ -173,7 +173,6 @@ def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)
     return jsonify(favoritos)
 
-
 @api.route('/favoritos', methods=["POST"])
 def add_favorito():
     id_user= request.json.get("id_user", None)
