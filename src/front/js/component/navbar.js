@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Form, FormControl, Navbar, Nav, Col, Container } from "react-bootstrap";
 import { logoAzul } from "../../img/image";
@@ -9,6 +9,9 @@ import { Context } from "../store/appContext";
 const MyNavbar = props => {
 	const { store, actions } = useContext(Context);
 	console.log(store.user);
+	useEffect(() => {
+		actions.getToken();
+	}, []);
 
 	if (
 		props.location.pathname === "/" ||

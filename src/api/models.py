@@ -1,6 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userName = db.Column(db.String(100), nullable=True, unique=True)
@@ -9,10 +8,8 @@ class User(db.Model):
     tipo_user = db.Column(db.String(50), nullable=False)
     servicio_registrados = db.relationship('Servicio_registrados', backref='user',lazy=True)
     servicios_prestados = db.relationship('Servicios_prestados', backref='user',lazy=True)
-   
     def __repr__(self):
         return "<User %r>" % self.id
-    
     def serialize(self):
         return {
             "id": self.id,
@@ -20,20 +17,12 @@ class User(db.Model):
             "userName": self.userName,
             "tipo_user": self.tipo_user
         }
-
     def add_user(_userName, _email, _password, _tipo_user):
         new_user = User(userName=_userName,  email=_email, password=_password, tipo_user=_tipo_user)
         db.session.add(new_user)
         db.session.commit()
-    
     def get_user(_id):
         return [User.serialize(User.query.filter_by(id=_id).first())]
-<<<<<<< HEAD
-    
-    def get_all_users():
-        return [User.serialize(user) for user in User.query.all()]
-    
-=======
     def get_user_by_mail(_email):
         return [User.serialize(User.query.filter_by(email=_email).first())]    
     def get_all_users():
@@ -43,7 +32,6 @@ class User(db.Model):
         user_to_update.email = _email if _email is not None else user_to_update.email
         user_to_update.password = _password if _password is not None else user_to_update.password
         db.session.commit()
->>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
@@ -64,10 +52,8 @@ class Servicio_registrados(db.Model):
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
     favoritos = db.relationship('Favoritos', backref='servicio_registrados',lazy=True)
     comentarios = db.relationship('Comentarios', backref='servicio_registrados',lazy=True)
-
     def __repr__(self):
         return "<Servicio_registrados %r>" % self.id
-        
     def serialize(self):
         return {
             "id": self.id,
@@ -86,21 +72,16 @@ class Servicio_registrados(db.Model):
             "portafolio": self.portafolio,
             "merit":self.merit
         }
-
     def add_servicio(_id_user, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit ):
         new_servicio = Servicio_registrados(id_user=_id_user, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, merit=merit)
         db.session.add(new_servicio)
         db.session.commit()
-    
-    
     def get_servicio(_id):
         return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]  
-    
     def get_all_servicios():
         servicio_registrados = Servicio_registrados.query.all()
         db.session.commit()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
-
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'
     id = db.Column(db.Integer, primary_key=True)
@@ -124,7 +105,6 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
-
 class Favoritos(db.Model):
     __tablename__ = 'favoritos'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -141,12 +121,10 @@ class Favoritos(db.Model):
             "id_servicio_registrados": self.servicio_registrados.id,
             "name_servicio": self.name_servicio
         }
-    
     def add_favorito(self, _id_user, _id_servicio_registrados, name_servicio ):
         new_favorito = Favoritos(id_user=_id_user, id_servicio_registrados=_id_servicio_registrados, name_servicio=name_servicio)
         db.session.add(new_favorito)
         db.session.commit()
-    
     def get_favoritos_by_user(_id_user):
         favoritos_query = Favoritos.query.all()
         favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
@@ -154,17 +132,14 @@ class Favoritos(db.Model):
         return list(map(lambda x: x.serialize(), Favoritos.query.all()))
     # def get_favoritos_by_user(_id_user):
     #     return [Favoritos.serialize(Favoritos.query.filter_by(id_user=_id_user).all())]
-        
     # @staticmethod
     # def get_favoritos_by_user(self,_id_user):
     #     db.session.commit()
     #     favoritos = Favoritos.query.filter_by(id_user = _id_user).all()
     #     return list(map(lambda favoritos: Favoritos.serialize(), favoritos))
-
     def delete_favorito(_id):
         Favoritos.query.filter_by(id=_id).delete()
         db.session.commit()
-
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
