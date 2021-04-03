@@ -303,6 +303,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("token", data.token);
 							localStorage.setItem("user", JSON.stringify(data.email));
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
+							localStorage.setItem("id", JSON.stringify(data.id));
 						}
 					})
 					.catch(error => console.log("Error loading message from backend", error));
@@ -330,6 +331,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						alert("Una nueva contraseña ha sido enviada a tu correo registrado");
 					})
 					.catch(error => console.log("Error sending email", error));
+			},
+			cerrarSesion: () => {
+				localStorage.removeItem("token");
+				localStorage.removeItem("user");
+				localStorage.removeItem("tipo_user");
+				localStorage.removeItem("id");
 			}
 		}
 	};

@@ -122,7 +122,14 @@ export function LoginModal(props) {
 						<NavDropdown.Item href="#action/3.2">Compra</NavDropdown.Item>
 						<NavDropdown.Item href="/registerservice">Vender</NavDropdown.Item>
 						<NavDropdown.Divider />
-						<NavDropdown.Item href="#action/3.4">Salir</NavDropdown.Item>
+						<NavDropdown.Item
+							onClick={() => {
+								actions.cerrarSesion();
+								actions.getToken();
+								setModalShow(false);
+							}}>
+							Salir
+						</NavDropdown.Item>
 					</NavDropdown>
 				</>
 			) : (

@@ -8,7 +8,6 @@ from api.utils import generate_sitemap, APIException
 from werkzeug.security import generate_password_hash, check_password_hash       ## Nos permite manejar tokens por authentication (usuarios)    
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity   #from models import Person
 import datetime
-
 api = Blueprint('api', __name__)
 
 
@@ -99,7 +98,6 @@ def register():
 def get_all_users():
     users = User.get_all_users()
     return jsonify(users)
-
 @api.route('/user/<int:id>', methods=["GET"])
 def get_user_by_id(id):
     user = User.get_user(id)
@@ -156,7 +154,7 @@ def add_servicio():
     servicio_registrados.portafolio = portafolio,
     servicio_registrados.merit = merit
     print(servicio_registrados)
-    db.session.add(Servicio_registrados)
+    db.session.add(servicio_registrados)
     db.session.commit()
 
     return jsonify({
@@ -167,11 +165,9 @@ def add_servicio():
 def get_all_servicios():
     services = Servicio_registrados.get_all_servicios()
     return jsonify(services)
-
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
-
 @api.route('/favoritos/<int:_id_user>', methods=["GET"])
 def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)
@@ -182,7 +178,6 @@ def add_favorito():
     id_user= request.json.get("id_user", None)
     id_servicio_registrados= request.json.get("id_servicio_registrados", None)
     name_servicio= request.json.get("name_servicio", None)
-
     if not id_user:
         return jsonify({"msg":"user id esta vacio"}), 400
     if not id_servicio_registrados:
@@ -191,7 +186,6 @@ def add_favorito():
         return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
         db.session.add(favoritos)
         db.session.commit()
-
         favoritos = Favoritos()
         favoritos.id_user = id_user
         favoritos.id_servicio_registrados = id_servicio_registrados
@@ -199,8 +193,8 @@ def add_favorito():
         print(favoritos)
         db.session.add(favoritos)
         db.session.commit()
-
         return jsonify({"msg":"mission success"}), 200
+
 
 # @api.route('/comentarios', methods=["POST"])
 # def addComment():  
@@ -237,7 +231,7 @@ def add_favorito():
 #     return jsonify({"Comentarios": Comentarios.get_all_comentarios()})
 
       
-@api.route('/passwordrecovery1', methods=['POST'])
+@api.route('/passwordrecovery1', methods=['PUT'])
 def passwordrecovery1():
     
     email = request.json.get("email", None)
@@ -245,9 +239,10 @@ def passwordrecovery1():
     email_query = User.query.filter_by(email=email).first()
     if not email_query:
         return "This email isn't in our database", 401
-    recovery_hash = generate_password_hash(emailrecovery)
+
+    recovery_hash = generate_password_hash(email)
     hash = recovery_hash[-7:]
-    user = User.query.filter_by(email=emailrecovery).first()
+    user = User.query.filter_by(email=email).first()
     user.password = hash
     db.session.commit()
     print(user)
@@ -255,7 +250,7 @@ def passwordrecovery1():
     response = {
         "msg": "User found and Hash generated successfully",
         "email": user.email,
-        "recovery_hash": user.hash
+        "recovery_hash": user.password
     }
   
     return jsonify(response), 200  
