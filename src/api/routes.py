@@ -102,7 +102,7 @@ def get_all_users():
 @api.route('/user/<int:id>', methods=["GET"])
 def get_user_by_id(id):
     user = User.get_user(id)
-    return jsonify(user)
+    return jsonify({"User_Id":user})
 
 @api.route('/servicio-registrados', methods=['POST'])
 def add_servicio():
@@ -169,13 +169,12 @@ def get_all_servicios():
 
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
-    servicio_registrados = Servicio_registrados.get_servicio(id)
-    return jsonify(servicio_registrados)
+    return jsonify({"serviceRegistrado_Id":Servicio_registrados.get_servicio(id)})
 
 @api.route('/favoritos/<int:_id_user>', methods=["GET"])
 def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)
-    return jsonify(favoritos)
+    return jsonify({"userFavoritos":favoritos})
 
 @api.route('/favoritos', methods=["POST"])
 def add_favorito():

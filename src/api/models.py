@@ -46,7 +46,7 @@ class Servicio_registrados(db.Model):
     duracion = db.Column(db.String(30))
     revision = db.Column(db.String(30), nullable=False)
     proceso = db.Column(db.String(250))
-    experiencia = db.Column(db.Integer, nullable=False)
+    experiencia = db.Column(db.String(50), nullable=False)
     portafolio = db.Column(db.String(250), nullable=True)
     merit = db.Column(db.String(250))
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
@@ -79,6 +79,7 @@ class Servicio_registrados(db.Model):
         new_servicio = Servicio_registrados(id_user=_id_user, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, merit=merit)
         db.session.add(new_servicio)
         db.session.commit()
+    
     
     def get_servicio(_id):
         return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]  

@@ -33,7 +33,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				portafolio: "",
 				merit: ""
 			},
-			userId: [],
 			userAll: [],
 			favoritos: [],
 			serviceInfo: [],
@@ -121,7 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const json = await response.json();
 					console.log("--User--", json);
-					setStore({ userId: JSON.stringify(json) });
+					setStore({ user: JSON.stringify(json) });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
