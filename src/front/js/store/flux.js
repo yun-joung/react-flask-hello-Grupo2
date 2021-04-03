@@ -100,7 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getUserInfoById: async id => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + `/api/user/${id}`, {
+					const response = await fetch("https://3001-blush-goat-luq9mq5y.ws-us03.gitpod.io/api/user/1", {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					});
@@ -128,10 +128,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getServiceInfoById: async id => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + `/api/servicio-registrados/${id}`, {
-						method: "GET",
-						headers: { "Content-Type": "application/json" }
-					});
+					const response = await fetch(
+						"https://3001-blush-goat-luq9mq5y.ws-us03.gitpod.io/api/servicio-registrados/1",
+						{
+							method: "GET",
+							headers: { "Content-Type": "application/json" }
+						}
+					);
 					const json = await response.json();
 					console.log("--Servicio--", json);
 					setStore({ serviceInfoById: JSON.stringify(json) });
@@ -161,13 +164,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			showUserFavorites: async id => {
 				try {
-					const response = await fetch("https://3001-blush-goat-luq9mq5y.ws-us03.gitpod.io/api/favoritos/", {
+					const response = await fetch("https://3001-blush-goat-luq9mq5y.ws-us03.gitpod.io/api/favoritos/1", {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
 					console.log({ "--userFavoritos--": json });
-					setStore({ favoritos: JSON.stringify(json) });
+					setStore({ favoritos: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
