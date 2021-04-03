@@ -28,12 +28,6 @@ class User(db.Model):
     
     def get_user(_id):
         return [User.serialize(User.query.filter_by(id=_id).first())]
-<<<<<<< HEAD
-    
-    def get_all_users():
-        return [User.serialize(user) for user in User.query.all()]
-    
-=======
     def get_user_by_mail(_email):
         return [User.serialize(User.query.filter_by(email=_email).first())]    
     def get_all_users():
@@ -43,7 +37,7 @@ class User(db.Model):
         user_to_update.email = _email if _email is not None else user_to_update.email
         user_to_update.password = _password if _password is not None else user_to_update.password
         db.session.commit()
->>>>>>> 66b7fb89c2ddd3adfb1c2f24d45c3fa35c8f947e
+        
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
