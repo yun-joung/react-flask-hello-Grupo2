@@ -130,13 +130,6 @@ class Favoritos(db.Model):
         favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
         db.session.commit()
         return list(map(lambda x: x.serialize(), Favoritos.query.all()))
-    # def get_favoritos_by_user(_id_user):
-    #     return [Favoritos.serialize(Favoritos.query.filter_by(id_user=_id_user).all())]
-    # @staticmethod
-    # def get_favoritos_by_user(self,_id_user):
-    #     db.session.commit()
-    #     favoritos = Favoritos.query.filter_by(id_user = _id_user).all()
-    #     return list(map(lambda favoritos: Favoritos.serialize(), favoritos))
     def delete_favorito(_id):
         Favoritos.query.filter_by(id=_id).delete()
         db.session.commit()

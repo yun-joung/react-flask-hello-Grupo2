@@ -10,11 +10,6 @@ import { Context } from "../store/appContext";
 export const ServicioCategory = props => {
 	const { store, actions } = React.useContext(Context);
 
-	const { id } = 4;
-
-	React.useEffect(() => {
-		actions.getServiceInfoById(id);
-	}, []);
 	return (
 		<Container>
 			<div>

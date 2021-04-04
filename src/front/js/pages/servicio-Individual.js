@@ -11,6 +11,11 @@ import Portafolio from "../component/Portafolio.jsx";
 
 export const Servicioindividual = () => {
 	const { store, actions } = useContext(Context);
+	const { index } = props.match.params;
+
+	React.useEffect(() => {
+		actions.getServiceInfoById(id);
+	}, []);
 
 	return (
 		<>
@@ -27,7 +32,14 @@ export const Servicioindividual = () => {
 						<Portafolio />
 					</Col>
 					<Col md={4}>
-						<Individuallnfo />
+						<Individuallnfo
+							name_servicio={item.name_servicio}
+							valor={item.name_servicio}
+							tipo_cobro={item.name_servicio}
+							subcategory={item.name_servicio}
+							duracion={item.name_servicio}
+							revision={item.name_servicio}
+						/>
 					</Col>
 				</Row>
 				<Row>

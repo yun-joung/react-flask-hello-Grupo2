@@ -168,33 +168,40 @@ def get_all_servicios():
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
+
+@api.route('/favoritos', methods=["POST"])
+def add_favorito():
+    if request.method == 'POST':
+        id_user= request.json.get("id_user")
+        id_servicio_registrados= request.json.get("id_servicio_registrados")
+        name_servicio= request.json.get("name_servicio")
+
+        if not id_user:
+            return jsonify({"msg":"user id esta vacio"}), 400
+        if not id_servicio_registrados:
+            return jsonify({"msg":"servicio id esta vacio"}), 400
+        if not name_servicio:
+            return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
+
+        favoritos = Favoritos()
+        favoritos.id_user = request.json.get("id_user", None)
+        favoritos.id_servicio_registrados = request.json.get("id_servicio_registrados", None)
+        favoritos.name_servicio= request.json.get("name_servicio", None)
+
+        db.session.add(favoritos)
+        db.session.commit()
+        return jsonify({"msg":"mission success"}), 200
+
+    
 @api.route('/favoritos/<int:_id_user>', methods=["GET"])
 def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)
     return jsonify(favoritos)
 
-@api.route('/favoritos', methods=["POST"])
-def add_favorito():
-    id_user= request.json.get("id_user", None)
-    id_servicio_registrados= request.json.get("id_servicio_registrados", None)
-    name_servicio= request.json.get("name_servicio", None)
-    if not id_user:
-        return jsonify({"msg":"user id esta vacio"}), 400
-    if not id_servicio_registrados:
-        return jsonify({"msg":"servicio id esta vacio"}), 400
-    if not name_servicio:
-        return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
-        db.session.add(favoritos)
-        db.session.commit()
-        favoritos = Favoritos()
-        favoritos.id_user = id_user
-        favoritos.id_servicio_registrados = id_servicio_registrados
-        favoritos.name_servicio= name_servicio
-        print(favoritos)
-        db.session.add(favoritos)
-        db.session.commit()
-        return jsonify({"msg":"mission success"}), 200
-
+@api.route('/favoritos/<int:id>', methods=["DELETE"])
+def delete_favorito(id):
+    Favoritos.delete_favorito(id)
+    return jsonify({"success": True})
 
 # @api.route('/comentarios', methods=["POST"])
 # def addComment():  

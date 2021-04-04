@@ -10,6 +10,7 @@ import { Context } from "../store/appContext";
 export const CategoryBox = props => {
 	const { store, actions } = useContext(Context);
 	console.log(store.serviceInfo);
+	const id = { props };
 
 	return (
 		<>
@@ -36,6 +37,6 @@ export const CategoryBox = props => {
 	);
 };
 
-// LoginModal.propTypes = {
-// 	match: PropTypes.object
+// CategoryBox.propTypes = {
+// 	id: PropTypes.number
 // };
