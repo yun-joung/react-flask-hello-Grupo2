@@ -7,20 +7,20 @@ import { personB } from "../../img/image.js";
 import { Link } from "react-router-dom";
 
 export const Individuallnfo = () => {
-    const { store, actions } = useContext(Context);
-    
-    const handleBuy = e => {
-        e.preventDefault();
-        const usuario = JSON.parse(JSON.stringify(store.user.id));
-        actions.buyService({
-            id_user_compra: usuario,
-            id_servicio_registrado:"",
-            cantidad_servicio:"",
-            total_valor_servicio:"",
-        });
-    }
-    useEffect(() => {
-        actions.getServiceById(id);
+	const { store, actions } = useContext(Context);
+
+	const handleBuy = e => {
+		e.preventDefault();
+		const usuario = JSON.parse(JSON.stringify(store.user.id));
+		actions.buyService({
+			id_user_compra: usuario,
+			id_servicio_registrado: "",
+			cantidad_servicio: "",
+			total_valor_servicio: ""
+		});
+	};
+	useEffect(() => {
+		actions.getServiceById(id);
 		actions.getToken();
 	}, []);
 	return (
