@@ -10,12 +10,14 @@ from api.utils import APIException, generate_sitemap
 from api.models import db
 from api.routes import api
 from api.admin import setup_admin
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity 
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+jwt = JWTManager(app)
 
 # database condiguration
 if os.getenv("DATABASE_URL") is not None:
@@ -26,6 +28,19 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db)
 db.init_app(app)
+
+# ALLOW_IMG_EXTENSION = {'png', 'jpg', 'jpeg', 'gif'}
+# ALLOW_FILE_EXTENSION = {'pdf', 'doc', 'docx'}
+
+# app = Flask(__name__)
+# #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(BASEDIR, "test.db")
+# app.config["DEBUG"] = True
+# app.config["ENV"] = "development"
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+# app.config["SECRET_KEY"] = "secret-key"
+# app.config['JWT_SECRET_KEY'] = 'encrypt'
+# app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
+
 
 # Allow CORS requests to this API
 CORS(app)

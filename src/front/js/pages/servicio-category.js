@@ -5,8 +5,16 @@ import { serviceDiseno, serviceMarketing, serviceIt } from "../../img/image.js";
 import { Row, Col, Container, Card, Button, Accordion } from "react-bootstrap";
 import { CategoryBox } from "../component/categoryBox.jsx";
 import { MyFilter } from "../component/myFilter.jsx";
+import { Context } from "../store/appContext";
 
 export const ServicioCategory = props => {
+	const { store, actions } = React.useContext(Context);
+
+	const { id } = 4;
+
+	React.useEffect(() => {
+		actions.getServiceInfoById(id);
+	}, []);
 	return (
 		<Container>
 			<div>
@@ -16,9 +24,9 @@ export const ServicioCategory = props => {
 					</Col>
 				</Row>
 				<Row>
-					<Col md={3}>
+					{/* <Col md={3}>
 						<MyFilter />
-					</Col>
+					</Col> */}
 					<Col>
 						<CategoryBox />
 						<div className="transBox" />

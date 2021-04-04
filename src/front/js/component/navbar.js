@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Form, FormControl, Navbar, Nav, Col, Container } from "react-bootstrap";
 import { logoAzul } from "../../img/image";
 import { LoginModal } from "./Login";
+import PropTypes from "prop-types";
+import { Context } from "../store/appContext";
 
 const MyNavbar = props => {
-	if (props.location.pathname === "/") {
+	const { store, actions } = useContext(Context);
+	console.log(store.user);
+	useEffect(() => {
+		actions.getToken();
+	}, []);
+
+	if (
+		props.location.pathname === "/" ||
+		props.location.pathname === "/register" ||
+		props.location.pathname === "/registerservice"
+	) {
 		return " ";
 	} else {
 		return (
@@ -26,19 +38,14 @@ const MyNavbar = props => {
 						<Col sm={6} md={4} className="hidden-sm">
 							<Form inline className="Buscar sb d-flex float-right mt-2 hidden-sm">
 								<FormControl type="text" placeholder="Buscar" className="mr-sm-4 search" />
-								<Button variant="btn">
+								<Button variant="btn" onChange={event => props.handledChange(event)}>
 									<i className="fas fa-search pr-3" />
 								</Button>
 							</Form>
 						</Col>
 						<Col sm={6} md={3}>
-							<div className="ml-auto float-right mt-2">
-								{LoginModal()}
-								<Link to="/register">
-									<button className="btn btn-primary " style={{ borderRadius: "1.75rem" }}>
-										&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
-									</button>
-								</Link>
+							<div className="ml-auto">
+								<LoginModal user={store.user} />
 							</div>
 						</Col>
 					</Container>
@@ -72,3 +79,7 @@ const MyNavbar = props => {
 	}
 };
 export default withRouter(MyNavbar);
+
+MyNavbar.propTypes = {
+	location: PropTypes.object
+};

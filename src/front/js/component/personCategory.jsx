@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 export const PersonCategory = props => {
 	return (
 		<div>
-			<Card style={{ width: "17rem" }} className="g-2">
+			<Card className="g-2">
 				<Card.Img variant="top" src={props.img} />
 				<Card.Body>
 					<Card.Title>{props.name}</Card.Title>
@@ -21,7 +21,7 @@ export const PersonCategory = props => {
 };
 
 PersonCategory.propTypes = {
-	img: PropTypes.object,
+	img: PropTypes.string,
 	name: PropTypes.string,
 	title: PropTypes.string,
 	valor: PropTypes.string
