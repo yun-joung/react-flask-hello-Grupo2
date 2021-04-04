@@ -93,7 +93,7 @@ const RegisterService = () => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-cyan-crayfish-rvwbkh4j.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -339,6 +339,13 @@ const RegisterService = () => {
 								<option>2</option>
 								<option>3</option>
 								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+								<option>9</option>
+								<option>10</option>
+
 								{/* <option>5-10 años</option>
 								<option>10-15 años</option>
 								<option>Más que 15 años</option> */}
@@ -385,7 +392,10 @@ const RegisterService = () => {
 								size="lg"
 								type="submit"
 								style={{ marginBottom: "40px", marginTop: "40px" }}
-								onClick={e => handleSubmit(e)}>
+								onClick={e => {
+									handleSubmit(e);
+								}}
+								href="/home">
 								<strong>Registra tu servicio</strong>
 							</Button>
 							{/* </Link> */}
