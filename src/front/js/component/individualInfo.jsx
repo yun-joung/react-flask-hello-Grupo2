@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
@@ -9,13 +9,13 @@ import PropTypes from "prop-types";
 
 export const Individuallnfo = props => {
 	const { store, actions } = useContext(Context);
-
+	const { id } = props;
 	const handleSubmit = e => {
 		e.preventDefault();
 		actions.addUserFavorites({
-			id_user: 1,
-			id_servicio_registrados: 1,
-			name_servicio: "text front-end"
+			id_user: JSON.parse(JSON.stringify(store.user.id)),
+			id_servicio_registrados: props.id,
+			name_servicio: props.name_servicio
 		});
 		console.log("Agregardo el favorito");
 	};
@@ -42,20 +42,21 @@ export const Individuallnfo = props => {
 				</div>
 
 				<Row className="d-inline-block d-flex">
-					<Col sm={6} style={{ width: "180px" }}>
+					<Col style={{ width: "180px" }}>
 						<p className="float-left text-dark">
-							<i className="far fa-clock h3" /> {props.duracion}
+							<i className="far fa-clock h3" /> Plazo estimado: {props.duracion}
 							<br />
-							<i className="far fa-star h3" /> 4.8/5 (10)
+							<i className="fas fa-retweet " style={{ fontSize: "1.75rem" }} /> Revision: {props.revision}
 						</p>
 					</Col>
-					<Col sm={6} style={{ width: "180px" }}>
+					{/* <Col sm={6} style={{ width: "180px" }}>
 						<p className="float-right text-dark">
-							<i className="far fa-handshake h3" /> 10 trabajos
-							<br />
-							<i className="fas fa-retweet " style={{ fontSize: "1.75rem" }} /> {props.revision}
+							<i className="far fa-star h3" /> 4.8/5 (10)
+                            <br />
+                            <i className="far fa-handshake h3" /> 10 trabajos
+							
 						</p>
-					</Col>
+					</Col> */}
 				</Row>
 				<p>
 					<Link to="/compra">
@@ -75,5 +76,6 @@ Individuallnfo.propTypes = {
 	tipo_cobro: PropTypes.string,
 	subcategory: PropTypes.string,
 	duracion: PropTypes.string,
-	revision: PropTypes.string
+	revision: PropTypes.string,
+	id: PropTypes.number
 };

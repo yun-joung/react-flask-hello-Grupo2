@@ -72,10 +72,26 @@ const Register = () => {
 							width: "730px"
 						}}>
 						{store.user.token !== null ? (
-							<div className="text-center mt-3 mb-5">
-								{/* <span>User: {JSON.stringify(store.user)}</span> */}
-								La sesión ya se encuentra iniciada
-							</div>
+							<Container>
+								<Row>
+									<Col className="text-center mt-3 mb-5">
+										{/* <span>User: {JSON.stringify(store.user)}</span> */}
+										La sesión ya se encuentra iniciada
+									</Col>
+								</Row>
+								<Row style={{ justifyContent: "center" }}>
+									<Link to="/home">
+										<Button
+											variant="primary"
+											size="lg"
+											type="button"
+											style={{ marginBottom: "40px", marginTop: "40px" }}
+											href="/home">
+											<strong>Volver a home</strong>
+										</Button>
+									</Link>
+								</Row>
+							</Container>
 						) : (
 							<Form>
 								<Form.Group as={Row} controlId="formHorizontaluserName">

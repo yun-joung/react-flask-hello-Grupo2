@@ -66,8 +66,10 @@ const RegisterService = () => {
 		// 	return;
 		// } else {
 		const usuario = JSON.parse(JSON.stringify(store.user.id));
+		const userName = JSON.parse(JSON.stringify(store.user.userName));
 		actions.addServicio({
 			id_user: usuario,
+			userName: userName,
 			tipo_membresia: tipo_membresia,
 			category: category,
 			subcategory: subcategory,
@@ -93,7 +95,7 @@ const RegisterService = () => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-emerald-booby-ixturige.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -123,7 +125,10 @@ const RegisterService = () => {
 					</Row>
 				</div>
 				<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
-					<Form>
+					<Form
+						onClick={e => {
+							handleSubmit(e);
+						}}>
 						{error && <div className="alert alert-danger">{error}</div>}
 						<Form.Group>
 							<Form.Label>
@@ -177,20 +182,15 @@ const RegisterService = () => {
 
 						<Form.Group>
 							<Form.Control
-								as="select"
+								as="textarea"
+								type="text"
+								placeholder="Subcategory ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
 								name="subcategory"
 								value={subcategory}
 								onChange={e => setSubcategory(e.target.value)}
-								//isInvalid={!!errors.subcategory}
-								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
-								<option defaultValue>Seleccionar subcategoría de servicio</option>
-								<option>E-commerce develop</option>
-								<option>Mobile develop</option>
-								<option>Softwear develop</option>
-								<option>Game develop</option>
-								<option>Wordpress/Shopify</option>
-								<option>Otros</option>
-							</Form.Control>
+								//isInvalid={!!errors.valor}
+								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
+							/>
 						</Form.Group>
 						<br />
 
@@ -269,7 +269,7 @@ const RegisterService = () => {
 						</Form.Group>
 						<br />
 
-						{/* <Form.Group>
+						<Form.Group>
 							<Form.Label>
 								<h5>Plazo estimado (meses) para exjecutar el projecto</h5>
 							</Form.Label>
@@ -302,7 +302,7 @@ const RegisterService = () => {
 							/>
 						</Form.Group>
 						<br />
-						<Form.Group>
+						{/* <Form.Group>
 							<Form.Label>
 								<h5>Metodología para ejecución </h5>
 							</Form.Label>
@@ -333,20 +333,13 @@ const RegisterService = () => {
 								//isInvalid={!!errors.experiencia}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 								<option defaultValue>Seleccionar rango de años</option>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-								<option>6</option>
-								<option>7</option>
-								<option>8</option>
-								<option>9</option>
-								<option>10</option>
-
-								{/* <option>5-10 años</option>
+								<option>1año</option>
+								<option>2años</option>
+								<option>3años</option>
+								<option>4años</option>
+								<option>5-10 años</option>
 								<option>10-15 años</option>
-								<option>Más que 15 años</option> */}
+								<option>Más que 15 años</option>
 							</Form.Control>
 						</Form.Group>
 						<br />
@@ -384,20 +377,18 @@ const RegisterService = () => {
 							/>
 						</Form.Group>
 						<Row style={{ justifyContent: "center" }}>
-							{/* <Link to="/home"> */}
-							<Button
-								variant="primary"
-								size="lg"
-								type="submit"
-								style={{ marginBottom: "40px", marginTop: "40px" }}
-								onClick={e => {
-									handleSubmit(e);
-								}}
-								href="/home">
-								<strong>Registra tu servicio</strong>
-							</Button>
-							{/* </Link> */}
-							{JSON.stringify(store.user.id)}
+							<Link to="/home">
+								<Button
+									variant="primary"
+									size="lg"
+									type="submit"
+									style={{ marginBottom: "40px", marginTop: "40px" }}
+									href="/home">
+									<strong>Registra tu servicio</strong>
+								</Button>
+							</Link>
+							{/* {JSON.stringify(store.user)}
+							{JSON.stringify(store.user.userName)}
 							{JSON.stringify(tipo_membresia)}
 							{JSON.stringify(category)}
 							{JSON.stringify(subcategory)}
@@ -407,7 +398,7 @@ const RegisterService = () => {
 							{JSON.stringify(descrip_servicio)}
 							{JSON.stringify(experiencia)}
 							{JSON.stringify(portafolio)}
-							{JSON.stringify(merit)}
+							{JSON.stringify(merit)} */}
 						</Row>
 					</Form>
 				</Jumbotron>

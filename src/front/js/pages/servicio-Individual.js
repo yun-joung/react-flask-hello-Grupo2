@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
@@ -8,12 +8,15 @@ import { IndividualCard } from "../component/IndividualCard.jsx";
 import { Comments } from "../component/Mycomments.jsx";
 import { Formcomment } from "../component/formComment.jsx";
 import Portafolio from "../component/Portafolio.jsx";
+import PropTypes from "prop-types";
 
-export const Servicioindividual = () => {
+export const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
-	const { index } = props.match.params;
+	const item = store.serviceInfoById;
+	// const name_servicio = JSON.parse(JSON.stringify(store.serviceInfoById.));
+	const { id } = props.match.params;
 
-	React.useEffect(() => {
+	useEffect(() => {
 		actions.getServiceInfoById(id);
 	}, []);
 
@@ -23,7 +26,7 @@ export const Servicioindividual = () => {
 				<Row>
 					<Col className="my-5">
 						<p>
-							Desarrollar/IT <i className="fas fa-chevron-right" /> Individual
+							{item.category} <i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>
 				</Row>
@@ -34,17 +37,24 @@ export const Servicioindividual = () => {
 					<Col md={4}>
 						<Individuallnfo
 							name_servicio={item.name_servicio}
-							valor={item.name_servicio}
-							tipo_cobro={item.name_servicio}
-							subcategory={item.name_servicio}
-							duracion={item.name_servicio}
-							revision={item.name_servicio}
+							valor={item.valor}
+							tipo_cobro={item.tipo_cobro}
+							subcategory={item.subcategory}
+							duracion={item.duracion}
+							revision={item.revision}
 						/>
 					</Col>
 				</Row>
 				<Row>
 					<Col>
-						<IndividualCard />
+						<IndividualCard
+							descrip_servicio={item.descrip_servicio}
+							portafolio={item.portafolio}
+							merit={item.merit}
+							userName={item.userName}
+							experiencia={item.experiencia}
+							tipo_membresia={item.tipo_membresia}
+						/>
 					</Col>
 				</Row>
 				<div className="transBox" />
@@ -59,4 +69,9 @@ export const Servicioindividual = () => {
 			</Container>
 		</>
 	);
+};
+
+Servicioindividual.propTypes = {
+	match: PropTypes.objecto,
+	id: PropTypes.string
 };

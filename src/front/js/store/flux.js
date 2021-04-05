@@ -20,6 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			serviceRegistrado: {
 				id_user: "",
+				userName: "",
 				tipo_membresia: "",
 				category: "",
 				subcategory: "",
@@ -37,12 +38,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userAll: [],
 			favorito: {
 				id_user: "",
-				id_servicio_registrados: "1",
-				name_servicio: "test from front"
+				id_servicio_registrados: "",
+				name_servicio: ""
 			},
+			serviceByCategory: [],
 			favoritos: [],
 			serviceInfo: [],
-			serviceInfoById: [],
+			serviceInfoById: {},
 			comments: []
 		},
 
@@ -75,19 +77,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getUserInfoById: async id => {
-				try {
-					const response = await fetch("https://3001-emerald-booby-ixturige.ws-us03.gitpod.io/api/user/1", {
-						method: "GET",
-						headers: { "Content-Type": "application/json" }
-					});
-					const json = await response.json();
-					console.log("--User--", json);
-					setStore({ user: JSON.stringify(json) });
-				} catch (error) {
-					console.log("Error loading message from backend", error);
-				}
-			},
+			// getUserInfoById: async id => {
+			// 	try {
+			// 		const response = await fetch("https://3001-emerald-booby-ixturige.ws-us03.gitpod.io/api/user/1", {
+			// 			method: "GET",
+			// 			headers: { "Content-Type": "application/json" }
+			// 		});
+			// 		const json = await response.json();
+			// 		console.log("--User--", json);
+			// 		setStore({ user: JSON.stringify(json) });
+			// 	} catch (error) {
+			// 		console.log("Error loading message from backend", error);
+			// 	}
+			// },
 
 			getServiceInfo: async () => {
 				try {
@@ -105,16 +107,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getServiceInfoById: async id => {
 				try {
-					const response = await fetch(
-						"https://3001-emerald-booby-ixturige.ws-us03.gitpod.io/api/servicio-registrados/1",
-						{
-							method: "GET",
-							headers: { "Content-Type": "application/json" }
-						}
-					);
+					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
 					const json = await response.json();
 					console.log("--ServicioByID--", json);
-					setStore({ serviceInfoById: JSON.stringify(json) });
+					setStore({ serviceInfoById: json });
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
+
+			getServiceByCategory: async category => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + category, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log("--ServicioByCategory--", json);
+					setStore({ serviceByCategory: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -138,13 +151,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			showUserFavorites: async id => {
 				try {
-					const response = await fetch(
-						"https://3001-emerald-booby-ixturige.ws-us03.gitpod.io/api/favoritos/1",
-						{
-							method: "GET",
-							headers: { "Content-Type": "application/json" }
-						}
-					);
+					const response = await fetch(process.env.BACKEND_URL + "/api/favoritos/" + id, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
 					const json = await response.json();
 					console.log({ "--userFavoritos--": json });
 					setStore({ favoritos: json });
@@ -160,7 +170,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					favoritos: newList
 				});
 				try {
-					const response = await fetch(`process.env.BACKEND_URL/api/favoritos/${id}`, {
+					const response = await fetch(process.env.BACKEND_URL + "/api/favoritos/" + id, {
 						method: "DELETE",
 						headers: { "Content-Type": "application/json" }
 					});
@@ -176,12 +186,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const userLocal = JSON.parse(localStorage.getItem("user"));
 				const typeuserLocal = JSON.parse(localStorage.getItem("tipo_user"));
 				const idLocal = JSON.parse(localStorage.getItem("id"));
+				const userNameLocal = JSON.parse(localStorage.getItem("userName"));
 				setStore({
 					user: {
 						token: tokenLocal,
 						user: userLocal,
 						type_user: typeuserLocal,
-						id: idLocal
+						id: idLocal,
+						userName: userNameLocal
 					}
 				});
 				console.log("-->", tokenLocal);
@@ -262,6 +274,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("user", JSON.stringify(data.email));
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
 							localStorage.setItem("id", JSON.stringify(data.userId));
+							localStorage.setItem("userName", JSON.stringify(data.userName));
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
@@ -281,6 +294,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("user", JSON.stringify(data.email));
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
 							localStorage.setItem("id", JSON.stringify(data.id));
+							localStorage.setItem("userName", JSON.stringify(data.userName));
 						}
 					})
 					.catch(error => console.log("Error loading message from backend", error));
@@ -314,6 +328,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("user");
 				localStorage.removeItem("tipo_user");
 				localStorage.removeItem("id");
+				localStorage.removeItem("userName");
 			}
 		}
 	};

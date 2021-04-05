@@ -107,6 +107,7 @@ def get_user_by_id(id):
 def add_servicio():
 
     id_user= request.json.get("id_user",None)
+    userName= request.json.get("userName",None)
     tipo_membresia = request.json.get("tipo_membresia",None)
     category = request.json.get('category',None)
     subcategory = request.json.get('subcategory',None)
@@ -140,6 +141,7 @@ def add_servicio():
             
     servicio_registrados = Servicio_registrados()
     servicio_registrados.id_user = id_user,
+    servicio_registrados.userName = userName,
     servicio_registrados.tipo_membresia = tipo_membresia,
     servicio_registrados.category = category,
     servicio_registrados.subcategory = subcategory,
@@ -168,6 +170,11 @@ def get_all_servicios():
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
+
+@api.route('/category/<category>', methods=["GET"])
+def get_servicio_by_category(category):
+    return jsonify(Servicio_registrados.get_servicio_by_category(category))
+
 
 @api.route('/favoritos', methods=["POST"])
 def add_favorito():

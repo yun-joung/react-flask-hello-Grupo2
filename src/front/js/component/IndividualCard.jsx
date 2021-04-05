@@ -27,25 +27,17 @@ export const IndividualCard = props => {
 					<Card.Title className="mt-4" id="First">
 						Nuestro servicio
 					</Card.Title>{" "}
+					<Card.Text>{props.descrip_servicio}</Card.Text>
+					{/* <Card.Title className="mt-4">Proceso de trabajo</Card.Title>
 					<Card.Text>
 						¿Estás buscando a alguien para crear el diseño de sitios web de wix o la tienda en línea de wix?
 						¡Entonces, ha venido al lugar correcto! Crearé un sitio web profesional de wix o un sitio web de
 						comercio electrónico de wix de cada nicho de acuerdo con sus requisitos.
-					</Card.Text>
-					<Card.Title className="mt-4">Proceso de trabajo</Card.Title>
-					<Card.Text>
-						¿Estás buscando a alguien para crear el diseño de sitios web de wix o la tienda en línea de wix?
-						¡Entonces, ha venido al lugar correcto! Crearé un sitio web profesional de wix o un sitio web de
-						comercio electrónico de wix de cada nicho de acuerdo con sus requisitos.
-					</Card.Text>
-					<Card.Title className="mt-4">Portafolio / Experiencia</Card.Title>
-					<Card.Text>getbootstrap.com, getbootstrap.com, getbootstrap.com</Card.Text>
+					</Card.Text> */}
+					<Card.Title className="mt-4">Portafolio</Card.Title>
+					<Card.Text>{props.portafolio}</Card.Text>
 					<Card.Title className="mt-4">¿Por qué deberías contratarme?</Card.Title>
-					<Card.Text>
-						Realizado más de 100 sitios web al mejor nivel. La satisfacción del cliente es mi primera
-						prioridad. Calidad proporcionada y trabajo garantizado dentro de las 24 horas. Actitud
-						profesional.
-					</Card.Text>
+					<Card.Text>{props.merit}</Card.Text>
 					<Card.Title className="mt-4" id="Second">
 						{" "}
 						Sobre el vendedor
@@ -60,16 +52,16 @@ export const IndividualCard = props => {
 							style={{ borderRadius: "50%" }}
 						/>
 						<Media.Body className="ml-3 ">
-							<p className="font-weight-bold">El Nombre de Freelancer</p>
-							<p className="mb-2">3años experiencia</p>
-							<p className="mb-2">Clasificación de membresía: Miembro individual </p>
-							<p>
+							<p className="font-weight-bold">{props.userName}</p>
+							<p className="mb-2">{props.experiencia}</p>
+							<p className="mb-2">Clasificación de membresía: {props.tipo_membresia}</p>
+							{/* <p>
 								{" "}
 								<i className="fas fa-map-marker-alt" />
 								&nbsp;Santiago
-							</p>
+							</p> */}
 							<p>
-								<i className="far fa-star h3" /> calificación 4.8/5 (10 Comentario)
+								<i className="far fa-star h3" /> calificación {props.evaluacion}/5 (10 Comentario)
 							</p>
 						</Media.Body>
 					</Media>
@@ -83,8 +75,11 @@ export const IndividualCard = props => {
 };
 
 IndividualCard.propTypes = {
-	servicio: PropTypes.string,
-	proceso: PropTypes.string,
+	descrip_servicio: PropTypes.string,
+	portafolio: PropTypes.string,
+	merit: PropTypes.string,
+	userName: PropTypes.string,
 	experiencia: PropTypes.string,
-	merit: PropTypes.string
+	tipo_membresia: PropTypes.string,
+	evaluacion: PropTypes.string
 };

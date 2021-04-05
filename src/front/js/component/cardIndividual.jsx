@@ -8,24 +8,21 @@ import { Context } from "../store/appContext";
 
 export const CardIndividual = props => {
 	const { store, actions } = useContext(Context);
-	const { id } = props.match.params;
+	const { id } = props;
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		// const usuario = JSON.parse(JSON.stringify(store.user.id));
-		// const serviceId = JSON.parse(JSON.stringify(store.serviceInfo.id));
-		// const serviceName = JSON.parse(JSON.stringify(store.serviceInfo.name_servicio));
 		actions.addUserFavorites({
 			id_user: JSON.parse(JSON.stringify(store.user.id)),
-			id_servicio_registrados: 1,
-			name_servicio: "text front-end"
+			id_servicio_registrados: props.id,
+			name_servicio: props.name_servicio
 		});
 		console.log("Agregardo el favorito");
 	};
 
-	// useEffect(() => {
-	// 	actions.getToken();
-	// }, []);
+	useEffect(() => {
+		actions.getServiceInfoById(id);
+	}, []);
 
 	return (
 		<div>
@@ -33,7 +30,7 @@ export const CardIndividual = props => {
 				<Button variant="btn" className="favorito" onClick={e => handleSubmit(e)}>
 					<i className="far fa-heart" />
 				</Button>
-				<Link to="/category/individual">
+				<Link to={"/category/" + id}>
 					<img
 						src={props.img}
 						className="card-img-top caimg"
@@ -43,9 +40,6 @@ export const CardIndividual = props => {
 				</Link>
 				<Card.Body className="text-dark">
 					<Card.Text className="textOverFlow" style={{ marginBottom: "3px" }}>
-						{JSON.stringify(store.user.id)}
-						{JSON.stringify(store.serviceInfoById.id)}
-						{JSON.stringify(store.serviceInfoById.name_servicio)}
 						{props.name_servicio}
 					</Card.Text>
 					<Card.Text style={{ marginBottom: "3px" }}>
