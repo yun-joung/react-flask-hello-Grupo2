@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
-import { ServicioCategory } from "./pages/servicio-category";
-import { Servicioindividual } from "./pages/servicio-Individual";
+import ServicioCategory from "./pages/servicio-category";
+import Servicioindividual from "./pages/servicio-Individual";
 import injectContext from "./store/appContext";
 
 import MyNavbar from "./component/navbar";
@@ -36,9 +36,12 @@ const Layout = () => {
 						<Route exact path="/category">
 							<ServicioCategory />
 						</Route>
-						<Route exact path="/category/:theid">
+						<Route exact path="/category/" component={ServicioCategory} />
+						{/* <Route exact path="/category/:id">
 							<Servicioindividual />
-						</Route>
+						</Route> */}
+						<Route exact path="/category/:id" component={Servicioindividual} />
+
 						<Route exact path="/passwordrecovery">
 							<PasswordRecovery />
 						</Route>

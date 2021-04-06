@@ -36,6 +36,7 @@ class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
     id_user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    userName = db.Column(db.String(50))
     tipo_membresia = db.Column(db.String(50), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     subcategory = db.Column(db.String(50), nullable=False)
@@ -58,6 +59,7 @@ class Servicio_registrados(db.Model):
         return {
             "id": self.id,
             "id_user": self.user.id,
+            "userName": self.userName,
             "tipo_membresia": self.tipo_membresia,
             "category": self.category,
             "subcategory": self.subcategory,
@@ -72,16 +74,21 @@ class Servicio_registrados(db.Model):
             "portafolio": self.portafolio,
             "merit":self.merit
         }
-    def add_servicio(_id_user, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit ):
-        new_servicio = Servicio_registrados(id_user=_id_user, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, merit=merit)
+    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit ):
+        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, merit=merit)
         db.session.add(new_servicio)
         db.session.commit()
     def get_servicio(_id):
-        return [Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())]  
+        return Servicio_registrados.serialize(Servicio_registrados.query.filter_by(id=_id).first())
     def get_all_servicios():
         servicio_registrados = Servicio_registrados.query.all()
         db.session.commit()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
+    def get_servicio_by_category(category):
+        servicio_registrados = Servicio_registrados.query.all()
+        servicio_registrados = Servicio_registrados.query.filter_by(category=category).all()
+        return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
+    
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'
     id = db.Column(db.Integer, primary_key=True)
@@ -130,16 +137,11 @@ class Favoritos(db.Model):
         favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
         db.session.commit()
         return list(map(lambda x: x.serialize(), Favoritos.query.all()))
-    # def get_favoritos_by_user(_id_user):
-    #     return [Favoritos.serialize(Favoritos.query.filter_by(id_user=_id_user).all())]
-    # @staticmethod
-    # def get_favoritos_by_user(self,_id_user):
-    #     db.session.commit()
-    #     favoritos = Favoritos.query.filter_by(id_user = _id_user).all()
-    #     return list(map(lambda favoritos: Favoritos.serialize(), favoritos))
-    def delete_favorito(_id):
-        Favoritos.query.filter_by(id=_id).delete()
+    def delete_favorito(id):
+        delete=Favoritos.query.filter_by(id=id).first()
+        db.session.delete(delete)
         db.session.commit()
+
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
     id = db.Column(db.Integer, primary_key=True, nullable=False)

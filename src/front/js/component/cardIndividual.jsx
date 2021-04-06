@@ -8,28 +8,29 @@ import { Context } from "../store/appContext";
 
 export const CardIndividual = props => {
 	const { store, actions } = useContext(Context);
-	const { id } = 1;
+	const { id } = props;
 
-	// useEffect(() => {
-	// 	actions.getServiceInfoById(id);
-	// }, []);
+	const handleSubmit = e => {
+		e.preventDefault();
+		actions.addUserFavorites({
+			id_user: JSON.parse(JSON.stringify(store.user.id)),
+			id_servicio_registrados: props.id,
+			name_servicio: props.name_servicio
+		});
+		console.log("Agregardo el favorito");
+	};
+
+	useEffect(() => {
+		actions.getServiceInfoById(id);
+	}, []);
 
 	return (
 		<div>
 			<Card md={3}>
-				<Button
-					variant="btn"
-					className="favorito"
-					onClick={() =>
-						actions.addUserFavorites({
-							id_user: store.user.id,
-							id_servicio_registrado: 1,
-							name_servicio: "crea tu mobil-app"
-						})
-					}>
+				<Button variant="btn" className="favorito" onClick={e => handleSubmit(e)}>
 					<i className="far fa-heart" />
 				</Button>
-				<Link to="/category/individual">
+				<Link to={"/category/" + id}>
 					<img
 						src={props.img}
 						className="card-img-top caimg"
@@ -58,9 +59,8 @@ export const CardIndividual = props => {
 CardIndividual.propTypes = {
 	img: PropTypes.string,
 	name_servicio: PropTypes.string,
-	valor: PropTypes.string,
 	punta: PropTypes.string,
-	valor: PropTypes.string,
+	valor: PropTypes.number,
 	trabajo: PropTypes.string,
 	tipo_cobro: PropTypes.string,
 	match: PropTypes.object,
