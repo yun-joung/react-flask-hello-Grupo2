@@ -1,22 +1,40 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { logoBlanco, man } from "../../img/image";
 import { withRouter } from "react-router-dom";
 import { Container, Button, Form, FormControl, Row, Col } from "react-bootstrap";
 import { IconBox } from "../component/IconBox.jsx";
-import { CardBox } from "../component/cardBox.jsx";
+import { PersonBox } from "../component/personBox.jsx";
 import { ServiceBox } from "../component/serviceBox.jsx";
 import { Footer } from "../component/footer";
 import { LoginModal, LoginModalA } from "../component/Login";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
+import PropTypes from "prop-types";
 
-const LandingPage = () => {
+const LandingPage = props => {
+	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		actions.getToken();
+	}, []);
+	console.log(store.user);
+
+	const { id } = props.match.params;
+
+	if (store.user.token == null) {
+		console.log("no existe un usuario");
+	} else {
+		console.log("existe un usuario");
+		props.history.push("/home");
+	}
+
 	return (
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-salmon-otter-elqylgff.ws-us03.gitpod.io/)`
+				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -32,11 +50,11 @@ const LandingPage = () => {
 						</Col>
 						<Col xs={8}>
 							<Link to="/register">
-								<Button variant="outline-light" className="float-right mt-5" style={{ border: "none" }}>
+								<Button variant="light" className="float-right mt-5">
 									Registrate
 								</Button>
 							</Link>
-							<a>{LoginModalA()}</a>
+							<LoginModalA />
 						</Col>
 					</Row>
 					<Row>
@@ -66,13 +84,15 @@ const LandingPage = () => {
 									&nbsp;&nbsp;Buscar un freelancer&nbsp;&nbsp;
 								</Button>
 							</Link>
-							<Button
-								variant="secondary"
-								className="mt-2 px-4"
-								sm={12}
-								style={{ borderRadius: "1.75rem" }}>
-								&nbsp;&nbsp;&nbsp;&nbsp;Soy un freelancer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							</Button>
+							<Link to="/register">
+								<Button
+									variant="secondary"
+									className="mt-2 px-4"
+									sm={12}
+									style={{ borderRadius: "1.75rem" }}>
+									&nbsp;&nbsp;&nbsp;&nbsp;Soy un freelancer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								</Button>
+							</Link>
 						</Col>
 						<Col md={5} sm={12} className="mt-5">
 							<img
@@ -85,7 +105,7 @@ const LandingPage = () => {
 						</Col>
 					</Row>
 					<IconBox />
-					<CardBox title="Categorias más buscadas" />
+					<PersonBox title="Profesionales más solicitados" />
 					<ServiceBox />
 					<br />
 
@@ -97,11 +117,17 @@ const LandingPage = () => {
 					<Button variant="outline-success">Success</Button>
 					<Button variant="light">Light</Button>
 					<Button variant="outline-light">Light</Button>
-					<Footer />
 				</div>
 			</Container>
+			<Footer />
 		</div>
 	);
 };
 
 export default withRouter(LandingPage);
+
+LandingPage.propTypes = {
+	user: PropTypes.object,
+	history: PropTypes.object,
+	match: PropTypes.object
+};
