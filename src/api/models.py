@@ -84,9 +84,9 @@ class Servicio_registrados(db.Model):
         servicio_registrados = Servicio_registrados.query.all()
         db.session.commit()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
-    def get_servicio_by_category(self, _category):
+    def get_servicio_by_category(category):
         servicio_registrados = Servicio_registrados.query.all()
-        servicio_registrados = Servicio_registrados.query.filter_by(category=_category).all()
+        servicio_registrados = Servicio_registrados.query.filter_by(category=category).all()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
     
 class Servicios_prestados(db.Model):
@@ -137,9 +137,11 @@ class Favoritos(db.Model):
         favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
         db.session.commit()
         return list(map(lambda x: x.serialize(), Favoritos.query.all()))
-    def delete_favorito(_id):
-        Favoritos.query.filter_by(id=_id).delete()
+    def delete_favorito(_id_servicio_registrados):
+        delete=Favoritos.query.filter_by(id_servicio_registrados=_id_servicio_registrados).all()
+        db.session.delete(delete)
         db.session.commit()
+
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
     id = db.Column(db.Integer, primary_key=True, nullable=False)

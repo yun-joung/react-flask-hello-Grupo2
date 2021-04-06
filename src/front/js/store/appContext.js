@@ -20,7 +20,7 @@ const injectContext = PassedComponent => {
 			state.actions.getServiceInfo();
 			state.actions.listComments();
 			//state.actions.getUserInfoById();
-			state.actions.showUserFavorites();
+			//state.actions.showUserFavorites();
 			//state.actions.getToken();
 		}, []);
 		return (

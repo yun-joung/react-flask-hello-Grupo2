@@ -10,7 +10,12 @@ import { Context } from "../store/appContext";
 export const CategoryBox = props => {
 	const { store, actions } = useContext(Context);
 	console.log(store.serviceInfo);
-	const id = { props };
+	//const id = { props };
+	// const category = props;
+
+	// useEffect(() => {
+	// 	actions.getServiceByCategory(category);
+	// }, []);
 
 	return (
 		<>

@@ -91,11 +91,10 @@ function MyVerticallyCenteredModal(props) {
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 	const { store, actions } = useContext(Context);
-	console.log(store.favoritos);
-	const id = props;
+	const id = JSON.stringify(store.user.id);
 
 	useEffect(() => {
-		actions.showUserFavorites(id);
+		actions.showUserFavorites(1);
 	}, []);
 
 	return (
@@ -103,6 +102,10 @@ export function LoginModal(props) {
 			{store.user.token !== null ? (
 				<>
 					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
+						<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
+							{JSON.stringify(store.favoritos.id_user)}
+							{JSON.stringify(store.user.id)}
+						</NavDropdown.Item>
 						{store.favoritos.map((item, index) => {
 							return (
 								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
@@ -110,7 +113,7 @@ export function LoginModal(props) {
 									<Button
 										variant="light"
 										className="float-right"
-										onClick={() => actions.eliminaFavorito(item.id)}>
+										onClick={() => actions.eliminaFavorito(item.id_servicio_registrados)}>
 										<i className="fas fa-trash-alt float-right" />
 									</Button>
 								</NavDropdown.Item>
@@ -168,7 +171,9 @@ export function LoginModalA() {
 LoginModal.propTypes = {
 	user: PropTypes.object,
 	name_servicio: PropTypes.string,
-	id: PropTypes.number
+	id_user: PropTypes.number,
+	id: PropTypes.number,
+	favorito: PropTypes.object
 };
 
 Modal.propTypes = {

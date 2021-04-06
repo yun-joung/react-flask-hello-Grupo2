@@ -127,7 +127,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const json = await response.json();
 					console.log("--ServicioByCategory--", json);
-					setStore({ serviceByCategory: json });
+					setStore({ ServicioByCategory: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -144,6 +144,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const json = await response.json();
 					console.log({ "--favorito registrado--": json });
+					setStore({ favorito: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}

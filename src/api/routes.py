@@ -171,10 +171,9 @@ def get_all_servicios():
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
 
-@api.route('/category/<category>', methods=["GET"])
+@api.route('/servicio-registrados/category/<category>', methods=["GET"])
 def get_servicio_by_category(category):
     return jsonify(Servicio_registrados.get_servicio_by_category(category))
-
 
 @api.route('/favoritos', methods=["POST"])
 def add_favorito():
@@ -205,9 +204,9 @@ def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)
     return jsonify(favoritos)
 
-@api.route('/favoritos/<int:id>', methods=["DELETE"])
-def delete_favorito(id):
-    Favoritos.delete_favorito(id)
+@api.route('/favoritos/<int:id_servicio_registrados>', methods=["DELETE"])
+def delete_favorito(id_servicio_registrados):
+    Favoritos.delete_favorito(id_servicio_registrados)
     return jsonify({"success": True})
 
 # @api.route('/comentarios', methods=["POST"])

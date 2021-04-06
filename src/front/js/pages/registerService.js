@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 
-const RegisterService = () => {
+const RegisterService = props => {
 	const { store, actions } = useContext(Context);
 
 	const [tipo_membresia, setTipo_membresia] = useState("");
@@ -29,64 +29,66 @@ const RegisterService = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		// if (!tipo_membresia.trim()) {
-		// 	setError("ingresar tipo_membresia");
-		// 	return;
-		// }
-		// if (!category.trim()) {
-		// 	setError("ingresar category de servicio");
-		// 	return;
-		// }
-		// if (!subcategory.trim()) {
-		// 	setError("ingresar subcategory de servicio");
-		// 	return;
-		// }
-		// if (!tipo_cobro.trim()) {
-		// 	setError("ingresar tipo de cobro de servicio");
-		// 	return;
-		// }
-		// if (!valor.trim()) {
-		// 	setError("ingresar valor de servicio");
-		// 	return;
-		// }
-		// if (!name_servicio.trim()) {
-		// 	setError("ingresar nombre de servicio");
-		// 	return;
-		// }
-		// if (!descrip_servicio.trim()) {
-		// 	setError("ingresar descripción de servicio");
-		// 	return;
-		// }
-		// if (!revision.trim()) {
-		// 	setError("ingresar numero de corectiones");
-		// 	return;
-		// }
-		// if (!experiencia.trim()) {
-		// 	setError("ingresar el tiempo llevas trabajando en esta área");
-		// 	return;
-		// } else {
-		const usuario = JSON.parse(JSON.stringify(store.user.id));
-		const userName = JSON.parse(JSON.stringify(store.user.userName));
-		actions.addServicio({
-			id_user: usuario,
-			userName: userName,
-			tipo_membresia: tipo_membresia,
-			category: category,
-			subcategory: subcategory,
-			tipo_cobro: tipo_cobro,
-			valor: valor,
-			name_servicio: name_servicio,
-			descrip_servicio: descrip_servicio,
-			duracion: duracion,
-			revision: revision,
-			proceso: proceso,
-			experiencia: experiencia,
-			portafolio: portafolio,
-			merit: merit
-		});
-		console.log("pasando todas validacion");
-		//setError(null);
-		//}
+		if (!tipo_membresia.trim()) {
+			setError("1. ingresar tipo_membresia");
+			return;
+		}
+		if (!category.trim()) {
+			setError("2. ingresar category de servicio");
+			return;
+		}
+		if (!subcategory.trim()) {
+			setError("2. ingresar subcategory de servicio");
+			return;
+		}
+		if (!tipo_cobro.trim()) {
+			setError("3. ingresar tipo de cobro de servicio");
+			return;
+		}
+		if (!valor.trim()) {
+			setError("3. ingresar valor de servicio");
+			return;
+		}
+		if (!name_servicio.trim()) {
+			setError("4. ingresar nombre de servicio");
+			return;
+		}
+		if (!descrip_servicio.trim()) {
+			setError("5. ingresar descripción de servicio");
+			return;
+		}
+		if (!revision.trim()) {
+			setError("7. ingresar numero de corectiones");
+			return;
+		}
+		if (!experiencia.trim()) {
+			setError("8. ingresar el tiempo llevas trabajando en esta área");
+			return;
+		} else {
+			const usuario = JSON.parse(JSON.stringify(store.user.id));
+			const userName = JSON.parse(JSON.stringify(store.user.userName));
+			actions.addServicio({
+				id_user: usuario,
+				userName: userName,
+				tipo_membresia: tipo_membresia,
+				category: category,
+				subcategory: subcategory,
+				tipo_cobro: tipo_cobro,
+				valor: valor,
+				name_servicio: name_servicio,
+				descrip_servicio: descrip_servicio,
+				duracion: duracion,
+				revision: revision,
+				proceso: proceso,
+				experiencia: experiencia,
+				portafolio: portafolio,
+				merit: merit
+			});
+			console.log("pasando todas validacion");
+			props.history.push("/home");
+			//setError(null);
+			//}
+		}
 	};
 	useEffect(() => {
 		actions.getToken();
@@ -125,15 +127,12 @@ const RegisterService = () => {
 					</Row>
 				</div>
 				<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
-					<Form
-						onClick={e => {
-							handleSubmit(e);
-						}}>
+					<Form>
 						{error && <div className="alert alert-danger">{error}</div>}
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Tamaño de tu equipo<span style={{ color: "red" }}>*</span>
+									1. Tamaño de tu equipo<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -157,7 +156,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Categoria de tu servicio<span style={{ color: "red" }}>*</span>
+									2. Categoria de tu servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -171,7 +170,7 @@ const RegisterService = () => {
 									marginBottom: "10px"
 								}}>
 								<option defaultValue>Seleccionar categoría de servicio</option>
-								<option>Desarrollo IT</option>
+								<option>Desarrollo-IT</option>
 								<option>Diseño</option>
 								<option>Marketing</option>
 								<option>Contabilidad</option>
@@ -197,7 +196,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Costo del servicio<span style={{ color: "red" }}>*</span>
+									3. Costo del servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -233,7 +232,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Nombre del Servicio<span style={{ color: "red" }}>*</span>
+									4. Nombre del Servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -253,7 +252,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Descripción de tu servicio<span style={{ color: "red" }}>*</span>
+									5. Descripción de tu servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -271,7 +270,7 @@ const RegisterService = () => {
 
 						<Form.Group>
 							<Form.Label>
-								<h5>Plazo estimado (meses) para exjecutar el projecto</h5>
+								<h5>6. Plazo estimado (meses) para exjecutar el projecto</h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
@@ -287,7 +286,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Numero de corectiones permitidas a tu cliente previo a entregable final
+									7. Numero de corectiones permitidas a tu cliente previo a entregable final
 									<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
@@ -321,7 +320,7 @@ const RegisterService = () => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									Años de experiencia en esta área
+									8. Años de experiencia en esta área
 									<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
@@ -346,7 +345,7 @@ const RegisterService = () => {
 
 						<Form.Group>
 							<Form.Label>
-								<h5>Portafolio que quisieras mostrar a tus potenciales clientes</h5>
+								<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
@@ -363,7 +362,7 @@ const RegisterService = () => {
 
 						<Form.Group>
 							<Form.Label>
-								<h5>Detalla los trabajos que haz realizado</h5>
+								<h5>10. Detalla los trabajos que haz realizado</h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
@@ -376,6 +375,7 @@ const RegisterService = () => {
 								//isInvalid={!!errors.merit}
 							/>
 						</Form.Group>
+						{error && <div className="alert alert-danger">{error}</div>}
 						<Row style={{ justifyContent: "center" }}>
 							<Link to="/home">
 								<Button
@@ -383,7 +383,10 @@ const RegisterService = () => {
 									size="lg"
 									type="submit"
 									style={{ marginBottom: "40px", marginTop: "40px" }}
-									href="/home">
+									href="/home"
+									onClick={e => {
+										handleSubmit(e);
+									}}>
 									<strong>Registra tu servicio</strong>
 								</Button>
 							</Link>
@@ -414,5 +417,6 @@ const RegisterService = () => {
 export default withRouter(RegisterService);
 
 RegisterService.propTypes = {
-	id_user: PropTypes.number
+	id_user: PropTypes.number,
+	history: PropTypes.object
 };

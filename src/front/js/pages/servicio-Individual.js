@@ -9,11 +9,11 @@ import { Comments } from "../component/Mycomments.jsx";
 import { Formcomment } from "../component/formComment.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
-export const Servicioindividual = props => {
+const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
 	const item = store.serviceInfoById;
-	// const name_servicio = JSON.parse(JSON.stringify(store.serviceInfoById.));
 	const { id } = props.match.params;
 
 	useEffect(() => {
@@ -70,6 +70,8 @@ export const Servicioindividual = props => {
 		</>
 	);
 };
+
+export default withRouter(Servicioindividual);
 
 Servicioindividual.propTypes = {
 	match: PropTypes.objecto,
