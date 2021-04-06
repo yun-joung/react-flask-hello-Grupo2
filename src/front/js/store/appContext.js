@@ -21,7 +21,7 @@ const injectContext = PassedComponent => {
 			state.actions.listComments();
 			//state.actions.getUserInfoById();
 			//state.actions.showUserFavorites();
-			//state.actions.getToken();
+			state.actions.getToken();
 		}, []);
 		return (
 			<Context.Provider value={state}>

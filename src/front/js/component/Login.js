@@ -91,10 +91,9 @@ function MyVerticallyCenteredModal(props) {
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 	const { store, actions } = useContext(Context);
-	const id = JSON.stringify(store.user.id);
 
 	useEffect(() => {
-		actions.showUserFavorites(1);
+		actions.showUserFavorites();
 	}, []);
 
 	return (
@@ -103,8 +102,7 @@ export function LoginModal(props) {
 				<>
 					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
 						<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
-							{JSON.stringify(store.favoritos.id_user)}
-							{JSON.stringify(store.user.id)}
+							{JSON.stringify(store.favoritos.id)}
 						</NavDropdown.Item>
 						{store.favoritos.map((item, index) => {
 							return (
@@ -113,7 +111,7 @@ export function LoginModal(props) {
 									<Button
 										variant="light"
 										className="float-right"
-										onClick={() => actions.eliminaFavorito(item.id_servicio_registrados)}>
+										onClick={() => actions.eliminaFavorito(item.id)}>
 										<i className="fas fa-trash-alt float-right" />
 									</Button>
 								</NavDropdown.Item>

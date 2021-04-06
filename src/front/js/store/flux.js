@@ -151,11 +151,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			showUserFavorites: async id => {
+				const store = getStore();
+				console.log(store.user.id);
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/favoritos/" + id, {
-						method: "GET",
-						headers: { "Content-Type": "application/json" }
-					});
+					const response = await fetch(
+						process.env.BACKEND_URL + "/api/favoritos/" + localStorage.getItem("id"),
+						{
+							method: "GET",
+							headers: { "Content-Type": "application/json" }
+						}
+					);
 					const json = await response.json();
 					console.log({ "--userFavoritos--": json });
 					setStore({ favoritos: json });

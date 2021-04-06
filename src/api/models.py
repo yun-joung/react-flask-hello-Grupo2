@@ -137,8 +137,8 @@ class Favoritos(db.Model):
         favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
         db.session.commit()
         return list(map(lambda x: x.serialize(), Favoritos.query.all()))
-    def delete_favorito(_id_servicio_registrados):
-        delete=Favoritos.query.filter_by(id_servicio_registrados=_id_servicio_registrados).all()
+    def delete_favorito(id):
+        delete=Favoritos.query.filter_by(id=id).first()
         db.session.delete(delete)
         db.session.commit()
 

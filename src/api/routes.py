@@ -204,9 +204,9 @@ def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)
     return jsonify(favoritos)
 
-@api.route('/favoritos/<int:id_servicio_registrados>', methods=["DELETE"])
-def delete_favorito(id_servicio_registrados):
-    Favoritos.delete_favorito(id_servicio_registrados)
+@api.route('/favoritos/<int:id>', methods=["DELETE"])
+def delete_favorito(id):
+    Favoritos.delete_favorito(id)
     return jsonify({"success": True})
 
 # @api.route('/comentarios', methods=["POST"])
