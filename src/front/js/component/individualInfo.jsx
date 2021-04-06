@@ -30,10 +30,6 @@ export const Individuallnfo = props => {
 			total_valor_servicio: ""
 		});
 	};
-	useEffect(() => {
-		actions.getServiceById(id);
-		actions.getToken();
-	}, []);
 	return (
 		<>
 			<h2>{props.name_servicio}</h2>

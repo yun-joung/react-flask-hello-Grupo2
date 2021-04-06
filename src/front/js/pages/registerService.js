@@ -86,8 +86,7 @@ const RegisterService = props => {
 			});
 			console.log("pasando todas validacion");
 			props.history.push("/home");
-			//setError(null);
-			//}
+			setError(null);
 		}
 	};
 	useEffect(() => {
@@ -377,7 +376,6 @@ const RegisterService = props => {
 						</Form.Group>
 						{error && <div className="alert alert-danger">{error}</div>}
 						<Row style={{ justifyContent: "center" }}>
-							{/* <Link to="/home"> */}
 							<Button
 								variant="primary"
 								size="lg"
@@ -389,7 +387,7 @@ const RegisterService = props => {
 								href="/home">
 								<strong>Registra tu servicio</strong>
 							</Button>
-							{/* </Link> */}
+
 							{/* {JSON.stringify(store.user.id)}
 							{JSON.stringify(tipo_membresia)}
 							{JSON.stringify(category)}
