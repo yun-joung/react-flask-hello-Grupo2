@@ -267,3 +267,32 @@ def passwordrecovery1():
     }
   
     return jsonify(response), 200  
+
+@api.route('/buyservice', methods=['POST'])
+def buyservice():
+
+    id_user_compra = request.json.get("id_user_compra", None)
+    id_servicio_registrados = request.json.get("id_servicio_registrados", None)
+    cantidad_servicio = request.json.get("cantidad_servicio", None)
+    total_valor_servicio = request.json.get("total_valor_servicio", None)
+    fecha_inicio = "04-04-2021"
+
+    servicios_prestados = Servicios_prestados()
+    servicios_prestados.id_user_compra =  id_user_compra
+    servicios_prestados.id_servicio_registrados =  id_servicio_registrados
+    servicios_prestados.cantidad_servicio =  cantidad_servicio
+    servicios_prestados.total_valor_servicio =  total_valor_servicio
+    servicios_prestados.fecha_inicio =  fecha_inicio
+
+    print(servicios_prestados)
+    db.session.add(servicios_prestados)
+    db.session.commit()
+
+    # id_query = Servicio_registrados.query.filter_by(id=id_servicio_registrados).first()
+    # id_oferente = id_query.id
+
+    response = {
+        "msg": "Compra registrada correctamente",
+    }
+  
+    return jsonify(response), 200

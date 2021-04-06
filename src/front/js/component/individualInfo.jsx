@@ -20,6 +20,20 @@ export const Individuallnfo = props => {
 		console.log("Agregardo el favorito");
 	};
 
+	const handleBuy = e => {
+		e.preventDefault();
+		const usuario = JSON.parse(JSON.stringify(store.user.id));
+		actions.buyService({
+			id_user_compra: usuario,
+			id_servicio_registrado: "",
+			cantidad_servicio: "",
+			total_valor_servicio: ""
+		});
+	};
+	useEffect(() => {
+		actions.getServiceById(id);
+		actions.getToken();
+	}, []);
 	return (
 		<>
 			<h2>{props.name_servicio}</h2>

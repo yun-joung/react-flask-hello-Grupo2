@@ -377,21 +377,20 @@ const RegisterService = props => {
 						</Form.Group>
 						{error && <div className="alert alert-danger">{error}</div>}
 						<Row style={{ justifyContent: "center" }}>
-							<Link to="/home">
-								<Button
-									variant="primary"
-									size="lg"
-									type="submit"
-									style={{ marginBottom: "40px", marginTop: "40px" }}
-									href="/home"
-									onClick={e => {
-										handleSubmit(e);
-									}}>
-									<strong>Registra tu servicio</strong>
-								</Button>
-							</Link>
-							{/* {JSON.stringify(store.user)}
-							{JSON.stringify(store.user.userName)}
+							{/* <Link to="/home"> */}
+							<Button
+								variant="primary"
+								size="lg"
+								type="submit"
+								style={{ marginBottom: "40px", marginTop: "40px" }}
+								onClick={e => {
+									handleSubmit(e);
+								}}
+								href="/home">
+								<strong>Registra tu servicio</strong>
+							</Button>
+							{/* </Link> */}
+							{/* {JSON.stringify(store.user.id)}
 							{JSON.stringify(tipo_membresia)}
 							{JSON.stringify(category)}
 							{JSON.stringify(subcategory)}

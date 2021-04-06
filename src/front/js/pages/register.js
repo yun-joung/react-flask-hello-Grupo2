@@ -39,7 +39,7 @@ const Register = () => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-cyan-crayfish-rvwbkh4j.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
