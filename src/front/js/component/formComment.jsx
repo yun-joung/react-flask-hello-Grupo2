@@ -49,7 +49,7 @@ export const Formcomment = () => {
 												<Button
 													variant="info"
 													onClick={() => {
-														actions.addComment(text_comment);
+														actions.addComment(text_comment, assessment);
 													}}>
 													<i className="fa fa-reply"></i> reply
 												</Button>{" "}
