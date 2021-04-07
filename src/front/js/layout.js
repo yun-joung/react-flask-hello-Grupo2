@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
-import { ServicioCategory } from "./pages/servicio-category";
-import { Servicioindividual } from "./pages/servicio-Individual";
+import ServicioCategory from "./pages/servicio-category";
+import Servicioindividual from "./pages/servicio-Individual";
 import injectContext from "./store/appContext";
 
 import MyNavbar from "./component/navbar";
@@ -13,6 +13,7 @@ import { PasswordRecovery } from "./component/PasswordRecovery";
 import { PasswordRecovery2 } from "./component/PasswordRecovery2";
 import Register from "./pages/register";
 import RegisterService from "./pages/registerService";
+import { GraciasCompra } from "./pages/GraciasCompra";
 
 //create your first component
 const Layout = () => {
@@ -35,9 +36,12 @@ const Layout = () => {
 						<Route exact path="/category">
 							<ServicioCategory />
 						</Route>
-						<Route exact path="/category/:theid">
+						<Route exact path="/category/" component={ServicioCategory} />
+						{/* <Route exact path="/category/:id">
 							<Servicioindividual />
-						</Route>
+						</Route> */}
+						<Route exact path="/category/:id" component={Servicioindividual} />
+
 						<Route exact path="/passwordrecovery">
 							<PasswordRecovery />
 						</Route>
@@ -49,6 +53,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/registerservice">
 							<RegisterService />
+						</Route>
+						<Route exact path="/compra">
+							<GraciasCompra />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

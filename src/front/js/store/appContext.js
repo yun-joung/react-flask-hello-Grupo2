@@ -16,8 +16,12 @@ const injectContext = PassedComponent => {
 			})
 		);
 		useEffect(() => {
+			//state.actions.isAuthenticated();
 			state.actions.getServiceInfo();
 			state.actions.listComments();
+			//state.actions.getUserInfoById();
+			//state.actions.showUserFavorites();
+			state.actions.getToken();
 		}, []);
 		return (
 			<Context.Provider value={state}>

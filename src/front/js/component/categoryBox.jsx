@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useParams } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { CardCategory } from "./cardCategory.jsx";
@@ -10,48 +10,28 @@ import { Context } from "../store/appContext";
 export const CategoryBox = props => {
 	const { store, actions } = useContext(Context);
 	console.log(store.serviceInfo);
+	//const id = { props };
+	// const category = props;
+
+	// useEffect(() => {
+	// 	actions.getServiceByCategory(category);
+	// }, []);
 
 	return (
 		<>
 			<Container>
-				<Row className="row-cols-sm-2 row-cols-md-3  row-cols-lg-3 align-items-center">
-					<Col className="mb-4">
-						<CardIndividual
-							img={serviceIt}
-							title="Crearé un sitio web"
-							valor="50.000/hora"
-							punta="4.5"
-							trabajo="50"
-						/>
-					</Col>
-					<Col className="mb-4">
-						<CardIndividual
-							img={serviceIt}
-							title="Crearé un sitio web"
-							valor="50.000/hora"
-							punta="4.5"
-							trabajo="50"
-						/>
-					</Col>
-					<Col className="mb-4">
-						<CardIndividual
-							img={serviceIt}
-							title="Crearé un sitio web"
-							valor="50.000/hora"
-							punta="4.5"
-							trabajo="50"
-						/>
-					</Col>
-					{store.serviceInfo.map((item, index) => {
+				<Row className="row-cols-sm-2 row-cols-md-4  row-cols-lg-4 align-items-center">
+					{store.serviceInfo.map(item => {
 						return (
-							<Col className="mb-4" key={index}>
+							<Col className="mb-4" key={item.id}>
 								<CardIndividual
+									id={item.id}
 									img={serviceIt}
-									title={item.name_servicio}
+									name_servicio={item.name_servicio}
 									valor={item.valor}
-									tipoCobro={item.tipo_cobro}
-									punta="4.5"
-									trabajo="50"
+									tipo_cobro={item.tipo_cobro}
+									// punta="4.5"
+									// trabajo="50"
 								/>
 							</Col>
 						);
@@ -61,3 +41,7 @@ export const CategoryBox = props => {
 		</>
 	);
 };
+
+// CategoryBox.propTypes = {
+// 	id: PropTypes.number
+// };

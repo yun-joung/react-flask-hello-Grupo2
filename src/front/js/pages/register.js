@@ -15,6 +15,7 @@ const Register = () => {
 	const [password, setPassword] = useState("");
 	const [password2, setPassword2] = useState("");
 	const [typeUser, setTypeuser] = useState("");
+	const [userName, setUsername] = useState("");
 
 	const handlerClick = e => {
 		e.preventDefault();
@@ -24,7 +25,8 @@ const Register = () => {
 			actions.setRegister({
 				email: email,
 				password: password,
-				tipo_user: typeUser
+				tipo_user: typeUser,
+				userName: userName
 			});
 		}
 	};
@@ -37,7 +39,7 @@ const Register = () => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-crimson-sparrow-lnsr60r4.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -70,13 +72,43 @@ const Register = () => {
 							width: "730px"
 						}}>
 						{store.user.token !== null ? (
-							<div className="text-center mt-3 mb-5">
-								{/* <span>User: {JSON.stringify(store.user)}</span> */}
-								La sesión ya se encuentra iniciada
-							</div>
+							<Container>
+								<Row>
+									<Col className="text-center mt-3 mb-5">
+										{/* <span>User: {JSON.stringify(store.user)}</span> */}
+										La sesión ya se encuentra iniciada
+									</Col>
+								</Row>
+								<Row style={{ justifyContent: "center" }}>
+									<Link to="/home">
+										<Button
+											variant="primary"
+											size="lg"
+											type="button"
+											style={{ marginBottom: "40px", marginTop: "40px" }}
+											href="/home">
+											<strong>Volver a home</strong>
+										</Button>
+									</Link>
+								</Row>
+							</Container>
 						) : (
 							<Form>
-								<Form.Group as={Row} controlId="formHorizontalEmail">
+								<Form.Group as={Row} controlId="formHorizontaluserName">
+									<Col sm={1}></Col>
+									<Form.Label column sm={3}>
+										<h6>Nombre de usuario</h6>
+									</Form.Label>
+									<Col sm={6}>
+										<Form.Control
+											type="user"
+											value={userName}
+											onChange={e => setUsername(e.target.value)}
+										/>
+									</Col>
+									<Col sm={1}></Col>
+								</Form.Group>
+								<Form.Group as={Row} controlId="formHorizontalemail">
 									<Col sm={1}></Col>
 									<Form.Label column sm={3}>
 										<h6>Correo electrónico</h6>
@@ -91,7 +123,7 @@ const Register = () => {
 									<Col sm={1}></Col>
 								</Form.Group>
 
-								<Form.Group as={Row} controlId="formHorizontalPassword">
+								<Form.Group as={Row} controlId="formHorizontalpassword">
 									<Col sm={1}></Col>
 									<Form.Label column sm={3}>
 										<h6>Contraseña</h6>
@@ -105,7 +137,7 @@ const Register = () => {
 									</Col>
 									<Col sm={1}></Col>
 								</Form.Group>
-								<Form.Group as={Row} className="pb-3" controlId="formHorizontalPassword2">
+								<Form.Group as={Row} className="pb-3" controlId="formHorizontalpassword2">
 									<Col sm={1}></Col>
 									<Form.Label column sm={3}>
 										<h6>Confirmar contraseña</h6>

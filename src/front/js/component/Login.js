@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { DropdownButton, Dropdown } from "react-bootstrap";
+import { NavDropdown, Dropdown, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 // import useUserSession from "./userSession";
 
@@ -32,6 +32,17 @@ function MyVerticallyCenteredModal(props) {
 					<div className="text-center mt-3 mb-5">
 						{/* <span>User: {JSON.stringify(store.user)}</span> */}
 						La sesión ha sido iniciada
+						<Row style={{ justifyContent: "center" }}>
+							<Link to="/home">
+								<Button
+									variant="primary"
+									size="lg"
+									type="submit"
+									style={{ marginBottom: "40px", marginTop: "40px" }}>
+									<strong>Volver a home</strong>
+								</Button>
+							</Link>
+						</Row>
 					</div>
 				) : (
 					<Form style={{ paddingRight: "30px", paddingLeft: "20px", marginTop: "50px" }}>
@@ -80,48 +91,69 @@ function MyVerticallyCenteredModal(props) {
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 	const { store, actions } = useContext(Context);
-	console.log(store.favoritos);
+
+	useEffect(() => {
+		actions.showUserFavorites();
+	}, []);
 
 	return (
 		<>
-			{props.user.id !== undefined ? (
+			{store.user.token !== null ? (
 				<>
-					<DropdownButton menuAlign="right" title="Mi favoritos" id="dropdown-menu-align-right">
-						<Dropdown.Item eventKey="1" style={{ width: "200px" }}>
-							servicio_name
-							<Button variant="light" className="float-right">
-								<i className="fas fa-trash-alt float-right" />
-							</Button>
-						</Dropdown.Item>
-
-						{/* {store.favoritos.map(item => {
+					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
+						<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
+							{JSON.stringify(store.favoritos.id)}
+						</NavDropdown.Item>
+						{store.favoritos.map((item, index) => {
 							return (
-								<Dropdown.Item eventkey={index} key={item.id_servicio_registrados}>
+								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
 									{item.name_servicio}
 									<Button
-										variant="outline-dark float-right"
-										style={{ width: "100px" }}
-										onClick={() => actions.eliminaFavorito(item)}>
-										<i className="fas fa-trash-alt float-right"></i>
+										variant="light"
+										className="float-right"
+										onClick={() => actions.eliminaFavorito(item.id)}>
+										<i className="fas fa-trash-alt float-right" />
 									</Button>
-								</Dropdown.Item>
+								</NavDropdown.Item>
 							);
-						})} */}
-						<Dropdown.Divider />
-						<Dropdown.Item eventKey="3">Salir</Dropdown.Item>
-					</DropdownButton>
+						})}
+					</NavDropdown>
+					<NavDropdown title="Mi cuenta" id="basic-nav-dropdown" className="float-right">
+						<NavDropdown.Item href="#action/3.1">Mis datos</NavDropdown.Item>
+						<NavDropdown.Item href="#action/3.2">Compra</NavDropdown.Item>
+						<NavDropdown.Item href="/registerservice">Vender</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item
+							onClick={() => {
+								actions.cerrarSesion();
+								actions.getToken();
+								setModalShow(false);
+							}}>
+							Salir
+						</NavDropdown.Item>
+					</NavDropdown>
 				</>
 			) : (
 				<>
-					<Button variant="primary" onClick={() => setModalShow(true)}>
+					<Button
+						variant="outline-primary "
+						className="no-outline mr-2"
+						style={{ borderRadius: "1.75rem" }}
+						onClick={() => setModalShow(true)}>
 						Ingresa
 					</Button>
 					<MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
+					<Link to="/register">
+						<button className="btn btn-primary float-right" style={{ borderRadius: "1.75rem" }}>
+							&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
+						</button>
+					</Link>
 				</>
 			)}
 		</>
 	);
 }
+
 export function LoginModalA() {
 	const [modalShow, setModalShow] = React.useState(false);
 	return (
@@ -136,7 +168,10 @@ export function LoginModalA() {
 
 LoginModal.propTypes = {
 	user: PropTypes.object,
-	name_servicio: PropTypes.string
+	name_servicio: PropTypes.string,
+	id_user: PropTypes.number,
+	id: PropTypes.number,
+	favorito: PropTypes.object
 };
 
 Modal.propTypes = {

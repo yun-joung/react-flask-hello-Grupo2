@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Form, FormControl, Navbar, Nav, Col, Container } from "react-bootstrap";
 import { logoAzul } from "../../img/image";
@@ -9,6 +9,9 @@ import { Context } from "../store/appContext";
 const MyNavbar = props => {
 	const { store, actions } = useContext(Context);
 	console.log(store.user);
+	useEffect(() => {
+		actions.getToken();
+	}, []);
 
 	if (
 		props.location.pathname === "/" ||
@@ -35,18 +38,13 @@ const MyNavbar = props => {
 						<Col sm={6} md={4} className="hidden-sm">
 							<Form inline className="Buscar sb d-flex float-right mt-2 hidden-sm">
 								<FormControl type="text" placeholder="Buscar" className="mr-sm-4 search" />
-								<Button variant="btn">
+								<Button variant="btn" onChange={event => props.handledChange(event)}>
 									<i className="fas fa-search pr-3" />
 								</Button>
 							</Form>
 						</Col>
 						<Col sm={6} md={3}>
-							<div className="ml-auto float-right mt-2">
-								<Link to="/register">
-									<Button variant="outline-primary " className="no-outline mr-2">
-										&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
-									</Button>
-								</Link>
+							<div className="ml-auto">
 								<LoginModal user={store.user} />
 							</div>
 						</Col>

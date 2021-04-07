@@ -32,7 +32,7 @@ export const PasswordRecovery = () => {
 							</h4>
 							<br />
 							<Form onSubmit={handleSubmit}>
-								<Form.Group controlId="formBasicEmail">
+								<Form.Group controlId="formBasicEmail3">
 									{/* <Form.Label>Correo Electrónico</Form.Label> */}
 									<Form.Control
 										type="email"
