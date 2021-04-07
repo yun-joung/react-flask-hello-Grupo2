@@ -27,6 +27,9 @@ const RegisterService = props => {
 	const [merit, setMerit] = useState("");
 	const [error, setError] = React.useState(null);
 
+	const [checked1, setChecked1] = useState(false);
+	const [category, setCategory] = useState("");
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (!tipo_membresia.trim()) {

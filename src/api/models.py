@@ -84,9 +84,9 @@ class Servicio_registrados(db.Model):
         servicio_registrados = Servicio_registrados.query.all()
         db.session.commit()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
-    def get_servicio_by_category(category):
+    def get_servicio_by_category(Marketing):
         servicio_registrados = Servicio_registrados.query.all()
-        servicio_registrados = Servicio_registrados.query.filter_by(category=category).all()
+        servicio_registrados = Servicio_registrados.query.filter_by(category=Marketing).all()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
     
 class Servicios_prestados(db.Model):

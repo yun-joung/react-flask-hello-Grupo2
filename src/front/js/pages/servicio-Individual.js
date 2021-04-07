@@ -7,6 +7,7 @@ import { Individuallnfo } from "../component/individualInfo.jsx";
 import { IndividualCard } from "../component/IndividualCard.jsx";
 import { Comments } from "../component/Mycomments.jsx";
 import { Formcomment } from "../component/formComment.jsx";
+import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
@@ -64,7 +65,8 @@ const Servicioindividual = props => {
 					</Col>
 				</Row>
 				<div className="transBox" />
-				<Formcomment />
+				<CustomProgressBar comments={store.comments} />
+				<Formcomment comments={store.comments} />
 				<Comments />
 			</Container>
 		</>
