@@ -101,12 +101,16 @@ export function LoginModal(props) {
 			{store.user.token !== null ? (
 				<>
 					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
-						<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
+						<NavDropdown.Item href="#action/3.1" style={{ width: "300px" }}>
 							{JSON.stringify(store.favoritos.id)}
 						</NavDropdown.Item>
 						{store.favoritos.map((item, index) => {
 							return (
-								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
+								<NavDropdown.Item
+									href="#action/3.1"
+									style={{ width: "300px" }}
+									key={index}
+									className="textOverFlowG">
 									{item.name_servicio}
 									<Button
 										variant="light"

@@ -122,13 +122,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getServiceByCategory: async category => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + category, {
-						method: "GET",
-						headers: { "Content-Type": "application/json" }
-					});
+					const response = await fetch(
+						process.env.BACKEND_URL + "/api/servicio-registrados/category/" + category,
+						{
+							method: "GET",
+							headers: { "Content-Type": "application/json" }
+						}
+					);
 					const json = await response.json();
 					console.log("--ServicioByCategory--", json);
-					setStore({ ServicioByCategory: json });
+					setStore({ serviceByCategory: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -343,9 +346,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (item.evaluacion === 4) total4++;
 					if (item.evaluacion === 5) total5++;
 				});
-                return { total5, total4, total3, total2, total1 }
-            },
-            
+				return { total5, total4, total3, total2, total1 };
+			},
+
 			cerrarSesion: () => {
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");

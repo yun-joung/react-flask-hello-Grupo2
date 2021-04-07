@@ -10,7 +10,7 @@ import { Formcomment } from "../component/formComment.jsx";
 import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter, useParams } from "react-router-dom";
 
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
@@ -27,7 +27,8 @@ const Servicioindividual = props => {
 				<Row>
 					<Col className="my-5">
 						<p>
-							{item.category} <i className="fas fa-chevron-right" /> {item.name_servicio}
+							<Link to={"/servicio/" + `${item.category}`}>{item.category}</Link>
+							<i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>
 				</Row>
@@ -37,6 +38,7 @@ const Servicioindividual = props => {
 					</Col>
 					<Col md={4}>
 						<Individuallnfo
+							id={item.id}
 							name_servicio={item.name_servicio}
 							valor={item.valor}
 							tipo_cobro={item.tipo_cobro}
@@ -77,5 +79,6 @@ export default withRouter(Servicioindividual);
 
 Servicioindividual.propTypes = {
 	match: PropTypes.objecto,
-	id: PropTypes.string
+	id: PropTypes.string,
+	category: PropTypes.string
 };

@@ -28,7 +28,6 @@ const RegisterService = props => {
 	const [error, setError] = React.useState(null);
 
 	const [checked1, setChecked1] = useState(false);
-	const [category, setCategory] = useState("");
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -99,7 +98,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-emerald-booby-ixturige.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-cyan-elephant-m7ypcuf8.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>

@@ -170,10 +170,9 @@ def get_all_servicios():
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
-
-@api.route('/servicio-registrados/category/Marketing', methods=["GET"])
-def get_servicio_by_category(Marketing):
-    return jsonify(Servicio_registrados.get_servicio_by_category(Marketing))
+@api.route('/servicio-registrados/category/<category>', methods=["GET"])
+def get_servicio_by_category(category):
+    return jsonify(Servicio_registrados.get_servicio_by_category(category))
 
 @api.route('/favoritos', methods=["POST"])
 def add_favorito():
