@@ -5,6 +5,7 @@ import { Context } from "../store/appContext";
 
 const ButtomStar = props => {
 	const { store, actions } = useContext(Context);
+	const [hover, setHover] = useState(null);
 
 	const handleClick = e => {
 		e.preventDefault();

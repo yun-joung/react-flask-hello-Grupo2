@@ -159,3 +159,8 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
+    def get_all_comentarios():
+        # comentarios_query = Comentarios.query.all()
+        # comentarios_query = Comentarios.query.filter_by(id_user=_id_user)
+        return list(map(lambda x: x.serialize(), Comentarios.query.all()))
+   

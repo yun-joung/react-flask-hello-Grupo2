@@ -65,9 +65,19 @@ const Servicioindividual = props => {
 					</Col>
 				</Row>
 				<div className="transBox" />
-				<CustomProgressBar comments={store.comments} />
-				<Formcomment comments={store.comments} />
-				<Comments />
+				<Row mb={5}>
+					<Col md={4}>
+						<CustomProgressBar comments={store.comments} />
+					</Col>
+					<Col md={8}>
+						<Comments />
+					</Col>
+				</Row>
+				<Row>
+					<Col mt={5}>
+						<Formcomment comments={store.comments} />
+					</Col>
+				</Row>
 			</Container>
 		</>
 	);

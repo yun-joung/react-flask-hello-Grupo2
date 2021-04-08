@@ -259,7 +259,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const json = await response.json();
 					console.log(json);
-					setStore({ comments: json.Comentarios[0] });
+					setStore({ comments: json.Comentarios });
 				} catch (error) {
 					console.log(error);
 				}
@@ -343,9 +343,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (item.evaluacion === 4) total4++;
 					if (item.evaluacion === 5) total5++;
 				});
-                return { total5, total4, total3, total2, total1 }
-            },
-            
+				return { total5, total4, total3, total2, total1 };
+			},
+
 			cerrarSesion: () => {
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");
