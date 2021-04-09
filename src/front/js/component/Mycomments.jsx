@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import CustomProgressBar from "./CustomProgressBar.jsx";
 import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
+import StarRating from "./StarRating.jsx";
 
 export const Comments = () => {
 	const { store, actions } = useContext(Context);
@@ -40,11 +41,7 @@ export const Comments = () => {
 							{getPromedio(store.comments)} <small>/ 5</small>
 						</h2>
 						{/* Estrellas de puntuación */}
-						<ButtomStar2 />
-						<ButtomStar2 />
-						<ButtomStar2 />
-						<ButtomStar2 />
-						<ButtomStar />
+						<StarRating />
 					</div>
 				</div>
 				{/* Cuadro de comentario */}

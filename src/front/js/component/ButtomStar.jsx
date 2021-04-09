@@ -7,10 +7,6 @@ const ButtomStar = props => {
 	const { store, actions } = useContext(Context);
 	const [hover, setHover] = useState(null);
 
-	const handleClick = e => {
-		e.preventDefault();
-		console.log("Se hizo click");
-	};
 	return (
 		<button
 			type="button"
