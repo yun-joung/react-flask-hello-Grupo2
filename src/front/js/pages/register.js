@@ -41,7 +41,7 @@ const Register = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-cyan-elephant-m7ypcuf8.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>

@@ -124,7 +124,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getServiceByCategory: async category => {
 				try {
 					const response = await fetch(
-						process.env.BACKEND_URL + "/servicio-registrados/category/" + category,
+						process.env.BACKEND_URL + "/api/servicio-registrados/category/" + category,
 						{
 							method: "GET",
 							headers: { "Content-Type": "application/json" }
@@ -286,6 +286,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
 							localStorage.setItem("id", JSON.stringify(data.userId));
 							localStorage.setItem("userName", JSON.stringify(data.userName));
+							localStorage.setItem("isLogin", JSON.stringify(data.isLogin));
+							setStore({ user: { isLogin: true } });
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
@@ -306,6 +308,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user && ""));
 							localStorage.setItem("id", JSON.stringify(data.id));
 							localStorage.setItem("userName", JSON.stringify(data.userName && ""));
+							localStorage.setItem("isLogin", JSON.stringify(data.isLogin));
 							setStore({ user: { isLogin: true } });
 						}
 					})
