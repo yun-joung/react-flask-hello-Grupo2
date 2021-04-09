@@ -198,13 +198,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const typeuserLocal = JSON.parse(localStorage.getItem("tipo_user"));
 				const idLocal = JSON.parse(localStorage.getItem("id"));
 				const userNameLocal = JSON.parse(localStorage.getItem("userName"));
+				const isLoginLocal = JSON.parse(localStorage.getItem("isLogin"));
 				setStore({
 					user: {
 						token: tokenLocal,
 						user: userLocal,
 						type_user: typeuserLocal,
 						id: idLocal,
-						userName: userNameLocal
+						userName: userNameLocal,
+						isLogin: isLoginLocal
 					}
 				});
 				console.log("-->", tokenLocal);
@@ -286,7 +288,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
 							localStorage.setItem("id", JSON.stringify(data.userId));
 							localStorage.setItem("userName", JSON.stringify(data.userName));
-							localStorage.setItem("isLogin", JSON.stringify(data.isLogin));
+							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 						}
 					})
@@ -308,7 +310,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user && ""));
 							localStorage.setItem("id", JSON.stringify(data.id));
 							localStorage.setItem("userName", JSON.stringify(data.userName && ""));
-							localStorage.setItem("isLogin", JSON.stringify(data.isLogin));
+							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 						}
 					})

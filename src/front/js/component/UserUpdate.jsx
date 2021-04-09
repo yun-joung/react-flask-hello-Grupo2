@@ -18,84 +18,11 @@ const Register = props => {
 	const [typeUser, setTypeuser] = useState("");
 	const [userName, setUsername] = useState("");
 
-	const handlerClick = e => {
-		e.preventDefault();
-		if (password != password2) {
-			alert("Las contraseñas no coinciden");
-		} else {
-			actions.setRegister({
-				email: email,
-				password: password,
-				tipo_user: typeUser,
-				userName: userName
-			});
-			props.history.push("/home");
-		}
-	};
-
-	useEffect(() => {
-		actions.getToken();
-	}, []);
-
 	return (
-		<div
-			className="background"
-			style={{
-				backgroundImage: `url(https://3000-lavender-guppy-at3airkn.ws-us03.gitpod.io/backGround.png)`
-			}}>
-			<Container>
-				<div>
-					<Row>
-						<Link to="/">
-							<Col xs={4}>
-								<img
-									src={logoBlanco}
-									width="110"
-									height="33"
-									className="d-inline-block align-top mt-5"
-									alt="cotec"
-								/>
-							</Col>
-						</Link>
-					</Row>
-					<Row>
-						<Col md={2} />
-						<Col md={7}>
-							<div className="transBox" />
-							<h2 className="text-white mt-3">Obtenga su cuenta gratis</h2>
-						</Col>
-					</Row>
-					<div
-						className="container iconBox shadow-lg p-3 pt-5"
-						style={{
-							height: "100%",
-							backgroundColor: "white",
-							borderRadius: "10px",
-							width: "730px"
-						}}>
-						{store.user.token !== null ? (
-							<Container>
-								<Row>
-									<Col className="text-center mt-3 mb-5">
-										{/* <span>User: {JSON.stringify(store.user)}</span> */}
-										La sesión ya se encuentra iniciada
-									</Col>
-								</Row>
-								<Row style={{ justifyContent: "center" }}>
-									<Link to="/home">
-										<Button
-											variant="primary"
-											size="lg"
-											type="button"
-											style={{ marginBottom: "40px", marginTop: "40px" }}
-											href="/home">
-											<strong>Volver a home</strong>
-										</Button>
-									</Link>
-								</Row>
-							</Container>
-						) : (
-							<Form>
+
+
+
+<Form>
 								<Form.Group as={Row} controlId="formHorizontaluserName">
 									<Col sm={1}></Col>
 									<Form.Label column sm={3}>
@@ -193,16 +120,5 @@ const Register = props => {
 									</Link>
 								</Row>
 							</Form>
-						)}
-					</div>
-				</div>
-			</Container>
-		</div>
-	);
-};
 
-export default withRouter(Register);
-
-Register.propTypes = {
-	history: PropTypes.object
-};
+                            

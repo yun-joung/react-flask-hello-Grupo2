@@ -118,10 +118,22 @@ export function LoginModal(props) {
 							);
 						})}
 					</NavDropdown>
-					<NavDropdown title="Mi cuenta" id="basic-nav-dropdown" className="float-right">
-						<NavDropdown.Item href="#action/3.1">Mis datos</NavDropdown.Item>
-						<NavDropdown.Item href="#action/3.2">Compra</NavDropdown.Item>
-						<NavDropdown.Item href="/registerservice">Vender</NavDropdown.Item>
+					<NavDropdown
+						title="Mi cuenta"
+						eventKey={1}
+						as={Link}
+						to="/link2"
+						id="basic-nav-dropdown"
+						className="float-right">
+						<NavDropdown.Item eventKey={1.1} as={Link} to="/MiServicio">
+							Mis datos
+						</NavDropdown.Item>
+						<NavDropdown.Item eventKey={1.2} as={Link} to="#action/3.2">
+							Compra
+						</NavDropdown.Item>
+						<NavDropdown.Item eventKey={1.3} as={Link} to="/registerservice">
+							Vender
+						</NavDropdown.Item>
 						<NavDropdown.Divider />
 						<NavDropdown.Item
 							onClick={() => {
