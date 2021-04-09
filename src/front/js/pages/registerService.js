@@ -27,8 +27,6 @@ const RegisterService = props => {
 	const [merit, setMerit] = useState("");
 	const [error, setError] = React.useState(null);
 
-	const [checked1, setChecked1] = useState(false);
-
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (!tipo_membresia.trim()) {
@@ -98,7 +96,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-cyan-elephant-m7ypcuf8.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-emerald-booby-ixturige.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -171,11 +169,11 @@ const RegisterService = props => {
 									marginBottom: "10px"
 								}}>
 								<option defaultValue>Seleccionar categoría de servicio</option>
-								<option>Desarrollo-IT</option>
+								<option>Desarrollo_It</option>
 								<option>Diseño</option>
 								<option>Marketing</option>
 								<option>Contabilidad</option>
-								<option>Leyes/Abogados</option>
+								<option>Ley</option>
 								<option>Otros</option>
 							</Form.Control>
 						</Form.Group>

@@ -63,7 +63,7 @@ const Servicioindividual = props => {
 				<div className="transBox" />
 				<Row>
 					<Col>
-						<h3 id="Theird">Opiniones sobre ABC</h3>
+						<h3 id="Theird">Opiniones sobre {item.userName}</h3>
 					</Col>
 				</Row>
 				<div className="transBox" />

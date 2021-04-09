@@ -162,11 +162,4 @@ class Comentarios(db.Model):
             "evaluacion": self.evaluacion
         }
 
-# class ProductFilter(django_filters.FilterSet):
-#     name = django_filters.CharFilter(lookup_expr='iexact')
-
-#     class Meta:
-#         model = Servicio_registrados
-#         fields = ['category']
-
     

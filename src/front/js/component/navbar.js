@@ -55,8 +55,8 @@ const MyNavbar = props => {
 						<Navbar.Toggle aria-controls="basic-navbar-nav" />
 						<Navbar.Collapse id="basic-navbar-nav">
 							<Nav className="navbar-nav justify-content-between w-100">
-								<Nav.Link href="/servicio/Desarrolloti" className="h5 text-dark">
-									Desarrollo/TI
+								<Nav.Link href="/servicio/Desarrollo_It" className="h5 text-dark">
+									Desarrolloar/IT
 								</Nav.Link>
 								<Nav.Link href="/servicio/Diseño" className="h5 text-dark">
 									Diseño

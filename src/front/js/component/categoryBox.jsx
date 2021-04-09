@@ -21,10 +21,12 @@ export const CategoryBox = props => {
 		<>
 			<Container>
 				<Row>
-					<h4>{props.category}</h4>
+					<Col className="mt-5 mb-3">
+						<h4>{category}</h4>
+					</Col>
 				</Row>
-				<Row className="row-cols-sm-2 row-cols-md-4  row-cols-lg-4 align-items-center">
-					{/* <span>{JSON.stringify(store.serviceByCategory)}</span> */}
+				<Row className="row-cols-sm-1 row-cols-md-4  row-cols-lg-4 align-items-center">
+					<span>{JSON.stringify(store.serviceByCategory)}</span>
 					{store.serviceByCategory.map(item => {
 						return (
 							<Col className="mb-4" key={item.id}>
