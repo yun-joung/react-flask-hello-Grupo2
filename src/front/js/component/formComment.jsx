@@ -20,11 +20,31 @@ export const Formcomment = () => {
 								<div className="panel panel-default arrow left">
 									<div className="panel-body">
 										<header className="text-left">
-											<ButtomStar onClick={() => setAssessment(1)} />
-											<ButtomStar onClick={() => setAssessment(2)} />
-											<ButtomStar onClick={() => setAssessment(3)} />
-											<ButtomStar onClick={() => setAssessment(4)} />
-											<ButtomStar onClick={() => setAssessment(5)} />
+											<ButtomStar
+												value={"1"}
+												assessment={assessment}
+												onClick={() => setAssessment(1)}
+											/>
+											<ButtomStar
+												value={"2"}
+												assessment={assessment}
+												onClick={() => setAssessment(2)}
+											/>
+											<ButtomStar
+												value={"3"}
+												assessment={assessment}
+												onClick={() => setAssessment(3)}
+											/>
+											<ButtomStar
+												value={"4"}
+												assessment={assessment}
+												onClick={() => setAssessment(4)}
+											/>
+											<ButtomStar
+												value={"5"}
+												assessment={assessment}
+												onClick={() => setAssessment(5)}
+											/>
 										</header>
 										<div className="comment-post">
 											<Form>
@@ -56,6 +76,31 @@ export const Formcomment = () => {
 													return (
 														<li key={index} style={{ listStyleType: "none" }}>
 															{item.text_comment}{" "}
+															<ButtomStar
+																value={"1"}
+																assessment={item.evaluacion}
+																onClick={() => null}
+															/>
+															<ButtomStar
+																value={"2"}
+																assessment={item.evaluacion}
+																onClick={() => null}
+															/>
+															<ButtomStar
+																value={"3"}
+																assessment={item.evaluacion}
+																onClick={() => null}
+															/>
+															<ButtomStar
+																value={"4"}
+																assessment={item.evaluacion}
+																onClick={() => null}
+															/>
+															<ButtomStar
+																value={"5"}
+																assessment={item.evaluacion}
+																onClick={() => null}
+															/>
 														</li>
 													);
 												})}
