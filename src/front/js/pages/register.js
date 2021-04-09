@@ -6,8 +6,9 @@ import { withRouter } from "react-router-dom";
 import { Container, Button, Form, FormControl, Row, Col, ButtonGroup, ToggleButton } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import PropTypes from "prop-types";
 
-const Register = () => {
+const Register = props => {
 	const [checked1, setChecked1] = useState(false);
 	const [checked2, setChecked2] = useState(false);
 	const { store, actions } = useContext(Context);
@@ -28,6 +29,7 @@ const Register = () => {
 				tipo_user: typeUser,
 				userName: userName
 			});
+			props.history.push("/home");
 		}
 	};
 
@@ -200,3 +202,7 @@ const Register = () => {
 };
 
 export default withRouter(Register);
+
+Register.propTypes = {
+	history: PropTypes.object
+};

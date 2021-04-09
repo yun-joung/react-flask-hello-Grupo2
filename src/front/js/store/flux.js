@@ -12,6 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				userToken: ""
 			},
 			user: {
+				isLogin: false,
 				token: "",
 				email: "",
 				id: "",
@@ -122,13 +123,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getServiceByCategory: async category => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + category, {
-						method: "GET",
-						headers: { "Content-Type": "application/json" }
-					});
+					const response = await fetch(
+						process.env.BACKEND_URL + "/servicio-registrados/category/" + category,
+						{
+							method: "GET",
+							headers: { "Content-Type": "application/json" }
+						}
+					);
 					const json = await response.json();
-					console.log("--ServicioByCategory--", json);
-					setStore({ ServicioByCategory: json });
+					console.log("--serviceByCategory--", json);
+					setStore({ serviceByCategory: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -228,7 +232,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			addComment: async (text_comment, assessment) => {
+			addComment: async text_comment => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
@@ -239,7 +243,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							id_servicios_prestados: "1",
 							id_servicio_registrados: "1",
 							text_comment: text_comment,
-							evaluacion: assessment
+							evaluacion: "4"
 						})
 					});
 
@@ -299,9 +303,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						if (typeof Storage !== "undefined") {
 							localStorage.setItem("token", data.token);
 							localStorage.setItem("user", JSON.stringify(data.email));
-							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
+							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user && ""));
 							localStorage.setItem("id", JSON.stringify(data.id));
-							localStorage.setItem("userName", JSON.stringify(data.userName));
+							localStorage.setItem("userName", JSON.stringify(data.userName && ""));
+							setStore({ user: { isLogin: true } });
 						}
 					})
 					.catch(error => console.log("Error loading message from backend", error));
@@ -330,27 +335,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch(error => console.log("Error sending email", error));
 			},
-			getTotales: comments => {
-				let total1 = 0;
-				let total2 = 0;
-				let total3 = 0;
-				let total4 = 0;
-				let total5 = 0;
-				comments.map(item => {
-					if (item.evaluacion === 1) total1++;
-					if (item.evaluacion === 2) total2++;
-					if (item.evaluacion === 3) total3++;
-					if (item.evaluacion === 4) total4++;
-					if (item.evaluacion === 5) total5++;
-				});
-                return { total5, total4, total3, total2, total1 }
-            },
-            
 			cerrarSesion: () => {
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");
 				localStorage.removeItem("tipo_user");
 				localStorage.removeItem("id");
+				localStorage.removeItem("userName");
+				setStore({ user: { isLogin: false } });
 			},
 			buyService: buyservice => {
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {

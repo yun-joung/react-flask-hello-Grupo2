@@ -30,7 +30,7 @@ export const CardIndividual = props => {
 				<Button variant="btn" className="favorito" onClick={e => handleSubmit(e)}>
 					<i className="far fa-heart" />
 				</Button>
-				<Link to={"/category/" + id}>
+				<Link to={"/servicio/category/" + id}>
 					<img
 						src={props.img}
 						className="card-img-top caimg"
