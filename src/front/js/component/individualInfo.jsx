@@ -6,6 +6,7 @@ import { Row, Col, Jumbotron, Button } from "react-bootstrap";
 import { personB } from "../../img/image.js";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
 export const Individuallnfo = props => {
 	const { store, actions } = useContext(Context);
@@ -17,17 +18,17 @@ export const Individuallnfo = props => {
 			id_servicio_registrados: props.id,
 			name_servicio: props.name_servicio
 		});
-		console.log("Agregardo el favorito");
+		console.log("Agregado el favorito");
 	};
-
+	console.log(props);
 	const handleBuy = e => {
 		e.preventDefault();
 		const usuario = JSON.parse(JSON.stringify(store.user.id));
 		actions.buyService({
 			id_user_compra: usuario,
-			id_servicio_registrado: "",
-			cantidad_servicio: "",
-			total_valor_servicio: ""
+			id_servicio_registrados: props.id,
+			cantidad_servicio: 1,
+			total_valor_servicio: props.valor
 		});
 	};
 	return (
@@ -70,7 +71,13 @@ export const Individuallnfo = props => {
 				</Row>
 				<p>
 					<Link to="/compra">
-						<Button variant="primary" size="lg" block>
+						<Button
+							variant="primary"
+							size="lg"
+							block
+							onClick={e => {
+								handleBuy(e);
+							}}>
 							Comprar Servicio
 						</Button>
 					</Link>
@@ -80,6 +87,8 @@ export const Individuallnfo = props => {
 	);
 };
 
+// export default withRouter(Individuallnfo);
+
 Individuallnfo.propTypes = {
 	name_servicio: PropTypes.string,
 	valor: PropTypes.number,
@@ -87,5 +96,6 @@ Individuallnfo.propTypes = {
 	subcategory: PropTypes.string,
 	duracion: PropTypes.string,
 	revision: PropTypes.string,
-	id: PropTypes.number
+	id: PropTypes.number,
+	history: PropTypes.object
 };

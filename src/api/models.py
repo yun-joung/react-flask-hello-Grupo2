@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -84,10 +85,27 @@ class Servicio_registrados(db.Model):
         servicio_registrados = Servicio_registrados.query.all()
         db.session.commit()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
-    def get_servicio_by_category(category):
-        servicio_registrados = Servicio_registrados.query.all()
-        servicio_registrados = Servicio_registrados.query.filter_by(category=category).all()
-        return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
+    def get_servicio_id_user(id):
+        servicio_user = Servicio_registrados.query.filter_by(id_user=id).all()
+        return list(map(lambda x: x.serialize(), servicio_user))
+    def get_servicio_by_category(_category):
+        servicio_category = Servicio_registrados.query.filter_by(category=_category).all()
+        return list(map(lambda x: x.serialize(), servicio_category))
+    def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio, _merit):
+        servicio_update = Servicio_registrados.query.get(id)
+        servicio_update.tipo_membresia = _tipo_membresia 
+        servicio_update.subcategory = _subcategory
+        servicio_update.tipo_cobro = _tipo_cobro 
+        servicio_update.valor = _valor
+        servicio_update.name_servicio = _name_servicio
+        servicio_update.descrip_servicio = _descrip_servicio 
+        servicio_update.duracion = _duracion 
+        servicio_update.revision = _revision 
+        servicio_update.proceso = _proceso 
+        servicio_update.experiencia = _experiencia 
+        servicio_update.portafolio = _portafolio 
+        servicio_update.merit = _merit
+        db.session.commit()
     
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'
@@ -159,3 +177,8 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
+    def get_all_comentarios():
+        # comentarios_query = Comentarios.query.all()
+        # comentarios_query = Comentarios.query.filter_by(id_user=_id_user)
+        return list(map(lambda x: x.serialize(), Comentarios.query.all()))
+   

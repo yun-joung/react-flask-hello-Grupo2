@@ -55,19 +55,20 @@ const MyNavbar = props => {
 						<Navbar.Toggle aria-controls="basic-navbar-nav" />
 						<Navbar.Collapse id="basic-navbar-nav">
 							<Nav className="navbar-nav justify-content-between w-100">
-								<Nav.Link href="/category" className="h5 text-dark">
+								{/* <Nav.Link as={Link} to="/home" >Home</Nav.Link> */}
+								<Nav.Link href="/servicio/Desarrollo_It" className="h5 text-dark">
 									Desarrolloar/IT
 								</Nav.Link>
-								<Nav.Link href="/category" className="h5 text-dark">
+								<Nav.Link href="/servicio/Diseño" className="h5 text-dark">
 									Diseño
 								</Nav.Link>
-								<Nav.Link href="/category" className="h5 text-dark">
+								<Nav.Link href="/servicio/Contabilidad" className="h5 text-dark">
 									Contabilidad
 								</Nav.Link>
-								<Nav.Link href="/category" className="h5 text-dark">
+								<Nav.Link href="/servicio/Marketing" className="h5 text-dark">
 									Marketing
 								</Nav.Link>
-								<Nav.Link href="/category" className="h5 text-dark">
+								<Nav.Link href="/servicio/Ley" className="h5 text-dark">
 									Ley/Derecho
 								</Nav.Link>
 							</Nav>

@@ -8,24 +8,35 @@ import { MyFilter } from "../component/myFilter.jsx";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import UserUpdate from "../component/UserUpdate.jsx";
 
-const ServicioCategory = props => {
+const MiDato = props => {
 	const { store, actions } = React.useContext(Context);
+
+	React.useEffect(() => {
+		actions.getToken();
+	}, []);
 
 	return (
 		<>
-			{/* <Col md={3}>
-                <MyFilter />
-            </Col> */}
-			<CategoryBox />
-			<div className="transBox" />
+			<Container>
+				<Row>
+					<Col md={3} className="mt-5">
+						<MyFilter />
+					</Col>
+					<Col md={9} className="mt-5">
+						<UserUpdate userName={store.user.userName} email={store.user.user} />
+					</Col>
+				</Row>
+				<div className="transBox" />
+			</Container>
 		</>
 	);
 };
 
-export default withRouter(ServicioCategory);
+export default withRouter(MiDato);
 
-ServicioCategory.propTypes = {
+MiDato.propTypes = {
 	match: PropTypes.objecto,
 	category: PropTypes.string
 };
