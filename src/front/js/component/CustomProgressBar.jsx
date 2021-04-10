@@ -26,7 +26,7 @@ const CustomProgressBar = ({ comments }) => {
 
 	return (
 		<>
-			<div className="col-sm-3">
+			<div>
 				<h5>Desglose de Calificación</h5>
 				<div className="pull-left">
 					<div className="pull-left" style={{ width: "35px", lineHeight: "1.5" }}>

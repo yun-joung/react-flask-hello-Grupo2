@@ -263,7 +263,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const json = await response.json();
 					console.log(json);
-					setStore({ comments: json.Comentarios[0] });
+					setStore({ comments: json.Comentarios });
 				} catch (error) {
 					console.log(error);
 				}

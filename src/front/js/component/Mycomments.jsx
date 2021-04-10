@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import CustomProgressBar from "./CustomProgressBar.jsx";
 import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
+import StarRating from "./StarRating.jsx";
 
 export const Comments = () => {
 	const { store, actions } = useContext(Context);
@@ -12,6 +13,7 @@ export const Comments = () => {
 	const getPromedio = comments => {
 		let total = 0;
 		comments.map(item => (total += item.evaluacion));
+
 		return Math.round(total / comments.length);
 	};
 	// const getTotales = comments => {
@@ -32,18 +34,14 @@ export const Comments = () => {
 	return (
 		<div className="container">
 			<div className="row">
-				<div className="col-sm-3">
+				<div>
 					<div className="rating-block">
 						<h5 style={{ textAlign: "center" }}>Calificación Promedio de usuarios</h5>
 						<h2 className="bold padding-bottom-7">
 							{getPromedio(store.comments)} <small>/ 5</small>
 						</h2>
 						{/* Estrellas de puntuación */}
-						<ButtomStar2 />
-						<ButtomStar2 />
-						<ButtomStar2 />
-						<ButtomStar2 />
-						<ButtomStar />
+						<StarRating />
 					</div>
 				</div>
 				{/* Cuadro de comentario */}
@@ -52,28 +50,9 @@ export const Comments = () => {
 						<hr />
 						<div className="review-block">
 							<div className="row">
-								<div className="col-sm-3">
-									<div className="review-block-date">
-										24 Marzo 2021
-										<br />
-										Hoy
-									</div>
-								</div>
+								<div className="col-sm-3"></div>
 
-								<div className="col-sm-9">
-									<div className="review-block-rate">
-										<ButtomStar />
-										<ButtomStar />
-										<ButtomStar />
-										<ButtomStar2 />
-										<ButtomStar2 />
-									</div>
-									<div className="review-block-title">Excelente Servicio</div>
-									<div className="review-block-description">
-										Me encanto su trabajo, 100% recomendable. Todo lo que pedí es justo lo que
-										necesitaba
-									</div>
-								</div>
+								<div className="col-sm-9"></div>
 							</div>
 						</div>
 					</div>
