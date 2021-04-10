@@ -16,9 +16,6 @@ import PropTypes from "prop-types";
 const LandingPage = props => {
 	const { store, actions } = useContext(Context);
 
-	useEffect(() => {
-		actions.getToken();
-	}, []);
 	console.log(store.user);
 
 	const { id } = props.match.params;
@@ -29,11 +26,14 @@ const LandingPage = props => {
 		props.history.push("/home");
 	}
 
+	useEffect(() => {
+		actions.getToken();
+	}, []);
 	return (
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-cyan-elephant-m7ypcuf8.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-brown-locust-4leweygn.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
