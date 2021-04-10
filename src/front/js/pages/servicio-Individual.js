@@ -10,7 +10,7 @@ import { Formcomment } from "../component/formComment.jsx";
 import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter, useParams } from "react-router-dom";
 
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
@@ -27,7 +27,8 @@ const Servicioindividual = props => {
 				<Row>
 					<Col className="my-5">
 						<p>
-							{item.category} <i className="fas fa-chevron-right" /> {item.name_servicio}
+							<Link to={"/servicio/" + `${item.category}`}>{item.category}</Link>
+							<i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>
 				</Row>
@@ -37,6 +38,7 @@ const Servicioindividual = props => {
 					</Col>
 					<Col md={4}>
 						<Individuallnfo
+							id={item.id}
 							name_servicio={item.name_servicio}
 							valor={item.valor}
 							tipo_cobro={item.tipo_cobro}
@@ -62,11 +64,11 @@ const Servicioindividual = props => {
 				<div className="transBox" />
 				<Row>
 					<Col>
-						<h3 id="Theird">Opiniones sobre ABC</h3>
+						<h3 id="Theird">Opiniones sobre {item.userName}</h3>
 					</Col>
 				</Row>
 				<div className="transBox" />
-				<CustomProgressBar comments={store.comments} />
+				{/* <CustomProgressBar comments={store.comments} /> */}
 				<Formcomment comments={store.comments} />
 				<Comments />
 			</Container>

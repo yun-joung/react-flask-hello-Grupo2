@@ -19,10 +19,9 @@ const LandingPage = props => {
 	console.log(store.user);
 
 	const { id } = props.match.params;
+	console.log("tipo de token", typeof store.user.token);
 
-	if (store.user.token == null) {
-		console.log("no existe un usuario");
-	} else {
+	if (store.user.isLogin === true) {
 		console.log("existe un usuario");
 		props.history.push("/home");
 	}
