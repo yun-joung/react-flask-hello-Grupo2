@@ -169,11 +169,11 @@ const RegisterService = props => {
 									marginBottom: "10px"
 								}}>
 								<option defaultValue>Seleccionar categoría de servicio</option>
-								<option>Desarrollo_It</option>
+								<option>Desarrollo-IT</option>
 								<option>Diseño</option>
 								<option>Marketing</option>
 								<option>Contabilidad</option>
-								<option>Ley</option>
+								<option>Leyes/Abogados</option>
 								<option>Otros</option>
 							</Form.Control>
 						</Form.Group>

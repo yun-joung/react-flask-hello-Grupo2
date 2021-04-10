@@ -172,6 +172,10 @@ def get_all_servicios():
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
 
+@api.route('/servicio-registrados/user/<int:id>', methods=["GET"])
+def get_servicio_id_user(id):
+    return jsonify(Servicio_registrados.get_servicio_id_user(id))
+
 @api.route('/servicio-registrados/<int:id>', methods=["POST"])
 def update_servicio(id):
     tipo_membresia = request.json.get("tipo_membresia",None)

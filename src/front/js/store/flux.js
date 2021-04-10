@@ -42,7 +42,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				id_servicio_registrados: "",
 				name_servicio: ""
 			},
+			reServicio: {
+				id: "",
+				tipo_membresia: "",
+				subcategory: "",
+				tipo_cobro: "",
+				valor: "",
+				name_servicio: "",
+				descrip_servicio: "",
+				duracion: "",
+				revision: "",
+				proceso: "",
+				experiencia: "",
+				portafolio: "",
+				merit: ""
+			},
 			serviceByCategory: [],
+			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
 			serviceInfoById: {},
@@ -61,6 +77,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("--servicio registrado --", data);
 						setStore({ serviceRegistrado: data });
 						alert("El servicio ha sido registrado correctamente");
+					})
+					.catch(error => console.log("Error loading message from backend", error));
+			},
+
+			updateServicio: reServicio => {
+				fetch(process.env.BACKEND_URL + "/api/servicio-registrados" + id, {
+					method: "POST",
+					body: JSON.stringify(reServicio),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("--servicio registrado --", data);
+						setStore({ serviceRegistrado: data });
+						alert("El servicio ha sido actualizado correctamente");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
 			},
@@ -116,6 +147,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const json = await response.json();
 					console.log("--ServicioByID--", json);
 					setStore({ serviceInfoById: json });
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
+
+			getServiceByIdUser: async id => {
+				try {
+					const response = await fetch(
+						process.env.BACKEND_URL + "/api/servicio-registrados/user/" + localStorage.getItem("id"),
+						{
+							method: "GET",
+							headers: { "Content-Type": "application/json" }
+						}
+					);
+					const json = await response.json();
+					console.log("--serviceByIdUser--", json);
+					setStore({ serviceByIdUser: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -346,6 +394,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("tipo_user");
 				localStorage.removeItem("id");
 				localStorage.removeItem("userName");
+				localStorage.removeItem("isLogin");
 				setStore({ user: { isLogin: false } });
 			},
 			buyService: buyservice => {

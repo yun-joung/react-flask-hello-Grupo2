@@ -85,8 +85,10 @@ class Servicio_registrados(db.Model):
         servicio_registrados = Servicio_registrados.query.all()
         db.session.commit()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
+    def get_servicio_id_user(id):
+        servicio_user = Servicio_registrados.query.filter_by(id_user=id).all()
+        return list(map(lambda x: x.serialize(), servicio_user))
     def get_servicio_by_category(_category):
-        #servicio_category = Servicio_registrados.query.all()
         servicio_category = Servicio_registrados.query.filter_by(category=_category).all()
         return list(map(lambda x: x.serialize(), servicio_category))
     def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio, _merit):

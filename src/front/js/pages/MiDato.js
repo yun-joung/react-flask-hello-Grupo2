@@ -13,6 +13,10 @@ import UserUpdate from "../component/UserUpdate.jsx";
 const MiDato = props => {
 	const { store, actions } = React.useContext(Context);
 
+	React.useEffect(() => {
+		actions.getToken();
+	}, []);
+
 	return (
 		<>
 			<Container>
@@ -21,7 +25,7 @@ const MiDato = props => {
 						<MyFilter />
 					</Col>
 					<Col md={9} className="mt-5">
-						<UserUpdate />
+						<UserUpdate userName={store.user.userName} email={store.user.user} />
 					</Col>
 				</Row>
 				<div className="transBox" />
