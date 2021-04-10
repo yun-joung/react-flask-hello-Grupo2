@@ -8,6 +8,7 @@ from api.utils import generate_sitemap, APIException
 from werkzeug.security import generate_password_hash, check_password_hash       ## Nos permite manejar tokens por authentication (usuarios)    
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity   #from models import Person
 import datetime
+import time
 api = Blueprint('api', __name__)
 
 
@@ -53,7 +54,8 @@ def login():
         "expires": expiracion.total_seconds()*1000,
         "id": user.id,
         "email": user.email,
-        "tipo_user": user.tipo_user
+        "tipo_user": user.tipo_user,
+        "userName": user.userName
         }
 
     return jsonify(data), 200
@@ -275,7 +277,7 @@ def buyservice():
     id_servicio_registrados = request.json.get("id_servicio_registrados", None)
     cantidad_servicio = request.json.get("cantidad_servicio", None)
     total_valor_servicio = request.json.get("total_valor_servicio", None)
-    fecha_inicio = "04-04-2021"
+    fecha_inicio = time.strftime("%c")
 
     servicios_prestados = Servicios_prestados()
     servicios_prestados.id_user_compra =  id_user_compra

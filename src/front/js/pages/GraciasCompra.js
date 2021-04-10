@@ -11,7 +11,7 @@ export const GraciasCompra = props => {
 	return (
 		<div className="jumbotron">
 			<Container>
-				<h1 className="display-4">Gracis por su compra</h1>
+				<h1 className="display-4">Gracias por su compra</h1>
 				<hr className="my-4" />
 
 				<Link to="/">

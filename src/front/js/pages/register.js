@@ -19,15 +19,19 @@ const Register = () => {
 
 	const handlerClick = e => {
 		e.preventDefault();
-		if (password != password2) {
-			alert("Las contraseñas no coinciden");
+		if (email && password && password2 && typeUser && userName) {
+			if (password != password2) {
+				alert("Las contraseñas no coinciden");
+			} else {
+				actions.setRegister({
+					email: email,
+					password: password,
+					tipo_user: typeUser,
+					userName: userName
+				});
+			}
 		} else {
-			actions.setRegister({
-				email: email,
-				password: password,
-				tipo_user: typeUser,
-				userName: userName
-			});
+			alert("Faltan datos por ser ingresados");
 		}
 	};
 
@@ -39,7 +43,7 @@ const Register = () => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-brown-locust-4leweygn.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>

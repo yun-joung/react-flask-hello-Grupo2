@@ -43,6 +43,7 @@ const Servicioindividual = props => {
 							subcategory={item.subcategory}
 							duracion={item.duracion}
 							revision={item.revision}
+							id={item.id}
 						/>
 					</Col>
 				</Row>
@@ -76,6 +77,6 @@ const Servicioindividual = props => {
 export default withRouter(Servicioindividual);
 
 Servicioindividual.propTypes = {
-	match: PropTypes.objecto,
+	match: PropTypes.object,
 	id: PropTypes.string
 };

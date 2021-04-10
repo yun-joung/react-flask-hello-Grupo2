@@ -343,14 +343,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (item.evaluacion === 4) total4++;
 					if (item.evaluacion === 5) total5++;
 				});
-                return { total5, total4, total3, total2, total1 }
-            },
-            
+				return { total5, total4, total3, total2, total1 };
+			},
+
 			cerrarSesion: () => {
-				localStorage.removeItem("token");
-				localStorage.removeItem("user");
-				localStorage.removeItem("tipo_user");
-				localStorage.removeItem("id");
+				localStorage.clear();
 			},
 			buyService: buyservice => {
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {
@@ -358,6 +355,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(buyservice),
 					headers: { "Content-type": "application/json" }
 				})
+					.then(() => {
+						alert(
+							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas."
+						);
+					})
+					// .then(props.history.push("/compra"))
 					// .then(data => data.json())
 					// .then(data=>{
 					//     const templateParams = {
