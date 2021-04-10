@@ -4,7 +4,6 @@ import { ProgressBar } from "react-bootstrap";
 import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
 import { Form, Button } from "react-bootstrap";
-
 export const Formcomment = () => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
@@ -67,6 +66,7 @@ export const Formcomment = () => {
 												</Button>{" "}
 											</Form>
 										</div>
+										<hr />
 										<ul>
 											{store.comments
 												.filter(item => {
@@ -75,7 +75,6 @@ export const Formcomment = () => {
 												.map((item, index) => {
 													return (
 														<li key={index} style={{ listStyleType: "none" }}>
-															{item.text_comment}{" "}
 															<ButtomStar
 																value={"1"}
 																assessment={item.evaluacion}
@@ -101,6 +100,9 @@ export const Formcomment = () => {
 																assessment={item.evaluacion}
 																onClick={() => null}
 															/>
+															<br />
+															{item.text_comment}
+															<hr />
 														</li>
 													);
 												})}

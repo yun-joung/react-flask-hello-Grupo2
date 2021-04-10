@@ -100,6 +100,7 @@ def register():
 def get_all_users():
     users = User.get_all_users()
     return jsonify(users)
+
 @api.route('/user/<int:id>', methods=["GET"])
 def get_user_by_id(id):
     user = User.get_user(id)
@@ -172,6 +173,55 @@ def get_all_servicios():
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
+
+@api.route('/servicio-registrados/user/<int:id>', methods=["GET"])
+def get_servicio_id_user(id):
+    return jsonify(Servicio_registrados.get_servicio_id_user(id))
+
+@api.route('/servicio-registrados/<int:id>', methods=["POST"])
+def update_servicio(id):
+    tipo_membresia = request.json.get("tipo_membresia",None)
+    subcategory = request.json.get('subcategory',None)
+    tipo_cobro = request.json.get('tipo_cobro',None)
+    valor = request.json.get('valor',None)
+    name_servicio = request.json.get('name_servicio',None)
+    descrip_servicio = request.json.get('descrip_servicio',None)
+    duracion = request.json.get('duracion',None)
+    revision = request.json.get('revision',None)
+    proceso = request.json.get('proceso',None)
+    experiencia = request.json.get('experiencia',None)
+    portafolio = request.json.get('portafolio',None)
+    merit = request.json.get('merit',None)
+
+    if request.json.get("tipo_membresia") is not None:   
+        if not tipo_membresia:
+            return jsonify({"msg":"el tipo_membresia esta vacio"}), 400
+    if request.json.get("subcategory") is not None:   
+        if not subcategory:
+            return jsonify({"msg":"el subcategory de servicio esta vacio"}), 400
+    if request.json.get("tipo_cobro") is not None:   
+        if not tipo_cobro:
+            return jsonify({"msg":"tipo de cobro esta vacio"}), 400
+    if request.json.get("valor") is not None:   
+        if not valor:
+            return jsonify({"msg":"el valor de servicio esta vacio"}), 400
+    if request.json.get("name_servicio") is not None:   
+        if not name_servicio:
+            return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
+    if request.json.get("descrip_servicio") is not None:   
+        if not descrip_servicio:
+            return jsonify({"msg":"el descripcion de servicio esta vacio"}), 400
+    if request.json.get("experiencia") is not None:  
+        if not experiencia:
+            return jsonify({"msg":"su experiencia esta vacio"}), 400 
+
+    Servicio_registrados.update_servicio(id, tipo_membresia, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit)
+
+
+    return jsonify({
+        "msg": "le ha actualizado exitosamente"
+        }), 200
+
 @api.route('/servicio-registrados/category/<category>', methods=["GET"])
 def get_servicio_by_category(category):
     return jsonify(Servicio_registrados.get_servicio_by_category(category))
@@ -216,17 +266,10 @@ def addComment():
             if not request.is_json:
                 return jsonify({"msg": "El body o contenido esta vacio"}), 400
 
-<<<<<<< HEAD
             id_servicios_prestados= request.json.get("id_servicios_prestados")
             id_servicio_registrados= request.json.get("id_servicio_registrados")
             text_comment= request.json.get("text_comment")
             evaluacion= request.json.get("evaluacion")
-=======
-            id_servicios_prestados= request.json.get(id_servicios_prestados)
-            id_servicio_registrados= request.json.get(id_servicio_registrados)
-            text_comment= request.json.get(text_comment)
-            evaluacion= request.json.get(evaluacion)
->>>>>>> 11f7161e688825f6d080106a8f8f53c936a9933a
 
             if not id_servicios_prestados:
                 return jsonify({"msg":"id_servicios_prestados esta vacio"}), 400

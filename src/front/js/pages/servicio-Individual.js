@@ -11,16 +11,13 @@ import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
 import { Link, withRouter, useParams } from "react-router-dom";
-
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
 	const item = store.serviceInfoById;
 	const { id } = props.match.params;
-
 	useEffect(() => {
 		actions.getServiceInfoById(id);
 	}, []);
-
 	return (
 		<>
 			<Container>
@@ -45,7 +42,6 @@ const Servicioindividual = props => {
 							subcategory={item.subcategory}
 							duracion={item.duracion}
 							revision={item.revision}
-							id={item.id}
 						/>
 					</Col>
 				</Row>
@@ -68,7 +64,6 @@ const Servicioindividual = props => {
 					</Col>
 				</Row>
 				<div className="transBox" />
-<<<<<<< HEAD
 				<Row mb={5}>
 					<Col md={4}>
 						<CustomProgressBar comments={store.comments} />
@@ -82,18 +77,11 @@ const Servicioindividual = props => {
 						<Formcomment comments={store.comments} />
 					</Col>
 				</Row>
-=======
-				{/* <CustomProgressBar comments={store.comments} /> */}
-				<Formcomment comments={store.comments} />
-				<Comments />
->>>>>>> 11f7161e688825f6d080106a8f8f53c936a9933a
 			</Container>
 		</>
 	);
 };
-
 export default withRouter(Servicioindividual);
-
 Servicioindividual.propTypes = {
 	match: PropTypes.object,
 	id: PropTypes.string
