@@ -20,16 +20,19 @@ const Register = props => {
 
 	const handlerClick = e => {
 		e.preventDefault();
-		if (password != password2) {
-			alert("Las contraseñas no coinciden");
+		if (email && password && password2 && typeUser && userName) {
+			if (password != password2) {
+				alert("Las contraseñas no coinciden");
+			} else {
+				actions.setRegister({
+					email: email,
+					password: password,
+					tipo_user: typeUser,
+					userName: userName
+				});
+			}
 		} else {
-			actions.setRegister({
-				email: email,
-				password: password,
-				tipo_user: typeUser,
-				userName: userName
-			});
-			props.history.push("/home");
+			alert("Faltan datos por ser ingresados");
 		}
 	};
 

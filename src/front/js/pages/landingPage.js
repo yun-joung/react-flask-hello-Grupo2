@@ -16,9 +16,6 @@ import PropTypes from "prop-types";
 const LandingPage = props => {
 	const { store, actions } = useContext(Context);
 
-	useEffect(() => {
-		actions.getToken();
-	}, []);
 	console.log(store.user);
 
 	const { id } = props.match.params;
@@ -29,6 +26,9 @@ const LandingPage = props => {
 		props.history.push("/home");
 	}
 
+	useEffect(() => {
+		actions.getToken();
+	}, []);
 	return (
 		<div
 			className="background"

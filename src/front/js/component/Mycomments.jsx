@@ -4,13 +4,15 @@ import { Form, Button } from "react-bootstrap";
 import CustomProgressBar from "./CustomProgressBar.jsx";
 import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
-//import StarRating from "./StarRating.jsx";
+import StarRating from "./StarRating.jsx";
+
 export const Comments = () => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
 	const getPromedio = comments => {
 		let total = 0;
 		comments.map(item => (total += item.evaluacion));
+
 		return Math.round(total / comments.length);
 	};
 	// const getTotales = comments => {

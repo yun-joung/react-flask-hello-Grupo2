@@ -42,6 +42,7 @@ const Servicioindividual = props => {
 							subcategory={item.subcategory}
 							duracion={item.duracion}
 							revision={item.revision}
+							id={item.id}
 						/>
 					</Col>
 				</Row>
@@ -65,6 +66,19 @@ const Servicioindividual = props => {
 				</Row>
 				<div className="transBox" />
 				<Formcomment />
+				<Row mb={5}>
+					<Col md={4}>
+						<CustomProgressBar comments={store.comments} />
+					</Col>
+					<Col md={8}>
+						<Comments />
+					</Col>
+				</Row>
+				<Row>
+					<Col mt={5}>
+						<Formcomment comments={store.comments} />
+					</Col>
+				</Row>
 				<Comments />
 			</Container>
 		</>
