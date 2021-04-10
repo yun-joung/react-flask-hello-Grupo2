@@ -20,3 +20,4 @@ ButtomStar.propTypes = {
 	onClick: PropTypes.func,
 	value: PropTypes.string
 };
+export default ButtomStar;

@@ -290,13 +290,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							id_servicios_prestados: "1",
-							id_servicio_registrados: "1",
+							id_servicios_prestados: 1,
+							id_servicio_registrados: 1,
 							text_comment: text_comment,
-							evaluacion: "4"
+							evaluacion: 4
 						})
 					});
-
 					const json = await response.json();
 					console.log(json);
 					// setStore({ comments: JSON.stringify(json) });
@@ -403,7 +402,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				return { total5, total4, total3, total2, total1 };
 			},
-
 			cerrarSesion: () => {
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");

@@ -2,28 +2,25 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { ProgressBar } from "react-bootstrap";
 import PropTypes from "prop-types";
-
 const CustomProgressBar = ({ comments }) => {
 	const { store, actions } = useContext(Context);
-	//const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
-	//console.log(total1, total2, total3, total4, total5);
-
-	// const getTotales = comments => {
-	// 	let total1 = 0;
-	// 	let total2 = 0;
-	// 	let total3 = 0;
-	// 	let total4 = 0;
-	// 	let total5 = 0;
-	// 	comments.map(item => {
-	// 		if (item.count === 1) total1++;
-	// 		if (item.count === 2) total2++;
-	// 		if (item.count === 3) total3++;
-	// 		if (item.count === 4) total4++;
-	// 		if (item.count === 5) total5++;
-	// 	});
-	// 	return { total5, total4, total3, total2, total1 };
-	// };
-
+	const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
+	console.log(total1, total2, total3, total4, total5);
+	const getTotales = comments => {
+		let total1 = 0;
+		let total2 = 0;
+		let total3 = 0;
+		let total4 = 0;
+		let total5 = 0;
+		comments.map(item => {
+			if (item.count === 1) total1++;
+			if (item.count === 2) total2++;
+			if (item.count === 3) total3++;
+			if (item.count === 4) total4++;
+			if (item.count === 5) total5++;
+		});
+		return { total5, total4, total3, total2, total1 };
+	};
 	return (
 		<>
 			<div>
@@ -48,7 +45,6 @@ const CustomProgressBar = ({ comments }) => {
 						1
 					</div>
 				</div>
-
 				<div className="pull-left">
 					<div className="pull-left" style={{ width: "35px", lineHeight: "1" }}>
 						<div style={{ height: "9px", margin: "{5px 0}" }}>
@@ -89,7 +85,6 @@ const CustomProgressBar = ({ comments }) => {
 							<span className="fas fa-star" style={{ position: "relative", left: "-20px" }}></span>
 						</div>
 					</div>
-
 					<div className="pull-left" style={{ width: "180px" }}>
 						<div className="progress" style={{ height: "9px", margin: "{8px 0}" }}>
 							<ProgressBar
@@ -133,5 +128,4 @@ const CustomProgressBar = ({ comments }) => {
 CustomProgressBar.propTypes = {
 	comments: PropTypes.array
 };
-
 export default CustomProgressBar;
