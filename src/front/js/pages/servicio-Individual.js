@@ -10,7 +10,7 @@ import { Formcomment } from "../component/formComment.jsx";
 import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter, useParams } from "react-router-dom";
 
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
@@ -27,7 +27,8 @@ const Servicioindividual = props => {
 				<Row>
 					<Col className="my-5">
 						<p>
-							{item.category} <i className="fas fa-chevron-right" /> {item.name_servicio}
+							<Link to={"/servicio/" + `${item.category}`}>{item.category}</Link>
+							<i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>
 				</Row>
@@ -37,12 +38,14 @@ const Servicioindividual = props => {
 					</Col>
 					<Col md={4}>
 						<Individuallnfo
+							id={item.id}
 							name_servicio={item.name_servicio}
 							valor={item.valor}
 							tipo_cobro={item.tipo_cobro}
 							subcategory={item.subcategory}
 							duracion={item.duracion}
 							revision={item.revision}
+							id={item.id}
 						/>
 					</Col>
 				</Row>
@@ -61,10 +64,11 @@ const Servicioindividual = props => {
 				<div className="transBox" />
 				<Row>
 					<Col>
-						<h3 id="Theird">Opiniones sobre ABC</h3>
+						<h3 id="Theird">Opiniones sobre {item.userName}</h3>
 					</Col>
 				</Row>
 				<div className="transBox" />
+<<<<<<< HEAD
 				<Row mb={5}>
 					<Col md={4}>
 						<CustomProgressBar comments={store.comments} />
@@ -78,6 +82,11 @@ const Servicioindividual = props => {
 						<Formcomment comments={store.comments} />
 					</Col>
 				</Row>
+=======
+				{/* <CustomProgressBar comments={store.comments} /> */}
+				<Formcomment comments={store.comments} />
+				<Comments />
+>>>>>>> 11f7161e688825f6d080106a8f8f53c936a9933a
 			</Container>
 		</>
 	);
@@ -86,6 +95,6 @@ const Servicioindividual = props => {
 export default withRouter(Servicioindividual);
 
 Servicioindividual.propTypes = {
-	match: PropTypes.objecto,
+	match: PropTypes.object,
 	id: PropTypes.string
 };

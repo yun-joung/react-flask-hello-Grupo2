@@ -11,31 +11,15 @@ import { withRouter } from "react-router-dom";
 
 const ServicioCategory = props => {
 	const { store, actions } = React.useContext(Context);
-	// const category = props.match.params;
-
-	// useEffect(() => {
-	// 	actions.getServiceByCategory(category);
-	// }, []);
 
 	return (
-		<Container>
-			<div>
-				<Row>
-					<Col className="mt-5">
-						<h4>{props.category}</h4>
-					</Col>
-				</Row>
-				<Row>
-					{/* <Col md={3}>
-						<MyFilter />
-					</Col> */}
-					<Col>
-						<CategoryBox />
-						<div className="transBox" />
-					</Col>
-				</Row>
-			</div>
-		</Container>
+		<>
+			{/* <Col md={3}>
+                <MyFilter />
+            </Col> */}
+			<CategoryBox />
+			<div className="transBox" />
+		</>
 	);
 };
 

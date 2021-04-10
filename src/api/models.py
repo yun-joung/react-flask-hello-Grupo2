@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -84,10 +85,11 @@ class Servicio_registrados(db.Model):
         servicio_registrados = Servicio_registrados.query.all()
         db.session.commit()
         return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
-    def get_servicio_by_category(category):
-        servicio_registrados = Servicio_registrados.query.all()
-        servicio_registrados = Servicio_registrados.query.filter_by(category=category).all()
-        return list(map(lambda x: x.serialize(), Servicio_registrados.query.all()))
+    def get_servicio_by_category(_category):
+        #servicio_category = Servicio_registrados.query.all()
+        servicio_category = Servicio_registrados.query.filter_by(category=_category).all()
+        return list(map(lambda x: x.serialize(), servicio_category))
+
     
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'
@@ -159,8 +161,13 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
+<<<<<<< HEAD
     def get_all_comentarios():
         # comentarios_query = Comentarios.query.all()
         # comentarios_query = Comentarios.query.filter_by(id_user=_id_user)
         return list(map(lambda x: x.serialize(), Comentarios.query.all()))
    
+=======
+
+    
+>>>>>>> 11f7161e688825f6d080106a8f8f53c936a9933a

@@ -96,7 +96,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-emerald-booby-ixturige.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-brown-locust-4leweygn.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -143,11 +143,11 @@ const RegisterService = props => {
 									backgroundColor: "lightgray",
 									marginBottom: "10px"
 								}}>
-								<option defaultValue>Seleccionar su tipo_membresia</option>
+								<option defaultValue>Seleccionar el tipo de membresia</option>
 								<option>Freelancer (solo yo)</option>
-								<option>Equipo(2-3personas)</option>
-								<option>Equipo(4-6personas)</option>
-								<option>Equipo(más de 7personas)</option>
+								<option>Equipo (2-3personas)</option>
+								<option>Equipo (4-6personas)</option>
+								<option>Equipo (más de 7personas)</option>
 							</Form.Control>
 						</Form.Group>
 						<br />
@@ -169,11 +169,11 @@ const RegisterService = props => {
 									marginBottom: "10px"
 								}}>
 								<option defaultValue>Seleccionar categoría de servicio</option>
-								<option>Desarrollo-IT</option>
+								<option>Desarrollo_It</option>
 								<option>Diseño</option>
 								<option>Marketing</option>
 								<option>Contabilidad</option>
-								<option>Leyes/Abogados</option>
+								<option>Ley</option>
 								<option>Otros</option>
 							</Form.Control>
 						</Form.Group>
@@ -251,7 +251,7 @@ const RegisterService = props => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									5. Descripción de tu servicio<span style={{ color: "red" }}>*</span>
+									5. Descripción del servicio<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
@@ -269,7 +269,7 @@ const RegisterService = props => {
 
 						<Form.Group>
 							<Form.Label>
-								<h5>6. Plazo estimado (meses) para exjecutar el projecto</h5>
+								<h5>6. Plazo estimado (meses) para ejecutar el proyecto</h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
@@ -285,7 +285,7 @@ const RegisterService = props => {
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									7. Numero de corectiones permitidas a tu cliente previo a entregable final
+									7. Numero de correcciones permitidas a tu cliente previo a entregable final
 									<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
@@ -331,13 +331,13 @@ const RegisterService = props => {
 								//isInvalid={!!errors.experiencia}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 								<option defaultValue>Seleccionar rango de años</option>
-								<option>1año</option>
-								<option>2años</option>
-								<option>3años</option>
-								<option>4años</option>
+								<option>1 año</option>
+								<option>2 años</option>
+								<option>3 años</option>
+								<option>4 años</option>
 								<option>5-10 años</option>
 								<option>10-15 años</option>
-								<option>Más que 15 años</option>
+								<option>Más de 15 años</option>
 							</Form.Control>
 						</Form.Group>
 						<br />

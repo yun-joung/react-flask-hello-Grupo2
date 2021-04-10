@@ -33,14 +33,14 @@ const Layout = () => {
 						<Route exact path="/home">
 							<Home />
 						</Route>
-						<Route exact path="/category">
+						{/* <Route exact path="/category">
 							<ServicioCategory />
-						</Route>
-						<Route exact path="/category/" component={ServicioCategory} />
+						</Route> */}
+						<Route exact path="/servicio/:category" component={ServicioCategory} />
 						{/* <Route exact path="/category/:id">
 							<Servicioindividual />
 						</Route> */}
-						<Route exact path="/category/:id" component={Servicioindividual} />
+						<Route exact path="/servicio/category/:id" component={Servicioindividual} />
 
 						<Route exact path="/passwordrecovery">
 							<PasswordRecovery />

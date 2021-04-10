@@ -16,25 +16,24 @@ import PropTypes from "prop-types";
 const LandingPage = props => {
 	const { store, actions } = useContext(Context);
 
-	useEffect(() => {
-		actions.getToken();
-	}, []);
 	console.log(store.user);
 
 	const { id } = props.match.params;
+	console.log("tipo de token", typeof store.user.token);
 
-	if (store.user.token == null) {
-		console.log("no existe un usuario");
-	} else {
+	if (store.user.isLogin === true) {
 		console.log("existe un usuario");
 		props.history.push("/home");
 	}
 
+	useEffect(() => {
+		actions.getToken();
+	}, []);
 	return (
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-olive-dog-npqq3hoc.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-brown-locust-4leweygn.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>

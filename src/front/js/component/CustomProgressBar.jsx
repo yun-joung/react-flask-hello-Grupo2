@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 
 const CustomProgressBar = ({ comments }) => {
 	const { store, actions } = useContext(Context);
-	const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
-	console.log(total1, total2, total3, total4, total5);
+	//const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
+	//console.log(total1, total2, total3, total4, total5);
 
 	// const getTotales = comments => {
 	// 	let total1 = 0;
@@ -48,6 +48,7 @@ const CustomProgressBar = ({ comments }) => {
 						1
 					</div>
 				</div>
+
 				<div className="pull-left">
 					<div className="pull-left" style={{ width: "35px", lineHeight: "1" }}>
 						<div style={{ height: "9px", margin: "{5px 0}" }}>
