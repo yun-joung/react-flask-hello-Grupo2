@@ -79,7 +79,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 						alert("El servicio ha sido registrado correctamente");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
-			},
+            },
+
+            handleUpdateServicio: (evento) => {
+                const store = getStore();
+                let { reServicio } = store;
+                reServicio[evento.target.name] = evento.target.value;
+                setStore({ reServicio: reServicio });
+                console.log(store.user_data);
+            },
 
 			updateServicio: reServicio => {
 				fetch(process.env.BACKEND_URL + "/api/servicio-registrados" + id, {
