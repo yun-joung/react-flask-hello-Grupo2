@@ -24,9 +24,9 @@ const ServiceListUserB = props => {
 					return <ServiceListUser key={item.id} name_servicio={item.name_servicio} id={item.id} />;
 				})}
 				{item.length === 0 ? (
-					<li className="list-group-item list-group-item-success">No hay servicio registrado</li>
+					<li style={{ listStylePosition: "outside" }}>No hay servicio registrado</li>
 				) : (
-					<li className="list-group-item list-group-item-primary">Numero de servicio: {item.length}</li>
+					<li style={{ listStylePosition: "outside" }}>Numero de servicio: {item.length}</li>
 				)}
 			</Jumbotron>
 		</>

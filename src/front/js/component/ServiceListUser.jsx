@@ -13,7 +13,7 @@ const ServiceListUser = props => {
 
 	return (
 		<>
-			<Link to={"/MiServicio/" + id}>
+			<Link to={"/MiServicio/id/" + id}>
 				<Button
 					variant="outline-primary"
 					block

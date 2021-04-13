@@ -42,26 +42,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				id_servicio_registrados: "",
 				name_servicio: ""
 			},
-			reServicio: {
-				id: "",
-				tipo_membresia: "",
-				subcategory: "",
-				tipo_cobro: "",
-				valor: "",
-				name_servicio: "",
-				descrip_servicio: "",
-				duracion: "",
-				revision: "",
-				proceso: "",
-				experiencia: "",
-				portafolio: "",
-				merit: ""
-			},
 			serviceByCategory: [],
 			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
-			serviceInfoById: {},
+			//serviceInfoById: {},
 			comments: []
 		},
 
@@ -79,25 +64,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 						alert("El servicio ha sido registrado correctamente");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
-            },
+			},
 
-            handleUpdateServicio: (evento) => {
-                const store = getStore();
-                let { reServicio } = store;
-                reServicio[evento.target.name] = evento.target.value;
-                setStore({ reServicio: reServicio });
-                console.log(store.user_data);
-            },
+			handleUpdateServicio: evento => {
+				const store = getStore();
+				let { serviceRegistrado } = store;
+				serviceRegistrado[evento.target.name] = evento.target.value;
+				setStore({ serviceRegistrado: serviceRegistrado });
+				console.log(store.serviceRegistrado);
+			},
 
-			updateServicio: reServicio => {
-				fetch(process.env.BACKEND_URL + "/api/servicio-registrados" + id, {
-					method: "POST",
-					body: JSON.stringify(reServicio),
+			updateServicio: id => {
+				const store = getStore();
+				fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
+					method: "PUT",
+					body: JSON.stringify(store.serviceRegistrado),
 					headers: { "Content-type": "application/json" }
 				})
 					.then(resp => resp.json())
 					.then(data => {
-						console.log("--servicio registrado --", data);
+						console.log("--servicio actualizado --", data);
 						setStore({ serviceRegistrado: data });
 						alert("El servicio ha sido actualizado correctamente");
 					})
@@ -153,8 +139,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
-					console.log("--ServicioByID--", json);
-					setStore({ serviceInfoById: json });
+					console.log("--serviceRegistradoID--", json);
+					setStore({ serviceRegistrado: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -170,7 +156,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 					const json = await response.json();
-					console.log("--serviceByIdUser--", json);
+					console.log("--serviceRegistrado--", json);
 					setStore({ serviceByIdUser: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);

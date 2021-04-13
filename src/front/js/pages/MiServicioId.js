@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const MiServicio = props => {
 	const { store, actions } = React.useContext(Context);
-	const item = store.serviceInfoById;
+	const item = store.serviceRegistrado;
 	const id = useParams;
 
 	useEffect(() => {

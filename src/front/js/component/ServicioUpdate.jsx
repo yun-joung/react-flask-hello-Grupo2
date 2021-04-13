@@ -5,7 +5,7 @@ import { Container, Button, Form, Jumbotron, FormControl, Row, Col } from "react
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import ServiceListUserB from "./ServiceListUserB.jsx";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, useParams } from "react-router-dom";
 
 const ServicioUpdate = props => {
 	const { store, actions } = React.useContext(Context);
@@ -22,48 +22,45 @@ const ServicioUpdate = props => {
 	const [experiencia, setExperiencia] = useState("");
 	const [portafolio, setPortafolio] = useState("");
 	const [merit, setMerit] = useState("");
-	const [id, setId] = useState("");
 	const [error, setError] = React.useState(null);
+	const { id } = useParams();
 
-    const handleSubmit = async (evento)  => {
+	const handleSubmit = async e => {
 		e.preventDefault();
-		if (!tipo_membresia.trim()) {
-			setError("1. ingresar tipo_membresia");
-			return;
-		}
-		if (!subcategory.trim()) {
-			setError("2. ingresar subcategory de servicio");
-			return;
-		}
-		if (!tipo_cobro.trim()) {
-			setError("3. ingresar tipo de cobro de servicio");
-			return;
-		}
-		if (!valor.trim()) {
-			setError("3. ingresar valor de servicio");
-			return;
-		}
-		if (!name_servicio.trim()) {
-			setError("4. ingresar nombre de servicio");
-			return;
-		}
-		if (!descrip_servicio.trim()) {
-			setError("5. ingresar descripción de servicio");
-			return;
-		}
-		if (!revision.trim()) {
-			setError("7. ingresar numero de corectiones");
-			return;
-		}
-		if (!experiencia.trim()) {
-			setError("8. ingresar el tiempo llevas trabajando en esta área");
-			return;
-		} else {
-			actions.updateServicio();
-			console.log("pasando todas validacion");
-			alert("El servicio ha sido actualizado correctamente");
-			setError(null);
-		}
+		// if (!tipo_membresia.trim()) {
+		// 	setError("1. ingresar tipo_membresia");
+		// 	return;
+		// }
+		// if (!subcategory.trim()) {
+		// 	setError("2. ingresar subcategory de servicio");
+		// 	return;
+		// }
+		// if (!tipo_cobro.trim()) {
+		// 	setError("3. ingresar tipo de cobro de servicio");
+		// 	return;
+		// }
+		// if (!valor.trim()) {
+		// 	setError("3. ingresar valor de servicio");
+		// 	return;
+		// }
+		// if (!name_servicio.trim()) {
+		// 	setError("4. ingresar nombre de servicio");
+		// 	return;
+		// }
+		// if (!descrip_servicio.trim()) {
+		// 	setError("5. ingresar descripción de servicio");
+		// 	return;
+		// }
+		// if (!revision.trim()) {
+		// 	setError("7. ingresar numero de corectiones");
+		// 	return;
+		// }
+		// if (!experiencia.trim()) {
+		// 	setError("8. ingresar el tiempo llevas trabajando en esta área");
+		// 	return;
+		// }
+		actions.updateServicio(id);
+		setError(null);
 	};
 
 	useEffect(() => {
@@ -75,7 +72,7 @@ const ServicioUpdate = props => {
 			<h2>Mis Servicios</h2>
 			<ServiceListUserB />
 			<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
-				<Form onSubmit={(evento) => handleSubmit(evento)}>
+				<Form onSubmit={evento => handleSubmit(evento)}>
 					{error && <div className="alert alert-danger">{error}</div>}
 					<Form.Group>
 						<Form.Label>
@@ -85,15 +82,15 @@ const ServicioUpdate = props => {
 						</Form.Label>
 						<Form.Control
 							as="select"
-                            name="tipo_membresia"
-                            onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							name="tipo_membresia"
+							defaultValue={props.tipo_membresia}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{
 								backgroundColor: "lightgray",
 								marginBottom: "10px"
 							}}>
 							<option defaultValue>{props.tipo_membresia}</option>
-							<option>Freelancer (solo yo)</option>
+							<option>Freelance(solo yo)</option>
 							<option>Equipo(2-3personas)</option>
 							<option>Equipo(4-6personas)</option>
 							<option>Equipo(más de 7personas)</option>
@@ -111,10 +108,9 @@ const ServicioUpdate = props => {
 							as="textarea"
 							type="text"
 							name="subcategory"
-							defaultValue={store.serviceInfoById.subcategory}
+							defaultValue={props.subcategory}
 							rows={1}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 						/>
 					</Form.Group>
@@ -130,8 +126,7 @@ const ServicioUpdate = props => {
 							as="select"
 							name="tipo_cobro"
 							defaultValue={props.tipo_cobro}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 							<option defaultValue>{props.tipo_cobro}</option>
 							<option>Hora</option>
@@ -146,8 +141,7 @@ const ServicioUpdate = props => {
 							name="valor"
 							defaultValue={props.valor}
 							rows={1}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 						/>
 						<p className="fs-6  text-muted ">
@@ -166,10 +160,9 @@ const ServicioUpdate = props => {
 							as="textarea"
 							type="text"
 							rows={2}
-                            name="name_servicio"
-                            defaultValue={props.name_servicio}
-                            onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							name="name_servicio"
+							defaultValue={props.name_servicio}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 						<p className="fs-6  text-muted ">Máximo 10 palabras</p>
 					</Form.Group>
@@ -187,8 +180,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="descrip_servicio"
 							defaultValue={props.descrip_servicio}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -203,8 +195,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="duracion"
 							defaultValue={props.duracion}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -221,8 +212,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="revision"
 							defaultValue={props.revision}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -237,8 +227,7 @@ const ServicioUpdate = props => {
 							as="select"
 							name="tipo_membresia"
 							defaultValue={props.experiencia}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 							<option defaultValue>{props.experiencia}</option>
 							<option>1año</option>
@@ -262,8 +251,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="portafolio"
 							defaultValue={props.portafolio}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -278,8 +266,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="merit"
 							defaultValue={props.merit}
-							onChange={(evento) =>
-                                        actions.handleUpdateServicio(evento)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					{error && <div className="alert alert-danger">{error}</div>}
@@ -288,8 +275,7 @@ const ServicioUpdate = props => {
 							variant="primary"
 							size="lg"
 							type="submit"
-							style={{ marginBottom: "40px", marginTop: "40px" }}
-							>
+							style={{ marginBottom: "40px", marginTop: "40px" }}>
 							<strong>Editar tu servicio</strong>
 						</Button>
 						{/* {JSON.stringify(store.user.id)}

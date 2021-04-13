@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import { Link, withRouter, useParams } from "react-router-dom";
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
-	const item = store.serviceInfoById;
+	const item = store.serviceRegistrado;
 	const { id } = props.match.params;
 	useEffect(() => {
 		actions.getServiceInfoById(id);
@@ -24,7 +24,7 @@ const Servicioindividual = props => {
 				<Row>
 					<Col className="my-5">
 						<p>
-							<Link to={"/servicio/" + `${item.category}`}>{item.category}</Link>
+							<Link to={"/servicio/" + `${item.category}`}>{item.category}</Link>{" "}
 							<i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>

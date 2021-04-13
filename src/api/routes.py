@@ -178,7 +178,7 @@ def get_servicio_id(id):
 def get_servicio_id_user(id):
     return jsonify(Servicio_registrados.get_servicio_id_user(id))
 
-@api.route('/servicio-registrados/<int:id>', methods=["POST"])
+@api.route('/servicio-registrados/<int:id>', methods=["PUT"])
 def update_servicio(id):
     tipo_membresia = request.json.get("tipo_membresia",None)
     subcategory = request.json.get('subcategory',None)
