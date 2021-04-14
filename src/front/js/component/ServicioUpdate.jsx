@@ -75,7 +75,7 @@ const ServicioUpdate = props => {
 			merit: merit
 		});
 		console.log("pasando todas validacion");
-		alert("El servicio ha sido actualizado correctamente");
+		sweetAlert("¡Excelente!", "El servicio ha sido actualizado correctamente", "success");
 		setError(null);
 	};
 

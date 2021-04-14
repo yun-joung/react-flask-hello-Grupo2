@@ -7,6 +7,7 @@ import { Container, Button, Form, FormControl, Row, Col, ButtonGroup, ToggleButt
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
+import swal from "sweetalert";
 
 const Register = props => {
 	const [checked1, setChecked1] = useState(false);
@@ -22,7 +23,7 @@ const Register = props => {
 		e.preventDefault();
 		if (email && password && password2 && typeUser && userName) {
 			if (password != password2) {
-				alert("Las contraseñas no coinciden");
+				sweetAlert("Error", "Las contraseñas no coinciden", "error");
 			} else {
 				actions.setRegister({
 					email: email,
@@ -32,7 +33,7 @@ const Register = props => {
 				});
 			}
 		} else {
-			alert("Faltan datos por ser ingresados");
+			sweetAlert("Error", "Faltan datos por ser ingresados", "error");
 		}
 	};
 
@@ -44,7 +45,7 @@ const Register = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-lavender-guppy-at3airkn.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-yellow-prawn-8jg014dm.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
