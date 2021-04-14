@@ -84,7 +84,6 @@ h1, h2, h3, h4, h5{
 
 .caimg{
   position: relative;
-  
 }
 .favorito{
   position: absolute; 
@@ -164,4 +163,13 @@ h1, h2, h3, h4, h5{
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 100%;
+}
+
+.navFilter{
+   color:gray;
+&.selected{background-color: white;}
+}
+
+.backGray{
+    background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9023984593837535) 17%, rgba(186,232,255,1) 100%);
 }

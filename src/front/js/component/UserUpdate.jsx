@@ -20,7 +20,9 @@ const UserUpdate = props => {
 
 	return (
 		<>
-			<h2>Mi Dato</h2>
+			<h2>
+				<i className="fas fa-user-circle"></i> Mi Dato
+			</h2>
 			<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
 				<Form>
 					<Form.Group as={Row} controlId="formHorizontaluserName">

@@ -5,7 +5,7 @@ import { Container, Button, Form, Jumbotron, FormControl, Row, Col } from "react
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import ServiceListUserB from "./ServiceListUserB.jsx";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, useParams } from "react-router-dom";
 
 const ServicioUpdate = props => {
 	const { store, actions } = React.useContext(Context);
@@ -22,11 +22,11 @@ const ServicioUpdate = props => {
 	const [experiencia, setExperiencia] = useState("");
 	const [portafolio, setPortafolio] = useState("");
 	const [merit, setMerit] = useState("");
-	const [id, setId] = useState("");
 	const [error, setError] = React.useState(null);
+	const { id } = useParams();
 
-	const handleSubmit = e => {
-		// e.preventDefault();
+	const handleSubmit = async e => {
+		e.preventDefault();
 		// if (!tipo_membresia.trim()) {
 		// 	setError("1. ingresar tipo_membresia");
 		// 	return;
@@ -58,33 +58,21 @@ const ServicioUpdate = props => {
 		// if (!experiencia.trim()) {
 		// 	setError("8. ingresar el tiempo llevas trabajando en esta área");
 		// 	return;
-		// } else {
-		actions.updateServicio({
-			id: id,
-			tipo_membresia: tipo_membresia,
-			subcategory: subcategory,
-			tipo_cobro: tipo_cobro,
-			valor: valor,
-			name_servicio: name_servicio,
-			descrip_servicio: descrip_servicio,
-			duracion: duracion,
-			revision: revision,
-			proceso: proceso,
-			experiencia: experiencia,
-			portafolio: portafolio,
-			merit: merit
-		});
-		console.log("pasando todas validacion");
-		alert("El servicio ha sido actualizado correctamente");
+		// }
+		actions.updateServicio(id);
 		setError(null);
 	};
+
+	useEffect(() => {
+		actions.getServiceInfoById(id);
+	}, []);
 
 	return (
 		<>
 			<h2>Mis Servicios</h2>
 			<ServiceListUserB />
 			<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
-				<Form>
+				<Form onSubmit={evento => handleSubmit(evento)}>
 					{error && <div className="alert alert-danger">{error}</div>}
 					<Form.Group>
 						<Form.Label>
@@ -94,15 +82,15 @@ const ServicioUpdate = props => {
 						</Form.Label>
 						<Form.Control
 							as="select"
+							name="tipo_membresia"
 							defaultValue={props.tipo_membresia}
-							onChange={e => setTipo_membresia(e.target.value)}
-							//isInvalid={!!errors.tipo_membresia}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{
 								backgroundColor: "lightgray",
 								marginBottom: "10px"
 							}}>
 							<option defaultValue>{props.tipo_membresia}</option>
-							<option>Freelancer (solo yo)</option>
+							<option>Freelance(solo yo)</option>
 							<option>Equipo(2-3personas)</option>
 							<option>Equipo(4-6personas)</option>
 							<option>Equipo(más de 7personas)</option>
@@ -122,8 +110,7 @@ const ServicioUpdate = props => {
 							name="subcategory"
 							defaultValue={props.subcategory}
 							rows={1}
-							onChange={e => setSubcategory(e.target.value)}
-							//isInvalid={!!errors.valor}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 						/>
 					</Form.Group>
@@ -139,8 +126,7 @@ const ServicioUpdate = props => {
 							as="select"
 							name="tipo_cobro"
 							defaultValue={props.tipo_cobro}
-							onChange={e => setTipo_cobro(e.target.value)}
-							//isInvalid={!!errors.tipo_cobro}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 							<option defaultValue>{props.tipo_cobro}</option>
 							<option>Hora</option>
@@ -155,8 +141,7 @@ const ServicioUpdate = props => {
 							name="valor"
 							defaultValue={props.valor}
 							rows={1}
-							onChange={e => setValor(e.target.value)}
-							//isInvalid={!!errors.valor}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 						/>
 						<p className="fs-6  text-muted ">
@@ -177,8 +162,7 @@ const ServicioUpdate = props => {
 							rows={2}
 							name="name_servicio"
 							defaultValue={props.name_servicio}
-							onChange={e => setName_servicio(e.target.value)}
-							//isInvalid={!!errors.name_servicio}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 						<p className="fs-6  text-muted ">Máximo 10 palabras</p>
 					</Form.Group>
@@ -196,8 +180,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="descrip_servicio"
 							defaultValue={props.descrip_servicio}
-							onChange={e => setDescrip_servicio(e.target.value)}
-							//isInvalid={!!errors.descrip_servicio}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -212,8 +195,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="duracion"
 							defaultValue={props.duracion}
-							onChange={e => setDuracion(e.target.value)}
-							//isInvalid={!!errors.duracion}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -230,8 +212,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="revision"
 							defaultValue={props.revision}
-							onChange={e => setRevision(e.target.value)}
-							//isInvalid={!!errors.revision}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -246,7 +227,7 @@ const ServicioUpdate = props => {
 							as="select"
 							name="tipo_membresia"
 							defaultValue={props.experiencia}
-							onChange={e => setExperiencia(e.target.value)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 							<option defaultValue>{props.experiencia}</option>
 							<option>1año</option>
@@ -270,7 +251,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="portafolio"
 							defaultValue={props.portafolio}
-							onChange={e => setPortafolio(e.target.value)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					<br />
@@ -285,7 +266,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="merit"
 							defaultValue={props.merit}
-							onChange={e => setMerit(e.target.value)}
+							onChange={evento => actions.handleUpdateServicio(evento)}
 						/>
 					</Form.Group>
 					{error && <div className="alert alert-danger">{error}</div>}
@@ -294,10 +275,7 @@ const ServicioUpdate = props => {
 							variant="primary"
 							size="lg"
 							type="submit"
-							style={{ marginBottom: "40px", marginTop: "40px" }}
-							onClick={e => {
-								handleSubmit(e);
-							}}>
+							style={{ marginBottom: "40px", marginTop: "40px" }}>
 							<strong>Editar tu servicio</strong>
 						</Button>
 						{/* {JSON.stringify(store.user.id)}
@@ -321,16 +299,16 @@ const ServicioUpdate = props => {
 export default withRouter(ServicioUpdate);
 
 ServicioUpdate.propTypes = {
-	id: PropTypes.string,
-	category: PropTypes.string,
+	id: PropTypes.number,
 	tipo_membresia: PropTypes.string,
 	subcategory: PropTypes.string,
 	tipo_cobro: PropTypes.string,
-	valor: PropTypes.string,
+	valor: PropTypes.number,
 	name_servicio: PropTypes.string,
 	descrip_servicio: PropTypes.string,
 	duracion: PropTypes.string,
 	revision: PropTypes.string,
+	proceso: PropTypes.string,
 	experiencia: PropTypes.string,
 	portafolio: PropTypes.string,
 	merit: PropTypes.string

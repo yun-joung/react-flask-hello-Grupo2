@@ -5,23 +5,37 @@ import { Card, Button, Accordion, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MyFilter = () => {
+	const [state, setState] = React.useState(" ");
+
 	return (
 		<>
 			{/* <Nav.Link as={Link} to="/home" >Home</Nav.Link> */}
-			<Nav justify variant="tabs" defaultActiveKey="/home" className="flex-column bg-light">
+			<Nav justify variant="tabs" defaultActiveKey="/home" className="flex-column">
 				<Nav.Item>
-					<Nav.Link as={Link} to="/MiDato" className="flex-column text-left">
-						Mis Datos
+					<Nav.Link
+						as={Link}
+						to="/MiDato"
+						className={`flex-column text-left navFilter + ${state == "dato" ? "selected" : " "}`}
+						onClick={() => setState("dato")}>
+						<i className="fas fa-user-circle"></i> Mis Datos
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item>
-					<Nav.Link as={Link} to="/MiServicio" className="flex-column text-left">
-						Mis Servicios
+					<Nav.Link
+						as={Link}
+						to="/MiServicio"
+						className={`flex-column text-left navFilter + ${state == "service" ? "selected" : " "}`}
+						onClick={() => setState("service")}>
+						<i className="fas fa-briefcase"></i> Mis Servicios
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item>
-					<Nav.Link as={Link} to="/registerservice" className="flex-column text-left">
-						Registrar nuevo servicio
+					<Nav.Link
+						as={Link}
+						to="/registerservice"
+						className={`flex-column text-left navFilter + ${state == "register" ? "selected" : " "}`}
+						onClick={() => setState("register")}>
+						<i className="fas fa-edit"></i> Registrar nuevo servicio
 					</Nav.Link>
 				</Nav.Item>
 			</Nav>

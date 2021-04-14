@@ -18,7 +18,7 @@ const MiDato = props => {
 	}, []);
 
 	return (
-		<>
+		<div className="backGray">
 			<Container>
 				<Row>
 					<Col md={3} className="mt-5">
@@ -30,7 +30,7 @@ const MiDato = props => {
 				</Row>
 				<div className="transBox" />
 			</Container>
-		</>
+		</div>
 	);
 };
 

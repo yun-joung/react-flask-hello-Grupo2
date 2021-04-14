@@ -125,13 +125,13 @@ export function LoginModal(props) {
 						to="/link2"
 						id="basic-nav-dropdown"
 						className="float-right">
-						<NavDropdown.Item eventKey={1.1} as={Link} to="/MiDato">
+						<NavDropdown.Item as={Link} to="/MiDato">
 							Mis datos
 						</NavDropdown.Item>
-						<NavDropdown.Item eventKey={1.2} as={Link} to="#action/3.2">
+						<NavDropdown.Item as={Link} to="#action/3.2">
 							Compra
 						</NavDropdown.Item>
-						<NavDropdown.Item eventKey={1.3} as={Link} to="/registerservice">
+						<NavDropdown.Item as={Link} to="/registerservice">
 							Vender
 						</NavDropdown.Item>
 						<NavDropdown.Divider />

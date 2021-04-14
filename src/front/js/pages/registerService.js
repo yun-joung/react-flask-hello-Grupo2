@@ -62,33 +62,33 @@ const RegisterService = props => {
 			return;
 		}
 		if (!experiencia.trim()) {
-			setError("8. ingresar el tiempo llevas trabajando en esta área");
+			setError("9. ingresar el tiempo llevas trabajando en esta área");
 			return;
-		} else {
-			const usuario = JSON.parse(JSON.stringify(store.user.id));
-			const userName = JSON.parse(JSON.stringify(store.user.userName));
-			actions.addServicio({
-				id_user: usuario,
-				userName: userName,
-				tipo_membresia: tipo_membresia,
-				category: category,
-				subcategory: subcategory,
-				tipo_cobro: tipo_cobro,
-				valor: valor,
-				name_servicio: name_servicio,
-				descrip_servicio: descrip_servicio,
-				duracion: duracion,
-				revision: revision,
-				proceso: proceso,
-				experiencia: experiencia,
-				portafolio: portafolio,
-				merit: merit
-			});
-			console.log("pasando todas validacion");
-			props.history.push("/home");
-			setError(null);
 		}
+		const usuario = JSON.parse(JSON.stringify(store.user.id));
+		const userName = JSON.parse(JSON.stringify(store.user.userName));
+		actions.addServicio({
+			id_user: usuario,
+			userName: userName,
+			tipo_membresia: tipo_membresia,
+			category: category,
+			subcategory: subcategory,
+			tipo_cobro: tipo_cobro,
+			valor: valor,
+			name_servicio: name_servicio,
+			descrip_servicio: descrip_servicio,
+			duracion: duracion,
+			revision: revision,
+			proceso: proceso,
+			experiencia: experiencia,
+			portafolio: portafolio,
+			merit: merit
+		});
+		console.log("pasando todas validacion");
+		props.history.push("/home");
+		setError(null);
 	};
+
 	useEffect(() => {
 		actions.getToken();
 	}, []);
@@ -96,7 +96,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-lavender-guppy-at3airkn.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-amber-crocodile-pai3c0js.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -126,7 +126,7 @@ const RegisterService = props => {
 					</Row>
 				</div>
 				<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
-					<Form>
+					<Form onSubmit={e => handleSubmit(e)}>
 						{error && <div className="alert alert-danger">{error}</div>}
 						<Form.Group>
 							<Form.Label>
@@ -143,7 +143,7 @@ const RegisterService = props => {
 									backgroundColor: "lightgray",
 									marginBottom: "10px"
 								}}>
-								<option defaultValue>Seleccionar el tipo de membresia</option>
+								<option default>Seleccionar el tipo de membresia</option>
 								<option>Freelancer (solo yo)</option>
 								<option>Equipo (2-3personas)</option>
 								<option>Equipo (4-6personas)</option>
@@ -160,7 +160,6 @@ const RegisterService = props => {
 							</Form.Label>
 							<Form.Control
 								as="select"
-								name="category"
 								value={category}
 								onChange={e => setCategory(e.target.value)}
 								//isInvalid={!!errors.category}
@@ -168,7 +167,7 @@ const RegisterService = props => {
 									backgroundColor: "lightgray",
 									marginBottom: "10px"
 								}}>
-								<option defaultValue>Seleccionar categoría de servicio</option>
+								<option default>Seleccionar categoría de servicio</option>
 								<option>Desarrollo_It</option>
 								<option>Diseño</option>
 								<option>Marketing</option>
@@ -183,7 +182,7 @@ const RegisterService = props => {
 								as="textarea"
 								type="text"
 								placeholder="Subcategory ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
-								name="subcategory"
+								rows={1}
 								value={subcategory}
 								onChange={e => setSubcategory(e.target.value)}
 								//isInvalid={!!errors.valor}
@@ -200,12 +199,11 @@ const RegisterService = props => {
 							</Form.Label>
 							<Form.Control
 								as="select"
-								name="tipo_cobro"
 								value={tipo_cobro}
 								onChange={e => setTipo_cobro(e.target.value)}
 								//isInvalid={!!errors.tipo_cobro}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
-								<option defaultValue>Seleccionar si el tipo de cobro es Por hora o Por proyecto</option>
+								<option default>Seleccionar si el tipo de cobro es Por hora o Por proyecto</option>
 								<option>Hora</option>
 								<option>Proyecto</option>
 							</Form.Control>
@@ -216,9 +214,10 @@ const RegisterService = props => {
 								as="textarea"
 								type="text"
 								placeholder="Ingresa el valor del servicio"
-								name="valor"
 								value={valor}
+								rows={1}
 								onChange={e => setValor(e.target.value)}
+								// onChange={e => setValor(Number(e.target.value.replace(/,/g, "")).toLocaleString())}
 								//isInvalid={!!errors.valor}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 							/>
@@ -239,7 +238,6 @@ const RegisterService = props => {
 								type="text"
 								placeholder="ej: ¡Crea tu propia página!"
 								rows={2}
-								name="name_servicio"
 								value={name_servicio}
 								onChange={e => setName_servicio(e.target.value)}
 								//isInvalid={!!errors.name_servicio}
@@ -259,7 +257,6 @@ const RegisterService = props => {
 								placeholder="ej: mi servicio es ..."
 								rows={3}
 								type="text"
-								name="descrip_servicio"
 								value={descrip_servicio}
 								onChange={e => setDescrip_servicio(e.target.value)}
 								//isInvalid={!!errors.descrip_servicio}
@@ -276,7 +273,6 @@ const RegisterService = props => {
 								placeholder="ej: 1mes, 15 dias o dependiendo el proyecto"
 								rows={2}
 								type="text"
-								name="duracion"
 								onChange={e => setDuracion(e.target.value)}
 								//isInvalid={!!errors.duracion}
 							/>
@@ -292,45 +288,42 @@ const RegisterService = props => {
 							<Form.Control
 								as="textarea"
 								placeholder="ej: 1 vez o más"
-								rows={2}
+								rows={1}
 								type="text"
-								name="revision"
 								onChange={e => setRevision(e.target.value)}
 								//isInvalid={!!errors.revision}
 							/>
 						</Form.Group>
 						<br />
-						{/* <Form.Group>
+						<Form.Group>
 							<Form.Label>
-								<h5>Metodología para ejecución </h5>
+								<h5>8. Metodología para ejecución </h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
 								placeholder="ej: Scrum, Html..."
 								rows={2}
 								type="text"
-								name="proceso"
 								onChange={e => setProceso(e.target.value)}
 								//isInvalid={!!errors.proceso}
 							/>
 						</Form.Group>
-						<br /> */}
+						<br />
 
 						<Form.Group>
 							<Form.Label>
 								<h5>
-									8. Años de experiencia en esta área
+									9. Años de experiencia en esta área
 									<span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
 							<Form.Control
 								as="select"
-								name="tipo_membresia"
 								value={experiencia}
 								onChange={e => setExperiencia(e.target.value)}
 								//isInvalid={!!errors.experiencia}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
-								<option defaultValue>Seleccionar rango de años</option>
+								<option default>Seleccionar rango de años</option>
 								<option>1 año</option>
 								<option>2 años</option>
 								<option>3 años</option>
@@ -344,14 +337,13 @@ const RegisterService = props => {
 
 						<Form.Group>
 							<Form.Label>
-								<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
+								<h5>10. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
 								placeholder="ej: www.virtualex.cl"
 								rows={2}
 								type="text"
-								name="portafolio"
 								value={portafolio}
 								onChange={e => setPortafolio(e.target.value)}
 								//isInvalid={!!errors.portafolio}
@@ -361,14 +353,13 @@ const RegisterService = props => {
 
 						<Form.Group>
 							<Form.Label>
-								<h5>10. Detalla los trabajos que haz realizado</h5>
+								<h5>11. Detalla los trabajos que haz realizado</h5>
 							</Form.Label>
 							<Form.Control
 								as="textarea"
 								placeholder="ej: He realizado mas de 100 sitios web a nivel mundial"
 								rows={3}
 								type="text"
-								name="merit"
 								value={merit}
 								onChange={e => setMerit(e.target.value)}
 								//isInvalid={!!errors.merit}
@@ -380,11 +371,7 @@ const RegisterService = props => {
 								variant="primary"
 								size="lg"
 								type="submit"
-								style={{ marginBottom: "40px", marginTop: "40px" }}
-								onClick={e => {
-									handleSubmit(e);
-								}}
-								href="/home">
+								style={{ marginBottom: "40px", marginTop: "40px" }}>
 								<strong>Registra tu servicio</strong>
 							</Button>
 
