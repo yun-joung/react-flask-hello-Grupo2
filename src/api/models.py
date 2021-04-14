@@ -106,6 +106,10 @@ class Servicio_registrados(db.Model):
         servicio_update.portafolio = _portafolio 
         servicio_update.merit = _merit
         db.session.commit()
+    def delete_servicio(id):
+        delete=Servicio_registrados.query.filter_by(id=id).first()
+        db.session.delete(delete)
+        db.session.commit()
     
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'

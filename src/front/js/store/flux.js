@@ -90,6 +90,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log("Error loading message from backend", error));
 			},
 
+			eliminaServicio: async id => {
+				const store = getStore();
+				const newList = store.serviceByIdUser.filter(item => item.id !== id);
+				setStore({
+					serviceByIdUser: newList
+				});
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log(json);
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
+
 			getUserInfo: async () => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/user", {

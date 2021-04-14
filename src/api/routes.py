@@ -222,6 +222,11 @@ def update_servicio(id):
         "msg": "le ha actualizado exitosamente"
         }), 200
 
+@api.route('/servicio-registrados/<int:id>', methods=["DELETE"])
+def  delete_servicio(id):
+    Servicio_registrados.delete_servicio(id)
+    return jsonify({"servicio eliminado": True})
+
 @api.route('/servicio-registrados/category/<category>', methods=["GET"])
 def get_servicio_by_category(category):
     return jsonify(Servicio_registrados.get_servicio_by_category(category))
@@ -248,8 +253,8 @@ def add_favorito():
         db.session.add(favoritos)
         db.session.commit()
         return jsonify({"msg":"mission success"}), 200
-
     
+   
 @api.route('/favoritos/<int:_id_user>', methods=["GET"])
 def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)

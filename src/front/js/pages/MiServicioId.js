@@ -21,7 +21,7 @@ const MiServicio = props => {
 	}, []);
 
 	return (
-		<>
+		<div className="backGray">
 			<Container>
 				<Row>
 					<Col md={3} className="mt-5">
@@ -47,7 +47,7 @@ const MiServicio = props => {
 				</Row>
 				<div className="transBox" />
 			</Container>
-		</>
+		</div>
 	);
 };
 

@@ -20,6 +20,14 @@ const ServiceListUser = props => {
 					className="text-left"
 					onClick={() => actions.getServiceInfoById(props.id)}>
 					{props.id}.&nbsp;{props.name_servicio}
+					<Button variant="light" className="float-right " onClick={() => actions.eliminaServicio(id)}>
+						<i className="fas fa-trash-alt"></i>
+					</Button>
+					<Link to={"/MiServicio/id/" + id}>
+						<Button variant="light" className="float-right  mr-2 ">
+							<i className="fas fa-edit"></i>
+						</Button>
+					</Link>
 				</Button>
 				<br />
 			</Link>
