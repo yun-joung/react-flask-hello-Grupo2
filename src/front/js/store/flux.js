@@ -76,7 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => {
 						console.log("--servicio registrado --", data);
 						setStore({ serviceRegistrado: data });
-						alert("El servicio ha sido registrado correctamente");
+						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
 			},
@@ -91,7 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => {
 						console.log("--servicio registrado --", data);
 						setStore({ serviceRegistrado: data });
-						alert("El servicio ha sido actualizado correctamente");
+						sweetAlert("¡Excelente!", "El servicio ha sido actualizado correctamente", "success");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
 			},
@@ -337,6 +337,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("userName", JSON.stringify(data.userName));
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
+							sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
@@ -383,7 +384,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 							templateParams,
 							"user_Lg37b3jwPEh5fSo53yOsV"
 						);
-						alert("Una nueva contraseña ha sido enviada a tu correo registrado");
+						sweetAlert(
+							"¡Excelente!",
+							"Una nueva contraseña ha sido enviada a tu correo registrado",
+							"success"
+						);
 					})
 					.catch(error => console.log("Error sending email", error));
 			},
@@ -418,8 +423,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-type": "application/json" }
 				})
 					.then(() => {
-						alert(
-							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas."
+						sweetAlert(
+							"¡Excelente!",
+							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas.",
+							"success"
 						);
 					})
 					// .then(props.history.push("/compra"))
