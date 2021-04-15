@@ -90,7 +90,8 @@ function MyVerticallyCenteredModal(props) {
 
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
-	const { store, actions } = useContext(Context);
+    const { store, actions } = useContext(Context);
+    const [width, setWidth] = React.useState(window.innerWidth)
 
 	useEffect(() => {
 		actions.showUserFavorites();
@@ -100,31 +101,15 @@ export function LoginModal(props) {
 		<>
 			{store.user.token !== null ? (
 				<>
-					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
-						<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
-							{JSON.stringify(store.favoritos.id)}
-						</NavDropdown.Item>
-						{store.favoritos.map((item, index) => {
-							return (
-								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
-									{item.name_servicio}
-									<Button
-										variant="light"
-										className="float-right"
-										onClick={() => actions.eliminaFavorito(item.id)}>
-										<i className="fas fa-trash-alt float-right" />
-									</Button>
-								</NavDropdown.Item>
-							);
-						})}
-					</NavDropdown>
 					<NavDropdown
-						title="Mi cuenta"
+                        //{ width > 590 ? title="Mi cuenta" : title=<i class="far fa-user-circle"></i>}
+                        title="Mi cuenta"
 						eventKey={1}
 						as={Link}
 						to="/link2"
 						id="basic-nav-dropdown"
-						className="float-right">
+						className="float-right px-0"
+						style={{ paddingRight: "0px" }}>
 						<NavDropdown.Item as={Link} to="/MiDato">
 							Mis datos
 						</NavDropdown.Item>
@@ -143,6 +128,32 @@ export function LoginModal(props) {
 							}}>
 							Salir
 						</NavDropdown.Item>
+					</NavDropdown>
+					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-right mr-2">
+						{/* <NavDropdown.Item href="#action/3.1" style={{ width: "250px", paddingRight: "0px" }}>
+							{JSON.stringify(store.favoritos.id)}
+						</NavDropdown.Item> */}
+						{store.favoritos.length === 0 ? (
+							<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
+								{" "}
+								No hay favorito
+							</NavDropdown.Item>
+						) : (
+							" "
+						)}
+						{store.favoritos.map((item, index) => {
+							return (
+								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
+									{item.name_servicio}
+									<Button
+										variant="light"
+										className="float-right"
+										onClick={() => actions.eliminaFavorito(item.id)}>
+										<i className="fas fa-trash-alt float-right" />
+									</Button>
+								</NavDropdown.Item>
+							);
+						})}
 					</NavDropdown>
 				</>
 			) : (

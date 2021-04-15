@@ -96,7 +96,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-amber-crocodile-pai3c0js.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-fuchsia-louse-dz4d70xf.ws-us03.gitpod.io/ßbackGround.png)`
 			}}>
 			<Container>
 				<div>
