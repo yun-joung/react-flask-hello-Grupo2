@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const CustomProgressBar = ({ comments }) => {
 	const { store, actions } = useContext(Context);
-	//const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
+	const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
 	//console.log(total1, total2, total3, total4, total5);
 
 	// const getTotales = comments => {

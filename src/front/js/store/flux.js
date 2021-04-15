@@ -232,7 +232,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			addComment: async text_comment => {
+			addComment: async (text_comment, assessment) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
@@ -243,7 +243,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							id_servicios_prestados: "1",
 							id_servicio_registrados: "1",
 							text_comment: text_comment,
-							evaluacion: "4"
+							evaluacion: assessment
 						})
 					});
 
