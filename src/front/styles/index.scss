@@ -173,3 +173,10 @@ h1, h2, h3, h4, h5{
 .backGray{
     background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9023984593837535) 17%, rgba(186,232,255,1) 100%);
 }
+
+.error{
+    border:2px solid red;
+}
+.error-message{
+    color:red;
+}

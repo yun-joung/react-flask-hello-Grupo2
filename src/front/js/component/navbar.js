@@ -13,6 +13,11 @@ const MyNavbar = props => {
 		actions.getToken();
 	}, []);
 
+	const handledChange = e => {
+		e.preventDefault();
+		actinos.searchInfo(e);
+	};
+
 	if (
 		props.location.pathname === "/" ||
 		props.location.pathname === "/register" ||
@@ -36,14 +41,18 @@ const MyNavbar = props => {
 							</Link>
 						</Col>
 						<Col sm={3} md={4} lg={4} xl={4}>
-							<Form inline className="Buscar sb float-right mt-2 d-none d-lg-block d-xl-block">
+							<Form
+								onSubmit={e => props.handledChange(e)}
+								inline
+								className="Buscar sb float-right mt-2 d-none d-lg-block d-xl-block">
 								<FormControl
-									type="text"
+									type="search"
 									placeholder="Buscar"
-									className="search "
+									className="search"
+									name="e"
 									style={{ width: "224px" }}
 								/>
-								<Button variant="btn" className="p-0" onChange={event => props.handledChange(event)}>
+								<Button variant="btn" className="p-0" type="submit">
 									<i className="fas fa-search pr-3" />
 								</Button>
 							</Form>
@@ -61,7 +70,7 @@ const MyNavbar = props => {
 							</Button>
 						</Col>
 						<Col sm={6} md={5} lg={4} xl={3} className="px-0">
-							<div className="ml-auto ">
+							<div>
 								<LoginModal user={store.user} />
 							</div>
 						</Col>

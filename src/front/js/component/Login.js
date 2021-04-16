@@ -90,8 +90,8 @@ function MyVerticallyCenteredModal(props) {
 
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
-    const { store, actions } = useContext(Context);
-    const [width, setWidth] = React.useState(window.innerWidth)
+	const { store, actions } = useContext(Context);
+	const [width, setWidth] = React.useState(window.innerWidth);
 
 	useEffect(() => {
 		actions.showUserFavorites();
@@ -102,11 +102,8 @@ export function LoginModal(props) {
 			{store.user.token !== null ? (
 				<>
 					<NavDropdown
-                        //{ width > 590 ? title="Mi cuenta" : title=<i class="far fa-user-circle"></i>}
-                        title="Mi cuenta"
-						eventKey={1}
-						as={Link}
-						to="/link2"
+						//{ width > 590 ? title="Mi cuenta" : title=<i class="far fa-user-circle"></i>}
+						title="Mi cuenta"
 						id="basic-nav-dropdown"
 						className="float-right px-0"
 						style={{ paddingRight: "0px" }}>
@@ -134,16 +131,17 @@ export function LoginModal(props) {
 							{JSON.stringify(store.favoritos.id)}
 						</NavDropdown.Item> */}
 						{store.favoritos.length === 0 ? (
-							<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
-								{" "}
-								No hay favorito
-							</NavDropdown.Item>
+							<NavDropdown.Item style={{ width: "250px" }}> No hay favorito</NavDropdown.Item>
 						) : (
 							" "
 						)}
 						{store.favoritos.map((item, index) => {
 							return (
-								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
+								<NavDropdown.Item
+									as={Link}
+									to={"/servicio/category/" + item.id_servicio_registrados}
+									style={{ width: "250px" }}
+									key={index}>
 									{item.name_servicio}
 									<Button
 										variant="light"
@@ -158,19 +156,19 @@ export function LoginModal(props) {
 				</>
 			) : (
 				<>
-					<Button
-						variant="outline-primary "
-						className="no-outline mr-2"
-						style={{ borderRadius: "1.75rem" }}
-						onClick={() => setModalShow(true)}>
-						Ingresa
-					</Button>
-					<MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
 					<Link to="/register">
 						<button className="btn btn-primary float-right" style={{ borderRadius: "1.75rem" }}>
 							&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
 						</button>
 					</Link>
+					<Button
+						variant="outline-primary "
+						className="no-outline float-right mr-2"
+						style={{ borderRadius: "1.75rem" }}
+						onClick={() => setModalShow(true)}>
+						Ingresa
+					</Button>
+					<MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
 				</>
 			)}
 		</>

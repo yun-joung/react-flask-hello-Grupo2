@@ -110,7 +110,10 @@ class Servicio_registrados(db.Model):
         delete=Servicio_registrados.query.filter_by(id=id).first()
         db.session.delete(delete)
         db.session.commit()
-    
+    def service_search(q):
+        q=request.args.get('e')
+        services = Servicio_registrados.query.filter(Servicio_registrados.subcategory.contains(e) | Servicio_registrados.name_servicio.contains(e))
+        return list(map(lambda x: x.serialize(), services))
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'
     id = db.Column(db.Integer, primary_key=True)
