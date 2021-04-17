@@ -14,26 +14,26 @@ const MiServicio = props => {
 	const { store, actions } = React.useContext(Context);
 
 	return (
-		<>
+		<div className="backGray">
 			<Container>
 				<Row>
 					<Col md={3} className="mt-5">
 						<MyFilter />
 					</Col>
 					<Col md={9} className="mt-5">
-						<h2>Mis Servicios</h2>
+						<h2>
+							<i className="fas fa-briefcase"></i> Mis Servicios
+						</h2>
 						<ServiceListUserB />
 					</Col>
 				</Row>
-				<div className="transBox" />
 			</Container>
-		</>
+		</div>
 	);
 };
 
 export default withRouter(MiServicio);
 
 MiServicio.propTypes = {
-	match: PropTypes.objecto,
 	category: PropTypes.string
 };

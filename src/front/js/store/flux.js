@@ -42,62 +42,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				id_servicio_registrados: "",
 				name_servicio: ""
 			},
-			reServicio: {
-				id: "",
-				tipo_membresia: "",
-				subcategory: "",
-				tipo_cobro: "",
-				valor: "",
-				name_servicio: "",
-				descrip_servicio: "",
-				duracion: "",
-				revision: "",
-				proceso: "",
-				experiencia: "",
-				portafolio: "",
-				merit: ""
-			},
 			serviceByCategory: [],
 			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
+			searchInfo: [],
 			serviceInfoById: {},
 			servPrestadoById: {},
 			comments: []
 		},
 
 		actions: {
-			addServicio: servicio => {
-				console.log(servicio);
-				fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
-					method: "POST",
-					body: JSON.stringify(servicio),
-					headers: { "Content-type": "application/json" }
-				})
-					.then(resp => resp.json())
-					.then(data => {
-						console.log("--servicio registrado --", data);
-						setStore({ serviceRegistrado: data });
-						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
-					})
-					.catch(error => console.log("Error loading message from backend", error));
-			},
-
-			updateServicio: reServicio => {
-				fetch(process.env.BACKEND_URL + "/api/servicio-registrados" + id, {
-					method: "POST",
-					body: JSON.stringify(reServicio),
-					headers: { "Content-type": "application/json" }
-				})
-					.then(resp => resp.json())
-					.then(data => {
-						console.log("--servicio registrado --", data);
-						setStore({ serviceRegistrado: data });
-						sweetAlert("¡Excelente!", "El servicio ha sido actualizado correctamente", "success");
-					})
-					.catch(error => console.log("Error loading message from backend", error));
-			},
-
 			getUserInfo: async () => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/user", {
@@ -126,6 +81,64 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	}
 			// },
 
+			addServicio: servicio => {
+				console.log(servicio);
+				fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+					method: "POST",
+					body: JSON.stringify(servicio),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("--servicio registrado --", data);
+						setStore({ serviceRegistrado: data });
+						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+					})
+					.catch(error => console.log("Error loading message from backend", error));
+			},
+
+			handleUpdateServicio: evento => {
+				const store = getStore();
+				let { serviceRegistrado } = store;
+				serviceRegistrado[evento.target.name] = evento.target.value;
+				setStore({ serviceRegistrado: serviceRegistrado });
+				console.log(store.serviceRegistrado);
+			},
+
+			updateServicio: id => {
+				const store = getStore();
+				fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
+					method: "PUT",
+					body: JSON.stringify(store.serviceRegistrado),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("--servicio actualizado --", data);
+						setStore({ serviceRegistrado: data });
+						sweetAlert("¡Excelente!", "El servicio ha sido actualizado correctamente", "success");
+					})
+					.catch(error => console.log("Error loading message from backend", error));
+			},
+
+			eliminaServicio: async id => {
+				const store = getStore();
+				const newList = store.serviceByIdUser.filter(item => item.id !== id);
+				setStore({
+					serviceByIdUser: newList
+				});
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log(json);
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
+
 			getServiceInfo: async () => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
@@ -147,8 +160,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
-					console.log("--ServicioByID--", json);
-					setStore({ serviceInfoById: json });
+					console.log("--serviceRegistradoID--", json);
+					setStore({ serviceRegistrado: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -164,7 +177,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 					const json = await response.json();
-					console.log("--serviceByIdUser--", json);
+					console.log("--serviceRegistrado--", json);
 					setStore({ serviceByIdUser: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
@@ -183,6 +196,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const json = await response.json();
 					console.log("--serviceByCategory--", json);
 					setStore({ serviceByCategory: json });
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
+
+			searchInfo: async search => {
+				console.log(search);
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/search/" + search, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log("--Search_Info--", json);
+					setStore({ searchInfo: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -292,7 +320,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							id_servicios_prestados: "8",
+							id_servicios_prestados: "1",
 							id_servicio_registrados: id,
 							text_comment: text_comment,
 							evaluacion: assessment
@@ -319,6 +347,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
+
 			setRegister: user => {
 				console.log(user);
 				fetch(process.env.BACKEND_URL + "/api/register", {
@@ -410,6 +439,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return { total5, total4, total3, total2, total1 };
 			},
 			cerrarSesion: () => {
+				const store = getStore();
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");
 				localStorage.removeItem("tipo_user");
@@ -417,6 +447,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("userName");
 				localStorage.removeItem("isLogin");
 				setStore({ user: { isLogin: false } });
+				//setStore({ favoritos: "" });
 			},
 			buyService: buyservice => {
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {
