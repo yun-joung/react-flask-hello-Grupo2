@@ -46,12 +46,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
-<<<<<<< HEAD
 			searchInfo: [],
-=======
 			serviceInfoById: {},
 			servPrestadoById: {},
->>>>>>> 1f63547be202fb0b65f41c55a91392a0eec0095a
 			comments: []
 		},
 
@@ -323,7 +320,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							id_servicios_prestados: "8",
+							id_servicios_prestados: "1",
 							id_servicio_registrados: id,
 							text_comment: text_comment,
 							evaluacion: assessment
