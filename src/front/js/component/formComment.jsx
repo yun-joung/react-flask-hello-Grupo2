@@ -4,10 +4,13 @@ import { ProgressBar } from "react-bootstrap";
 import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
 import { Form, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 export const Formcomment = () => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
+	const { id } = useParams();
+	console.log(id);
 	const [assessment, setAssessment] = useState(0);
 	// const [color, setColor] = useState();
 	return (
@@ -61,7 +64,7 @@ export const Formcomment = () => {
 												<Button
 													variant="info"
 													onClick={() => {
-														actions.addComment(text_comment, assessment);
+														actions.addComment(text_comment, assessment, id);
 													}}>
 													Ingresar
 												</Button>{" "}

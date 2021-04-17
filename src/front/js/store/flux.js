@@ -46,11 +46,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			favoritos: [],
 			serviceInfo: [],
 			serviceInfoById: {},
+			servPrestadoById: {},
 			comments: []
 		},
 
 		actions: {
 			addServicio: servicio => {
+				console.log(servicio);
 				fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
 					method: "POST",
 					body: JSON.stringify(servicio),
@@ -232,7 +234,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			addComment: async (text_comment, assessment) => {
+			addComment: async (text_comment, assessment, id) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
@@ -240,8 +242,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							id_servicios_prestados: "1",
-							id_servicio_registrados: "1",
+							id_servicios_prestados: "8",
+							id_servicio_registrados: id,
 							text_comment: text_comment,
 							evaluacion: assessment
 						})
@@ -368,6 +370,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas."
 						);
 					})
+
 					// .then(props.history.push("/compra"))
 					// .then(data => data.json())
 					// .then(data=>{
@@ -387,6 +390,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// 		alert("El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas. Una copia de este requerimiento ha sido enviado a su correo electrónico.");
 					// 	})
 					.catch(error => console.log("Error sending email", error));
+			},
+
+			getBuyServiceById: async id => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/buyservice" + id, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log("--BuyServiceById--", json);
+					setStore({ BuyServiceById: json });
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
 			}
 		}
 	};

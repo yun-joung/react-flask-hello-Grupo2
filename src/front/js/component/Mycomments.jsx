@@ -37,11 +37,13 @@ export const Comments = () => {
 				<div>
 					<div className="rating-block">
 						<h5 style={{ textAlign: "center" }}>Calificación Promedio de usuarios</h5>
-						<h2 className="bold padding-bottom-7">
+
+						<h1 className="bold padding-bottom-7" style={{ textAlign: "center" }}>
 							{getPromedio(store.comments)} <small>/ 5</small>
-						</h2>
+						</h1>
+
 						{/* Estrellas de puntuación */}
-						<StarRating />
+						{/* <StarRating /> */}
 					</div>
 				</div>
 				{/* Cuadro de comentario */}
