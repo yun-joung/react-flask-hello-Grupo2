@@ -109,6 +109,7 @@ const ServicioUpdate = props => {
 							type="text"
 							name="subcategory"
 							defaultValue={props.subcategory}
+							//value={store.servicio.subcategory}
 							rows={1}
 							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}

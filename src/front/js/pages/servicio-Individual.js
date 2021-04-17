@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Row, Col, Container, Jumbotron, Button } from "react-bootstrap";
-import { Individuallnfo } from "../component/individualInfo.jsx";
+import Individuallnfo from "../component/individualInfo.jsx";
 import { IndividualCard } from "../component/IndividualCard.jsx";
 import { Comments } from "../component/Mycomments.jsx";
 import { Formcomment } from "../component/formComment.jsx";
@@ -11,13 +11,16 @@ import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
 import { Link, withRouter, useParams } from "react-router-dom";
+
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
 	const item = store.serviceRegistrado;
 	const { id } = props.match.params;
+
 	useEffect(() => {
 		actions.getServiceInfoById(id);
 	}, []);
+
 	return (
 		<>
 			<Container>
@@ -81,6 +84,7 @@ const Servicioindividual = props => {
 		</>
 	);
 };
+
 export default withRouter(Servicioindividual);
 Servicioindividual.propTypes = {
 	match: PropTypes.object,

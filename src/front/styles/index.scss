@@ -49,7 +49,7 @@ h1, h2, h3, h4, h5{
     left: 0;
     bottom: 0;
     right: 0;
-    height: 280%;
+    height: 210%;
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
@@ -172,4 +172,41 @@ h1, h2, h3, h4, h5{
 
 .backGray{
     background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9023984593837535) 17%, rgba(186,232,255,1) 100%);
+}
+
+.error{
+    border:2px solid red;
+}
+.error-message{
+    color:red;
+}
+#my-radio-group input[type="radio" i] {
+  display: none;
+}
+#my-radio-group span {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 0.3rem;
+  color: #fff;
+  background-color: map-get($theme-colors, 'primary');
+  border-color:map-get($theme-colors, 'primary');
+}
+
+#my-radio-group span:hover {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 0.3rem;
+  color: #fff;
+  background-color: map-get($theme-colors, 'info');
+  border-color:map-get($theme-colors, 'info');
+}
+
+#my-radio-groups input[type="checkbox"]:checked + span {
+  background-color: gold;
+  color: black;
+}
+
+.btn-outline-primary {
+    color: map-get($theme-colors, 'primary');
+    border-color: map-get($theme-colors, 'primary');
 }
