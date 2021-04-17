@@ -62,7 +62,7 @@ def login():
 
 @api.route('/register', methods=['POST'])
 def register():
-    
+    print(request.get_json())
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     tipo_user = request.json.get("tipo_user", None)
@@ -173,12 +173,10 @@ def get_all_servicios():
 @api.route('/servicio-registrados/<int:id>', methods=["GET"])
 def get_servicio_id(id):
     return jsonify(Servicio_registrados.get_servicio(id))
-
 @api.route('/servicio-registrados/user/<int:id>', methods=["GET"])
 def get_servicio_id_user(id):
     return jsonify(Servicio_registrados.get_servicio_id_user(id))
-
-@api.route('/servicio-registrados/<int:id>', methods=["POST"])
+@api.route('/servicio-registrados/<int:id>', methods=["PUT"])
 def update_servicio(id):
     tipo_membresia = request.json.get("tipo_membresia",None)
     subcategory = request.json.get('subcategory',None)
@@ -221,11 +219,16 @@ def update_servicio(id):
     return jsonify({
         "msg": "le ha actualizado exitosamente"
         }), 200
-
+@api.route('/servicio-registrados/<int:id>', methods=["DELETE"])
+def  delete_servicio(id):
+    Servicio_registrados.delete_servicio(id)
+    return jsonify({"servicio eliminado": True})
 @api.route('/servicio-registrados/category/<category>', methods=["GET"])
 def get_servicio_by_category(category):
     return jsonify(Servicio_registrados.get_servicio_by_category(category))
-
+@api.route('/search/<search>', methods=["GET"])
+def service_search(search):
+    return jsonify(Servicio_registrados.service_search(search))
 @api.route('/favoritos', methods=["POST"])
 def add_favorito():
     if request.method == 'POST':
@@ -248,8 +251,8 @@ def add_favorito():
         db.session.add(favoritos)
         db.session.commit()
         return jsonify({"msg":"mission success"}), 200
-
     
+   
 @api.route('/favoritos/<int:_id_user>', methods=["GET"])
 def get_favoritos_by_user(_id_user):
     favoritos = Favoritos.get_favoritos_by_user(_id_user)

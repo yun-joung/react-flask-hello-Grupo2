@@ -47,7 +47,7 @@ export const CardIndividual = props => {
 						<span style={{ color: "gray" }}>/{props.tipo_cobro}</span>
 					</Card.Text>
 					<Card.Text className="d-inline" style={{ marginBottom: "3px", fontSize: "14px", color: "#606060" }}>
-						<i className="fas fa-star" />
+						<i className="fas fa-star warning" style={{ color: "#f3cb00" }} />
 						{props.punta} / {props.trabajo} trabajo
 					</Card.Text>
 				</Card.Body>

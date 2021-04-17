@@ -13,6 +13,12 @@ const MyNavbar = props => {
 		actions.getToken();
 	}, []);
 
+	const handledChange = e => {
+		e.preventDefault();
+		let { search } = e.target;
+		actions.searchInfo(search.value);
+	};
+
 	if (
 		props.location.pathname === "/" ||
 		props.location.pathname === "/register" ||
@@ -24,7 +30,7 @@ const MyNavbar = props => {
 			<>
 				<nav className="navbar navbar-light my-3">
 					<Container>
-						<Col md={5}>
+						<Col sm={3} md={3} lg={4} xl={5}>
 							<Link to="/home">
 								<img
 									src={logoAzul}
@@ -35,16 +41,37 @@ const MyNavbar = props => {
 								/>
 							</Link>
 						</Col>
-						<Col sm={6} md={4} className="hidden-sm">
-							<Form inline className="Buscar sb d-flex float-right mt-2 hidden-sm">
-								<FormControl type="text" placeholder="Buscar" className="mr-sm-4 search" />
-								<Button variant="btn" onChange={event => props.handledChange(event)}>
+						<Col sm={3} md={4} lg={4} xl={4}>
+							<Form
+								onSubmit={e => handledChange(e)}
+								inline
+								className="Buscar sb float-right mt-2 d-none d-lg-block d-xl-block">
+								<FormControl
+									type="search"
+									placeholder="Buscar"
+									className="search"
+									name="search"
+									style={{ width: "224px" }}
+								/>
+								<Button variant="btn" className="p-0" type="submit">
 									<i className="fas fa-search pr-3" />
 								</Button>
 							</Form>
+							<Button
+								variant="btn"
+								className="d-none float-right d-sm-block d-md-block d-lg-none h4 p-0"
+								onChange={event => props.handledChange(event)}>
+								<i className="fas fa-search pr-3" />
+							</Button>
+							<Button
+								variant="btn"
+								className="float-right d-block d-sm-none h4 p-0"
+								onChange={event => props.handledChange(event)}>
+								<i className="fas fa-search pr-3" />
+							</Button>
 						</Col>
-						<Col sm={6} md={3}>
-							<div className="ml-auto">
+						<Col sm={6} md={5} lg={4} xl={3} className="px-0">
+							<div>
 								<LoginModal user={store.user} />
 							</div>
 						</Col>
