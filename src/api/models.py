@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask import request
+from sqlalchemy import or_
 
 db = SQLAlchemy()
 class User(db.Model):
@@ -106,7 +108,18 @@ class Servicio_registrados(db.Model):
         servicio_update.portafolio = _portafolio 
         servicio_update.merit = _merit
         db.session.commit()
-    
+    def delete_servicio(id):
+        delete=Servicio_registrados.query.filter_by(id=id).first()
+        db.session.delete(delete)
+        db.session.commit()
+    # def service_search(search):
+    #     #search=request.args.get(search)
+    #     services = Servicio_registrados.query.filter(Servicio_registrados.name_servicio==search or Servicio_registrados.subcategory==search).all()
+    #     return list(map(lambda x: x.serialize(), services))
+    def service_search(search):
+        services = Servicio_registrados.query.filter(Servicio_registrados.name_servicio.ilike("%"+search+"%") | Servicio_registrados.subcategory.ilike("%"+search+"%")).all()
+        return list(map(lambda x: x.serialize(), services))
+
 class Servicios_prestados(db.Model):
     __tablename__ = 'servicios_prestados'
     id = db.Column(db.Integer, primary_key=True)
@@ -151,10 +164,8 @@ class Favoritos(db.Model):
         db.session.add(new_favorito)
         db.session.commit()
     def get_favoritos_by_user(_id_user):
-        favoritos_query = Favoritos.query.all()
-        favoritos_query = Favoritos.query.filter_by(id_user=_id_user)
-        db.session.commit()
-        return list(map(lambda x: x.serialize(), Favoritos.query.all()))
+        favoritos_query = Favoritos.query.filter_by(id_user=_id_user).all()
+        return list(map(lambda x: x.serialize(), favoritos_query))
     def delete_favorito(id):
         delete=Favoritos.query.filter_by(id=id).first()
         db.session.delete(delete)

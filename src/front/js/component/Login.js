@@ -91,6 +91,7 @@ function MyVerticallyCenteredModal(props) {
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
 	const { store, actions } = useContext(Context);
+	const [width, setWidth] = React.useState(window.innerWidth);
 
 	useEffect(() => {
 		actions.showUserFavorites();
@@ -100,38 +101,19 @@ export function LoginModal(props) {
 		<>
 			{store.user.token !== null ? (
 				<>
-					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-left">
-						<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }}>
-							{JSON.stringify(store.favoritos.id)}
-						</NavDropdown.Item>
-						{store.favoritos.map((item, index) => {
-							return (
-								<NavDropdown.Item href="#action/3.1" style={{ width: "250px" }} key={index}>
-									{item.name_servicio}
-									<Button
-										variant="light"
-										className="float-right"
-										onClick={() => actions.eliminaFavorito(item.id)}>
-										<i className="fas fa-trash-alt float-right" />
-									</Button>
-								</NavDropdown.Item>
-							);
-						})}
-					</NavDropdown>
 					<NavDropdown
+						//{ width > 590 ? title="Mi cuenta" : title=<i class="far fa-user-circle"></i>}
 						title="Mi cuenta"
-						eventKey={1}
-						as={Link}
-						to="/link2"
 						id="basic-nav-dropdown"
-						className="float-right">
-						<NavDropdown.Item eventKey={1.1} as={Link} to="/MiDato">
+						className="float-right px-0"
+						style={{ paddingRight: "0px" }}>
+						<NavDropdown.Item as={Link} to="/MiDato">
 							Mis datos
 						</NavDropdown.Item>
-						<NavDropdown.Item eventKey={1.2} as={Link} to="#action/3.2">
+						<NavDropdown.Item as={Link} to="#action/3.2">
 							Compra
 						</NavDropdown.Item>
-						<NavDropdown.Item eventKey={1.3} as={Link} to="/registerservice">
+						<NavDropdown.Item as={Link} to="/registerservice">
 							Vender
 						</NavDropdown.Item>
 						<NavDropdown.Divider />
@@ -144,22 +126,49 @@ export function LoginModal(props) {
 							Salir
 						</NavDropdown.Item>
 					</NavDropdown>
+					<NavDropdown title="Mi favoritos" id="basic-nav-dropdown" className="float-right mr-2">
+						{/* <NavDropdown.Item href="#action/3.1" style={{ width: "250px", paddingRight: "0px" }}>
+							{JSON.stringify(store.favoritos.id)}
+						</NavDropdown.Item> */}
+						{store.favoritos.length === 0 ? (
+							<NavDropdown.Item style={{ width: "250px" }}> No hay favorito</NavDropdown.Item>
+						) : (
+							" "
+						)}
+						{store.favoritos.map((item, index) => {
+							return (
+								<NavDropdown.Item
+									as={Link}
+									to={"/servicio/category/" + item.id_servicio_registrados}
+									style={{ width: "250px" }}
+									key={index}>
+									{item.name_servicio}
+									<Button
+										variant="light"
+										className="float-right"
+										onClick={() => actions.eliminaFavorito(item.id)}>
+										<i className="fas fa-trash-alt float-right" />
+									</Button>
+								</NavDropdown.Item>
+							);
+						})}
+					</NavDropdown>
 				</>
 			) : (
 				<>
-					<Button
-						variant="outline-primary "
-						className="no-outline mr-2"
-						style={{ borderRadius: "1.75rem" }}
-						onClick={() => setModalShow(true)}>
-						Ingresa
-					</Button>
-					<MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
 					<Link to="/register">
 						<button className="btn btn-primary float-right" style={{ borderRadius: "1.75rem" }}>
 							&nbsp;&nbsp;&nbsp;Registrate&nbsp;&nbsp;&nbsp;
 						</button>
 					</Link>
+					<Button
+						variant="outline-primary "
+						className="no-outline float-right mr-2"
+						style={{ borderRadius: "1.75rem" }}
+						onClick={() => setModalShow(true)}>
+						Ingresa
+					</Button>
+					<MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
 				</>
 			)}
 		</>

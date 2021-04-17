@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
-export const Individuallnfo = props => {
+const Individuallnfo = props => {
 	const { store, actions } = useContext(Context);
 	const { id } = props;
 	const handleSubmit = e => {
@@ -30,6 +30,7 @@ export const Individuallnfo = props => {
 			cantidad_servicio: 1,
 			total_valor_servicio: props.valor
 		});
+		props.history.push("/compra");
 	};
 	return (
 		<>
@@ -87,7 +88,7 @@ export const Individuallnfo = props => {
 	);
 };
 
-// export default withRouter(Individuallnfo);
+export default withRouter(Individuallnfo);
 
 Individuallnfo.propTypes = {
 	name_servicio: PropTypes.string,
