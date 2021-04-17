@@ -180,3 +180,33 @@ h1, h2, h3, h4, h5{
 .error-message{
     color:red;
 }
+#my-radio-group input[type="radio" i] {
+  display: none;
+}
+#my-radio-group span {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 0.3rem;
+  color: #fff;
+  background-color: map-get($theme-colors, 'primary');
+  border-color:map-get($theme-colors, 'primary');
+}
+
+#my-radio-group span:hover {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 0.3rem;
+  color: #fff;
+  background-color: map-get($theme-colors, 'info');
+  border-color:map-get($theme-colors, 'info');
+}
+
+#my-radio-groups input[type="checkbox"]:checked + span {
+  background-color: gold;
+  color: black;
+}
+
+.btn-outline-primary {
+    color: map-get($theme-colors, 'primary');
+    border-color: map-get($theme-colors, 'primary');
+}

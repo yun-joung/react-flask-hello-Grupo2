@@ -15,7 +15,8 @@ const MyNavbar = props => {
 
 	const handledChange = e => {
 		e.preventDefault();
-		actinos.searchInfo(e);
+		let { search } = e.target;
+		actions.searchInfo(search.value);
 	};
 
 	if (
@@ -42,14 +43,14 @@ const MyNavbar = props => {
 						</Col>
 						<Col sm={3} md={4} lg={4} xl={4}>
 							<Form
-								onSubmit={e => props.handledChange(e)}
+								onSubmit={e => handledChange(e)}
 								inline
 								className="Buscar sb float-right mt-2 d-none d-lg-block d-xl-block">
 								<FormControl
 									type="search"
 									placeholder="Buscar"
 									className="search"
-									name="e"
+									name="search"
 									style={{ width: "224px" }}
 								/>
 								<Button variant="btn" className="p-0" type="submit">

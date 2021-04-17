@@ -198,9 +198,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			searchInfo: async e => {
+			searchInfo: async search => {
+				console.log(search);
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/" + e, {
+					const response = await fetch(process.env.BACKEND_URL + "/api/search/" + search, {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					});
@@ -343,6 +344,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
+
 			setRegister: user => {
 				console.log(user);
 				fetch(process.env.BACKEND_URL + "/api/register", {

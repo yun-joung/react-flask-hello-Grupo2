@@ -2,10 +2,12 @@ import React from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Card, Button, Accordion, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const MyFilter = () => {
 	const [state, setState] = React.useState(" ");
+	let { pathname } = useLocation();
+	console.log(pathname);
 
 	return (
 		<>
@@ -15,7 +17,7 @@ export const MyFilter = () => {
 					<Nav.Link
 						as={Link}
 						to="/MiDato"
-						className={`flex-column text-left navFilter + ${state == "dato" ? "selected" : " "}`}
+						className={`flex-column text-left navFilter + ${pathname == "/MiDato" ? "selected" : ""}`}
 						onClick={() => setState("dato")}>
 						<i className="fas fa-user-circle"></i> Mis Datos
 					</Nav.Link>
@@ -24,7 +26,7 @@ export const MyFilter = () => {
 					<Nav.Link
 						as={Link}
 						to="/MiServicio"
-						className={`flex-column text-left navFilter + ${state == "service" ? "selected" : " "}`}
+						className={`flex-column text-left navFilter + ${pathname == "/MiServicio" ? "selected" : ""}`}
 						onClick={() => setState("service")}>
 						<i className="fas fa-briefcase"></i> Mis Servicios
 					</Nav.Link>
