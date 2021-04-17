@@ -23,7 +23,7 @@ const Register = props => {
 		e.preventDefault();
 		if (email && password && password2 && typeUser && userName) {
 			if (password != password2) {
-				sweetAlert("Error", "Las contraseñas no coinciden", "error");
+				swal("Error", "Las contraseñas no coinciden", "error");
 			} else {
 				actions.setRegister({
 					email: email,
@@ -33,7 +33,7 @@ const Register = props => {
 				});
 			}
 		} else {
-			sweetAlert("Error", "Faltan datos por ser ingresados", "error");
+			swal("Error", "Faltan datos por ser ingresados", "error");
 		}
 	};
 

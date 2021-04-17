@@ -266,6 +266,7 @@ def addComment():
             if not request.is_json:
                 return jsonify({"msg": "El body o contenido esta vacio"}), 400
 
+           
             id_servicios_prestados= request.json.get("id_servicios_prestados")
             id_servicio_registrados= request.json.get("id_servicio_registrados")
             text_comment= request.json.get("text_comment")
@@ -292,7 +293,7 @@ def addComment():
 
 @api.route('/comentarios', methods=["GET"])
 def listComments ():  
-    return jsonify({"Comentarios": Comentarios.get_all_comentarios()})
+    return jsonify({"Comentarios": Comentarios.get_all_comentarios(id)})
 
       
 @api.route('/passwordrecovery1', methods=['PUT'])
@@ -338,12 +339,10 @@ def buyservice():
     print(servicios_prestados)
     db.session.add(servicios_prestados)
     db.session.commit()
-
-    # id_query = Servicio_registrados.query.filter_by(id=id_servicio_registrados).first()
-    # id_oferente = id_query.id
-
+  
     response = {
         "msg": "Compra registrada correctamente",
     }
   
     return jsonify(response), 200
+
