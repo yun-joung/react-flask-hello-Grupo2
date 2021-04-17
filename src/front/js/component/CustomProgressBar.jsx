@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { ProgressBar } from "react-bootstrap";
 import PropTypes from "prop-types";
-
 const CustomProgressBar = ({ comments }) => {
 	const { store, actions } = useContext(Context);
 	const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
@@ -48,7 +47,6 @@ const CustomProgressBar = ({ comments }) => {
 						1
 					</div>
 				</div>
-
 				<div className="pull-left">
 					<div className="pull-left" style={{ width: "35px", lineHeight: "1" }}>
 						<div style={{ height: "9px", margin: "{5px 0}" }}>
@@ -89,7 +87,6 @@ const CustomProgressBar = ({ comments }) => {
 							<span className="fas fa-star" style={{ position: "relative", left: "-20px" }}></span>
 						</div>
 					</div>
-
 					<div className="pull-left" style={{ width: "180px" }}>
 						<div className="progress" style={{ height: "9px", margin: "{8px 0}" }}>
 							<ProgressBar
@@ -133,5 +130,4 @@ const CustomProgressBar = ({ comments }) => {
 CustomProgressBar.propTypes = {
 	comments: PropTypes.array
 };
-
 export default CustomProgressBar;

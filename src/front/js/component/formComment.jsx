@@ -70,6 +70,7 @@ export const Formcomment = () => {
 												</Button>{" "}
 											</Form>
 										</div>
+										<hr />
 										<ul>
 											{store.comments
 												.filter(item => {

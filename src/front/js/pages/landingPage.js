@@ -33,7 +33,7 @@ const LandingPage = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-brown-locust-4leweygn.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000https://3000-yellow-prawn-8jg014dm.ws-us03.gitpod.io/ng)`
 			}}>
 			<Container>
 				<div>
@@ -108,14 +108,14 @@ const LandingPage = props => {
 					<ServiceBox />
 					<br />
 
-					<Button variant="primary">Primary</Button>
+					{/* <Button variant="primary">Primary</Button>
 					<Button variant="secondary">Secondary</Button>
 					<Button variant="success">Success</Button>
 					<Button variant="outline-primary">Primary</Button>
 					<Button variant="outline-secondary">Secondary</Button>
 					<Button variant="outline-success">Success</Button>
 					<Button variant="light">Light</Button>
-					<Button variant="outline-light">Light</Button>
+					<Button variant="outline-light">Light</Button> */}
 				</div>
 			</Container>
 			<Footer />

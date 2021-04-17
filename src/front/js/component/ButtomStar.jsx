@@ -2,10 +2,8 @@ import React, { useState, useContext } from "react";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
-
 const ButtomStar = props => {
 	const { store, actions } = useContext(Context);
-
 	return (
 		<button
 			type="button"
@@ -17,7 +15,6 @@ const ButtomStar = props => {
 		</button>
 	);
 };
-
 ButtomStar.propTypes = {
 	assessment: PropTypes.integer,
 	onClick: PropTypes.func,

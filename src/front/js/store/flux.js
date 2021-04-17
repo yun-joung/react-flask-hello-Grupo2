@@ -42,7 +42,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				id_servicio_registrados: "",
 				name_servicio: ""
 			},
+			reServicio: {
+				id: "",
+				tipo_membresia: "",
+				subcategory: "",
+				tipo_cobro: "",
+				valor: "",
+				name_servicio: "",
+				descrip_servicio: "",
+				duracion: "",
+				revision: "",
+				proceso: "",
+				experiencia: "",
+				portafolio: "",
+				merit: ""
+			},
 			serviceByCategory: [],
+			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
 			serviceInfoById: {},
@@ -62,7 +78,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => {
 						console.log("--servicio registrado --", data);
 						setStore({ serviceRegistrado: data });
-						alert("El servicio ha sido registrado correctamente");
+						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+					})
+					.catch(error => console.log("Error loading message from backend", error));
+			},
+
+			updateServicio: reServicio => {
+				fetch(process.env.BACKEND_URL + "/api/servicio-registrados" + id, {
+					method: "POST",
+					body: JSON.stringify(reServicio),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("--servicio registrado --", data);
+						setStore({ serviceRegistrado: data });
+						sweetAlert("¡Excelente!", "El servicio ha sido actualizado correctamente", "success");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
 			},
@@ -118,6 +149,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const json = await response.json();
 					console.log("--ServicioByID--", json);
 					setStore({ serviceInfoById: json });
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
+
+			getServiceByIdUser: async id => {
+				try {
+					const response = await fetch(
+						process.env.BACKEND_URL + "/api/servicio-registrados/user/" + localStorage.getItem("id"),
+						{
+							method: "GET",
+							headers: { "Content-Type": "application/json" }
+						}
+					);
+					const json = await response.json();
+					console.log("--serviceByIdUser--", json);
+					setStore({ serviceByIdUser: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
@@ -200,13 +248,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const typeuserLocal = JSON.parse(localStorage.getItem("tipo_user"));
 				const idLocal = JSON.parse(localStorage.getItem("id"));
 				const userNameLocal = JSON.parse(localStorage.getItem("userName"));
+				const isLoginLocal = JSON.parse(localStorage.getItem("isLogin"));
 				setStore({
 					user: {
 						token: tokenLocal,
 						user: userLocal,
 						type_user: typeuserLocal,
 						id: idLocal,
-						userName: userNameLocal
+						userName: userNameLocal,
+						isLogin: isLoginLocal
 					}
 				});
 				console.log("-->", tokenLocal);
@@ -248,7 +298,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							evaluacion: assessment
 						})
 					});
-
 					const json = await response.json();
 					console.log(json);
 					// setStore({ comments: JSON.stringify(json) });
@@ -288,8 +337,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
 							localStorage.setItem("id", JSON.stringify(data.userId));
 							localStorage.setItem("userName", JSON.stringify(data.userName));
-							localStorage.setItem("isLogin", JSON.stringify(data.isLogin));
+							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
+							sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
@@ -310,7 +360,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user && ""));
 							localStorage.setItem("id", JSON.stringify(data.id));
 							localStorage.setItem("userName", JSON.stringify(data.userName && ""));
-							localStorage.setItem("isLogin", JSON.stringify(data.isLogin));
+							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 						}
 					})
@@ -336,7 +386,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 							templateParams,
 							"user_Lg37b3jwPEh5fSo53yOsV"
 						);
-						alert("Una nueva contraseña ha sido enviada a tu correo registrado");
+						sweetAlert(
+							"¡Excelente!",
+							"Una nueva contraseña ha sido enviada a tu correo registrado",
+							"success"
+						);
 					})
 					.catch(error => console.log("Error sending email", error));
 			},
@@ -355,9 +409,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				return { total5, total4, total3, total2, total1 };
 			},
-
 			cerrarSesion: () => {
-				localStorage.clear();
+				localStorage.removeItem("token");
+				localStorage.removeItem("user");
+				localStorage.removeItem("tipo_user");
+				localStorage.removeItem("id");
+				localStorage.removeItem("userName");
+				localStorage.removeItem("isLogin");
+				setStore({ user: { isLogin: false } });
 			},
 			buyService: buyservice => {
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {
@@ -366,8 +425,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-type": "application/json" }
 				})
 					.then(() => {
-						alert(
-							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas."
+						sweetAlert(
+							"¡Excelente!",
+							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas.",
+							"success"
 						);
 					})
 

@@ -13,6 +13,9 @@ import { PasswordRecovery } from "./component/PasswordRecovery";
 import { PasswordRecovery2 } from "./component/PasswordRecovery2";
 import Register from "./pages/register";
 import RegisterService from "./pages/registerService";
+import MiServicio from "./pages/MiServicio";
+import MiServicioId from "./pages/MiServicioId";
+import MiDato from "./pages/MiDato";
 import { GraciasCompra } from "./pages/GraciasCompra";
 
 //create your first component
@@ -33,15 +36,11 @@ const Layout = () => {
 						<Route exact path="/home">
 							<Home />
 						</Route>
-						{/* <Route exact path="/category">
-							<ServicioCategory />
-						</Route> */}
 						<Route exact path="/servicio/:category" component={ServicioCategory} />
-						{/* <Route exact path="/category/:id">
-							<Servicioindividual />
-						</Route> */}
 						<Route exact path="/servicio/category/:id" component={Servicioindividual} />
-
+						<Route exact path="/MiServicio" component={MiServicio} />
+						<Route exact path="/MiServicio/:id" component={MiServicioId} />
+						<Route exact path="/MiDato" component={MiDato} />
 						<Route exact path="/passwordrecovery">
 							<PasswordRecovery />
 						</Route>

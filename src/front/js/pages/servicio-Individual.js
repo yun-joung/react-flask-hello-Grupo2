@@ -11,16 +11,13 @@ import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
 import { Link, withRouter, useParams } from "react-router-dom";
-
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
 	const item = store.serviceInfoById;
 	const { id } = props.match.params;
-
 	useEffect(() => {
 		actions.getServiceInfoById(id);
 	}, []);
-
 	return (
 		<>
 			<Container>
@@ -84,9 +81,7 @@ const Servicioindividual = props => {
 		</>
 	);
 };
-
 export default withRouter(Servicioindividual);
-
 Servicioindividual.propTypes = {
 	match: PropTypes.object,
 	id: PropTypes.string
