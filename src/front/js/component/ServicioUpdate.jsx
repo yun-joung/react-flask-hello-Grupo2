@@ -58,8 +58,29 @@ const ServicioUpdate = props => {
 		// if (!experiencia.trim()) {
 		// 	setError("8. ingresar el tiempo llevas trabajando en esta área");
 		// 	return;
+<<<<<<< HEAD
 		// }
 		actions.updateServicio(id);
+=======
+		// } else {
+		actions.updateServicio({
+			id: id,
+			tipo_membresia: tipo_membresia,
+			subcategory: subcategory,
+			tipo_cobro: tipo_cobro,
+			valor: valor,
+			name_servicio: name_servicio,
+			descrip_servicio: descrip_servicio,
+			duracion: duracion,
+			revision: revision,
+			proceso: proceso,
+			experiencia: experiencia,
+			portafolio: portafolio,
+			merit: merit
+		});
+		console.log("pasando todas validacion");
+		sweetAlert("¡Excelente!", "El servicio ha sido actualizado correctamente", "success");
+>>>>>>> 1f63547be202fb0b65f41c55a91392a0eec0095a
 		setError(null);
 	};
 

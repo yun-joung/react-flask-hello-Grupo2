@@ -164,6 +164,7 @@ h1, h2, h3, h4, h5{
   text-overflow: ellipsis;
   width: 100%;
 }
+<<<<<<< HEAD
 
 .navFilter{
    color:gray;
@@ -210,3 +211,13 @@ h1, h2, h3, h4, h5{
     color: map-get($theme-colors, 'primary');
     border-color: map-get($theme-colors, 'primary');
 }
+=======
+.error{
+    border: solid #FF6565;
+}
+
+
+.error-message{
+    color:#FF6565;
+}
+>>>>>>> 1f63547be202fb0b65f41c55a91392a0eec0095a

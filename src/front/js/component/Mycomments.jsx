@@ -36,7 +36,8 @@ export const Comments = () => {
 				<div>
 					<div className="rating-block">
 						<h5 style={{ textAlign: "center" }}>Calificación Promedio de usuarios</h5>
-						<h1 className="bold padding-bottom-7">
+
+						<h1 className="bold padding-bottom-7" style={{ textAlign: "center" }}>
 							{getPromedio(store.comments)} <small>/ 5</small>
 						</h1>
 					</div>

@@ -7,12 +7,17 @@ import { Container, Button, Form, FormControl, Row, Col, ButtonGroup, ToggleButt
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
+<<<<<<< HEAD
 import { Formik, Field } from "formik";
 import * as yup from "yup";
+=======
+import swal from "sweetalert";
+>>>>>>> 1f63547be202fb0b65f41c55a91392a0eec0095a
 
 const Register = props => {
 	const { store, actions } = useContext(Context);
 
+<<<<<<< HEAD
 	const ER_Email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	const ER_PassWord = /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
 	const Inputvalues = {
@@ -34,6 +39,24 @@ const Register = props => {
 			.min(2, "Minimo 2 caracteres")
 			.max(100, "Máximo 100 caracteres")
 			.required("* El nombre de usuario obligatorio")
+=======
+	const handlerClick = e => {
+		e.preventDefault();
+		if (email && password && password2 && typeUser && userName) {
+			if (password != password2) {
+				swal("Error", "Las contraseñas no coinciden", "error");
+			} else {
+				actions.setRegister({
+					email: email,
+					password: password,
+					tipo_user: typeUser,
+					userName: userName
+				});
+			}
+		} else {
+			swal("Error", "Faltan datos por ser ingresados", "error");
+		}
+>>>>>>> 1f63547be202fb0b65f41c55a91392a0eec0095a
 	};
 
 	const validationSchema = yup.object().shape(Inputvalues);
@@ -43,6 +66,7 @@ const Register = props => {
 	}, []);
 
 	return (
+<<<<<<< HEAD
 		<Formik
 			initialValues={{ email: "", password: "", confirmPassword: "", tipo_user: "", userName: "" }}
 			validationSchema={validationSchema}
@@ -52,6 +76,12 @@ const Register = props => {
 				resetForm();
 				setSubmitting(false);
 				setTimeout;
+=======
+		<div
+			className="background"
+			style={{
+				backgroundImage: `url(https://3000-yellow-prawn-8jg014dm.ws-us03.gitpod.io/backGround.png)`
+>>>>>>> 1f63547be202fb0b65f41c55a91392a0eec0095a
 			}}>
 			{({
 				values,

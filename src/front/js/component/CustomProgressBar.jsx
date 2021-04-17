@@ -5,22 +5,24 @@ import PropTypes from "prop-types";
 const CustomProgressBar = ({ comments }) => {
 	const { store, actions } = useContext(Context);
 	const { total1, total2, total3, total4, total5 } = actions.getTotales(comments);
-	console.log(total1, total2, total3, total4, total5);
-	const getTotales = comments => {
-		let total1 = 0;
-		let total2 = 0;
-		let total3 = 0;
-		let total4 = 0;
-		let total5 = 0;
-		comments.map(item => {
-			if (item.count === 1) total1++;
-			if (item.count === 2) total2++;
-			if (item.count === 3) total3++;
-			if (item.count === 4) total4++;
-			if (item.count === 5) total5++;
-		});
-		return { total5, total4, total3, total2, total1 };
-	};
+	//console.log(total1, total2, total3, total4, total5);
+
+	// const getTotales = comments => {
+	// 	let total1 = 0;
+	// 	let total2 = 0;
+	// 	let total3 = 0;
+	// 	let total4 = 0;
+	// 	let total5 = 0;
+	// 	comments.map(item => {
+	// 		if (item.count === 1) total1++;
+	// 		if (item.count === 2) total2++;
+	// 		if (item.count === 3) total3++;
+	// 		if (item.count === 4) total4++;
+	// 		if (item.count === 5) total5++;
+	// 	});
+	// 	return { total5, total4, total3, total2, total1 };
+	// };
+
 	return (
 		<>
 			<div>

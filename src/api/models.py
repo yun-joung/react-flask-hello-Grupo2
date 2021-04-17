@@ -130,6 +130,7 @@ class Servicios_prestados(db.Model):
     fecha_inicio = db.Column(db.DateTime)
     fecha_termino = db.Column(db.DateTime)
     comentarios = db.relationship('Comentarios', backref='servicios_prestados',lazy=True)
+
     def __repr__(self):
         return "<Servicios_prestados %r>" % self.id
     def serialize(self):
@@ -143,6 +144,8 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
+ 
+
 class Favoritos(db.Model):
     __tablename__ = 'favoritos'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -188,8 +191,8 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
-    def get_all_comentarios():
+    def get_all_comentarios(id):
         # comentarios_query = Comentarios.query.all()
-        # comentarios_query = Comentarios.query.filter_by(id_user=_id_user)
+        # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
         return list(map(lambda x: x.serialize(), Comentarios.query.all()))
-   
+  
