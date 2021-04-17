@@ -75,7 +75,7 @@ export const Formcomment = () => {
 												.map((item, index) => {
 													return (
 														<li key={index} style={{ listStyleType: "none" }}>
-															{item.text_comment}{" "}
+															<hr />
 															<ButtomStar
 																value={"1"}
 																assessment={item.evaluacion}
@@ -101,6 +101,8 @@ export const Formcomment = () => {
 																assessment={item.evaluacion}
 																onClick={() => null}
 															/>
+															<br />
+															{item.text_comment}{" "}
 														</li>
 													);
 												})}
