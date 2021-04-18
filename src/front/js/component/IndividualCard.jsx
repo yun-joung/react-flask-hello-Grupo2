@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
-import { Button, Card, Nav, Col, Media } from "react-bootstrap";
+import { Button, Card, Nav, Col, Media, Navbar } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { personB } from "../../img/image";
 
@@ -11,17 +11,19 @@ export const IndividualCard = props => {
 		<>
 			<Card>
 				<Card.Header>
-					<Nav variant="tabs" defaultActiveKey="#first">
-						<Nav.Item>
-							<Nav.Link href="#First">Servicio</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link href="#Second">Sobre el vendedor</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link href="#Theird">Comentario</Nav.Link>
-						</Nav.Item>
-					</Nav>
+					<Navbar sticky="top">
+						<Nav variant="tabs" defaultActiveKey="#first" sticky="top" className="sticky-top">
+							<Nav.Item>
+								<Nav.Link href="#First">Servicio</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link href="#Second">Sobre el vendedor</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link href="#Theird">Comentario</Nav.Link>
+							</Nav.Item>
+						</Nav>
+					</Navbar>
 				</Card.Header>
 				<Card.Body>
 					<Card.Title className="mt-4" id="First">

@@ -11,6 +11,7 @@ import { Footer } from "../component/footer";
 import { LoginModal, LoginModalA } from "../component/Login";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+//import MyScrollUpButton from "../component/ScrollupButton";
 import PropTypes from "prop-types";
 
 const LandingPage = props => {

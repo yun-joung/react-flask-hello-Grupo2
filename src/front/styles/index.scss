@@ -55,7 +55,9 @@ h1, h2, h3, h4, h5{
     background-repeat: no-repeat;
     background-size: cover;
   }
-
+path {
+    fill: blue;
+}​
   .scroll {
     display: flex;
     flex-wrap: nowrap;

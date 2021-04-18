@@ -34,13 +34,19 @@ export const Comments = () => {
 		<div className="container">
 			<div className="row">
 				<div>
-					<div className="rating-block">
-						<h5 style={{ textAlign: "center" }}>Calificación Promedio de usuarios</h5>
-
-						<h1 className="bold padding-bottom-7" style={{ textAlign: "center" }}>
-							{getPromedio(store.comments)} <small>/ 5</small>
+					<div className="rating-block  d-flex ">
+						<h1
+							className="display-1 "
+							style={{ textAlign: "center", marginTop: "-20px", marginBottom: "-10px" }}>
+							{getPromedio(store.comments)}
 						</h1>
+						<h4 className="positionFix">/5</h4>
 					</div>
+					{store.comments.length === 0 ? (
+						<p>No hay evaluación </p>
+					) : (
+						<p>Promedio entre {store.comments.length} opiniones</p>
+					)}
 				</div>
 				{/* Cuadro de comentario */}
 				<div className="row">
