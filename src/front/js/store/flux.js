@@ -17,7 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				email: "",
 				id: "",
 				userName: "",
-				type_user: ""
+				tipo_user: ""
 			},
 			serviceRegistrado: {
 				id_user: "",
@@ -359,6 +359,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => {
 						console.log("--data--", data);
 						setStore({ user: data });
+						sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
 
 						if (typeof Storage !== "undefined") {
 							localStorage.setItem("token", data.token);
@@ -368,10 +369,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("userName", JSON.stringify(data.userName));
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
-							sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
+				// if (error === 401) {
+				// 	sweetAlert("Error", "Este correo electrónico ya ha sido registrado", "error");
+				// }
 			},
 			setLogin: user => {
 				fetch(process.env.BACKEND_URL + "/api/login", {

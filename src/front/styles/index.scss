@@ -200,6 +200,11 @@ h1, h2, h3, h4, h5{
   background-color: map-get($theme-colors, 'info');
   border-color:map-get($theme-colors, 'info');
 }
+#my-radio-group span:focus {
+  color: map-get($theme-colors, 'primary');
+  background-color: #fff;
+  border-color:map-get($theme-colors, 'primary');
+}
 
 #my-radio-groups input[type="checkbox"]:checked + span {
   background-color: gold;
@@ -217,4 +222,20 @@ h1, h2, h3, h4, h5{
 
 .error-message{
     color:#FF6565;
+}
+
+.swal-icon--success__ring {
+    border: 4px solid rgba(0, 125, 234, 0.678);
+}
+
+.swal-title {
+font-family: 'Catamaran', sans-serif;
+font-weight: 700;
+}
+.swal-icon--success__line {
+    height: 5px;
+    background-color: rgba(0, 125, 234, 0.678);
+}
+.dropdown-menu {
+ position: relative;
 }
