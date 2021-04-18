@@ -23,6 +23,8 @@ export const Formcomment = () => {
 								<div className="panel panel-default arrow left">
 									<div className="panel-body">
 										<header className="text-left">
+											<Form.Label>Agrega tu evaluación y comentario</Form.Label>
+											<br />
 											<ButtomStar
 												value={"1"}
 												assessment={assessment}
@@ -49,10 +51,10 @@ export const Formcomment = () => {
 												onClick={() => setAssessment(5)}
 											/>
 										</header>
+										<hr />
 										<div className="comment-post">
 											<Form>
 												<Form.Group controlId="formBasicEmail">
-													<Form.Label>Comentario</Form.Label>
 													<Form.Control
 														className="formulario"
 														type="text"
@@ -61,6 +63,7 @@ export const Formcomment = () => {
 														onChange={e => setComment(e.target.value)}
 													/>
 												</Form.Group>
+												<hr />
 												<Button
 													variant="info"
 													onClick={() => {
@@ -71,46 +74,6 @@ export const Formcomment = () => {
 											</Form>
 										</div>
 										<hr />
-										<ul>
-											{store.comments
-												.filter(item => {
-													return item;
-												})
-												.map((item, index) => {
-													return (
-														<li key={index} style={{ listStyleType: "none" }}>
-															<hr />
-															<ButtomStar
-																value={"1"}
-																assessment={item.evaluacion}
-																onClick={() => null}
-															/>
-															<ButtomStar
-																value={"2"}
-																assessment={item.evaluacion}
-																onClick={() => null}
-															/>
-															<ButtomStar
-																value={"3"}
-																assessment={item.evaluacion}
-																onClick={() => null}
-															/>
-															<ButtomStar
-																value={"4"}
-																assessment={item.evaluacion}
-																onClick={() => null}
-															/>
-															<ButtomStar
-																value={"5"}
-																assessment={item.evaluacion}
-																onClick={() => null}
-															/>
-															<br />
-															{item.text_comment}{" "}
-														</li>
-													);
-												})}
-										</ul>
 									</div>
 								</div>
 							</article>

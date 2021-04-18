@@ -14,6 +14,7 @@ import { PasswordRecovery2 } from "./component/PasswordRecovery2";
 import Register from "./pages/register";
 import RegisterService from "./pages/registerService";
 import MiServicio from "./pages/MiServicio";
+import MiCompra from "./pages/MiCompra";
 import MiServicioId from "./pages/MiServicioId";
 import MiDato from "./pages/MiDato";
 import { GraciasCompra } from "./pages/GraciasCompra";
@@ -55,6 +56,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/compra">
 							<GraciasCompra />
+						</Route>
+						<Route exact path="/MiCompra">
+							<MiCompra />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

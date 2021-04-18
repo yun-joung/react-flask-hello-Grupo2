@@ -5,8 +5,9 @@ import "../../styles/index.scss";
 import { Row, Col, Container, Jumbotron, Button } from "react-bootstrap";
 import Individuallnfo from "../component/individualInfo.jsx";
 import { IndividualCard } from "../component/IndividualCard.jsx";
-import { Comments } from "../component/Mycomments.jsx";
+import { Promedio } from "../component/Promedio.jsx";
 import { Formcomment } from "../component/formComment.jsx";
+import { MyListComments } from "../component/MyListComments.jsx";
 import CustomProgressBar from "../component/CustomProgressBar.jsx";
 import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
@@ -72,12 +73,13 @@ const Servicioindividual = props => {
 						<CustomProgressBar comments={store.comments} />
 					</Col>
 					<Col md={8}>
-						<Comments />
+						<Promedio />
 					</Col>
 				</Row>
 				<Row>
 					<Col mt={5}>
 						<Formcomment comments={store.comments} />
+						<MyListComments />
 					</Col>
 				</Row>
 			</Container>

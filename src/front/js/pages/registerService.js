@@ -31,8 +31,11 @@ const validationSchema = yup.object().shape({
 	category: yup.string().required("* Campo obligatorio"),
 	subcategory: yup.string().required("* Campo obligatorio"),
 	tipo_cobro: yup.string().required("* Campo obligatorio"),
-	valor: yup.string().required("* Campo obligatorio"),
-	name_servicio: yup.string().required("* Campo obligatorio"),
+	valor: yup.string().required("* Campo obligatorio - Debes ingresar solo números"),
+	name_servicio: yup
+		.string()
+		.max(150, "Máximo 10 palábras")
+		.required("* Campo obligatorio"),
 	descrip_servicio: yup.string().required("* Campo obligatorio"),
 	descrip_servicio: yup.string().required("* Campo obligatorio"),
 	experiencia: yup.string().required("* Campo obligatorio")
@@ -147,7 +150,7 @@ const RegisterService = props => {
 							<p className="text-white mt-3">
 								¡Gracias por tu interés en Cotec!
 								<br />
-								Conectaremos millones de personas y empresas contigo
+								Nuestra misión es conectar millones de personas con empresas
 								<br />
 								Para comenzar, todo lo que necesitas hacer es registrar tu servicio
 							</p>
@@ -184,7 +187,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											1. Tamaño de tu equipo<span style={{ color: "red" }}>*</span>
+											1. Cuántas personas forman tu equipo?<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -198,7 +201,7 @@ const RegisterService = props => {
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
 										}}>
-										<option defaultValue>Seleccionar el tipo de membresia</option>
+										<option defaultValue>Selecciona la cantidad de personas</option>
 										<option>Freelancer (solo yo)</option>
 										<option>Equipo (2-3personas)</option>
 										<option>Equipo (4-6personas)</option>
@@ -215,7 +218,9 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											2. Categoria de tu servicio<span style={{ color: "red" }}>*</span>
+											2. A qué Categoría pertenece tu servicio? / Adicional, escribe una
+											subcategoría
+											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -229,7 +234,7 @@ const RegisterService = props => {
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
 										}}>
-										<option defaultValue>Seleccionar categoría de servicio</option>
+										<option defaultValue>Selecciona la categoría de tu servicio</option>
 										<option>Desarrollo_It</option>
 										<option>Diseño</option>
 										<option>Marketing</option>
@@ -248,7 +253,7 @@ const RegisterService = props => {
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="Subcategory ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
+										placeholder="Escribe una Subcategoría ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
 										name="subcategory"
 										value={values.subcategory}
 										className={touched.subcategory && errors.subcategory ? "error" : null}
@@ -268,7 +273,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											3. Costo del servicio<span style={{ color: "red" }}>*</span>
+											3. ¿Cuánto cuesta tu servicio?<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -280,10 +285,10 @@ const RegisterService = props => {
 										//isInvalid={!!errors.tipo_cobro}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 										<option defaultValue>
-											Seleccionar si el tipo de cobro es Por hora o Por proyecto
+											Selecciona si el tipo de cobro es por Hora o por Proyecto
 										</option>
-										<option>Hora</option>
-										<option>Proyecto</option>
+										<option>Hora en CLP</option>
+										<option>Proyecto en CLP</option>
 									</Form.Control>
 									{/* <FormError2 touched={touched} errors={errors}>                   
                                 </FormError2> */}
@@ -298,7 +303,7 @@ const RegisterService = props => {
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="Ingresa el valor del servicio"
+										placeholder="Ingresa solo dígitos en este campo y sin puntos!"
 										name="valor"
 										value={values.valor}
 										className={touched.valor && errors.valor ? "error" : null}
@@ -311,22 +316,24 @@ const RegisterService = props => {
 											<div className="error-message">{errors.valor}</div>
 										) : null}
 									</FormText>
-									{/* <p className="fs-6  text-muted ">
-                                    * La tarifa del servicio de Cotec es del 5% del valor del trabajo realizado
-							</p> */}
+									<p className="fs-6  text-muted ">
+										* Recuerda que la comisión que Cotec descontará, es el 5% del valor por trabajo
+										terminado.
+									</p>
 								</Form.Group>
 								<br />
 
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											4. Nombre del Servicio<span style={{ color: "red" }}>*</span>
+											4. ¿Qué Nombre identifica tu Servicio?
+											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="ej: ¡Crea tu propia página!"
+										placeholder="ej: Diseño de Páginas web con React"
 										rows={2}
 										name="name_servicio"
 										value={values.name_servicio}
@@ -346,12 +353,13 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											5. Descripción del servicio<span style={{ color: "red" }}>*</span>
+											5. Describe las características de tu servicio
+											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
-										placeholder="ej: mi servicio es ..."
+										placeholder="ej: Mi servicio es el mejor porque ..."
 										rows={3}
 										type="text"
 										name="descrip_servicio"
@@ -370,11 +378,11 @@ const RegisterService = props => {
 
 								<Form.Group>
 									<Form.Label>
-										<h5>6. Plazo estimado (meses) para ejecutar el proyecto</h5>
+										<h5>6. Plazo estimado para ejecutar el proyecto</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
-										placeholder="ej: 1mes, 15 dias o dependiendo el proyecto"
+										placeholder="ej: 1 mes, 15 dias o dependiendo el proyecto"
 										rows={2}
 										type="text"
 										name="duracion"
@@ -434,7 +442,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											8. Años de experiencia en esta área
+											8. ¿Cuántos años de Experiencia tienes realizando este servicio?
 											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
@@ -465,11 +473,13 @@ const RegisterService = props => {
 
 								<Form.Group>
 									<Form.Label>
-										<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
+										<h5>
+											9. Déjanos un link o repositorio donde podamos conocer más de tu trabajo!
+										</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
-										placeholder="ej: www.virtualex.cl"
+										placeholder="ej: Link Instagram, Facebook, Dirección de página web o cuenta más sobre tu trabajo"
 										rows={2}
 										type="text"
 										name="portafolio"

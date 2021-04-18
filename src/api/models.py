@@ -144,7 +144,9 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
- 
+    def getBuyServiceByIdUser(_id_user):
+        Servicios_prestados = Servicios_prestados.query.filter_by(id_user=_id_user).all()
+        return list(map(lambda x: x.serialize(), Servicios_prestados))
 
 class Favoritos(db.Model):
     __tablename__ = 'favoritos'

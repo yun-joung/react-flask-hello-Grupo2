@@ -40,6 +40,24 @@ export const MyFilter = () => {
 						<i className="fas fa-edit"></i> Registrar nuevo servicio
 					</Nav.Link>
 				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link
+						as={Link}
+						to="/MiCompra"
+						className={`flex-column text-left navFilter + ${pathname == "/MiCompra" ? "selected" : ""}`}
+						onClick={() => setState("service")}>
+						<i className="fas fa-briefcase"></i> Mis Servicios Comprados
+					</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link
+						as={Link}
+						to="/registerservice"
+						className={`flex-column text-left navFilter + ${state == "register" ? "selected" : " "}`}
+						onClick={() => setState("register")}>
+						<i className="fas fa-edit"></i> Mis evaluaciones
+					</Nav.Link>
+				</Nav.Item>
 			</Nav>
 		</>
 	);
