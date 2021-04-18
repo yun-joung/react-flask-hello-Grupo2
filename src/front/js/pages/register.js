@@ -161,14 +161,14 @@ const Register = props => {
 									<ButtonGroup toggle className="mb-5">
 										<ToggleButton
 											type="checkbox"
-											variant="outline-primary"
+											variant="secondary"
 											checked={checked1}
 											value="1"
 											onChange={e => {
 												setChecked1(e.currentTarget.checked);
 												setTypeuser("offerer");
 											}}>
-											Quiero ofrecer mis servicios
+											Soy Freelancer
 										</ToggleButton>
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<ToggleButton
@@ -180,7 +180,19 @@ const Register = props => {
 												setChecked2(e.currentTarget.checked);
 												setTypeuser("buyer");
 											}}>
-											Quiero contratar servicios
+											Contratar a un Freelancer
+										</ToggleButton>
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<ToggleButton
+											type="checkbox"
+											variant="success"
+											checked={checked1}
+											value="1"
+											onChange={e => {
+												setChecked1(e.currentTarget.checked);
+												setTypeuser("offerer");
+											}}>
+											Soy administrador
 										</ToggleButton>
 									</ButtonGroup>
 								</div>

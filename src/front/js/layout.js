@@ -17,6 +17,7 @@ import MiServicio from "./pages/MiServicio";
 import MiCompra from "./pages/MiCompra";
 import MiServicioId from "./pages/MiServicioId";
 import MiDato from "./pages/MiDato";
+import Admin from "./pages/Admin";
 import { GraciasCompra } from "./pages/GraciasCompra";
 
 //create your first component
@@ -59,6 +60,12 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/MiCompra">
 							<MiCompra />
+						</Route>
+						<Route exact path="/MiEvaluacion">
+							<MiCompra />
+						</Route>
+						<Route exact path="/Admin">
+							<Admin />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

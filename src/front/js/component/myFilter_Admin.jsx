@@ -4,7 +4,7 @@ import "../../styles/index.scss";
 import { Card, Button, Accordion, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
-export const MyFilter = () => {
+export const MyFilterAdmin = () => {
 	const [state, setState] = React.useState(" ");
 	let { pathname } = useLocation();
 	console.log(pathname);
@@ -13,23 +13,23 @@ export const MyFilter = () => {
 		<>
 			{/* <Nav.Link as={Link} to="/home" >Home</Nav.Link> */}
 			<Nav justify variant="tabs" defaultActiveKey="/home" className="flex-column">
-				<h3>Bienvenid@ Andrea</h3>
+				<h3>Bienvenid@ Administrador</h3>
 				<Nav.Item>
 					<Nav.Link
 						as={Link}
-						to="/MiDato"
+						to="/Admin"
 						className={`flex-column text-left navFilter + ${pathname == "/MiDato" ? "selected" : ""}`}
 						onClick={() => setState("dato")}>
-						<i className="fas fa-user-circle"></i> Mis Datos
+						<i className="fas fa-user-circle"></i> Datos de Administrador
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item>
 					<Nav.Link
 						as={Link}
-						to="/MiServicio"
+						to="/Admin"
 						className={`flex-column text-left navFilter + ${pathname == "/MiServicio" ? "selected" : ""}`}
 						onClick={() => setState("service")}>
-						<i className="fas fa-briefcase"></i> Mis Servicios
+						<i className="fas fa-briefcase"></i> Ajuste de Usuarios
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item>
@@ -38,25 +38,25 @@ export const MyFilter = () => {
 						to="/registerservice"
 						className={`flex-column text-left navFilter + ${state == "register" ? "selected" : " "}`}
 						onClick={() => setState("register")}>
-						<i className="fas fa-edit"></i> Registrar nuevo servicio
+						<i className="fas fa-edit"></i> Ajuste de Servicios
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item>
 					<Nav.Link
 						as={Link}
-						to="/MiCompra"
+						to="/Admin"
 						className={`flex-column text-left navFilter + ${pathname == "/MiCompra" ? "selected" : ""}`}
 						onClick={() => setState("service")}>
-						<i className="fas fa-briefcase"></i> Mis Servicios Comprados
+						<i className="fas fa-briefcase"></i> Ajustes de Favoritos
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item>
 					<Nav.Link
 						as={Link}
-						to="/MiEvaluacion"
+						to="/Admin"
 						className={`flex-column text-left navFilter + ${state == "register" ? "selected" : " "}`}
 						onClick={() => setState("register")}>
-						<i className="fas fa-edit"></i> Mis evaluaciones
+						<i className="fas fa-edit"></i> Ajuste de Evaluaciones
 					</Nav.Link>
 				</Nav.Item>
 			</Nav>
