@@ -9,10 +9,10 @@ import { withRouter, Link } from "react-router-dom";
 
 const ServiceListUserCompra = props => {
 	const { store, actions } = React.useContext(Context);
-	const item = store.serviceByIdUser;
+	const item = store.BuyServiceByIdUser;
 
 	useEffect(() => {
-		actions.getServiceByIdUser();
+		actions.getBuyServiceByIdUser();
 	}, []);
 
 	return (
@@ -20,8 +20,14 @@ const ServiceListUserCompra = props => {
 			<Jumbotron className="whiteBox shadow-lg p-5 pr-5 pl-5">
 				{/* <p>{JSON.stringify(store.serviceByIdUser)}</p> */}
 				<h5>Lista de servicios comprados</h5>
-				{store.serviceByIdUser.map(item => {
-					return <ServiceListUser key={item.id} name_servicio={item.name_servicio} id={item.id} />;
+				{store.BuyServiceByIdUser.map(item => {
+					return (
+						<ServiceListUserCompra
+							key={item.id_user_compra}
+							// name_servicio={item.name_servicio}
+							id={item.id_user_compra}
+						/>
+					);
 				})}
 				{item.length === 0 ? (
 					<li style={{ listStylePosition: "outside" }}>Tu no tienes servicios comprados</li>

@@ -30,38 +30,53 @@ const MiCompra = props => {
 						<h2>
 							<i className="fas fa-briefcase"></i> Mis Servicios Comprados
 						</h2>
-						<Container>
-							<Row>
-								<Col md={4}>
-									<h4>{category}</h4>
-								</Col>
-							</Row>
-							<Row className="row-cols-sm-1 row-cols-md-4  row-cols-lg-4 align-items-center">
-								{store.serviceByCategory.map(item => {
-									return (
-										<Col md={3} key={item.id}>
-											<CardMiCompra
-												category={item.category}
-												id={item.id}
-												img={serviceIt}
-												name_servicio={item.name_servicio}
-												valor={item.valor}
-												tipo_cobro={item.tipo_cobro}
-												idcompra={item.id}
-											/>
-										</Col>
-									);
-								})}
-
-								<Col md={8}>
-									<Formcomment comments={store.comments} />
-								</Col>
-							</Row>
-						</Container>
+						<ServiceListUserCompra />
 					</Col>
 				</Row>
 			</Container>
 		</div>
+		// <div className="backGray">
+		// 	<Container>
+		// 		<Row>
+		// 			<Col md={3} className="mt-5">
+		// 				<MyFilter />
+		// 			</Col>
+		// 			<Col md={9} className="mt-5">
+		// 				<h2>
+		// 					<i className="fas fa-briefcase"></i> Mis Servicios Comprados
+		// 				</h2>
+		// 				<Container>
+		// 					<Row>
+		// 						<Col md={4}>
+		// 							<h4>{category}</h4>
+		// 						</Col>
+		// 					</Row>
+		// 					<Row className="row-cols-sm-1 row-cols-md-4  row-cols-lg-4 align-items-center">
+		// 						{store.servPrestadoByIdUser.map(item => {
+		// 							return (
+		// 								<Col md={3} key={item.id}>
+		// 									<CardMiCompra
+		// 										category={item.category}
+		// 										id={item.id}
+		// 										img={serviceIt}
+		// 										name_servicio={item.name_servicio}
+		// 										valor={item.valor}
+		// 										tipo_cobro={item.tipo_cobro}
+		// 										idcompra={item.id}
+		// 									/>
+		// 								</Col>
+		// 							);
+		// 						})}
+
+		// 						<Col md={8}>
+		// 							<Formcomment comments={store.comments} />
+		// 						</Col>
+		// 					</Row>
+		// 				</Container>
+		// 			</Col>
+		// 		</Row>
+		// 	</Container>
+		// </div>
 	);
 };
 

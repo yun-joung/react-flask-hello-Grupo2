@@ -15,7 +15,7 @@ export const CardMiCompra = props => {
 	};
 
 	useEffect(() => {
-		actions.getServiceInfoById(id);
+		actions.get_servicioCompra_id_user(id);
 	}, []);
 
 	return (
@@ -26,7 +26,7 @@ export const CardMiCompra = props => {
 						src={props.img}
 						className="card-img-top caimg"
 						alt="image"
-						onClick={() => actions.getServiceInfoById(id)}
+						onClick={() => actions.get_servicioCompra_id_user(id)}
 					/>
 				</Link>
 				<Card.Body className="text-dark">

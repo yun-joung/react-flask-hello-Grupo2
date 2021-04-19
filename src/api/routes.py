@@ -349,7 +349,12 @@ def buyservice():
   
     return jsonify(response), 200
 
-@api.route('/buyservice/<int:_id_user>', methods=["GET"])
-def getBuyServiceByIdUser(_id_user):
-    Servicios_prestados = Servicios_prestados.getBuyServiceByIdUser(_id_user)
-    return jsonify(Servicios_prestados)
+# @api.route('/buyservice/user/<int:_id_user>', methods=["GET"])
+# def get_servicioCompra_id_user(id):
+#     return jsonify(Servicios_prestados.get_servicioCompra_id_user(id))
+
+    
+@api.route('/buyservice/user/<int:id>', methods=["GET"])
+def getBuyServiceByIdUser(_id_user_compra):
+    return jsonify(Servicios_prestados.getBuyServiceByIdUser(id_user_compra))
+
