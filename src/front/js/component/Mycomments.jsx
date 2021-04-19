@@ -34,13 +34,17 @@ export const Comments = () => {
 		<div className="container">
 			<div className="row">
 				<div>
-					<div className="rating-block  d-flex ">
-						<h1
-							className="display-1 "
-							style={{ textAlign: "center", marginTop: "-20px", marginBottom: "-10px" }}>
-							{getPromedio(store.comments)}
-						</h1>
-						<h4 className="positionFix">/5</h4>
+					<div className="rating-block d-flex ">
+						<div>
+							<h1
+								className="display-1 float-left"
+								style={{ textAlign: "center", marginTop: "-20px", marginBottom: "-10px" }}>
+								{getPromedio(store.comments)}
+							</h1>
+						</div>
+						<div className="float-right mt-5">
+							<h4>/5</h4>
+						</div>
 					</div>
 					{store.comments.length === 0 ? (
 						<p>No hay evaluación </p>
@@ -49,17 +53,6 @@ export const Comments = () => {
 					)}
 				</div>
 				{/* Cuadro de comentario */}
-				<div className="row">
-					<div className="col-sm-7">
-						<hr />
-						<div className="review-block">
-							<div className="row">
-								<div className="col-sm-3"></div>
-								<div className="col-sm-9"></div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	);

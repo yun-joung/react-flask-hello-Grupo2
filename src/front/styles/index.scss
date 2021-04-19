@@ -176,12 +176,6 @@ path {
     background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9023984593837535) 17%, rgba(186,232,255,1) 100%);
 }
 
-.error{
-    border:2px solid red;
-}
-.error-message{
-    color:red;
-}
 #my-radio-group input[type="radio" i] {
   display: none;
 }
@@ -238,6 +232,11 @@ font-weight: 700;
     height: 5px;
     background-color: rgba(0, 125, 234, 0.678);
 }
-.dropdown-menu {
- position: relative;
+.searchDopdown{
+position: absolute;
+width:300px;
+inset: 0px auto auto 0px;
+margin: 0px;
+transform: translate(0px, 42px);
+z-index: 1000;
 }

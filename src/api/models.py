@@ -48,7 +48,7 @@ class Servicio_registrados(db.Model):
     name_servicio = db.Column(db.String(50), nullable=False)
     descrip_servicio = db.Column(db.String(250), nullable=False)
     duracion = db.Column(db.String(30))
-    revision = db.Column(db.String(30))
+    revision = db.Column(db.String(30), nullable=False)
     proceso = db.Column(db.String(250))
     experiencia = db.Column(db.String(50), nullable=False)
     portafolio = db.Column(db.String(250), nullable=True)
@@ -144,7 +144,9 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
- 
+    def get_servicioCompra_id_user(id):
+        servicioCompra = Servicios_prestados.query.filter_by(id_user_compra=id).all()
+        return list(map(lambda x: x.serialize(), servicioCompra))
 
 class Favoritos(db.Model):
     __tablename__ = 'favoritos'
