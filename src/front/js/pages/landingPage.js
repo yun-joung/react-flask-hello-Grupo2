@@ -11,7 +11,6 @@ import { Footer } from "../component/footer";
 import { LoginModal, LoginModalA } from "../component/Login";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-//import MyScrollUpButton from "../component/ScrollupButton";
 import PropTypes from "prop-types";
 
 const LandingPage = props => {
@@ -34,7 +33,7 @@ const LandingPage = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-jade-gopher-td8duqa5.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>

@@ -21,102 +21,75 @@ import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as yup from "yup";
+import swal from "sweetalert";
 
 const validationSchema = yup.object().shape({
-	tipo_membresia: yup
+	tipo_membresia: yup.string().required("* 1. Tamaño del equipo es obligatorio"),
+	category: yup.string().required("* 2. Categoria del servicio es obligatorio"),
+	subcategory: yup
 		.string()
-		.min(2, "* Ingresar mínimo 2 caracteres")
-		.max(100, "Máximo 100 caracteres")
-		.required("* Campo obligatorio"),
-	category: yup.string().required("* Campo obligatorio"),
-	subcategory: yup.string().required("* Campo obligatorio"),
-	tipo_cobro: yup.string().required("* Campo obligatorio"),
-	valor: yup.string().required("* Campo obligatorio"),
-	name_servicio: yup.string().required("* Campo obligatorio"),
-	descrip_servicio: yup.string().required("* Campo obligatorio"),
-	descrip_servicio: yup.string().required("* Campo obligatorio"),
-	experiencia: yup.string().required("* Campo obligatorio")
+		.min(3, "Minimo 3 caracteres")
+		.max(50, "Máximo 50 caracteres")
+		.required("* 2. Subcategoria de tu servici es obligatorio"),
+	tipo_cobro: yup.string().required("* 3. Tipo del cobro es obligatorio"),
+	valor: yup.number("Ingresar solamente numero sin , . icon").required("* 3. Valor del servicio es obligatorio"),
+	name_servicio: yup
+		.string()
+		.min(3, "Minimo 3 caracteres")
+		.max(50, "Máximo 50 caracteres")
+		.required("* 4. Nombre del servicio es obligatorio"),
+	descrip_servicio: yup
+		.string()
+		.max(250, "Máximo 250 caracteres")
+		.required("* 5. Descripción del servicio es obligatorio"),
+	duracion: yup.string().max(30, "Máximo 30 caracteres"),
+	revision: yup
+		.string()
+		.max(30, "Máximo 30 caracteres")
+		.required("* 7. Numero de correcciones es obligatorio"),
+	experiencia: yup.string().required("* 8. Experiencia es obligatorio"),
+	portafolio: yup.string().max(250, "Máximo 250 caracteres"),
+	merit: yup.string().max(250, "Máximo 250 caracteres")
 });
 
 const RegisterService = props => {
 	const { store, actions } = useContext(Context);
 
-	const [tipo_membresia, setTipo_membresia] = useState("");
-	const [category, setCategory] = useState("");
-	const [subcategory, setSubcategory] = useState("");
-	const [tipo_cobro, setTipo_cobro] = useState("");
-	const [valor, setValor] = useState("");
-	const [name_servicio, setName_servicio] = useState("");
-	const [descrip_servicio, setDescrip_servicio] = useState("");
-	const [duracion, setDuracion] = useState("");
-	const [revision, setRevision] = useState("");
-	const [proceso, setProceso] = useState("");
-	const [experiencia, setExperiencia] = useState("");
-	const [portafolio, setPortafolio] = useState("");
-	const [merit, setMerit] = useState("");
-	const [error, setError] = React.useState(null);
-
 	const handleSubmitapi = values => {
-		// e.preventDefault();
-		// if (!tipo_membresia.trim()) {
-		// 	setError("1. ingresa el tipo de membresía");
-		// 	return;
-		// }
-		// if (!category.trim()) {
-		// 	setError("2. ingresa la categoría del servicio");
-		// 	return;
-		// }
-		// if (!subcategory.trim()) {
-		// 	setError("2. ingresa la subcategoría del servicio");
-		// 	return;
-		// }
-		// if (!tipo_cobro.trim()) {
-		// 	setError("3. ingresar el tipo de cobro del servicio");
-		// 	return;
-		// }
-		// if (!valor.trim()) {
-		// 	setError("3. ingresar el valor del servicio");
-		// 	return;
-		// }
-		// if (!name_servicio.trim()) {
-		// 	setError("4. ingresar nombre del servicio");
-		// 	return;
-		// }
-		// if (!descrip_servicio.trim()) {
-		// 	setError("5. ingresar descripción del servicio");
-		// 	return;
-		// }
-		// if (!revision.trim()) {
-		// 	setError("7. ingresar numero de corecciones");
-		// 	return;
-		// }
-		// if (!experiencia.trim()) {
-		// 	setError("8. ingresa cuanto tiempo llevas trabajando en esta área");
-		// 	return;
-		// } else {
-		const usuario = JSON.parse(JSON.stringify(store.user.id));
-		const userName = JSON.parse(JSON.stringify(store.user.userName));
-		actions.addServicio({
-			id_user: usuario,
-			userName: userName,
-			tipo_membresia: values.tipo_membresia,
-			category: values.category,
-			subcategory: values.subcategory,
-			tipo_cobro: values.tipo_cobro,
-			valor: values.valor,
-			name_servicio: values.name_servicio,
-			descrip_servicio: values.descrip_servicio,
-			duracion: values.duracion,
-			revision: values.revision,
-			proceso: values.proceso,
-			experiencia: values.experiencia,
-			portafolio: values.portafolio,
-			merit: values.merit
-		});
-		console.log("pasando todas validacion");
-		props.history.push("/home");
-		setError(null);
-		// }
+		if (
+			values.tipo_membresia &&
+			values.category &&
+			values.subcategory &&
+			values.tipo_cobro &&
+			values.valor &&
+			values.name_servicio &&
+			values.descrip_servicio &&
+			values.experiencia
+		) {
+			const usuario = JSON.parse(JSON.stringify(store.user.id));
+			const userName = JSON.parse(JSON.stringify(store.user.userName));
+			actions.addServicio({
+				id_user: usuario,
+				userName: userName,
+				tipo_membresia: values.tipo_membresia,
+				category: values.category,
+				subcategory: values.subcategory,
+				tipo_cobro: values.tipo_cobro,
+				valor: values.valor,
+				name_servicio: values.name_servicio,
+				descrip_servicio: values.descrip_servicio,
+				duracion: values.duracion,
+				revision: values.revision,
+				proceso: values.proceso,
+				experiencia: values.experiencia,
+				portafolio: values.portafolio,
+				merit: values.merit
+			});
+			console.log("pasando todas validacion");
+			props.history.push("/home");
+		} else {
+			sweetAlert("Error", "Faltan datos por registrar el servicio", "error");
+		}
 	};
 	useEffect(() => {
 		actions.getToken();
@@ -125,7 +98,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-jade-gopher-td8duqa5.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -180,7 +153,6 @@ const RegisterService = props => {
 						}}>
 						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting }) => (
 							<Form onSubmit={handleSubmit}>
-								{error && <div className="alert alert-danger">{error}</div>}
 								<Form.Group>
 									<Form.Label>
 										<h5>
@@ -198,7 +170,7 @@ const RegisterService = props => {
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
 										}}>
-										<option defaultValue>Seleccionar el tipo de membresia</option>
+										<option default>Seleccionar el tipo de membresia</option>
 										<option>Freelancer (solo yo)</option>
 										<option>Equipo (2-3personas)</option>
 										<option>Equipo (4-6personas)</option>
@@ -229,7 +201,7 @@ const RegisterService = props => {
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
 										}}>
-										<option defaultValue>Seleccionar categoría de servicio</option>
+										<option default>Seleccionar categoría de servicio</option>
 										<option>Desarrollo_It</option>
 										<option>Diseño</option>
 										<option>Marketing</option>
@@ -279,14 +251,12 @@ const RegisterService = props => {
 										onChange={handleChange}
 										//isInvalid={!!errors.tipo_cobro}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
-										<option defaultValue>
+										<option default>
 											Seleccionar si el tipo de cobro es Por hora o Por proyecto
 										</option>
 										<option>Hora</option>
 										<option>Proyecto</option>
 									</Form.Control>
-									{/* <FormError2 touched={touched} errors={errors}>                   
-                                </FormError2> */}
 									<FormText className="text-muted">
 										{touched.tipo_cobro && errors.tipo_cobro ? (
 											<div className="error-message">{errors.tipo_cobro}</div>
@@ -311,9 +281,10 @@ const RegisterService = props => {
 											<div className="error-message">{errors.valor}</div>
 										) : null}
 									</FormText>
-									{/* <p className="fs-6  text-muted ">
-                                    * La tarifa del servicio de Cotec es del 5% del valor del trabajo realizado
-							</p> */}
+									<p className="fs-6  text-muted ">
+										* La tarifa del servicio de Cotec es del 5% del valor del trabajo realizado
+										<br />* Ingresar solamente numero sin , .
+									</p>
 								</Form.Group>
 								<br />
 
@@ -334,7 +305,6 @@ const RegisterService = props => {
 										onChange={handleChange}
 										//isInvalid={!!errors.name_servicio}
 									/>
-									{/* <p className="fs-6  text-muted ">Máximo 10 palabras</p> */}
 									<FormText className="text-muted">
 										{touched.name_servicio && errors.name_servicio ? (
 											<div className="error-message">{errors.name_servicio}</div>
@@ -446,7 +416,7 @@ const RegisterService = props => {
 										onChange={handleChange}
 										//isInvalid={!!errors.experiencia}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
-										<option defaultValue>Seleccionar rango de años</option>
+										<option default>Seleccionar rango de años</option>
 										<option>1 año</option>
 										<option>2 años</option>
 										<option>3 años</option>
@@ -507,7 +477,6 @@ const RegisterService = props => {
 										) : null}
 									</FormText>
 								</Form.Group>
-								{error && <div className="alert alert-danger">{error}</div>}
 								<Row style={{ justifyContent: "center" }}>
 									<Button
 										variant="primary"
@@ -521,7 +490,6 @@ const RegisterService = props => {
 										href="/home">
 										<strong>Registra tu servicio</strong>
 									</Button>
-
 									{/* {JSON.stringify(store.user.id)}
 							{JSON.stringify(tipo_membresia)}
 							{JSON.stringify(category)}
