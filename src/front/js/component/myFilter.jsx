@@ -13,7 +13,7 @@ export const MyFilter = () => {
 		<>
 			{/* <Nav.Link as={Link} to="/home" >Home</Nav.Link> */}
 			<Nav justify variant="tabs" defaultActiveKey="/home" className="flex-column">
-				<h3>Bienvenid@ Andrea</h3>
+				<h3>Bienvenid@ </h3>
 				<Nav.Item>
 					<Nav.Link
 						as={Link}

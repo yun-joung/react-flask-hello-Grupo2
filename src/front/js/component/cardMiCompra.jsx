@@ -8,27 +8,27 @@ import { Context } from "../store/appContext";
 
 export const CardMiCompra = props => {
 	const { store, actions } = useContext(Context);
-	const { id } = props;
+	const { id, idcompra } = props;
 
 	const handleSubmit = e => {
 		e.preventDefault();
 	};
 
 	useEffect(() => {
-		actions.getBuyServiceByIdUser(id);
+		actions.getServiceInfoById(id);
 	}, []);
 
 	return (
 		<div>
 			<Card>
-				{/* <Link to={"/MiCompra/" + id_user}> */}
-				<img
-					src={props.img}
-					className="card-img-top caimg"
-					alt="image"
-					onClick={() => actions.getBuyServiceByIdUser(id)}
-				/>
-				{/* </Link> */}
+				<Link to={"/MiCompra/" + idcompra + "/category/" + id}>
+					<img
+						src={props.img}
+						className="card-img-top caimg"
+						alt="image"
+						onClick={() => actions.getServiceInfoById(id)}
+					/>
+				</Link>
 				<Card.Body className="text-dark">
 					<Card.Text className="textOverFlow" style={{ marginBottom: "3px" }}>
 						{props.name_servicio}
@@ -54,5 +54,6 @@ CardMiCompra.propTypes = {
 	trabajo: PropTypes.string,
 	tipo_cobro: PropTypes.string,
 	match: PropTypes.object,
-	id: PropTypes.number
+	id: PropTypes.number,
+	idcompra: PropTypes.number
 };

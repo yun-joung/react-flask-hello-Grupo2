@@ -16,7 +16,7 @@ import { Link, withRouter, useParams } from "react-router-dom";
 const Servicioindividual = props => {
 	const { store, actions } = useContext(Context);
 	const item = store.serviceRegistrado;
-	const { id } = props.match.params;
+	const { idcompra, id } = props.match.params;
 
 	useEffect(() => {
 		actions.getServiceInfoById(id);
@@ -28,7 +28,7 @@ const Servicioindividual = props => {
 				<Row>
 					<Col className="my-5">
 						<p>
-							<Link to={"/servicio/" + `${item.category}`}>{item.category}</Link>{" "}
+                            <Link to={`/MiCompra/${idcompra}` + `${item.category}`}>{item.category}</Link>{" "}
 							<i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>
@@ -78,7 +78,7 @@ const Servicioindividual = props => {
 				</Row>
 				<Row>
 					<Col mt={5}>
-						{/* <Formcomment comments={store.comments} /> */}
+						<Formcomment comments={store.comments} />
 						<MyListComments />
 					</Col>
 				</Row>

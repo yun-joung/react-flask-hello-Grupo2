@@ -13,6 +13,7 @@ import { Formcomment } from "../component/formComment.jsx";
 // import ServiceListUserB from "../component/ServiceListUserCompra.jsx";
 import ServiceListUserCompra from "../component/ServiceListUserCompra.jsx";
 import { useParams } from "react-router-dom";
+import { CardMiCompra } from "../component/cardMiCompra.jsx";
 
 const MiCompra = props => {
 	const { store, actions } = useContext(Context);
@@ -38,14 +39,15 @@ const MiCompra = props => {
 							<Row className="row-cols-sm-1 row-cols-md-4  row-cols-lg-4 align-items-center">
 								{store.serviceByCategory.map(item => {
 									return (
-										<Col key={item.id}>
-											<CardIndividual
+										<Col md={3} key={item.id}>
+											<CardMiCompra
 												category={item.category}
 												id={item.id}
 												img={serviceIt}
 												name_servicio={item.name_servicio}
 												valor={item.valor}
 												tipo_cobro={item.tipo_cobro}
+												idcompra={item.id}
 											/>
 										</Col>
 									);
