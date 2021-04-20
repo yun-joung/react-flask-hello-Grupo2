@@ -2,6 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { useState } from "react";
 import { homeSlideA, homeSlideB, homeSlideC } from "../../img/image.js";
+//import DesarrollarIT from "../../Video.DesarrollarIT.mov";
 import { Carousel, Container } from "react-bootstrap";
 
 const MyCarousel = () => {
@@ -11,7 +12,12 @@ const MyCarousel = () => {
 	};
 	return (
 		<Carousel activeIndex={index} onSelect={handleSelect}>
-			<Carousel.Item>
+			{/* <div className="video-section">
+                <video style ={{width:"400px",height:"400px"}}>
+                    <source src="https://youtu.be/r0DYJzN00B4" type="video/mp4"></source>
+                </video>
+            </div> */}
+			<Carousel.Item className="video-section">
 				<img className="d-block w-100" src={homeSlideA} alt="First slide" />
 				<Carousel.Caption className="texto">
 					<h2>Contamos con los mejores profesionales a tu servicio</h2>

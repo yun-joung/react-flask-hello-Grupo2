@@ -39,3 +39,6 @@ def generate_sitemap(app):
         <p>Start working on your proyect by following the <a href="https://github.com/4GeeksAcademy/flask-rest-hello/blob/master/docs/_QUICK_START.md" target="_blank">Quick Start</a></p>
         <p>Remember to specify a real endpoint path like: </p>
         <ul style="text-align: left;">"""+links_html+"</ul></div>"
+
+def allowed_file(filename, allowed_extensions):
+        return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions

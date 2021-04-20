@@ -34,6 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				proceso: "",
 				experiencia: "",
 				portafolio: "",
+				portafolioFoto: "",
 				merit: ""
 			},
 			userAll: [],

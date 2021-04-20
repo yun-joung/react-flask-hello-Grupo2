@@ -26,11 +26,9 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
 MIGRATE = Migrate(app, db)
 db.init_app(app)
-
-# ALLOW_IMG_EXTENSION = {'png', 'jpg', 'jpeg', 'gif'}
-# ALLOW_FILE_EXTENSION = {'pdf', 'doc', 'docx'}
 
 # app = Flask(__name__)
 # #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(BASEDIR, "test.db")

@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as yup from "yup";
 import swal from "sweetalert";
+import UploadButtons from "../component/uploadBut";
 
 const validationSchema = yup.object().shape({
 	tipo_membresia: yup.string().required("* 1. Tamaño del equipo es obligatorio"),
@@ -47,8 +48,12 @@ const validationSchema = yup.object().shape({
 		.string()
 		.max(30, "Máximo 30 caracteres")
 		.required("* 7. Numero de correcciones es obligatorio"),
-	experiencia: yup.string().required("* 8. Experiencia es obligatorio"),
+	experiencia: yup.string().required("* 10. Experiencia es obligatorio"),
 	portafolio: yup.string().max(250, "Máximo 250 caracteres"),
+	portafolioFoto: yup
+		.string()
+		.max(100, "Máximo 100 caracteres")
+		.required("* 10. Por favor subir tu profile photo de servicio"),
 	merit: yup.string().max(250, "Máximo 250 caracteres")
 });
 
@@ -91,6 +96,7 @@ const RegisterService = props => {
 			sweetAlert("Error", "Faltan datos por registrar el servicio", "error");
 		}
 	};
+
 	useEffect(() => {
 		actions.getToken();
 	}, []);
@@ -142,6 +148,7 @@ const RegisterService = props => {
 							proceso: "",
 							experiencia: "",
 							portafolio: "",
+							portafolioFoto: "",
 							merit: ""
 						}}
 						validationSchema={validationSchema}
@@ -151,7 +158,7 @@ const RegisterService = props => {
 							resetForm();
 							setSubmitting(false);
 						}}>
-						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting }) => (
+						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting, handleChangeFile }) => (
 							<Form onSubmit={handleSubmit}>
 								<Form.Group>
 									<Form.Label>
@@ -400,11 +407,47 @@ const RegisterService = props => {
 							/>
 						</Form.Group>
 						<br /> */}
-
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											8. Años de experiencia en esta área
+											8. Profile photo de tu servicio <span style={{ color: "red" }}>*</span>
+										</h5>
+									</Form.Label>
+									<Form.File
+										id="portafolioUpload"
+										name="portafolio"
+										value={values.portafolioFoto}
+										className={touched.portafolioFoto && errors.portafolioFoto ? "error" : null}
+										onChange={handleChangeFile}
+									/>
+								</Form.Group>
+								<br />
+								<Form.Group>
+									<Form.Label>
+										<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
+									</Form.Label>
+									<Form.Control
+										as="textarea"
+										placeholder="ej: www.virtualex.cl"
+										rows={2}
+										type="text"
+										name="portafolio"
+										value={values.portafolio}
+										className={touched.portafolio && errors.portafolio ? "error" : null}
+										onChange={handleChange}
+										//isInvalid={!!errors.portafolio}
+									/>
+									<FormText className="fs-6 text-muted">
+										{touched.portafolio && errors.portafolio ? (
+											<div className="error-message">{errors.portafolio}</div>
+										) : null}
+									</FormText>
+								</Form.Group>
+								<br />
+								<Form.Group>
+									<Form.Label>
+										<h5>
+											10. Años de experiencia en esta área
 											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
@@ -432,33 +475,9 @@ const RegisterService = props => {
 									</FormText>
 								</Form.Group>
 								<br />
-
 								<Form.Group>
 									<Form.Label>
-										<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
-									</Form.Label>
-									<Form.Control
-										as="textarea"
-										placeholder="ej: www.virtualex.cl"
-										rows={2}
-										type="text"
-										name="portafolio"
-										value={values.portafolio}
-										className={touched.portafolio && errors.portafolio ? "error" : null}
-										onChange={handleChange}
-										//isInvalid={!!errors.portafolio}
-									/>
-									<FormText className="fs-6 text-muted">
-										{touched.portafolio && errors.portafolio ? (
-											<div className="error-message">{errors.portafolio}</div>
-										) : null}
-									</FormText>
-								</Form.Group>
-								<br />
-
-								<Form.Group>
-									<Form.Label>
-										<h5>10. Detalla los trabajos que haz realizado</h5>
+										<h5>11. Detalla los trabajos que haz realizado</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
