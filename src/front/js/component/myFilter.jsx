@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
+
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Card, Button, Accordion, Nav } from "react-bootstrap";
@@ -7,13 +9,15 @@ import { Link, useLocation } from "react-router-dom";
 export const MyFilter = () => {
 	const [state, setState] = React.useState(" ");
 	let { pathname } = useLocation();
+	const { store, actions } = useContext(Context);
+	const item = store.serviceRegistrado;
 	console.log(pathname);
 
 	return (
 		<>
 			{/* <Nav.Link as={Link} to="/home" >Home</Nav.Link> */}
 			<Nav justify variant="tabs" defaultActiveKey="/home" className="flex-column">
-				<h3>Bienvenid@ </h3>
+				<h3>Bienvenid@ {item.userName} </h3>
 				<Nav.Item>
 					<Nav.Link
 						as={Link}

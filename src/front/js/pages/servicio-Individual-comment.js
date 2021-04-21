@@ -13,13 +13,13 @@ import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
 import { Link, withRouter, useParams } from "react-router-dom";
 
-const Servicioindividual = props => {
+const ServicioindividualComments = props => {
 	const { store, actions } = useContext(Context);
 	const item = store.serviceRegistrado;
 	const { idcompra, id } = props.match.params;
 
 	useEffect(() => {
-		actions.getServiceInfoById(id);
+		actions.getBuyServiceByIdUser(id);
 	}, []);
 
 	return (
@@ -28,7 +28,7 @@ const Servicioindividual = props => {
 				<Row>
 					<Col className="my-5">
 						<p>
-                            <Link to={`/MiCompra/${idcompra}` + `${item.category}`}>{item.category}</Link>{" "}
+							<Link to={`/MiCompra/${idcompra}` + `${item.category}`}>{item.category}</Link>{" "}
 							<i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>
@@ -79,7 +79,7 @@ const Servicioindividual = props => {
 				<Row>
 					<Col mt={5}>
 						<Formcomment comments={store.comments} />
-						<MyListComments />
+						{/* <MyListComments /> */}
 					</Col>
 				</Row>
 			</Container>
@@ -87,8 +87,8 @@ const Servicioindividual = props => {
 	);
 };
 
-export default withRouter(Servicioindividual);
-Servicioindividual.propTypes = {
+export default withRouter(ServicioindividualComments);
+ServicioindividualComments.propTypes = {
 	match: PropTypes.object,
 	id: PropTypes.string
 };

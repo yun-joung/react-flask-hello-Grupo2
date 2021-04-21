@@ -19,6 +19,7 @@ import MiServicioId from "./pages/MiServicioId";
 import MiDato from "./pages/MiDato";
 import Admin from "./pages/Admin";
 import { GraciasCompra } from "./pages/GraciasCompra";
+import ServicioindividualComments from "./pages/servicio-Individual-comment";
 
 //create your first component
 const Layout = () => {
@@ -44,6 +45,10 @@ const Layout = () => {
 						<Route exact path="/MiServicio" component={MiServicio} />
 						<Route exact path="/MiServicio/id/:id" component={MiServicioId} />
 						<Route exact path="/MiDato" component={MiDato} />
+						<Route exact path="/MiCompra/id/:id" component={ServicioindividualComments} />
+						<Route exact path="/MiCompra">
+							<MiCompra />
+						</Route>
 						<Route exact path="/passwordrecovery">
 							<PasswordRecovery />
 						</Route>
@@ -59,10 +64,8 @@ const Layout = () => {
 						<Route exact path="/compra">
 							<GraciasCompra />
 						</Route>
-						<Route exact path="/MiCompra/:idcompra/category/:id" component={Servicioindividual} />
-						<Route exact path="/MiCompra">
-							<MiCompra />
-						</Route>
+						{/* <Route exact path="/MiCompra/:idcompra/category/:id" component={Servicioindividual} /> */}
+
 						<Route exact path="/MiEvaluacion">
 							<MiCompra />
 						</Route>

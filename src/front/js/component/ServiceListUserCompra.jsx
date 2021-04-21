@@ -4,15 +4,16 @@ import "../../styles/index.scss";
 import { Jumbotron } from "react-bootstrap";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
-import ServiceListUser from "./ServiceListUser.jsx";
+import CompraListUser from "./CompraListUser.jsx";
 import { withRouter, Link } from "react-router-dom";
 
 const ServiceListUserCompra = props => {
 	const { store, actions } = React.useContext(Context);
 	const item = store.BuyServiceByIdUser;
+	const { id } = JSON.parse(JSON.stringify(store.user.id));
 
 	useEffect(() => {
-		actions.getBuyServiceByIdUser();
+		actions.getBuyServiceByIdUser(id);
 	}, []);
 
 	return (
@@ -22,9 +23,9 @@ const ServiceListUserCompra = props => {
 				<h5>Lista de servicios comprados</h5>
 				{store.BuyServiceByIdUser.map(item => {
 					return (
-						<ServiceListUserCompra
+						<CompraListUser
 							key={item.id_user_compra}
-							// name_servicio={item.name_servicio}
+							name_servicio={item.name_servicio}
 							id={item.id_user_compra}
 						/>
 					);

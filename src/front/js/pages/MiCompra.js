@@ -52,7 +52,7 @@ const MiCompra = props => {
 		// 						</Col>
 		// 					</Row>
 		// 					<Row className="row-cols-sm-1 row-cols-md-4  row-cols-lg-4 align-items-center">
-		// 						{store.servPrestadoByIdUser.map(item => {
+		// 						{store.BuyServiceByIdUser.map(item => {
 		// 							return (
 		// 								<Col md={3} key={item.id}>
 		// 									<CardMiCompra
