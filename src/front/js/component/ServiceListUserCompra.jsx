@@ -41,3 +41,9 @@ const ServiceListUserCompra = props => {
 };
 
 export default withRouter(ServiceListUserCompra);
+
+ServiceListUserCompra.propTypes = {
+	id: PropTypes.number,
+	index: PropTypes.number,
+	name_servicio: PropTypes.string
+};

@@ -182,18 +182,6 @@ const Register = props => {
 											}}>
 											Contratar a un Freelancer
 										</ToggleButton>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<ToggleButton
-											type="checkbox"
-											variant="success"
-											checked={checked1}
-											value="1"
-											onChange={e => {
-												setChecked1(e.currentTarget.checked);
-												setTypeuser("offerer");
-											}}>
-											Soy administrador
-										</ToggleButton>
 									</ButtonGroup>
 								</div>
 								<Row style={{ justifyContent: "center" }}>
