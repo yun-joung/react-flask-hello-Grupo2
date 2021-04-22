@@ -13,6 +13,8 @@ import personD from "./personD.jpg";
 import serviceDiseno from "./serviceDiseno.jpg";
 import serviceIt from "./serviceIt.jpg";
 import serviceMarketing from "./serviceMarketing.jpg";
+// import DesarrollarIT from "./DesarrollarIT.mp4";
+// import Freelancer from "./Freelancer.mp4";
 
 export {
 	logoBlanco,
@@ -30,4 +32,6 @@ export {
 	serviceDiseno,
 	serviceIt,
 	serviceMarketing
+	// DesarrollarIT,
+	// Freelancer
 };

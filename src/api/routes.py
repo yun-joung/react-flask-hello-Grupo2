@@ -67,27 +67,28 @@ def login():
 @api.route('/register', methods=['POST'])
 def register():
     print(request.get_json())
-    email = request.form.get("email", None)
-    password = request.form.get("password", None)
-    tipo_user = request.form.get("tipo_user", None)
-    userName = request.form.get("userName", None)
-    photo = request.files['photo']
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    tipo_user = request.json.get("tipo_user", None)
+    userName = request.json.get("userName", None)
+    #photo = request.files['photo']
+    print(email,password, tipo_user,  userName)
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
         return ({"msg":"Este correo electrónico ya ha sido registrado"}), 401
-    if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
-        photo_filename = secure_filename(photo.filename)
-        photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
-    else:
-        return jsonify({"msg":"Extension not allowed"}), 400
+    # if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
+    #     photo_filename = secure_filename(photo.filename)
+    #     photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
+    # else:
+    #     return jsonify({"msg":"Extension not allowed"}), 400
 
     user = User()
     user.email = email
     user.password = password
     user.tipo_user = tipo_user
     user.userName = userName
-    user.photo = photo_filename
+    #user.photo = photo_filename
     print(user)
     db.session.add(user)
     db.session.commit()
@@ -103,7 +104,7 @@ def register():
         "tipo_user": user.tipo_user,
         "token": access_token,
         "userName" : user.userName,
-        "photo" : user.photo
+        #"photo" : user.photo
     }
   
     return jsonify(response_token), 200    
@@ -121,22 +122,22 @@ def get_user_by_id(id):
 @api.route('/servicio-registrados', methods=["POST"])
 def add_servicio():
 
-    id_user= request.form.get("id_user",None)
-    userName= request.form.get("userName",None)
-    tipo_membresia = request.form.get("tipo_membresia",None)
-    category = request.form.get('category',None)
-    subcategory = request.form.get('subcategory',None)
-    tipo_cobro = request.form.get('tipo_cobro',None)
-    valor = request.form.get('valor',None)
-    name_servicio = request.form.get('name_servicio',None)
-    descrip_servicio = request.form.get('descrip_servicio',None)
-    duracion = request.form.get('duracion',None)
-    revision = request.form.get('revision',None)
-    proceso = request.form.get('proceso',None)
-    experiencia = request.form.get('experiencia',None)
-    portafolio = request.form.get('portafolio',None)
+    id_user= request.json.get("id_user",None)
+    userName= request.json.get("userName",None)
+    tipo_membresia = request.json.get("tipo_membresia",None)
+    category = request.json.get('category',None)
+    subcategory = request.json.get('subcategory',None)
+    tipo_cobro = request.json.get('tipo_cobro',None)
+    valor = request.json.get('valor',None)
+    name_servicio = request.json.get('name_servicio',None)
+    descrip_servicio = request.json.get('descrip_servicio',None)
+    duracion = request.json.get('duracion',None)
+    revision = request.json.get('revision',None)
+    proceso = request.json.get('proceso',None)
+    experiencia = request.json.get('experiencia',None)
+    portafolio = request.json.get('portafolio',None)
     portafolioFoto = request.files['portafolioFoto']
-    merit = request.form.get('merit',None)
+    merit = request.json.get('merit',None)
             
     if not tipo_membresia:
         return jsonify({"msg":"el tipo_membresia esta vacio"}), 400

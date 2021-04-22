@@ -23,6 +23,8 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import swal from "sweetalert";
 import UploadButtons from "../component/uploadBut";
+//import HorizontalNonLinearStepper from "../component/registerServicio/HorizontalNonLinearStepper";
+//import Thumb from "../component/Thumb";
 
 const validationSchema = yup.object().shape({
 	tipo_membresia: yup.string().required("* 1. Tamaño del equipo es obligatorio"),
@@ -50,10 +52,7 @@ const validationSchema = yup.object().shape({
 		.required("* 7. Numero de correcciones es obligatorio"),
 	experiencia: yup.string().required("* 10. Experiencia es obligatorio"),
 	portafolio: yup.string().max(250, "Máximo 250 caracteres"),
-	portafolioFoto: yup
-		.string()
-		.max(100, "Máximo 100 caracteres")
-		.required("* 10. Por favor subir tu profile photo de servicio"),
+	portafolioFoto: yup.string().required("* 8. Por favor, subir Profil imagen del servicio"),
 	merit: yup.string().max(250, "Máximo 250 caracteres")
 });
 
@@ -148,7 +147,6 @@ const RegisterService = props => {
 							proceso: "",
 							experiencia: "",
 							portafolio: "",
-							portafolioFoto: "",
 							merit: ""
 						}}
 						validationSchema={validationSchema}
@@ -158,7 +156,7 @@ const RegisterService = props => {
 							resetForm();
 							setSubmitting(false);
 						}}>
-						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting, handleChangeFile }) => (
+						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting, setFieldValue }) => (
 							<Form onSubmit={handleSubmit}>
 								<Form.Group>
 									<Form.Label>
@@ -410,18 +408,19 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											8. Profile photo de tu servicio <span style={{ color: "red" }}>*</span>
+											8. Profile foto de tu servicio <span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.File
 										id="portafolioUpload"
-										name="portafolio"
-										value={values.portafolioFoto}
+										name="portafolioFoto"
+										type="file"
 										className={touched.portafolioFoto && errors.portafolioFoto ? "error" : null}
-										onChange={handleChangeFile}
+										onChange={event => {
+											setFieldValue("portafolioFoto", event.target.files[0]);
+										}}
 									/>
 								</Form.Group>
-								<br />
 								<Form.Group>
 									<Form.Label>
 										<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>

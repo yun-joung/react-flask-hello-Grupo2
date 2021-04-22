@@ -272,22 +272,6 @@ const ServicioUpdate = props => {
 						/>
 					</Form.Group>
 					<br />
-					<Form.Group>
-						<Form.Label>
-							<h5>
-								8. Profile photo de tu servicio <span style={{ color: "red" }}>*</span>
-							</h5>
-						</Form.Label>
-						<Form.File
-							id="file"
-							name="portafolioFoto"
-							type="file"
-							value={props.portafolioFoto}
-							oonChange={evento => actions.handleUpdateServicio(evento)}
-						/>
-						<Thumb file={values.file} />
-					</Form.Group>
-					<br />
 
 					<Form.Group>
 						<Form.Label>
