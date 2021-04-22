@@ -14,7 +14,7 @@ export const CardBox = props => {
 					<h2 className="mb-3">{props.title}</h2>
 					<Row className="row-cols-1 row-cols-sm-2 row-cols-md-4  scroll">
 						<Col md={3}>
-							<CardCategory img={serviceIt} title="Desarollar/IT" valor="desde 300.000" />
+							<CardCategory img={serviceIt} title="Desarollo/IT" valor="desde 300.000" />
 						</Col>
 						<Col md={3}>
 							<CardCategory img={serviceDiseno} title="Diseno" valor="desde 50.000" />
@@ -23,7 +23,7 @@ export const CardBox = props => {
 							<CardCategory img={serviceMarketing} title="Marketing" valor="desde desde 50.000" />
 						</Col>
 						<Col md={3}>
-							<CardCategory img={serviceIt} title="Desarollar/IT" valor="desde 300.000" />
+							<CardCategory img={serviceIt} title="Desarollo/IT" valor="desde 300.000" />
 						</Col>
 					</Row>
 				</Container>

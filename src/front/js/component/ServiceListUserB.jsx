@@ -23,7 +23,11 @@ const ServiceListUserB = props => {
 				{store.serviceByIdUser.map(item => {
 					return <ServiceListUser key={item.id} name_servicio={item.name_servicio} id={item.id} />;
 				})}
-				{item.length === 0 ? <li style={{ listStylePosition: "outside" }}>No hay servicio registrado</li> : ""}
+				{item.length === 0 ? (
+					<li style={{ listStylePosition: "outside" }}>No hay servicios registrados</li>
+				) : (
+					""
+				)}
 			</Jumbotron>
 		</>
 	);

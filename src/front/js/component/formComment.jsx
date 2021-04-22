@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 export const Formcomment = () => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
-	const { id } = useParams();
+	const { id } = store.serviceRegistrado;
 	console.log(id);
 	const [assessment, setAssessment] = useState(0);
 	// const [color, setColor] = useState();

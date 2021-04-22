@@ -6,7 +6,7 @@ import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
 import StarRating from "./StarRating.jsx";
 
-export const Comments = () => {
+export const Promedio = () => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
 	const getPromedio = comments => {
