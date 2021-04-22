@@ -17,7 +17,7 @@ export const MyFilter = () => {
 		<>
 			{/* <Nav.Link as={Link} to="/home" >Home</Nav.Link> */}
 			<Nav justify variant="tabs" defaultActiveKey="/home" className="flex-column">
-				<h3>Bienvenid@ {item.userName} </h3>
+				<h3>Bienvenid@ {store.user.userName} </h3>
 				<Nav.Item>
 					<Nav.Link
 						as={Link}
@@ -51,16 +51,7 @@ export const MyFilter = () => {
 						to="/MiCompra"
 						className={`flex-column text-left navFilter + ${pathname == "/MiCompra" ? "selected" : ""}`}
 						onClick={() => setState("service")}>
-						<i className="fas fa-briefcase"></i> Mis Servicios Comprados
-					</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link
-						as={Link}
-						to="/MiEvaluacion"
-						className={`flex-column text-left navFilter + ${state == "register" ? "selected" : " "}`}
-						onClick={() => setState("register")}>
-						<i className="fas fa-edit"></i> Mis evaluaciones
+						<i className="fas fa-briefcase"></i> Mis Compras
 					</Nav.Link>
 				</Nav.Item>
 			</Nav>
