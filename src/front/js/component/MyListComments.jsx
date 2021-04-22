@@ -18,7 +18,7 @@ export const MyListComments = () => {
 				})
 				.map((item, index) => {
 					return (
-						<li key={index} style={{ listStyleType: "none" }}>
+						<li key={index} style={{ listStyleType: "none", marginLeft: "-35px" }}>
 							<hr />
 							<ButtomStar value={"1"} assessment={item.evaluacion} onClick={() => null} />
 							<ButtomStar value={"2"} assessment={item.evaluacion} onClick={() => null} />
