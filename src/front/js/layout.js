@@ -20,6 +20,7 @@ import MiDato from "./pages/MiDato";
 import Admin from "./pages/Admin";
 import { GraciasCompra } from "./pages/GraciasCompra";
 import ServicioindividualComments from "./pages/servicio-Individual-comment";
+import MyScrollUpButton from "./component/ScrollupButton";
 
 //create your first component
 const Layout = () => {
@@ -32,6 +33,7 @@ const Layout = () => {
 			<BrowserRouter basename={basename}>
 				<MyNavbar />
 				<ScrollToTop>
+					<MyScrollUpButton />
 					<Switch>
 						<Route exact path="/">
 							<Landingpage />

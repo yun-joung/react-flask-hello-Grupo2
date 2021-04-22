@@ -70,7 +70,7 @@ def register():
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
-        return "This email has been already taken", 401
+        return ({"msg":"Este correo electrónico ya ha sido registrado"}), 401
 
     user = User()
     user.email = email

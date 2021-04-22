@@ -34,26 +34,25 @@ export const Promedio = () => {
 		<div className="container">
 			<div className="row">
 				<div>
-					<div className="rating-block">
-						<h5 style={{ textAlign: "center" }}>Calificación Promedio de usuarios</h5>
-
-						<h1 className="bold padding-bottom-7" style={{ textAlign: "center" }}>
-							{getPromedio(store.comments)} <small>/ 5</small>
-						</h1>
-					</div>
-				</div>
-				{/* Cuadro de comentario */}
-				<div className="row">
-					<div className="col-sm-7">
-						<hr />
-						<div className="review-block">
-							<div className="row">
-								<div className="col-sm-3"></div>
-								<div className="col-sm-9"></div>
-							</div>
+					<div className="rating-block d-flex ">
+						<div>
+							<h1
+								className="display-1 float-left"
+								style={{ textAlign: "center", marginTop: "-20px", marginBottom: "-10px" }}>
+								{getPromedio(store.comments)}
+							</h1>
+						</div>
+						<div className="float-right mt-5">
+							<h4>/5</h4>
 						</div>
 					</div>
+					{store.comments.length === 0 ? (
+						<p>No hay evaluación </p>
+					) : (
+						<p>Promedio entre {store.comments.length} opiniones</p>
+					)}
 				</div>
+				{/* Cuadro de comentario */}
 			</div>
 		</div>
 	);

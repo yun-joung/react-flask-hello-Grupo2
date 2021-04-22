@@ -48,7 +48,7 @@ class Servicio_registrados(db.Model):
     name_servicio = db.Column(db.String(50), nullable=False)
     descrip_servicio = db.Column(db.String(250), nullable=False)
     duracion = db.Column(db.String(30))
-    revision = db.Column(db.String(30))
+    revision = db.Column(db.String(30), nullable=False)
     proceso = db.Column(db.String(250))
     experiencia = db.Column(db.String(50), nullable=False)
     portafolio = db.Column(db.String(250), nullable=True)

@@ -75,13 +75,18 @@ const Servicioindividual = props => {
 					<Col md={8}>
 						<Promedio />
 					</Col>
+					<Col md={5} style={{ marginLeft: "35px" }}>
+						<CustomProgressBar comments={store.comments} />
+					</Col>
 				</Row>
+				<hr />
 				<Row>
 					<Col mt={5}>
 						{/* <Formcomment comments={store.comments} /> */}
 						<MyListComments />
 					</Col>
 				</Row>
+				<div className="transBox" />
 			</Container>
 		</>
 	);

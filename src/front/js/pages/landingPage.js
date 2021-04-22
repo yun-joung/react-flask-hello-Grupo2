@@ -33,7 +33,7 @@ const LandingPage = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-ivory-frog-jw0g6m41.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
