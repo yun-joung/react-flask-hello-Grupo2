@@ -19,6 +19,7 @@ const ServicioindividualComments = props => {
 	const { idcompra, id } = props.match.params;
 
 	useEffect(() => {
+		console.log(idcompra);
 		actions.getBuyServiceByIdUser(id);
 	}, []);
 

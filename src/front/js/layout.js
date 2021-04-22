@@ -46,6 +46,11 @@ const Layout = () => {
 						<Route exact path="/MiServicio/id/:id" component={MiServicioId} />
 						<Route exact path="/MiDato" component={MiDato} />
 						<Route exact path="/MiCompra/id/:id" component={ServicioindividualComments} />
+						{/* <Route
+							exact
+							path="/MiCompra/:idcompra/category/:idcategory"
+							component={ServicioindividualComments}
+						/> */}
 						<Route exact path="/MiCompra">
 							<MiCompra />
 						</Route>
@@ -64,7 +69,6 @@ const Layout = () => {
 						<Route exact path="/compra">
 							<GraciasCompra />
 						</Route>
-						{/* <Route exact path="/MiCompra/:idcompra/category/:id" component={Servicioindividual} /> */}
 
 						<Route exact path="/MiEvaluacion">
 							<MiCompra />
