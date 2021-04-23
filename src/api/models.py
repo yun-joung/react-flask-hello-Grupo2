@@ -9,7 +9,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     tipo_user = db.Column(db.String(50), nullable=False)
-    #photo = db.Column(db.String(100))
+    photo = db.Column(db.String(100))
     servicio_registrados = db.relationship('Servicio_registrados', backref='user',lazy=True)
     servicios_prestados = db.relationship('Servicios_prestados', backref='user',lazy=True)
     def __repr__(self):
@@ -20,14 +20,10 @@ class User(db.Model):
             "email": self.email,
             "userName": self.userName,
             "tipo_user": self.tipo_user,
-            #"photo": self.photo
+            "photo": self.photo
         }
-    # def add_user(_userName, _email, _password, _tipo_user, _photo):
-    #     new_user = User(userName=_userName,  email=_email, password=_password, tipo_user=_tipo_user, photo=_photo)
-    #     db.session.add(new_user)
-    #     db.session.commit()
-    def add_user(_userName, _email, _password, _tipo_user):
-        new_user = User(userName=_userName,  email=_email, password=_password, tipo_user=_tipo_user)
+    def add_user(_userName, _email, _password, _tipo_user, _photo):
+        new_user = User(userName=_userName,  email=_email, password=_password, tipo_user=_tipo_user, photo=_photo)
         db.session.add(new_user)
         db.session.commit()
     def get_user(_id):
@@ -64,6 +60,7 @@ class Servicio_registrados(db.Model):
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
     favoritos = db.relationship('Favoritos', backref='servicio_registrados',lazy=True)
     comentarios = db.relationship('Comentarios', backref='servicio_registrados',lazy=True)
+    document = db.relationship('Document', cascade="all,delete", backref='servicio_registrados',lazy=True)
 
     def __repr__(self):
         return "<Servicio_registrados %r>" % self.id
@@ -212,6 +209,7 @@ class Comentarios(db.Model):
 class Document(db.Model):
     __tablename__ = 'document'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id', ondelete='CASCADE'), nullable=False)
     portfolio = db.Column(db.String(100))
 
     def __repr__(self):
@@ -219,5 +217,6 @@ class Document(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "id_servicio_registrados": self.servicio_registrados.id,
             "portafolio":self.portafolio
         }

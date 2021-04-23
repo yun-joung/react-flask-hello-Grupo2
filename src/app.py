@@ -14,7 +14,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
-static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
+static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 jwt = JWTManager(app)
@@ -69,6 +69,17 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0 # avoid cache memory
     return response
+
+@app.route('/upload/<filetype>/<filename>', methods=["GET"])
+def file(filetype, filename):
+    print(app.config['UPLOAD_FOLDER'])
+    if filetype == "user" :
+        return send_from_directory("./"+app.config['UPLOAD_FOLDER']+"/userpic", filename)
+    if filetype == "servicio" :
+        #ruta = os.path.join("static/serviciopic", filename)
+        return send_from_directory("../src/static/serviciopic/", filename)
+
+    return jsonify({"msg":"file no found"}), 404
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

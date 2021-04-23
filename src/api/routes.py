@@ -12,8 +12,10 @@ import time
 import os
 from werkzeug.utils import secure_filename
 
+
 api = Blueprint('api', __name__)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
 
 @api.route('/hash', methods=['POST', 'GET'])
 def handle_hash():
@@ -72,7 +74,6 @@ def register():
     tipo_user = request.json.get("tipo_user", None)
     userName = request.json.get("userName", None)
     #photo = request.files['photo']
-    print(email,password, tipo_user,  userName)
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
@@ -103,7 +104,7 @@ def register():
         "userName": user.userName,
         "tipo_user": user.tipo_user,
         "token": access_token,
-        "userName" : user.userName,
+        "userName" : user.userName
         #"photo" : user.photo
     }
   
@@ -121,23 +122,22 @@ def get_user_by_id(id):
 
 @api.route('/servicio-registrados', methods=["POST"])
 def add_servicio():
-
-    id_user= request.json.get("id_user",None)
-    userName= request.json.get("userName",None)
-    tipo_membresia = request.json.get("tipo_membresia",None)
-    category = request.json.get('category',None)
-    subcategory = request.json.get('subcategory',None)
-    tipo_cobro = request.json.get('tipo_cobro',None)
-    valor = request.json.get('valor',None)
-    name_servicio = request.json.get('name_servicio',None)
-    descrip_servicio = request.json.get('descrip_servicio',None)
-    duracion = request.json.get('duracion',None)
-    revision = request.json.get('revision',None)
-    proceso = request.json.get('proceso',None)
-    experiencia = request.json.get('experiencia',None)
-    portafolio = request.json.get('portafolio',None)
+    id_user= request.form.get("id_user",None)
+    userName= request.form.get("userName",None)
+    tipo_membresia = request.form.get("tipo_membresia",None)
+    category = request.form.get('category',None)
+    subcategory = request.form.get('subcategory',None)
+    tipo_cobro = request.form.get('tipo_cobro',None)
+    valor = request.form.get('valor',None)
+    name_servicio = request.form.get('name_servicio',None)
+    descrip_servicio = request.form.get('descrip_servicio',None)
+    duracion = request.form.get('duracion',None)
+    revision = request.form.get('revision',None)
+    proceso = request.form.get('proceso',None)
+    experiencia = request.form.get('experiencia',None)
+    portafolio = request.form.get('portafolio',None)
     portafolioFoto = request.files['portafolioFoto']
-    merit = request.json.get('merit',None)
+    merit = request.form.get('merit',None)
             
     if not tipo_membresia:
         return jsonify({"msg":"el tipo_membresia esta vacio"}), 400
@@ -158,7 +158,7 @@ def add_servicio():
     if portafolioFoto.filename == '': return jsonify({"msg":"no hay un imagen de servicio"}), 400 
     if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
         portafolio_filename = secure_filename(portafolioFoto.filename)
-        portafolioFoto.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/serviciopic", portafolio_filename)) 
+        portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic/", portafolio_filename))
     else:
         return jsonify({"msg":"Extension not allowed"}), 400
             
@@ -240,7 +240,7 @@ def update_servicio(id):
     if portafolioFoto.filename == '': return jsonify({"msg":"no hay un imagen de servicio"}), 400 
     if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
         portafolio_filename = secure_filename(portafolioFoto.filename)
-        portafolioFoto.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/serviciopic", portafolio_filename))
+        portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic", portafolio_filename))
     else:
         return jsonify({"msg":"Extension not allowed"}), 400
 
@@ -384,12 +384,3 @@ def buyservice():
 @api.route('/buyservice/user/<int:id>', methods=["GET"])
 def get_servicioCompra_id_user(id):
     return jsonify(Servicios_prestados.get_servicioCompra_id_user(id))
-
-@api.route('/upload/<filetype>/<filename>/', methods=["GET"])
-def file(filetype, filename):
-    if filetype == "photo" :
-        return send_from_directory(current_app.config['UPLOAD_FOLDER']+"/userpic", filename)
-    if filetype == "portafolioFoto" :
-        return send_from_directory(current_app.config['UPLOAD_FOLDER']+"/serviciopic", filename)
-
-    return jsonify({"msg":"file no found"}), 404

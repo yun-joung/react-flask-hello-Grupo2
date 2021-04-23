@@ -82,6 +82,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	}
 			// },
 
+			uploadfile: async () => {
+				let FormDate = new FormDate();
+				FormDate.append("portafolioFoto", values.portafolioFoto);
+				return fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+					method: "POST",
+					body: FormDate,
+					headers: { "Content-type": "application/json" }
+				})
+					.then(response => response.json())
+					.then(data => {
+						console.log("--servicio registrado file --", data);
+						setStore({ serviceRegistrado: data });
+					})
+					.catch(error => console.log(error));
+			},
+
 			addServicio: servicio => {
 				console.log(servicio);
 				fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
@@ -96,7 +112,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
-				sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
+				sweetAlert("¡Error!", "flux-Faltan datos por registrar el servicio", "Error");
 			},
 
 			handleUpdateServicio: evento => {
