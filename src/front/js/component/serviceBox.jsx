@@ -14,10 +14,10 @@ export const ServiceBox = () => {
 						<i className="fas fa-wallet icon" />
 					</Col>
 					<Col md={11}>
-						<h4>Lo mejor para cada presupuesto</h4>
+						<h4>Lo mejor para tu presupuesto</h4>
 						<p>
-							Encuentre servicios de alta calidad a todos los precios. Sin tarifas por hora, solo precios
-							basados en proyectos
+							Encuentra servicios de la mejor Calidad a los mejores precios. No pagues tarifas extras una
+							vez qeu tu trabajo haya finalizado!{" "}
 						</p>
 					</Col>
 				</Row>
@@ -26,10 +26,10 @@ export const ServiceBox = () => {
 						<i className="fas fa-history icon" />
 					</Col>
 					<Col md={11}>
-						<h4>Trabajo de calidad hecho rápidamente</h4>
+						<h4>Trabajos de Excelencia en el menor tiempo, Garantizado!</h4>
 						<p>
-							Encuentre el profesional independiente adecuado para comenzar a trabajar en su proyecto en
-							cuestión de minutos.
+							Encuentra a los mejores profesionales freelancers, para empezar a trabajar en tus proyectos
+							y sólo en pocos minutos!
 						</p>
 					</Col>
 				</Row>
@@ -38,11 +38,12 @@ export const ServiceBox = () => {
 						<i className="far fa-credit-card icon" />
 					</Col>
 					<Col md={11}>
-						<h4>Pagos protegidos, siempre</h4>
+						<h4>Pagos protegidos, Trabajos garantizados. Siempre</h4>
 						<p>
-							Siempre sepa lo que pagará por adelantado. Su pago no se libera hasta que aprueba el
-							trabajo.
+							Siempre sabrás el valor total de tu trabajo por adelantado. Tu pago solo se liberará una vez
+							aprobado el trabajo.
 						</p>
+						<h4>No olvides calificar a nuestros freelancers y dejar comentarios acerca de su trabajo</h4>
 					</Col>
 				</Row>
 			</Jumbotron>

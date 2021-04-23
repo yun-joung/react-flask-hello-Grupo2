@@ -108,7 +108,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-ivory-frog-jw0g6m41.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -130,7 +130,7 @@ const RegisterService = props => {
 							<p className="text-white mt-3">
 								¡Gracias por tu interes en Cotec!
 								<br />
-								Conectaremos millones de personas y empresas contigo
+								Nuestra misión es conectar millones de personas con empresas
 								<br />
 								Para comenzar, todo lo que necesitas hacer es registrar tu servicio
 							</p>

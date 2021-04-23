@@ -13,13 +13,14 @@ import Portafolio from "../component/Portafolio.jsx";
 import PropTypes from "prop-types";
 import { Link, withRouter, useParams } from "react-router-dom";
 
-const Servicioindividual = props => {
+const ServicioindividualComments = props => {
 	const { store, actions } = useContext(Context);
 	const item = store.serviceRegistrado;
-	const { id } = props.match.params;
+	const { idcompra, id } = props.match.params;
 
 	useEffect(() => {
-		actions.getServiceInfoById(id);
+		console.log(idcompra);
+		actions.getBuyServiceByIdUser(id);
 	}, []);
 
 	return (
@@ -28,7 +29,7 @@ const Servicioindividual = props => {
 				<Row>
 					<Col className="my-5">
 						<p>
-							<Link to={"/servicio/" + `${item.category}`}>{item.category}</Link>{" "}
+							<Link to={`/MiCompra/${idcompra}` + `${item.category}`}>{item.category}</Link>{" "}
 							<i className="fas fa-chevron-right" /> {item.name_servicio}
 						</p>
 					</Col>
@@ -69,31 +70,26 @@ const Servicioindividual = props => {
 				</Row>
 				<div className="transBox" />
 				<Row mb={5}>
-					<Col md={3}>
+					<Col md={4}>
+						<CustomProgressBar comments={store.comments} />
+					</Col>
+					<Col md={8}>
 						<Promedio />
 					</Col>
-					<Col md={5} style={{ marginLeft: "35px" }}>
-						<CustomProgressBar comments={store.comments} />
-					</Col>
-					{/* <Col md={5} style={{ marginLeft: "35px" }}>
-						<CustomProgressBar comments={store.comments} />
-					</Col> */}
 				</Row>
-				<hr />
 				<Row>
 					<Col mt={5}>
-						{/* <Formcomment comments={store.comments} /> */}
-						<MyListComments />
+						<Formcomment comments={store.comments} />
+						{/* <MyListComments /> */}
 					</Col>
 				</Row>
-				<div className="transBox" />
 			</Container>
 		</>
 	);
 };
 
-export default withRouter(Servicioindividual);
-Servicioindividual.propTypes = {
+export default withRouter(ServicioindividualComments);
+ServicioindividualComments.propTypes = {
 	match: PropTypes.object,
 	id: PropTypes.string
 };

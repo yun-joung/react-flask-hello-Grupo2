@@ -21,7 +21,7 @@ const UserUpdate = props => {
 	return (
 		<>
 			<h2>
-				<i className="fas fa-user-circle"></i> Mi Dato
+				<i className="fas fa-user-circle"></i> Mis Datos
 			</h2>
 			<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
 				<Form>
@@ -61,7 +61,7 @@ const UserUpdate = props => {
 							type="submit"
 							style={{ marginBottom: "40px", width: "300px" }}
 							onClick={e => handlerClick(e)}>
-							<strong>Editar mi dato</strong>
+							<strong>Editar mis datos</strong>
 						</Button>
 					</Row>
 				</Form>

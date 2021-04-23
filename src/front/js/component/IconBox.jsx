@@ -12,7 +12,7 @@ export const IconBox = () => {
 					<Link to="/servicio/Desarrollo_It">
 						<i className="fas fa-tv icon" />
 						<br />
-						<p className="text-muted">Desarollar/IT</p>
+						<p className="text-muted">Desarollo/IT</p>
 					</Link>
 				</Col>
 				<Col className="text-center p-3">

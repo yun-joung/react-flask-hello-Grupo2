@@ -152,6 +152,7 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
+
     def get_servicioCompra_id_user(id):
         servicioCompra = Servicios_prestados.query.filter_by(id_user_compra=id).all()
         return list(map(lambda x: x.serialize(), servicioCompra))
