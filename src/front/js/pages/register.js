@@ -107,7 +107,7 @@ const Register = props => {
 									borderRadius: "10px",
 									width: "730px"
 								}}>
-								{store.user.token !== null ? (
+								{store.user.isLogin ? (
 									<Container>
 										<Row>
 											<Col className="text-center mt-3 mb-5">

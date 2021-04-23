@@ -88,6 +88,7 @@
 		"react-bootstrap": "^1.5.2",
 		"react-bootstrap-formik": "^1.6.2",
 		"react-dom": "^16.8.4",
+		"react-google-login": "^5.2.2",
 		"react-player": "^2.9.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0",
