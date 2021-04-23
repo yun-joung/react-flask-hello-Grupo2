@@ -112,7 +112,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
 					})
 					.catch(error => console.log("Error loading message from backend", error));
-				sweetAlert("¡Error!", "flux-Faltan datos por registrar el servicio", "Error");
+				sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
 			},
 
 			handleUpdateServicio: evento => {

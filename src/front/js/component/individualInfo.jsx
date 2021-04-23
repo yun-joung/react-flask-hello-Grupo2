@@ -56,7 +56,7 @@ const Individuallnfo = props => {
 				<Row className="d-inline-block d-flex">
 					<Col style={{ width: "180px" }}>
 						<p className="float-left text-dark">
-							<i className="far fa-clock h3" /> Plazo estimado: {props.duracion}
+							<i className="far fa-clock h3 mr-1" /> Plazo estimado: {props.duracion}
 							<br />
 							<i className="fas fa-retweet " style={{ fontSize: "1.75rem" }} /> Revision: {props.revision}
 						</p>

@@ -13,8 +13,8 @@ const SearchBar = props => {
 		e.preventDefault();
 		let { search } = e.target;
 		actions.searchInfo(search.value);
-		if (store.searchInfo.length === 0) {
-			return (
+		{
+			store.searchInfo.length === 0 && (
 				<ListGroup className="searchDopdown mt-3 " style={{ marginLeft: "30px" }}>
 					<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
 				</ListGroup>
@@ -42,9 +42,6 @@ const SearchBar = props => {
 			<ListGroup
 				className="searchDopdown mt-3 float-right d-none d-lg-block d-xl-block "
 				style={{ marginLeft: "30px" }}>
-				{/* {store.searchInfo.length === 0 && (
-						<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
-					)} */}
 				{store.searchInfo.map(item => {
 					return (
 						<ListGroup.Item key={item.id} href={"/servicio/category/" + item.id} action>

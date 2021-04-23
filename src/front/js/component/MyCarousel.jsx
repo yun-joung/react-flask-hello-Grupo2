@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { useState } from "react";
 //import { DesarrollarIT } from "../../img/image.js";
-import { homeSlideA, homeSlideB, homeSlideC } from "../../img/image.js";
+import { homeSlideA, homeSlideB, homeSlideC, homeSlideAS, homeSlideBS, homeSlideCS } from "../../img/image.js";
 import { Carousel, Container } from "react-bootstrap";
 import ReactPlayer from "react-player";
 
@@ -14,7 +14,8 @@ const MyCarousel = () => {
 	return (
 		<Carousel activeIndex={index} onSelect={handleSelect}>
 			<Carousel.Item>
-				<img className="d-block w-100 " src={homeSlideA} alt="Second slide" />
+				<img className="w-100 d-none d-md-block d-xl-block" src={homeSlideA} alt="Second slide" />
+				<img className="w-100 d-md-none d-xl-none" src={homeSlideAS} alt="Second slide" />
 				<Carousel.Caption className="texto">
 					<h2 className="display-3 d-none d-xl-block ">Contamos con los mejores profesionales</h2>
 					<h2 className="display-4 d-none d-lg-block d-xl-none ">Contamos con los mejores profesionales</h2>
@@ -28,7 +29,8 @@ const MyCarousel = () => {
 			</Carousel.Item>
 
 			<Carousel.Item>
-				<img className="d-block w-100 " src={homeSlideB} alt="Second slide" />
+				<img className="w-100 d-none d-md-block d-xl-block" src={homeSlideB} alt="Second slide" />
+				<img className="w-100 d-md-none d-xl-none" src={homeSlideBS} alt="Second slide" />
 				<Carousel.Caption className="texto">
 					<h2 className="display-3 d-none d-xl-block ">Convierte tus ideas en realidad</h2>
 					<h2 className="display-4 d-none d-lg-block d-xl-none ">Convierte tus ideas en realidad</h2>
@@ -41,7 +43,8 @@ const MyCarousel = () => {
 				</Carousel.Caption>
 			</Carousel.Item>
 			<Carousel.Item>
-				<img className="d-block w-100" src={homeSlideC} alt="Third slide" />
+				<img className="w-100 d-none d-md-block d-xl-block" src={homeSlideC} alt="Second slide" />
+				<img className="w-100 d-md-none d-xl-none" src={homeSlideCS} alt="Second slide" />
 				<Carousel.Caption className="texto">
 					<h2 className="display-3 d-none d-xl-block ">Las mejores tarifas del mercado</h2>
 					<h2 className="display-4 d-none d-lg-block d-xl-none ">Las mejores tarifas del mercado</h2>

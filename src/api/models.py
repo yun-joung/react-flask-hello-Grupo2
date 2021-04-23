@@ -120,10 +120,6 @@ class Servicio_registrados(db.Model):
         delete=Servicio_registrados.query.filter_by(id=id).first()
         db.session.delete(delete)
         db.session.commit()
-    # def service_search(search):
-    #     #search=request.args.get(search)
-    #     services = Servicio_registrados.query.filter(Servicio_registrados.name_servicio==search or Servicio_registrados.subcategory==search).all()
-    #     return list(map(lambda x: x.serialize(), services))
     def service_search(search):
         services = Servicio_registrados.query.filter(Servicio_registrados.name_servicio.ilike("%"+search+"%") | Servicio_registrados.subcategory.ilike("%"+search+"%")).all()
         return list(map(lambda x: x.serialize(), services))
@@ -152,7 +148,6 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
-
     def get_servicioCompra_id_user(id):
         servicioCompra = Servicios_prestados.query.filter_by(id_user_compra=id).all()
         return list(map(lambda x: x.serialize(), servicioCompra))

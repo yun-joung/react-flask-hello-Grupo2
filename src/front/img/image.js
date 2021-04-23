@@ -6,6 +6,9 @@ import backGround from "./backGround.png";
 import homeSlideA from "./homeSlideA.jpg";
 import homeSlideB from "./homeSlideB.jpg";
 import homeSlideC from "./homeSlideC.jpg";
+import homeSlideAS from "./homeSlideAS.jpg";
+import homeSlideBS from "./homeSlideBS.jpg";
+import homeSlideCS from "./homeSlideCS.jpg";
 import personA from "./personA.jpg";
 import personB from "./personB.jpg";
 import personC from "./personC.jpg";
@@ -25,6 +28,9 @@ export {
 	homeSlideA,
 	homeSlideB,
 	homeSlideC,
+	homeSlideAS,
+	homeSlideBS,
+	homeSlideCS,
 	personA,
 	personB,
 	personC,

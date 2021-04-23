@@ -35,7 +35,7 @@ const Servicioindividual = props => {
 				</Row>
 				<Row>
 					<Col md={8}>
-						<Portafolio />
+						<Portafolio img={process.env.BACKEND_URL + "/upload/servicio/" + item.portafolioFoto} />
 					</Col>
 					<Col md={4}>
 						<Individuallnfo
