@@ -124,6 +124,7 @@ def add_servicio():
     experiencia = request.json.get('experiencia',None)
     portafolio = request.json.get('portafolio',None)
     merit = request.json.get('merit',None)
+    email_oferente = request.json.get('email',None)
             
     if not tipo_membresia:
         return jsonify({"msg":"el tipo_membresia esta vacio"}), 400
@@ -158,6 +159,8 @@ def add_servicio():
     servicio_registrados.experiencia = experiencia,
     servicio_registrados.portafolio = portafolio,
     servicio_registrados.merit = merit
+    servicio_registrados.email_oferente = email_oferente
+
     print(servicio_registrados)
     db.session.add(servicio_registrados)
     db.session.commit()
@@ -331,6 +334,7 @@ def buyservice():
     cantidad_servicio = request.json.get("cantidad_servicio", None)
     total_valor_servicio = request.json.get("total_valor_servicio", None)
     fecha_inicio = time.strftime("%c")
+    email_oferente = request.json.get("email", None)
 
     servicios_prestados = Servicios_prestados()
     servicios_prestados.id_user_compra =  id_user_compra
@@ -339,12 +343,16 @@ def buyservice():
     servicios_prestados.total_valor_servicio =  total_valor_servicio
     servicios_prestados.fecha_inicio =  fecha_inicio
 
+    print(email_oferente)
+
     print(servicios_prestados)
     db.session.add(servicios_prestados)
     db.session.commit()
   
     response = {
         "msg": "Compra registrada correctamente",
+        "email_oferente": email_oferente,
+        "fecha": servicios_prestados.fecha_inicio
     }
   
     return jsonify(response), 200

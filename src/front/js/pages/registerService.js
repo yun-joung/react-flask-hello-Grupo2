@@ -68,6 +68,7 @@ const RegisterService = props => {
 		) {
 			const usuario = JSON.parse(JSON.stringify(store.user.id));
 			const userName = JSON.parse(JSON.stringify(store.user.userName));
+			const email = store.user.user;
 			actions.addServicio({
 				id_user: usuario,
 				userName: userName,
@@ -83,7 +84,8 @@ const RegisterService = props => {
 				proceso: values.proceso,
 				experiencia: values.experiencia,
 				portafolio: values.portafolio,
-				merit: values.merit
+				merit: values.merit,
+				email: email
 			});
 			console.log("pasando todas validacion");
 			props.history.push("/home");
