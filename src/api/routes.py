@@ -155,7 +155,6 @@ def add_servicio():
         return jsonify({"msg":"el descripcion de servicio esta vacio"}), 400
     if not experiencia:
         return jsonify({"msg":"su experiencia esta vacio"}), 400
-    if portafolioFoto.filename == '': return jsonify({"msg":"no hay un imagen de servicio"}), 400 
     if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
         portafolio_filename = secure_filename(portafolioFoto.filename)
         portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic/", portafolio_filename))

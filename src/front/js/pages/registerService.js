@@ -25,9 +25,10 @@ const RegisterService = props => {
 		experiencia: null,
 		portafolio: null,
 		portafolioFoto: null,
-		merit: null
+		merit: null,
+		serviceRegistrado: null
 	});
-	const [error, setError] = React.useState(null);
+	//const [error, setError] = React.useState(null);
 
 	// const [tipo_membresia, setTipo_membresia] = useState("");
 	// const [category, setCategory] = useState("");
@@ -43,13 +44,13 @@ const RegisterService = props => {
 	// const [portafolio, setPortafolio] = useState("");
 	// const [merit, setMerit] = useState("");
 
-	const handelChange = e => {
+	const handleChange = e => {
 		let datas = state;
 		datas[event.target.name] = event.target.value;
 		setState({ ...datas });
 	};
 
-	const handelChangeFile = e => {
+	const handleChangeFile = e => {
 		let datas = state;
 		datas[event.target.name] = event.target.files[0];
 		setState({ ...datas });
@@ -78,22 +79,28 @@ const RegisterService = props => {
 		formData.append("merit", state.merit);
 		formData.append("portafolioFoto", state.portafolioFoto);
 
-		const addServicio = form => {
-			fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
-				method: "POST",
-				body: formData
-			})
-				.then(resp => resp.json())
-				.then(data => {
-					console.log("--servicio registrado --", data);
-					sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
-				})
-				.catch(error => console.log("Error loading message from backend", error));
-			sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
-		};
-		//props.history.push("/home");
-		setError(null);
+		addServicio(formData);
 	};
+
+	const addServicio = form => {
+		fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+			method: "POST",
+			body: form
+		})
+			.then(resp => resp.json())
+			.then(data => {
+				console.log("--servicio registrado --", data);
+				setState({
+					...state,
+					serviceRegistrado: data
+				});
+				sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+			})
+			.catch(error => console.log("Error loading message from backend", error));
+		sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
+	};
+	//props.history.push("/home");
+
 	useEffect(() => {
 		actions.getToken();
 	}, []);
@@ -132,7 +139,7 @@ const RegisterService = props => {
 				</div>
 				<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
 					<Form onSubmit={handleSubmit}>
-						{error && <div className="alert alert-danger">{error}</div>}
+						{/* {error && <div className="alert alert-danger">{error}</div>} */}
 						<Form.Group>
 							<Form.Label>
 								<h5>
@@ -143,7 +150,7 @@ const RegisterService = props => {
 								as="select"
 								name="tipo_membresia"
 								id="tipo_membresia"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.tipo_membresia}
 								style={{
 									backgroundColor: "lightgray",
@@ -168,7 +175,7 @@ const RegisterService = props => {
 								as="select"
 								name="category"
 								id="category"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.category}
 								style={{
 									backgroundColor: "lightgray",
@@ -191,7 +198,7 @@ const RegisterService = props => {
 								placeholder="Subcategory ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
 								name="subcategory"
 								id="subcategory"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.valor}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 							/>
@@ -208,7 +215,7 @@ const RegisterService = props => {
 								as="select"
 								name="tipo_cobro"
 								id="tipo_cobro"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.tipo_cobro}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 								<option defaultValue>Seleccionar si el tipo de cobro es Por hora o Por proyecto</option>
@@ -224,7 +231,7 @@ const RegisterService = props => {
 								id="valor"
 								placeholder="Ingresa el valor del servicio"
 								name="valor"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.valor}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 							/>
@@ -247,7 +254,7 @@ const RegisterService = props => {
 								placeholder="ej: ¡Crea tu propia página!"
 								rows={2}
 								name="name_servicio"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.name_servicio}
 							/>
 							<p className="fs-6  text-muted ">Máximo 10 palabras</p>
@@ -267,7 +274,7 @@ const RegisterService = props => {
 								type="text"
 								id="descrip_servicio"
 								name="descrip_servicio"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.descrip_servicio}
 							/>
 						</Form.Group>
@@ -284,7 +291,7 @@ const RegisterService = props => {
 								type="text"
 								name="duracion"
 								id="duracion"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.duracion}
 							/>
 						</Form.Group>
@@ -303,7 +310,7 @@ const RegisterService = props => {
 								type="text"
 								name="revision"
 								id="revision"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.revision}
 							/>
 						</Form.Group>
@@ -335,7 +342,7 @@ const RegisterService = props => {
 								as="select"
 								name="tipo_membresia"
 								id="tipo_membresia"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.experiencia}
 								style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 								<option defaultValue>Seleccionar rango de años</option>
@@ -361,7 +368,7 @@ const RegisterService = props => {
 								type="text"
 								name="portafolio"
 								id="portafolio"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.portafolio}
 							/>
 						</Form.Group>
@@ -378,7 +385,7 @@ const RegisterService = props => {
 								type="text"
 								name="merit"
 								id="merit"
-								onChange={e => handelChange(e)}
+								onChange={e => handleChange(e)}
 								//isInvalid={!!errors.merit}
 							/>
 						</Form.Group>
@@ -388,15 +395,16 @@ const RegisterService = props => {
 									11. Profile foto de tu servicio <span style={{ color: "red" }}>*</span>
 								</h5>
 							</Form.Label>
-							<Form.File
+							<input
 								id="portafolioFoto"
 								name="portafolioFoto"
 								type="file"
-								onChange={e => handelChangeFile(e)}
+								className="form-control"
+								onChange={e => handleChangeFile(e)}
 							/>
 						</Form.Group>
-
-						{error && <div className="alert alert-danger">{error}</div>}
+						{/*
+						{error && <div className="alert alert-danger">{error}</div>} */}
 						<Row style={{ justifyContent: "center" }}>
 							<Button
 								variant="primary"
@@ -407,6 +415,15 @@ const RegisterService = props => {
 							</Button>
 
 							{JSON.stringify(store.user.id)}
+
+							{/* <img
+								src={
+									"https://3001-apricot-egret-pn15p368.ws-us03.gitpod.io/upload/servicio/" +
+									(!!state.serviceRegistrado &&
+										state.serviceRegistrado.servicio_registrados.portafolioFoto)
+								}
+							/> */}
+
 							<p>{!!state.tipo_membresia && state.tipo_membresia}</p>
 							<p>{!!state.category && state.category}</p>
 							<p>{!!state.subcategory && state.subcategory}</p>
