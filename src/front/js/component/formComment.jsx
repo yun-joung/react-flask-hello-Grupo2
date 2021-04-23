@@ -42,6 +42,8 @@ export const Formcomment = () => {
 										variant="outline-primary"
 										onClick={() => {
 											actions.addComment(text_comment, assessment, id);
+											setComment("");
+											setAssessment(0);
 										}}>
 										Ingresar
 									</Button>{" "}

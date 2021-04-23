@@ -55,7 +55,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			serviceInfo: [],
 			searchInfo: [],
 			serviceInfoById: {},
-			BuyServiceByIdUser: [],
+			buyServiceByIdUser: [],
 			comments: []
 		},
 
@@ -517,8 +517,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
-					console.log("--BuyServiceByIdUser--", json);
-					setStore({ BuyServiceByIdUser: json });
+					console.log("--buyServiceByIdUser--", json);
+					setStore({ buyServiceByIdUser: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}

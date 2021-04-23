@@ -28,7 +28,8 @@ const Individuallnfo = props => {
 			id_user_compra: usuario,
 			id_servicio_registrados: props.id,
 			cantidad_servicio: 1,
-			total_valor_servicio: props.valor
+			total_valor_servicio: props.valor,
+			name_servicio: props.name_servicio
 		});
 		props.history.push("/compra");
 	};

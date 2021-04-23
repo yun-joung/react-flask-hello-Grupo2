@@ -26,7 +26,7 @@ const CompraListUser = props => {
 					<tbody onClick={() => actions.getBuyServiceByIdUser(props.id)}>
 						<tr>
 							<td>{props.id}</td>
-							<td> {props.name_servicio}</td>
+							<td>{props.name_servicio}</td>
 							<td>{props.fecha_inicio}</td>
 							<td>{props.total_valor_servicio}</td>
 						</tr>
