@@ -28,7 +28,8 @@ const Individuallnfo = props => {
 			id_user_compra: usuario,
 			id_servicio_registrados: props.id,
 			cantidad_servicio: 1,
-			total_valor_servicio: props.valor
+			total_valor_servicio: props.valor,
+			email: props.email
 		});
 		props.history.push("/compra");
 	};
@@ -79,6 +80,7 @@ const Individuallnfo = props => {
 							onClick={e => {
 								handleBuy(e);
 							}}>
+							{/* {JSON.stringify(props.email)} */}
 							Comprar Servicio
 						</Button>
 					</Link>
@@ -98,5 +100,6 @@ Individuallnfo.propTypes = {
 	duracion: PropTypes.string,
 	revision: PropTypes.string,
 	id: PropTypes.number,
-	history: PropTypes.object
+	history: PropTypes.object,
+	email: PropTypes.string
 };

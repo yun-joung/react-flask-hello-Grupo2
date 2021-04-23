@@ -57,10 +57,10 @@ class Servicio_registrados(db.Model):
     portafolio = db.Column(db.String(250), nullable=True)
     portafolioFoto = db.Column(db.String(100), nullable=True)
     merit = db.Column(db.String(250))
+    email_oferente = db.Column(db.String(100))
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
     favoritos = db.relationship('Favoritos', backref='servicio_registrados',lazy=True)
     comentarios = db.relationship('Comentarios', backref='servicio_registrados',lazy=True)
-    document = db.relationship('Document', cascade="all,delete", backref='servicio_registrados',lazy=True)
 
     def __repr__(self):
         return "<Servicio_registrados %r>" % self.id
@@ -82,10 +82,11 @@ class Servicio_registrados(db.Model):
             "experiencia": self.experiencia,
             "portafolio": self.portafolio,
             "portafolioFoto": self.portafolioFoto,
-            "merit":self.merit
+            "merit":self.merit,
+            "email_oferente":self.email_oferente
         }
-    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit ):
-        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, portafolioFoto=portafolioFoto, merit=merit)
+    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit, email_oferente ):
+        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, portafolioFoto=portafolioFoto, merit=merit, email_oferente=email_oferente)
         db.session.add(new_servicio)
         db.session.commit()
     def get_servicio(_id):

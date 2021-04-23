@@ -77,11 +77,13 @@ const RegisterService = props => {
 
 	const userId = JSON.parse(JSON.stringify(store.user.id));
 	const userName = JSON.parse(JSON.stringify(store.user.userName));
+	const email = store.user.user;
 
 	const handleSubmit = values => {
 		let formData = new FormData();
 		formData.append("id_user", userId);
 		formData.append("userName", userName);
+		formData.append("email_oferente", email);
 		formData.append("tipo_membresia", values.tipo_membresia);
 		formData.append("category", values.category);
 		formData.append("subcategory", values.subcategory);

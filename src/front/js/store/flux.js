@@ -35,7 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				experiencia: "",
 				portafolio: "",
 				portafolioFoto: "",
-				merit: ""
+				merit: "",
+				email_oferente: ""
 			},
 			userAll: [],
 			favorito: {
@@ -471,37 +472,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//setStore({ favoritos: "" });
 			},
 			buyService: buyservice => {
+				const store = getStore();
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {
 					method: "POST",
 					body: JSON.stringify(buyservice),
 					headers: { "Content-type": "application/json" }
 				})
-					.then(() => {
+					.then(data => data.json())
+					.then(data => {
+						console.log(data);
+						const templateParams = {
+							to_email: data.email_oferente,
+							buyer: store.user.user,
+							fecha: data.fecha
+						};
+						emailjs.send(
+							"service_gtr9nn8",
+							"template_0dswma9",
+							templateParams,
+							"user_Lg37b3jwPEh5fSo53yOsV"
+						);
 						sweetAlert(
 							"¡Excelente!",
 							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas.",
 							"success"
 						);
 					})
-
-					// .then(props.history.push("/compra"))
-					// .then(data => data.json())
-					// .then(data=>{
-					//     const templateParams = {
-					//         to_email: data.emailOfferer,
-					//         cc_email: data.emailBuyer,
-					//         service: "",
-					//         buyer: "",
-
-					//     };
-					//     emailjs.send(
-					// 			"service_gtr9nn8",
-					// 			"Agregar el template de la compra del servicio",
-					// 			templateParams,
-					// 			"user_Lg37b3jwPEh5fSo53yOsV"
-					// 		);
-					// 		alert("El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas. Una copia de este requerimiento ha sido enviado a su correo electrónico.");
-					// 	})
 					.catch(error => console.log("Error sending email", error));
 			},
 
