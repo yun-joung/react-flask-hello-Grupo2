@@ -34,6 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				proceso: "",
 				experiencia: "",
 				portafolio: "",
+				portafolioFoto: "",
 				merit: "",
 				email_oferente: ""
 			},
@@ -81,6 +82,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 		console.log("Error loading message from backend", error);
 			// 	}
 			// },
+
+			uploadfile: async () => {
+				let FormDate = new FormDate();
+				FormDate.append("portafolioFoto", values.portafolioFoto);
+				return fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+					method: "POST",
+					body: FormDate,
+					headers: { "Content-type": "application/json" }
+				})
+					.then(response => response.json())
+					.then(data => {
+						console.log("--servicio registrado file --", data);
+						setStore({ serviceRegistrado: data });
+					})
+					.catch(error => console.log(error));
+			},
 
 			addServicio: servicio => {
 				console.log(servicio);

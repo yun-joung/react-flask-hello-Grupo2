@@ -33,7 +33,7 @@ export const CategoryBox = props => {
 								<CardIndividual
 									category={item.category}
 									id={item.id}
-									img={serviceIt}
+									img={process.env.BACKEND_URL + "/upload/servicio/" + item.portafolioFoto}
 									name_servicio={item.name_servicio}
 									valor={item.valor}
 									tipo_cobro={item.tipo_cobro}

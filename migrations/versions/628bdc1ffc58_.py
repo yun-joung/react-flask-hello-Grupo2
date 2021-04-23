@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3df83f3b5c71
+Revision ID: 628bdc1ffc58
 Revises: 
-Create Date: 2021-04-23 03:16:50.645117
+Create Date: 2021-04-23 19:33:58.385685
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3df83f3b5c71'
+revision = '628bdc1ffc58'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,6 +24,7 @@ def upgrade():
     sa.Column('email', sa.String(length=100), nullable=False),
     sa.Column('password', sa.String(length=100), nullable=False),
     sa.Column('tipo_user', sa.String(length=50), nullable=False),
+    sa.Column('photo', sa.String(length=100), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('userName')
@@ -44,9 +45,17 @@ def upgrade():
     sa.Column('proceso', sa.String(length=250), nullable=True),
     sa.Column('experiencia', sa.String(length=50), nullable=False),
     sa.Column('portafolio', sa.String(length=250), nullable=True),
+    sa.Column('portafolioFoto', sa.String(length=100), nullable=True),
     sa.Column('merit', sa.String(length=250), nullable=True),
     sa.Column('email_oferente', sa.String(length=100), nullable=True),
     sa.ForeignKeyConstraint(['id_user'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('document',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id_servicio_registrados', sa.Integer(), nullable=False),
+    sa.Column('portfolio', sa.String(length=100), nullable=True),
+    sa.ForeignKeyConstraint(['id_servicio_registrados'], ['servicio_registrados.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('favoritos',
@@ -88,6 +97,7 @@ def downgrade():
     op.drop_table('comentarios')
     op.drop_table('servicios_prestados')
     op.drop_table('favoritos')
+    op.drop_table('document')
     op.drop_table('servicio_registrados')
     op.drop_table('user')
     # ### end Alembic commands ###

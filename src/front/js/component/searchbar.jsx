@@ -4,32 +4,6 @@ import { Button, Form, FormControl, Col, Container, ListGroup } from "react-boot
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
 
-// const Searchbar = props => {
-//     const { store, actions } = useContext(Context);
-//     const [input, setInput] = useState('')
-//     const [keyword, SetKeyword] = useState('')
-//     const [serch, setSerch] = useState();
-//     const [serchList, setSerchList] = useState();
-
-//     const serchData = async (input) => {
-//         const filteredSerchData = serviceInfoDefault.filter(serviceInfo => {
-//             return serviceInfo.name.toLowerCase().includes(input.toLowerCase())
-//         })
-//         setInput(input);
-//         setSerch(filteredSerchData);
-//     }
-
-//     return (
-//         <>
-//             <Form inline className="Buscar sb d-flex float-right mt-2 hidden-sm">
-//                 <FormControl type="text" placeholder="Buscar" className="mr-sm-4 search" />
-//                 <Button variant="btn" value={keyword} onChange={(e) => setKeyword(e.target.value)}>
-//                     <i className="fas fa-search pr-3" />
-//                 </Button>
-//             </Form>
-//         </>
-//     );
-// }
 const SearchBar = props => {
 	const { store, actions } = useContext(Context);
 	const { id } = props;
@@ -39,8 +13,8 @@ const SearchBar = props => {
 		e.preventDefault();
 		let { search } = e.target;
 		actions.searchInfo(search.value);
-		if (store.searchInfo.length === 0) {
-			return (
+		{
+			store.searchInfo.length === 0 && (
 				<ListGroup className="searchDopdown mt-3 " style={{ marginLeft: "30px" }}>
 					<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
 				</ListGroup>
@@ -68,9 +42,6 @@ const SearchBar = props => {
 			<ListGroup
 				className="searchDopdown mt-3 float-right d-none d-lg-block d-xl-block "
 				style={{ marginLeft: "30px" }}>
-				{/* {store.searchInfo.length === 0 && (
-						<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
-					)} */}
 				{store.searchInfo.map(item => {
 					return (
 						<ListGroup.Item key={item.id} href={"/servicio/category/" + item.id} action>

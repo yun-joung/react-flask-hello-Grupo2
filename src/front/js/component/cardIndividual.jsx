@@ -26,7 +26,7 @@ export const CardIndividual = props => {
 
 	return (
 		<div>
-			<Card md={3}>
+			<Card md={3} className="card">
 				<Button variant="btn" className="favorito" onClick={e => handleSubmit(e)}>
 					<i className="far fa-heart" />
 				</Button>
