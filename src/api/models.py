@@ -53,6 +53,7 @@ class Servicio_registrados(db.Model):
     experiencia = db.Column(db.String(50), nullable=False)
     portafolio = db.Column(db.String(250), nullable=True)
     merit = db.Column(db.String(250))
+    email_oferente = db.Column(db.String(100))
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
     favoritos = db.relationship('Favoritos', backref='servicio_registrados',lazy=True)
     comentarios = db.relationship('Comentarios', backref='servicio_registrados',lazy=True)
@@ -75,10 +76,11 @@ class Servicio_registrados(db.Model):
             "proceso":self.proceso,
             "experiencia": self.experiencia,
             "portafolio": self.portafolio,
-            "merit":self.merit
+            "merit":self.merit,
+            "email_oferente":self.email_oferente
         }
-    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit ):
-        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, merit=merit)
+    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit, email_oferente ):
+        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, merit=merit, email_oferente=email_oferente)
         db.session.add(new_servicio)
         db.session.commit()
     def get_servicio(_id):

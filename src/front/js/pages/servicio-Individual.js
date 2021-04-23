@@ -46,6 +46,7 @@ const Servicioindividual = props => {
 							subcategory={item.subcategory}
 							duracion={item.duracion}
 							revision={item.revision}
+							email={item.email_oferente}
 						/>
 					</Col>
 				</Row>
