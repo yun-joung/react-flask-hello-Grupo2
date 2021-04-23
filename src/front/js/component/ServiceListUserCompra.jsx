@@ -27,6 +27,8 @@ const ServiceListUserCompra = props => {
 							key={item.id_user_compra}
 							name_servicio={item.name_servicio}
 							id={item.id_user_compra}
+							fecha_inicio={props.fecha_inicio}
+							total_valor_servicio={props.total_valor_servicio}
 						/>
 					);
 				})}
@@ -45,5 +47,7 @@ export default withRouter(ServiceListUserCompra);
 ServiceListUserCompra.propTypes = {
 	id: PropTypes.number,
 	index: PropTypes.number,
-	name_servicio: PropTypes.string
+	name_servicio: PropTypes.string,
+	fecha_inicio: PropTypes.date,
+	total_valor_servicio: PropTypes.number
 };

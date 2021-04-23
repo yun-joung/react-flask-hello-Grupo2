@@ -42,6 +42,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				id_servicio_registrados: "",
 				name_servicio: ""
 			},
+			//     BuyServiceByIdUser:{
+			//     id_user_compra = "",
+			//     total_valor_servicio = "",
+			//     fecha_inicio = "",
+			//     fecha_termino = "",
+			//     comentarios = "",
+			// },
 			serviceByCategory: [],
 			serviceByIdUser: [],
 			favoritos: [],
