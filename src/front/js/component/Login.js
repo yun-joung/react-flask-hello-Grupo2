@@ -5,8 +5,13 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { NavDropdown, Dropdown, Row } from "react-bootstrap";
+import { GoogleLogin } from "react-google-login";
 import PropTypes from "prop-types";
 // import useUserSession from "./userSession";
+
+// const responseGoogle = (response) => {
+//   console.log(response);
+// }
 
 function MyVerticallyCenteredModal(props) {
 	const { store, actions } = useContext(Context);
@@ -28,7 +33,7 @@ function MyVerticallyCenteredModal(props) {
 				<Modal.Title id="contained-modal-title-vcenter">Inicia Sesión</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				{store.user.token !== null ? (
+				{store.user.isLogin ? (
 					<div className="text-center mt-3 mb-5">
 						{/* <span>User: {JSON.stringify(store.user)}</span> */}
 						La sesión ha sido iniciada
@@ -81,6 +86,16 @@ function MyVerticallyCenteredModal(props) {
 								<p> Recuperala aquí </p>
 							</Link>
 						</Form.Text>
+
+						{/* <hr/>
+
+                        <GoogleLogin
+                        clientId=""
+                        buttonText="Login"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    /> */}
 					</Form>
 				)}
 			</Modal.Body>
@@ -99,7 +114,7 @@ export function LoginModal(props) {
 
 	return (
 		<>
-			{store.user.token !== null ? (
+			{store.user.isLogin ? (
 				<>
 					<NavDropdown
 						//{ width > 590 ? title="Mi cuenta" : title=<i class="far fa-user-circle"></i>}

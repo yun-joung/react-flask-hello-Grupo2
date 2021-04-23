@@ -39,15 +39,20 @@ def login():
         return jsonify({"msg":"Email required"}), 400
 
     if not password:
-        return jsonify({"msg":"Password required"}), 400
-    
-    user = User.query.filter_by(email=email).first()
-    print(user)
+        return jsonify({"msg":"Password required"}), 400\
 
+    #email check
+    user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify({"msg": "The email is not correct",
         "status": 401
-        
+        }), 401
+
+    #password check
+    user = User.query.filter_by(password=password).first()
+    if not user:
+        return jsonify({"msg": "The password is not correct",
+        "status": 401
         }), 401
 
     expiracion = datetime.timedelta(days=3)
@@ -57,11 +62,11 @@ def login():
         "user": user.serialize(),
         "token": access_token,
         "expires": expiracion.total_seconds()*1000,
-        "id": user.id,
-        "email": user.email,
-        "tipo_user": user.tipo_user,
-        "photo": user.photo,
-        "userName": user.userName
+        # "id": user.id,
+        # "email": user.email,
+        # "tipo_user": user.tipo_user,
+        # "photo": user.photo,
+        # "userName": user.userName
         }
 
     return jsonify(data), 200
@@ -77,7 +82,8 @@ def register():
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
-        return ({"msg":"Este correo electrónico ya ha sido registrado"}), 401
+        return ({"status_code":401,
+            "msg":"Este correo electrónico ya ha sido registrado"}), 401
     # if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
     #     photo_filename = secure_filename(photo.filename)
     #     photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
