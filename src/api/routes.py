@@ -335,9 +335,10 @@ def addComment():
             db.session.commit()
             return jsonify({"Respuesta":"OK"}), 200    
 
-@api.route('/comentarios', methods=["GET"])
-def listComments ():  
-    return jsonify({"Comentarios": Comentarios.get_all_comentarios(id)})
+@api.route('/comentarios/<int:id>', methods=["GET"])
+def listComments (id):  
+    comentario = Comentarios.get_comentarios(id)
+    return jsonify(comentario)
       
 @api.route('/passwordrecovery1', methods=['PUT'])
 def passwordrecovery1():
@@ -369,9 +370,11 @@ def buyservice():
     id_user_compra = request.json.get("id_user_compra", None)
     id_servicio_registrados = request.json.get("id_servicio_registrados", None)
     cantidad_servicio = request.json.get("cantidad_servicio", None)
+    name_servicio  = request.json.get("name_servicio", None)
     total_valor_servicio = request.json.get("total_valor_servicio", None)
     fecha_inicio = time.strftime("%c")
     email_oferente = request.json.get("email", None)
+    
 
     servicios_prestados = Servicios_prestados()
     servicios_prestados.id_user_compra =  id_user_compra
@@ -379,6 +382,7 @@ def buyservice():
     servicios_prestados.cantidad_servicio =  cantidad_servicio
     servicios_prestados.total_valor_servicio =  total_valor_servicio
     servicios_prestados.fecha_inicio =  fecha_inicio
+    servicios_prestados.name_servicio =  name_servicio
 
     print(email_oferente)
 
@@ -401,3 +405,12 @@ def buyservice():
 @api.route('/buyservice/user/<int:id>', methods=["GET"])
 def get_servicioCompra_id_user(id):
     return jsonify(Servicios_prestados.get_servicioCompra_id_user(id))
+
+@api.route('/buyservice/service/<int:id>', methods=["GET"])
+def get_Compra_id_servicio(id):
+    return jsonify(Servicios_prestados.get_Compra_id_servicio(id))
+
+@api.route('/buyservice', methods=["GET"])
+def get_all_compra():
+    compras = Servicios_prestados.get_all_compra()
+    return jsonify(compras)

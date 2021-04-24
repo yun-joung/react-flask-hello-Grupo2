@@ -17,7 +17,7 @@ const injectContext = PassedComponent => {
 		);
 		useEffect(() => {
 			state.actions.getServiceInfo();
-			state.actions.listComments();
+			//state.actions.listComments();
 		}, []);
 		return (
 			<Context.Provider value={state}>

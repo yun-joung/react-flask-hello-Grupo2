@@ -51,6 +51,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			searchInfo: [],
 			serviceInfoById: {},
 			BuyServiceByIdUser: [],
+			CompraByService: [],
+			comment: {
+				id_servicios_prestados: "",
+				id_servicio_registrados: "",
+				text_comment: "",
+				evaluacion: ""
+			},
 			comments: []
 		},
 
@@ -331,19 +338,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			addComment: async (text_comment, assessment, id) => {
+			addComment: async comment => {
+				const store = getStore();
+				setStore({ comments: [...store.comments, comment] });
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json"
 						},
-						body: JSON.stringify({
-							id_servicios_prestados: "1",
-							id_servicio_registrados: id,
-							text_comment: text_comment,
-							evaluacion: assessment
-						})
+						body: JSON.stringify(comment)
 					});
 					const json = await response.json();
 					console.log(json);
@@ -353,15 +357,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			listComments: async () => {
+			listComments: async id => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios/" + id, {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
 					console.log(json);
-					setStore({ comments: json.Comentarios });
+					setStore({ comments: json });
 				} catch (error) {
 					console.log(error);
 				}
@@ -529,6 +533,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const json = await response.json();
 					console.log("--BuyServiceByIdUser--", json);
 					setStore({ BuyServiceByIdUser: json });
+				} catch (error) {
+					console.log("Error loading message from backend", error);
+				}
+			},
+
+			getCompraByService: async id => {
+				const store = getStore();
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/buyservice/service/" + id, {
+						method: "GET",
+						headers: { "Content-Type": "application/json" }
+					});
+					const json = await response.json();
+					console.log("--CompraByService--", json);
+					setStore({ CompraByService: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}
