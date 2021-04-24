@@ -59,7 +59,7 @@ export const CardIndividual = props => {
 CardIndividual.propTypes = {
 	img: PropTypes.string,
 	name_servicio: PropTypes.string,
-	punta: PropTypes.string,
+	punta: PropTypes.number,
 	valor: PropTypes.number,
 	trabajo: PropTypes.string,
 	tipo_cobro: PropTypes.string,

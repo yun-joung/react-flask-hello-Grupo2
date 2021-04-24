@@ -24,8 +24,3 @@ const ServicioCategory = props => {
 };
 
 export default withRouter(ServicioCategory);
-
-ServicioCategory.propTypes = {
-	match: PropTypes.objecto,
-	category: PropTypes.string
-};

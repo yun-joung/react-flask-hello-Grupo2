@@ -335,9 +335,10 @@ def addComment():
             db.session.commit()
             return jsonify({"Respuesta":"OK"}), 200    
 
-@api.route('/comentarios', methods=["GET"])
-def listComments ():  
-    return jsonify({"Comentarios": Comentarios.get_all_comentarios(id)})
+@api.route('/comentarios/<int:id>', methods=["GET"])
+def listComments (id):  
+    comentario = Comentarios.get_comentarios(id)
+    return jsonify(comentario)
       
 @api.route('/passwordrecovery1', methods=['PUT'])
 def passwordrecovery1():
@@ -381,6 +382,7 @@ def buyservice():
     servicios_prestados.total_valor_servicio =  total_valor_servicio
     servicios_prestados.fecha_inicio =  fecha_inicio
     servicios_prestados.name_servicio =  name_servicio
+    servicios_prestados.email_oferente =  email_oferente
 
     print(email_oferente)
 
@@ -396,10 +398,15 @@ def buyservice():
   
     return jsonify(response), 200
 
-# @api.route('/buyservice/user/<int:_id_user>', methods=["GET"])
-# def get_servicioCompra_id_user(id):
-#     return jsonify(Servicios_prestados.get_servicioCompra_id_user(id))
-
 @api.route('/buyservice/user/<int:id>', methods=["GET"])
 def get_servicioCompra_id_user(id):
     return jsonify(Servicios_prestados.get_servicioCompra_id_user(id))
+
+@api.route('/buyservice/service/<int:id>', methods=["GET"])
+def get_Compra_id_servicio(id):
+    return jsonify(Servicios_prestados.get_Compra_id_servicio(id))
+
+@api.route('/buyservice', methods=["GET"])
+def get_all_compra():
+    compras = Servicios_prestados.get_all_compra()
+    return jsonify(compras)

@@ -150,9 +150,17 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
+
     def get_servicioCompra_id_user(id):
         servicioCompra = Servicios_prestados.query.filter_by(id_user_compra=id).all()
         return list(map(lambda x: x.serialize(), servicioCompra))
+    def get_Compra_id_servicio(id):
+        CompraByService =Servicios_prestados.query.filter_by(id_servicio_registrados=id).all()
+        return list(map(lambda x: x.serialize(), CompraByService))
+    def get_all_compra():
+        allCompra = Servicios_prestados.query.all()
+        db.session.commit()
+        return list(map(lambda x: x.serialize(), Servicios_prestados.query.all()))
 
 class Favoritos(db.Model):
     __tablename__ = 'favoritos'
@@ -199,12 +207,10 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
-    def get_all_comentarios(id):
-        # comentarios_query = Comentarios.query.all()
-        # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
-        return list(map(lambda x: x.serialize(), Comentarios.query.all()))
-   
-  
+    def get_comentarios(id):
+        ComentarioByService = Comentarios.query.filter_by(id_servicio_registrados=id).all()
+        return list(map(lambda x: x.serialize(), ComentarioByService))
+
 class Document(db.Model):
     __tablename__ = 'document'
     id = db.Column(db.Integer, primary_key=True, nullable=False)

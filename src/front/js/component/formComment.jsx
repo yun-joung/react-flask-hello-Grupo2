@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { ProgressBar } from "react-bootstrap";
 import ButtomStar from "./ButtomStar.jsx";
@@ -10,9 +10,12 @@ export const Formcomment = () => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
 	const { id } = store.serviceRegistrado;
-	console.log(id);
 	const [assessment, setAssessment] = useState(0);
-	// const [color, setColor] = useState();
+
+	useEffect(() => {
+		actions.listComments(id);
+	}, []);
+
 	return (
 		<>
 			<div className="container">
