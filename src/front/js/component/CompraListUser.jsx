@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { serviceDiseno, serviceMarketing, serviceIt } from "../../img/image.js";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
@@ -14,21 +14,24 @@ const CompraListUser = props => {
 	return (
 		<>
 			<Link to={"/MiCompra/id/" + id}>
-				<Button
-					variant="outline-primary"
-					block
-					className="text-left"
-					onClick={() => actions.getBuyServiceByIdUser(props.id)}>
-					{props.id}.&nbsp;{props.name_servicio}
-					<Button variant="light" className="float-right " onClick={() => actions.eliminaServicio(id)}>
-						<i className="fas fa-trash-alt"></i>
-					</Button>
-					<Link to={"/MiCompra/id/" + id}>
-						<Button variant="light" className="float-right  mr-2 ">
-							<i className="fas fa-edit"></i>
-						</Button>
-					</Link>
-				</Button>
+				<Table>
+					<thead>
+						<tr>
+							<th>Nro</th>
+							<th>Nombre Servicio</th>
+							<th>Fecha Compra</th>
+							<th>Valor Servicio</th>
+						</tr>
+					</thead>
+					<tbody onClick={() => actions.getBuyServiceByIdUser(props.id)}>
+						<tr>
+							<td>{props.id}</td>
+							<td>{props.name_servicio}</td>
+							<td>{props.fecha_inicio}</td>
+							<td>{props.total_valor_servicio}</td>
+						</tr>
+					</tbody>
+				</Table>
 				<br />
 			</Link>
 		</>
@@ -40,5 +43,7 @@ export default withRouter(CompraListUser);
 CompraListUser.propTypes = {
 	id: PropTypes.number,
 	index: PropTypes.number,
-	name_servicio: PropTypes.string
+	name_servicio: PropTypes.string,
+	fecha_inicio: PropTypes.date,
+	total_valor_servicio: PropTypes.number
 };

@@ -44,13 +44,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				id_servicio_registrados: "",
 				name_servicio: ""
 			},
+			comments: {
+				id: "",
+				id_servicios_prestados: "",
+				id_servicio_registrados: "",
+				text_comment: "",
+				evaluacion: ""
+			},
 			serviceByCategory: [],
 			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
 			searchInfo: [],
 			serviceInfoById: {},
-			BuyServiceByIdUser: [],
+			buyServiceByIdUser: [],
 			comments: []
 		},
 
@@ -527,8 +534,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" }
 					});
 					const json = await response.json();
-					console.log("--BuyServiceByIdUser--", json);
-					setStore({ BuyServiceByIdUser: json });
+					console.log("--buyServiceByIdUser--", json);
+					setStore({ buyServiceByIdUser: json });
 				} catch (error) {
 					console.log("Error loading message from backend", error);
 				}

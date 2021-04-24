@@ -42,6 +42,8 @@ export const Formcomment = () => {
 										variant="outline-primary"
 										onClick={() => {
 											actions.addComment(text_comment, assessment, id);
+											setComment("");
+											setAssessment(0);
 										}}>
 										Ingresar
 									</Button>{" "}
@@ -63,7 +65,7 @@ export const Formcomment = () => {
 											<ButtomStar value={"4"} assessment={item.evaluacion} onClick={() => null} />
 											<ButtomStar value={"5"} assessment={item.evaluacion} onClick={() => null} />
 											<br />
-											{item.text_comment}{" "}
+											{item.id.text_comment}{" "}
 										</li>
 									);
 								})}

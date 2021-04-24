@@ -369,8 +369,9 @@ def buyservice():
     id_user_compra = request.json.get("id_user_compra", None)
     id_servicio_registrados = request.json.get("id_servicio_registrados", None)
     cantidad_servicio = request.json.get("cantidad_servicio", None)
-    total_valor_servicio = request.json.get("total_valor_servicio", None)
+    name_servicio  = request.json.get("name_servicio", None)
     fecha_inicio = time.strftime("%c")
+    total_valor_servicio = request.json.get("total_valor_servicio", None)
     email_oferente = request.json.get("email", None)
 
     servicios_prestados = Servicios_prestados()
@@ -379,6 +380,7 @@ def buyservice():
     servicios_prestados.cantidad_servicio =  cantidad_servicio
     servicios_prestados.total_valor_servicio =  total_valor_servicio
     servicios_prestados.fecha_inicio =  fecha_inicio
+    servicios_prestados.name_servicio =  name_servicio
 
     print(email_oferente)
 
