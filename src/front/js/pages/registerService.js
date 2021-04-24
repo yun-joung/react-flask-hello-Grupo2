@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as yup from "yup";
 import swal from "sweetalert";
+import UploadButtons from "../component/uploadBut";
 
 const validationSchema = yup.object().shape({
 	tipo_membresia: yup.string().required("* 1. Tamaño del equipo es obligatorio"),
@@ -47,50 +48,79 @@ const validationSchema = yup.object().shape({
 		.string()
 		.max(30, "Máximo 30 caracteres")
 		.required("* 7. Numero de correcciones es obligatorio"),
-	experiencia: yup.string().required("* 8. Experiencia es obligatorio"),
+	experiencia: yup.string().required("* 10. Experiencia es obligatorio"),
 	portafolio: yup.string().max(250, "Máximo 250 caracteres"),
+	portafolioFoto: yup.string().required("* 8. Por favor, subir Profil imagen del servicio"),
 	merit: yup.string().max(250, "Máximo 250 caracteres")
 });
 
 const RegisterService = props => {
 	const { store, actions } = useContext(Context);
+	const [registrado, setRegistrado] = useState(false);
+	const [state, setState] = useState({
+		tipo_membresia: null,
+		category: null,
+		subcategory: null,
+		tipo_cobro: null,
+		valor: null,
+		name_servicio: null,
+		descrip_servicio: null,
+		duracion: null,
+		revision: null,
+		proceso: null,
+		experiencia: null,
+		portafolio: null,
+		portafolioFoto: null,
+		merit: null,
+		serviceRegistrado: null
+	});
 
-	const handleSubmitapi = values => {
-		if (
-			values.tipo_membresia &&
-			values.category &&
-			values.subcategory &&
-			values.tipo_cobro &&
-			values.valor &&
-			values.name_servicio &&
-			values.descrip_servicio &&
-			values.experiencia
-		) {
-			const usuario = JSON.parse(JSON.stringify(store.user.id));
-			const userName = JSON.parse(JSON.stringify(store.user.userName));
-			actions.addServicio({
-				id_user: usuario,
-				userName: userName,
-				tipo_membresia: values.tipo_membresia,
-				category: values.category,
-				subcategory: values.subcategory,
-				tipo_cobro: values.tipo_cobro,
-				valor: values.valor,
-				name_servicio: values.name_servicio,
-				descrip_servicio: values.descrip_servicio,
-				duracion: values.duracion,
-				revision: values.revision,
-				proceso: values.proceso,
-				experiencia: values.experiencia,
-				portafolio: values.portafolio,
-				merit: values.merit
-			});
-			console.log("pasando todas validacion");
-			props.history.push("/home");
-		} else {
-			sweetAlert("Error", "Faltan datos por registrar el servicio", "error");
-		}
+	const userId = JSON.parse(JSON.stringify(store.user.id));
+	const userName = JSON.parse(JSON.stringify(store.user.userName));
+	const email = store.user.user;
+
+	const handleSubmit = values => {
+		let formData = new FormData();
+		formData.append("id_user", userId);
+		formData.append("userName", userName);
+		formData.append("email_oferente", email);
+		formData.append("tipo_membresia", values.tipo_membresia);
+		formData.append("category", values.category);
+		formData.append("subcategory", values.subcategory);
+		formData.append("tipo_cobro", values.tipo_cobro);
+		formData.append("valor", values.valor);
+		formData.append("name_servicio", values.name_servicio);
+		formData.append("descrip_servicio", values.descrip_servicio);
+		formData.append("duracion", values.duracion);
+		formData.append("revision", values.revision);
+		formData.append("proceso", values.proceso);
+		formData.append("experiencia", values.experiencia);
+		formData.append("portafolio", values.portafolio);
+		formData.append("merit", values.merit);
+		formData.append("portafolioFoto", values.portafolioFoto);
+
+		addServicio(formData);
+		setRegistrado(true);
 	};
+
+	const addServicio = form => {
+		fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+			method: "POST",
+			body: form
+		})
+			.then(resp => resp.json())
+			.then(data => {
+				console.log("--servicio registrado --", data);
+				setState({
+					...state,
+					serviceRegistrado: data
+				});
+				sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+			})
+			.catch(error => console.log("Error loading message from backend", error));
+		sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
+	};
+
 	useEffect(() => {
 		actions.getToken();
 	}, []);
@@ -98,7 +128,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-ivory-frog-jw0g6m41.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -120,7 +150,7 @@ const RegisterService = props => {
 							<p className="text-white mt-3">
 								¡Gracias por tu interés en Cotec!
 								<br />
-								Nuestra misión es conectar millones de personas con empresas
+								Conectaremos millones de personas y empresas contigo
 								<br />
 								Para comenzar, todo lo que necesitas hacer es registrar tu servicio
 							</p>
@@ -142,21 +172,23 @@ const RegisterService = props => {
 							proceso: "",
 							experiencia: "",
 							portafolio: "",
+							portafolioFoto: "",
 							merit: ""
 						}}
 						validationSchema={validationSchema}
 						onSubmit={(values, { setSubmitting, resetForm }) => {
-							handleSubmitapi(values);
+							console.log(values);
+							handleSubmit(values);
 							setSubmitting(true);
 							resetForm();
 							setSubmitting(false);
 						}}>
-						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting }) => (
-							<Form onSubmit={handleSubmit}>
+						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting, setFieldValue }) => (
+							<Form>
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											1. Cuántas personas forman tu equipo?<span style={{ color: "red" }}>*</span>
+											1. Tamaño de tu equipo<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -170,7 +202,7 @@ const RegisterService = props => {
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
 										}}>
-										<option default>Selecciona la cantidad de personas</option>
+										<option default>Seleccionar el tipo de membresia</option>
 										<option>Freelancer (solo yo)</option>
 										<option>Equipo (2-3personas)</option>
 										<option>Equipo (4-6personas)</option>
@@ -187,9 +219,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											2. A qué Categoría pertenece tu servicio? / Adicional, escribe una
-											subcategoría
-											<span style={{ color: "red" }}>*</span>
+											2. Categoria de tu servicio<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -203,7 +233,7 @@ const RegisterService = props => {
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
 										}}>
-										<option default>Selecciona la categoría de tu servicio</option>
+										<option default>Seleccionar categoría de servicio</option>
 										<option>Desarrollo_It</option>
 										<option>Diseño</option>
 										<option>Marketing</option>
@@ -222,7 +252,7 @@ const RegisterService = props => {
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="Escribe una Subcategoría ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
+										placeholder="Subcategory ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
 										name="subcategory"
 										value={values.subcategory}
 										className={touched.subcategory && errors.subcategory ? "error" : null}
@@ -242,7 +272,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											3. ¿Cuánto cuesta tu servicio?<span style={{ color: "red" }}>*</span>
+											3. Costo del servicio<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -256,8 +286,8 @@ const RegisterService = props => {
 										<option default>
 											Seleccionar si el tipo de cobro es Por hora o Por proyecto
 										</option>
-										<option>Hora en CLP</option>
-										<option>Proyecto en CLP</option>
+										<option>Hora</option>
+										<option>Proyecto</option>
 									</Form.Control>
 									<FormText className="text-muted">
 										{touched.tipo_cobro && errors.tipo_cobro ? (
@@ -270,7 +300,7 @@ const RegisterService = props => {
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="Ingresa solo dígitos en este campo y sin puntos!"
+										placeholder="Ingresa el valor del servicio"
 										name="valor"
 										value={values.valor}
 										className={touched.valor && errors.valor ? "error" : null}
@@ -284,8 +314,7 @@ const RegisterService = props => {
 										) : null}
 									</FormText>
 									<p className="fs-6  text-muted ">
-										* Recuerda que la comisión que Cotec descontará, es el 5% del valor por trabajo
-										terminado.
+										* La tarifa del servicio de Cotec es del 5% del valor del trabajo realizado
 										<br />* Ingresar solamente numero sin , .
 									</p>
 								</Form.Group>
@@ -294,14 +323,13 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											4. ¿Qué Nombre identifica tu Servicio?
-											<span style={{ color: "red" }}>*</span>
+											4. Nombre del Servicio<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="ej: Diseño de Páginas web con React"
+										placeholder="ej: ¡Crea tu propia página!"
 										rows={2}
 										name="name_servicio"
 										value={values.name_servicio}
@@ -320,13 +348,12 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											5. Describe las características de tu servicio
-											<span style={{ color: "red" }}>*</span>
+											5. Descripción del servicio<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
-										placeholder="ej: Mi servicio es el mejor porque ..."
+										placeholder="ej: mi servicio es ..."
 										rows={3}
 										type="text"
 										name="descrip_servicio"
@@ -345,11 +372,11 @@ const RegisterService = props => {
 
 								<Form.Group>
 									<Form.Label>
-										<h5>6. Plazo estimado para ejecutar el proyecto</h5>
+										<h5>6. Plazo estimado (meses) para ejecutar el proyecto</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
-										placeholder="ej: 1 mes, 15 dias o dependiendo el proyecto"
+										placeholder="ej: 1mes, 15 dias o dependiendo el proyecto"
 										rows={2}
 										type="text"
 										name="duracion"
@@ -390,26 +417,47 @@ const RegisterService = props => {
 									</FormText>
 								</Form.Group>
 								<br />
-								{/* <Form.Group>
-							<Form.Label>
-								<h5>Metodología para ejecución </h5>
-							</Form.Label>
-							<Form.Control
-								as="textarea"
-								placeholder="ej: Scrum, Html..."
-								rows={2}
-								type="text"
-								name="proceso"
-								onChange={e => setProceso(e.target.value)}
-								//isInvalid={!!errors.proceso}
-							/>
-						</Form.Group>
-						<br /> */}
-
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											8. ¿Cuántos años de Experiencia tienes realizando este servicio?
+											8. Profile foto de tu servicio <span style={{ color: "red" }}>*</span>
+										</h5>
+									</Form.Label>
+									<Form.File
+										id="file"
+										name="portafolioFoto"
+										type="file"
+										className={touched.portafolioFoto && errors.portafolioFoto ? "error" : null}
+										onChange={event => {
+											setFieldValue("portafolioFoto", event.target.files[0]);
+										}}
+									/>
+								</Form.Group>
+								<Form.Group>
+									<Form.Label>
+										<h5>8. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
+									</Form.Label>
+									<Form.Control
+										as="textarea"
+										placeholder="ej: www.virtualex.cl"
+										rows={2}
+										type="text"
+										name="portafolio"
+										value={values.portafolio}
+										className={touched.portafolio && errors.portafolio ? "error" : null}
+										onChange={handleChange}
+										//isInvalid={!!errors.portafolio}
+									/>
+									<FormText className="fs-6 text-muted">
+										{touched.portafolio && errors.portafolio ? (
+											<div className="error-message">{errors.portafolio}</div>
+										) : null}
+									</FormText>
+								</Form.Group>
+								<Form.Group>
+									<Form.Label>
+										<h5>
+											9. Años de experiencia en esta área
 											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
@@ -437,32 +485,6 @@ const RegisterService = props => {
 									</FormText>
 								</Form.Group>
 								<br />
-
-								<Form.Group>
-									<Form.Label>
-										<h5>
-											9. Déjanos un link o repositorio donde podamos conocer más de tu trabajo!
-										</h5>
-									</Form.Label>
-									<Form.Control
-										as="textarea"
-										placeholder="ej: Link Instagram, Facebook, Dirección de página web o cuenta más sobre tu trabajo"
-										rows={2}
-										type="text"
-										name="portafolio"
-										value={values.portafolio}
-										className={touched.portafolio && errors.portafolio ? "error" : null}
-										onChange={handleChange}
-										//isInvalid={!!errors.portafolio}
-									/>
-									<FormText className="fs-6 text-muted">
-										{touched.portafolio && errors.portafolio ? (
-											<div className="error-message">{errors.portafolio}</div>
-										) : null}
-									</FormText>
-								</Form.Group>
-								<br />
-
 								<Form.Group>
 									<Form.Label>
 										<h5>10. Detalla los trabajos que haz realizado</h5>
@@ -484,30 +506,51 @@ const RegisterService = props => {
 										) : null}
 									</FormText>
 								</Form.Group>
+
+								<br />
 								<Row style={{ justifyContent: "center" }}>
-									<Button
-										variant="primary"
-										size="lg"
-										type="submit"
-										disable={isSubmitting}
-										style={{ marginBottom: "40px", marginTop: "40px" }}
-										onClick={e => {
-											handleSubmit(e);
-										}}
-										href="/home">
-										<strong>Registra tu servicio</strong>
-									</Button>
+									{registrado !== false ? (
+										<ButtonGroup className="mb-2">
+											<Link to="/home">
+												<Button
+													variant="primary"
+													size="lg"
+													style={{ marginBottom: "40px", marginTop: "40px" }}>
+													<strong>volver a home</strong>
+												</Button>
+											</Link>
+											<Button
+												variant="outline-primary"
+												size="lg"
+												href="#frist"
+												style={{ marginBottom: "40px", marginTop: "40px" }}
+												onClick={() => setRegistrado(false)}>
+												<strong>Registrar otro servicio</strong>
+											</Button>
+										</ButtonGroup>
+									) : (
+										<Button
+											variant="primary"
+											size="lg"
+											type="submit"
+											disable={isSubmitting}
+											onClick={handleSubmit}
+											style={{ marginBottom: "40px", marginTop: "40px" }}>
+											<strong>Registra tu servicio</strong>
+										</Button>
+									)}
 									{/* {JSON.stringify(store.user.id)}
-							{JSON.stringify(tipo_membresia)}
-							{JSON.stringify(category)}
-							{JSON.stringify(subcategory)}
-							{JSON.stringify(tipo_cobro)}
-							{JSON.stringify(valor)}
-							{JSON.stringify(name_servicio)}
-							{JSON.stringify(descrip_servicio)}
-							{JSON.stringify(experiencia)}
-							{JSON.stringify(portafolio)}
-							{JSON.stringify(merit)} */}
+									{JSON.stringify(tipo_membresia)}
+									{JSON.stringify(category)}
+									{JSON.stringify(subcategory)}
+									{JSON.stringify(tipo_cobro)}
+									{JSON.stringify(valor)}
+									{JSON.stringify(name_servicio)}
+									{JSON.stringify(descrip_servicio)}
+									{JSON.stringify(experiencia)}
+									{JSON.stringify(portafolio)}
+									{JSON.stringify(portafolioFoto)}
+									{JSON.stringify(merit)} */}
 								</Row>
 							</Form>
 						)}

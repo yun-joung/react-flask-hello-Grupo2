@@ -34,7 +34,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				proceso: "",
 				experiencia: "",
 				portafolio: "",
-				merit: ""
+				portafolioFoto: "",
+				merit: "",
+				email_oferente: ""
 			},
 			userAll: [],
 			favorito: {
@@ -87,6 +89,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 		console.log("Error loading message from backend", error);
 			// 	}
 			// },
+
+			uploadfile: async () => {
+				let FormDate = new FormDate();
+				FormDate.append("portafolioFoto", values.portafolioFoto);
+				return fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
+					method: "POST",
+					body: FormDate,
+					headers: { "Content-type": "application/json" }
+				})
+					.then(response => response.json())
+					.then(data => {
+						console.log("--servicio registrado file --", data);
+						setStore({ serviceRegistrado: data });
+					})
+					.catch(error => console.log(error));
+			},
 
 			addServicio: servicio => {
 				console.log(servicio);
@@ -367,9 +385,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => {
 						console.log("--data--", data);
 						setStore({ user: data });
-						sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
 
-						if (typeof Storage !== "undefined") {
+						if (data.msg === "Este correo electrónico ya ha sido registrado") {
+							sweetAlert("Error", "Este correo electrónico ya ha sido registrado", "error");
+						} else {
 							localStorage.setItem("token", data.token);
 							localStorage.setItem("user", JSON.stringify(data.email));
 							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user));
@@ -377,12 +396,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("userName", JSON.stringify(data.userName));
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
+							sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
-				// if (error === 401) {
-				// 	sweetAlert("Error", "Este correo electrónico ya ha sido registrado", "error");
-				// }
 			},
 			setLogin: user => {
 				fetch(process.env.BACKEND_URL + "/api/login", {
@@ -394,14 +411,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => {
 						console.log("--data--", data);
 						setStore({ user: data });
-						if (typeof Storage !== "undefined") {
+						if (data.msg === "The email is not correct") {
+							sweetAlert("Error", "Este email no esta registrado ", "error");
+						} else if (data.msg === "The password is not correct") {
+							sweetAlert("Error", "Contraseña erronea", "error");
+						} else {
 							localStorage.setItem("token", data.token);
-							localStorage.setItem("user", JSON.stringify(data.email));
-							localStorage.setItem("tipo_user", JSON.stringify(data.tipo_user && ""));
-							localStorage.setItem("id", JSON.stringify(data.id));
-							localStorage.setItem("userName", JSON.stringify(data.userName && ""));
+							localStorage.setItem("user", JSON.stringify(data.user.email));
+							localStorage.setItem("tipo_user", JSON.stringify(data.user.tipo_user));
+							localStorage.setItem("id", JSON.stringify(data.user.id));
+							localStorage.setItem("userName", JSON.stringify(data.user.userName));
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
+							sweetAlert("¡Bienvenido!", "Su secion ha iniciado exitosamente", "success");
 						}
 					})
 					.catch(error => console.log("Error loading message from backend", error));
@@ -461,37 +483,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//setStore({ favoritos: "" });
 			},
 			buyService: buyservice => {
+				const store = getStore();
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {
 					method: "POST",
 					body: JSON.stringify(buyservice),
 					headers: { "Content-type": "application/json" }
 				})
-					.then(() => {
+					.then(data => data.json())
+					.then(data => {
+						console.log(data);
+						const templateParams = {
+							to_email: data.email_oferente,
+							buyer: store.user.user,
+							fecha: data.fecha
+						};
+						emailjs.send(
+							"service_gtr9nn8",
+							"template_0dswma9",
+							templateParams,
+							"user_Lg37b3jwPEh5fSo53yOsV"
+						);
 						sweetAlert(
 							"¡Excelente!",
 							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas.",
 							"success"
 						);
 					})
-
-					// .then(props.history.push("/compra"))
-					// .then(data => data.json())
-					// .then(data=>{
-					//     const templateParams = {
-					//         to_email: data.emailOfferer,
-					//         cc_email: data.emailBuyer,
-					//         service: "",
-					//         buyer: "",
-
-					//     };
-					//     emailjs.send(
-					// 			"service_gtr9nn8",
-					// 			"Agregar el template de la compra del servicio",
-					// 			templateParams,
-					// 			"user_Lg37b3jwPEh5fSo53yOsV"
-					// 		);
-					// 		alert("El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas. Una copia de este requerimiento ha sido enviado a su correo electrónico.");
-					// 	})
 					.catch(error => console.log("Error sending email", error));
 			},
 

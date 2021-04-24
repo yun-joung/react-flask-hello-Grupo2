@@ -9,6 +9,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     tipo_user = db.Column(db.String(50), nullable=False)
+    photo = db.Column(db.String(100))
     servicio_registrados = db.relationship('Servicio_registrados', backref='user',lazy=True)
     servicios_prestados = db.relationship('Servicios_prestados', backref='user',lazy=True)
     def __repr__(self):
@@ -18,10 +19,11 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "userName": self.userName,
-            "tipo_user": self.tipo_user
+            "tipo_user": self.tipo_user,
+            "photo": self.photo
         }
-    def add_user(_userName, _email, _password, _tipo_user):
-        new_user = User(userName=_userName,  email=_email, password=_password, tipo_user=_tipo_user)
+    def add_user(_userName, _email, _password, _tipo_user, _photo):
+        new_user = User(userName=_userName,  email=_email, password=_password, tipo_user=_tipo_user, photo=_photo)
         db.session.add(new_user)
         db.session.commit()
     def get_user(_id):
@@ -35,6 +37,7 @@ class User(db.Model):
         user_to_update.email = _email if _email is not None else user_to_update.email
         user_to_update.password = _password if _password is not None else user_to_update.password
         db.session.commit()
+        
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
@@ -52,10 +55,13 @@ class Servicio_registrados(db.Model):
     proceso = db.Column(db.String(250))
     experiencia = db.Column(db.String(50), nullable=False)
     portafolio = db.Column(db.String(250), nullable=True)
+    portafolioFoto = db.Column(db.String(100), nullable=True)
     merit = db.Column(db.String(250))
+    email_oferente = db.Column(db.String(100))
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
     favoritos = db.relationship('Favoritos', backref='servicio_registrados',lazy=True)
     comentarios = db.relationship('Comentarios', backref='servicio_registrados',lazy=True)
+
     def __repr__(self):
         return "<Servicio_registrados %r>" % self.id
     def serialize(self):
@@ -75,10 +81,12 @@ class Servicio_registrados(db.Model):
             "proceso":self.proceso,
             "experiencia": self.experiencia,
             "portafolio": self.portafolio,
-            "merit":self.merit
+            "portafolioFoto": self.portafolioFoto,
+            "merit":self.merit,
+            "email_oferente":self.email_oferente
         }
-    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit ):
-        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, merit=merit)
+    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit, email_oferente ):
+        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, portafolioFoto=portafolioFoto, merit=merit, email_oferente=email_oferente)
         db.session.add(new_servicio)
         db.session.commit()
     def get_servicio(_id):
@@ -93,7 +101,7 @@ class Servicio_registrados(db.Model):
     def get_servicio_by_category(_category):
         servicio_category = Servicio_registrados.query.filter_by(category=_category).all()
         return list(map(lambda x: x.serialize(), servicio_category))
-    def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio, _merit):
+    def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio,_portafolioFoto, _merit):
         servicio_update = Servicio_registrados.query.get(id)
         servicio_update.tipo_membresia = _tipo_membresia 
         servicio_update.subcategory = _subcategory
@@ -106,16 +114,13 @@ class Servicio_registrados(db.Model):
         servicio_update.proceso = _proceso 
         servicio_update.experiencia = _experiencia 
         servicio_update.portafolio = _portafolio 
+        servicio_update.portafolioFoto = _portafolioFoto
         servicio_update.merit = _merit
         db.session.commit()
     def delete_servicio(id):
         delete=Servicio_registrados.query.filter_by(id=id).first()
         db.session.delete(delete)
         db.session.commit()
-    # def service_search(search):
-    #     #search=request.args.get(search)
-    #     services = Servicio_registrados.query.filter(Servicio_registrados.name_servicio==search or Servicio_registrados.subcategory==search).all()
-    #     return list(map(lambda x: x.serialize(), services))
     def service_search(search):
         services = Servicio_registrados.query.filter(Servicio_registrados.name_servicio.ilike("%"+search+"%") | Servicio_registrados.subcategory.ilike("%"+search+"%")).all()
         return list(map(lambda x: x.serialize(), services))
@@ -145,7 +150,6 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
-
     def get_servicioCompra_id_user(id):
         servicioCompra = Servicios_prestados.query.filter_by(id_user_compra=id).all()
         return list(map(lambda x: x.serialize(), servicioCompra))
@@ -201,3 +205,17 @@ class Comentarios(db.Model):
         return list(map(lambda x: x.serialize(), Comentarios.query.all()))
    
   
+class Document(db.Model):
+    __tablename__ = 'document'
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id', ondelete='CASCADE'), nullable=False)
+    portfolio = db.Column(db.String(100))
+
+    def __repr__(self):
+        return "<Document %r>" % self.id
+    def serialize(self):
+        return {
+            "id": self.id,
+            "id_servicio_registrados": self.servicio_registrados.id,
+            "portafolio":self.portafolio
+        }
