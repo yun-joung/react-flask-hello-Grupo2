@@ -29,7 +29,7 @@ export const MyFilterAdmin = () => {
 						to="/Admin"
 						className={`flex-column text-left navFilter + ${pathname == "/MiServicio" ? "selected" : ""}`}
 						onClick={() => setState("service")}>
-						<i className="fas fa-briefcase"></i> Ajuste de Usuarios
+						<i className="fas fa-briefcase"></i> Lista de Usuarios
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item>
@@ -38,25 +38,7 @@ export const MyFilterAdmin = () => {
 						to="/registerservice"
 						className={`flex-column text-left navFilter + ${state == "register" ? "selected" : " "}`}
 						onClick={() => setState("register")}>
-						<i className="fas fa-edit"></i> Ajuste de Servicios
-					</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link
-						as={Link}
-						to="/Admin"
-						className={`flex-column text-left navFilter + ${pathname == "/MiCompra" ? "selected" : ""}`}
-						onClick={() => setState("service")}>
-						<i className="fas fa-briefcase"></i> Ajustes de Favoritos
-					</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link
-						as={Link}
-						to="/Admin"
-						className={`flex-column text-left navFilter + ${state == "register" ? "selected" : " "}`}
-						onClick={() => setState("register")}>
-						<i className="fas fa-edit"></i> Ajuste de Evaluaciones
+						<i className="fas fa-edit"></i> Lista de Servicios
 					</Nav.Link>
 				</Nav.Item>
 			</Nav>

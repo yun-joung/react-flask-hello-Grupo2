@@ -125,11 +125,11 @@ export function LoginModal(props) {
 						<NavDropdown.Item as={Link} to="/MiDato">
 							Mis datos
 						</NavDropdown.Item>
-						<NavDropdown.Item as={Link} to="#action/3.2">
-							Compra
+						<NavDropdown.Item as={Link} to="/MiCompra">
+							Mis Compras
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to="/registerservice">
-							Vender
+							Registrar servicio
 						</NavDropdown.Item>
 						<NavDropdown.Divider />
 						<NavDropdown.Item

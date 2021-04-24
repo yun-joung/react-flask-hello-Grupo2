@@ -290,5 +290,6 @@ const ServicioindividualComments = props => {
 export default withRouter(ServicioindividualComments);
 ServicioindividualComments.propTypes = {
 	match: PropTypes.object,
-	id: PropTypes.string
+	id: PropTypes.string,
+	name_servicio: PropTypes.string
 };

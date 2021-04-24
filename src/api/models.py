@@ -208,11 +208,9 @@ class Comentarios(db.Model):
             "evaluacion": self.evaluacion
         }
     def get_comentarios(id):
-        # comentarios_query = Comentarios.query.all()
-        # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
         ComentarioByService = Comentarios.query.filter_by(id_servicio_registrados=id).all()
         return list(map(lambda x: x.serialize(), ComentarioByService))
-  
+
 class Document(db.Model):
     __tablename__ = 'document'
     id = db.Column(db.Integer, primary_key=True, nullable=False)

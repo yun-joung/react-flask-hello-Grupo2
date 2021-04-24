@@ -371,10 +371,9 @@ def buyservice():
     id_servicio_registrados = request.json.get("id_servicio_registrados", None)
     cantidad_servicio = request.json.get("cantidad_servicio", None)
     name_servicio  = request.json.get("name_servicio", None)
-    total_valor_servicio = request.json.get("total_valor_servicio", None)
     fecha_inicio = time.strftime("%c")
+    total_valor_servicio = request.json.get("total_valor_servicio", None)
     email_oferente = request.json.get("email", None)
-    
 
     servicios_prestados = Servicios_prestados()
     servicios_prestados.id_user_compra =  id_user_compra
@@ -383,6 +382,7 @@ def buyservice():
     servicios_prestados.total_valor_servicio =  total_valor_servicio
     servicios_prestados.fecha_inicio =  fecha_inicio
     servicios_prestados.name_servicio =  name_servicio
+    servicios_prestados.email_oferente =  email_oferente
 
     print(email_oferente)
 
@@ -397,10 +397,6 @@ def buyservice():
     }
   
     return jsonify(response), 200
-
-# @api.route('/buyservice/user/<int:_id_user>', methods=["GET"])
-# def get_servicioCompra_id_user(id):
-#     return jsonify(Servicios_prestados.get_servicioCompra_id_user(id))
 
 @api.route('/buyservice/user/<int:id>', methods=["GET"])
 def get_servicioCompra_id_user(id):
