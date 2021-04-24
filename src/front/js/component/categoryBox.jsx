@@ -50,7 +50,7 @@ export const CategoryBox = props => {
 									valor={item.valor}
 									tipo_cobro={item.tipo_cobro}
 									punta={getPromedio(store.comments)}
-									trabajo="50"
+									//trabajo="50"
 								/>
 							</Col>
 						);

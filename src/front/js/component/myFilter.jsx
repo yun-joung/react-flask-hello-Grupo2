@@ -51,7 +51,7 @@ export const MyFilter = () => {
 						to="/MiCompra"
 						className={`flex-column text-left navFilter + ${pathname == "/MiCompra" ? "selected" : ""}`}
 						onClick={() => setState("service")}>
-						<i className="fas fa-briefcase"></i> Mis Compras
+						<i className="fas fa-shopping-cart"></i> Mis Compras
 					</Nav.Link>
 				</Nav.Item>
 			</Nav>

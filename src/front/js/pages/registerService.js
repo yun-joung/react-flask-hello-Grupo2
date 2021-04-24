@@ -118,7 +118,6 @@ const RegisterService = props => {
 				sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
 			})
 			.catch(error => console.log("Error loading message from backend", error));
-		sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
 	};
 
 	useEffect(() => {
@@ -128,7 +127,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-bronze-horse-kqv9azmc.ws-us03.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -188,7 +187,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											1. Tamaño de tu equipo<span style={{ color: "red" }}>*</span>
+											1. Cuántas personas forman tu equipo?<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -219,7 +218,8 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											2. Categoria de tu servicio<span style={{ color: "red" }}>*</span>
+											2. A qué Categoría pertenece tu servicio? / Adicional, escribe una
+											subcategoría<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -272,7 +272,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											3. Costo del servicio<span style={{ color: "red" }}>*</span>
+											3. ¿Cuánto cuesta tu servicio?<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -323,7 +323,8 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											4. Nombre del Servicio<span style={{ color: "red" }}>*</span>
+											4. ¿Qué Nombre identifica tu Servicio?
+											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -348,7 +349,8 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											5. Descripción del servicio<span style={{ color: "red" }}>*</span>
+											5. Describe las características de tu servicio
+											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -372,7 +374,7 @@ const RegisterService = props => {
 
 								<Form.Group>
 									<Form.Label>
-										<h5>6. Plazo estimado (meses) para ejecutar el proyecto</h5>
+										<h5>6. Plazo estimado para ejecutar el proyecto</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
@@ -420,7 +422,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											8. Profile foto de tu servicio <span style={{ color: "red" }}>*</span>
+											8. incluye la imagen de tu servicio <span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.File
@@ -435,7 +437,7 @@ const RegisterService = props => {
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>
-										<h5>8. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
+										<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
@@ -457,7 +459,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											9. Años de experiencia en esta área
+											10. ¿Cuántos años de Experiencia tienes realizando este servicio?
 											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
@@ -487,7 +489,7 @@ const RegisterService = props => {
 								<br />
 								<Form.Group>
 									<Form.Label>
-										<h5>10. Detalla los trabajos que haz realizado</h5>
+										<h5>11. Detalla los trabajos que has realizado</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"

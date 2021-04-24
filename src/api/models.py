@@ -101,7 +101,7 @@ class Servicio_registrados(db.Model):
     def get_servicio_by_category(_category):
         servicio_category = Servicio_registrados.query.filter_by(category=_category).all()
         return list(map(lambda x: x.serialize(), servicio_category))
-    def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio,_portafolioFoto, _merit):
+    def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio, _merit):
         servicio_update = Servicio_registrados.query.get(id)
         servicio_update.tipo_membresia = _tipo_membresia 
         servicio_update.subcategory = _subcategory
@@ -114,7 +114,6 @@ class Servicio_registrados(db.Model):
         servicio_update.proceso = _proceso 
         servicio_update.experiencia = _experiencia 
         servicio_update.portafolio = _portafolio 
-        servicio_update.portafolioFoto = _portafolioFoto
         servicio_update.merit = _merit
         db.session.commit()
     def delete_servicio(id):
@@ -208,8 +207,11 @@ class Comentarios(db.Model):
             "evaluacion": self.evaluacion
         }
     def get_comentarios(id):
+        # comentarios_query = Comentarios.query.all()
+        # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
         ComentarioByService = Comentarios.query.filter_by(id_servicio_registrados=id).all()
         return list(map(lambda x: x.serialize(), ComentarioByService))
+  
 
 class Document(db.Model):
     __tablename__ = 'document'

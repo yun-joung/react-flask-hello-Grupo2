@@ -27,55 +27,7 @@ const ServicioUpdate = props => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		// if (!tipo_membresia.trim()) {
-		// 	setError("1. ingresar tipo_membresia");
-		// 	return;
-		// }
-		// if (!subcategory.trim()) {
-		// 	setError("2. ingresar subcategory de servicio");
-		// 	return;
-		// }
-		// if (!tipo_cobro.trim()) {
-		// 	setError("3. ingresar tipo de cobro de servicio");
-		// 	return;
-		// }
-		// if (!valor.trim()) {
-		// 	setError("3. ingresar valor de servicio");
-		// 	return;
-		// }
-		// if (!name_servicio.trim()) {
-		// 	setError("4. ingresar nombre de servicio");
-		// 	return;
-		// }
-		// if (!descrip_servicio.trim()) {
-		// 	setError("5. ingresar descripción de servicio");
-		// 	return;
-		// }
-		// if (!revision.trim()) {
-		// 	setError("7. ingresar numero de corectiones");
-		// 	return;
-		// }
-		// if (!experiencia.trim()) {
-		// 	setError("8. ingresar el tiempo llevas trabajando en esta área");
-		// 	return;
-		// } else {
-		actions.updateServicio({
-			id: id,
-			tipo_membresia: tipo_membresia,
-			subcategory: subcategory,
-			tipo_cobro: tipo_cobro,
-			valor: valor,
-			name_servicio: name_servicio,
-			descrip_servicio: descrip_servicio,
-			duracion: duracion,
-			revision: revision,
-			proceso: proceso,
-			experiencia: experiencia,
-			portafolio: portafolio,
-			merit: merit
-		});
-		console.log("pasando todas validacion");
-		sweetAlert("¡Excelente!", "El servicio ha sido actualizado correctamente", "success");
+		actions.updateServicio(id);
 		setError(null);
 	};
 
@@ -117,7 +69,7 @@ const ServicioUpdate = props => {
 					<Form.Group>
 						<Form.Label>
 							<h5>
-								2. Categoria de tu servicio<span style={{ color: "red" }}>*</span>
+								2. Subcategoria de tu servicio<span style={{ color: "red" }}>*</span>
 							</h5>
 						</Form.Label>
 						<Form.Control
@@ -125,7 +77,6 @@ const ServicioUpdate = props => {
 							type="text"
 							name="subcategory"
 							defaultValue={props.subcategory}
-							//value={store.servicio.subcategory}
 							rows={1}
 							onChange={evento => actions.handleUpdateServicio(evento)}
 							style={{ backgroundColor: "lightgray", marginBottom: "10px" }}

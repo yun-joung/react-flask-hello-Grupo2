@@ -210,49 +210,32 @@ def get_servicio_id_user(id):
 
 @api.route('/servicio-registrados/<int:id>', methods=["PUT"])
 def update_servicio(id):
-    tipo_membresia = request.form.get("tipo_membresia",None)
-    subcategory = request.form.get('subcategory',None)
-    tipo_cobro = request.form.get('tipo_cobro',None)
-    valor = request.form.get('valor',None)
-    name_servicio = request.form.get('name_servicio',None)
-    descrip_servicio = request.form.get('descrip_servicio',None)
-    duracion = request.form.get('duracion',None)
-    revision = request.form.get('revision',None)
-    proceso = request.form.get('proceso',None)
-    experiencia = request.form.get('experiencia',None)
-    portafolio = request.form.get('portafolio',None)
-    portafolioFoto = request.files['portafolioFoto']
-    merit = request.form.get('merit',None)
+    tipo_membresia = request.json.get("tipo_membresia",None)
+    subcategory = request.json.get('subcategory',None)
+    tipo_cobro = request.json.get('tipo_cobro',None)
+    valor = request.json.get('valor',None)
+    name_servicio = request.json.get('name_servicio',None)
+    descrip_servicio = request.json.get('descrip_servicio',None)
+    duracion = request.json.get('duracion',None)
+    revision = request.json.get('revision',None)
+    proceso = request.json.get('proceso',None)
+    experiencia = request.json.get('experiencia',None)
+    portafolio = request.json.get('portafolio',None)
+    #portafolioFoto = request.files['portafolioFoto']
+    merit = request.json.get('merit',None)
 
-    if request.form.get("tipo_membresia") is not None:   
-        if not tipo_membresia:
-            return jsonify({"msg":"el tipo_membresia esta vacio"}), 400
-    if request.form.get("subcategory") is not None:   
-        if not subcategory:
-            return jsonify({"msg":"el subcategory de servicio esta vacio"}), 400
-    if request.form.get("tipo_cobro") is not None:   
-        if not tipo_cobro:
-            return jsonify({"msg":"tipo de cobro esta vacio"}), 400
-    if request.form.get("valor") is not None:   
-        if not valor:
-            return jsonify({"msg":"el valor de servicio esta vacio"}), 400
-    if request.form.get("name_servicio") is not None:   
-        if not name_servicio:
-            return jsonify({"msg":"el nombre de servicio esta vacio"}), 400
-    if request.form.get("descrip_servicio") is not None:   
-        if not descrip_servicio:
-            return jsonify({"msg":"el descripcion de servicio esta vacio"}), 400
-    if request.form.get("experiencia") is not None:  
-        if not experiencia:
-            return jsonify({"msg":"su experiencia esta vacio"}), 400 
-    if portafolioFoto.filename == '': return jsonify({"msg":"no hay un imagen de servicio"}), 400 
-    if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
-        portafolio_filename = secure_filename(portafolioFoto.filename)
-        portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic", portafolio_filename))
-    else:
-        return jsonify({"msg":"Extension not allowed"}), 400
+    if not request.is_json:
+        return jsonify({"msg": "El body o contenido esta vacio"}), 400 
 
-    Servicio_registrados.update_servicio(id, tipo_membresia, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolio_filename, merit)
+
+    # if portafolioFoto.filename == '': return jsonify({"msg":"no hay un imagen de servicio"}), 400 
+    # if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
+    #     portafolio_filename = secure_filename(portafolioFoto.filename)
+    #     portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic", portafolio_filename))
+    # else:
+    #     return jsonify({"msg":"Extension not allowed"}), 400
+
+    Servicio_registrados.update_servicio(id, tipo_membresia, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, merit)
 
     return jsonify({
         "msg": "le ha actualizado exitosamente"

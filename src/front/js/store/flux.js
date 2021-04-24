@@ -377,7 +377,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-
 			setRegister: user => {
 				console.log(user);
 				fetch(process.env.BACKEND_URL + "/api/register", {
