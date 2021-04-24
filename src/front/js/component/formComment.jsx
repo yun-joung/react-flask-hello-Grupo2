@@ -65,7 +65,7 @@ export const Formcomment = () => {
 											<ButtomStar value={"4"} assessment={item.evaluacion} onClick={() => null} />
 											<ButtomStar value={"5"} assessment={item.evaluacion} onClick={() => null} />
 											<br />
-											{item.text_comment}{" "}
+											{item.id.text_comment}{" "}
 										</li>
 									);
 								})}

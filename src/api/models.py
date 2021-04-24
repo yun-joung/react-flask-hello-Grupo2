@@ -199,4 +199,5 @@ class Comentarios(db.Model):
         # comentarios_query = Comentarios.query.all()
         # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
         return list(map(lambda x: x.serialize(), Comentarios.query.all()))
+   
   
