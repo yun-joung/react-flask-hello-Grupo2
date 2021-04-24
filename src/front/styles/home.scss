@@ -142,13 +142,17 @@ $theme-colors: (
 
 .texto{
 position: absolute;
-top: 100px;
-left: 150px;
-width: 400px;
+top: 20%;
+left: 14%;
+width: 40%;
 }
 
 .formulario{
-    width: 600px;
+    width: 1000px;
     margin-bottom: 20px;
 }
 
+.positionFix{
+    position: absolute;
+    bottom: 36px;
+}

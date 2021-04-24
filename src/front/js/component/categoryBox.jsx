@@ -12,6 +12,18 @@ import PropTypes from "prop-types";
 export const CategoryBox = props => {
 	const { store, actions } = useContext(Context);
 	const { category } = useParams();
+	const { id } = props;
+	const getPromedio = comments => {
+		let total = 0;
+		comments.map(item => (total += item.evaluacion));
+		return Math.round(total / comments.length);
+	};
+	const getNumeroTrabajo = id => {
+		CompraByService;
+		let total = 0;
+		comments.map(item => (total += item.evaluacion));
+		return Math.round(total / comments.length);
+	};
 
 	useEffect(() => {
 		actions.getServiceByCategory(category);
@@ -33,12 +45,12 @@ export const CategoryBox = props => {
 								<CardIndividual
 									category={item.category}
 									id={item.id}
-									img={serviceIt}
+									img={process.env.BACKEND_URL + "/upload/servicio/" + item.portafolioFoto}
 									name_servicio={item.name_servicio}
 									valor={item.valor}
 									tipo_cobro={item.tipo_cobro}
-									// punta="4.5"
-									// trabajo="50"
+									punta={getPromedio(store.comments)}
+									//trabajo="50"
 								/>
 							</Col>
 						);
@@ -50,5 +62,6 @@ export const CategoryBox = props => {
 };
 
 CategoryBox.propTypes = {
-	category: PropTypes.string
+	category: PropTypes.string,
+	id: PropTypes.number
 };

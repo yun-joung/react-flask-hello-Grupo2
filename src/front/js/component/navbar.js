@@ -4,20 +4,14 @@ import { Button, Form, FormControl, Navbar, Nav, Col, Container } from "react-bo
 import { logoAzul } from "../../img/image";
 import { LoginModal } from "./Login";
 import PropTypes from "prop-types";
+import SearchBar from "./searchbar.jsx";
 import { Context } from "../store/appContext";
 
 const MyNavbar = props => {
 	const { store, actions } = useContext(Context);
-	console.log(store.user);
 	useEffect(() => {
 		actions.getToken();
 	}, []);
-
-	const handledChange = e => {
-		e.preventDefault();
-		let { search } = e.target;
-		actions.searchInfo(search.value);
-	};
 
 	if (
 		props.location.pathname === "/" ||
@@ -30,7 +24,7 @@ const MyNavbar = props => {
 			<>
 				<nav className="navbar navbar-light my-3">
 					<Container>
-						<Col sm={3} md={3} lg={4} xl={5}>
+						<Col sm={3} md={3} lg={3} xl={4}>
 							<Link to="/home">
 								<img
 									src={logoAzul}
@@ -41,34 +35,8 @@ const MyNavbar = props => {
 								/>
 							</Link>
 						</Col>
-						<Col sm={3} md={4} lg={4} xl={4}>
-							<Form
-								onSubmit={e => handledChange(e)}
-								inline
-								className="Buscar sb float-right mt-2 d-none d-lg-block d-xl-block">
-								<FormControl
-									type="search"
-									placeholder="Buscar"
-									className="search"
-									name="search"
-									style={{ width: "224px" }}
-								/>
-								<Button variant="btn" className="p-0" type="submit">
-									<i className="fas fa-search pr-3" />
-								</Button>
-							</Form>
-							<Button
-								variant="btn"
-								className="d-none float-right d-sm-block d-md-block d-lg-none h4 p-0"
-								onChange={event => props.handledChange(event)}>
-								<i className="fas fa-search pr-3" />
-							</Button>
-							<Button
-								variant="btn"
-								className="float-right d-block d-sm-none h4 p-0"
-								onChange={event => props.handledChange(event)}>
-								<i className="fas fa-search pr-3" />
-							</Button>
+						<Col sm={3} md={4} lg={5} xl={5}>
+							<SearchBar />
 						</Col>
 						<Col sm={6} md={5} lg={4} xl={3} className="px-0">
 							<div>

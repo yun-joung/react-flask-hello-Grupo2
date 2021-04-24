@@ -28,7 +28,9 @@ const Individuallnfo = props => {
 			id_user_compra: usuario,
 			id_servicio_registrados: props.id,
 			cantidad_servicio: 1,
-			total_valor_servicio: props.valor
+			total_valor_servicio: props.valor,
+			name_servicio: props.name_servicio,
+			email: props.email
 		});
 		props.history.push("/compra");
 	};
@@ -56,7 +58,7 @@ const Individuallnfo = props => {
 				<Row className="d-inline-block d-flex">
 					<Col style={{ width: "180px" }}>
 						<p className="float-left text-dark">
-							<i className="far fa-clock h3" /> Plazo estimado: {props.duracion}
+							<i className="far fa-clock h3 mr-1" /> Plazo estimado: {props.duracion}
 							<br />
 							<i className="fas fa-retweet " style={{ fontSize: "1.75rem" }} /> Revision: {props.revision}
 						</p>
@@ -79,6 +81,7 @@ const Individuallnfo = props => {
 							onClick={e => {
 								handleBuy(e);
 							}}>
+							{/* {JSON.stringify(props.email)} */}
 							Comprar Servicio
 						</Button>
 					</Link>
@@ -98,5 +101,6 @@ Individuallnfo.propTypes = {
 	duracion: PropTypes.string,
 	revision: PropTypes.string,
 	id: PropTypes.number,
-	history: PropTypes.object
+	history: PropTypes.object,
+	email: PropTypes.string
 };

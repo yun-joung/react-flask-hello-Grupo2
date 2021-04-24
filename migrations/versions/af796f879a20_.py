@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f09df38e5791
+Revision ID: af796f879a20
 Revises: 
-Create Date: 2021-04-17 13:33:05.226543
+Create Date: 2021-04-24 11:39:09.839914
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f09df38e5791'
+revision = 'af796f879a20'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,6 +24,7 @@ def upgrade():
     sa.Column('email', sa.String(length=100), nullable=False),
     sa.Column('password', sa.String(length=100), nullable=False),
     sa.Column('tipo_user', sa.String(length=50), nullable=False),
+    sa.Column('photo', sa.String(length=100), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('userName')
@@ -40,12 +41,21 @@ def upgrade():
     sa.Column('name_servicio', sa.String(length=50), nullable=False),
     sa.Column('descrip_servicio', sa.String(length=250), nullable=False),
     sa.Column('duracion', sa.String(length=30), nullable=True),
-    sa.Column('revision', sa.String(length=30), nullable=True),
+    sa.Column('revision', sa.String(length=30), nullable=False),
     sa.Column('proceso', sa.String(length=250), nullable=True),
     sa.Column('experiencia', sa.String(length=50), nullable=False),
     sa.Column('portafolio', sa.String(length=250), nullable=True),
+    sa.Column('portafolioFoto', sa.String(length=100), nullable=True),
     sa.Column('merit', sa.String(length=250), nullable=True),
+    sa.Column('email_oferente', sa.String(length=100), nullable=True),
     sa.ForeignKeyConstraint(['id_user'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('document',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id_servicio_registrados', sa.Integer(), nullable=False),
+    sa.Column('portfolio', sa.String(length=100), nullable=True),
+    sa.ForeignKeyConstraint(['id_servicio_registrados'], ['servicio_registrados.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('favoritos',
@@ -63,6 +73,7 @@ def upgrade():
     sa.Column('id_servicio_registrados', sa.Integer(), nullable=False),
     sa.Column('cantidad_servicio', sa.Integer(), nullable=False),
     sa.Column('total_valor_servicio', sa.Integer(), nullable=False),
+    sa.Column('name_servicio', sa.String(length=50), nullable=True),
     sa.Column('fecha_inicio', sa.DateTime(), nullable=True),
     sa.Column('fecha_termino', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['id_servicio_registrados'], ['servicio_registrados.id'], ),
@@ -87,6 +98,7 @@ def downgrade():
     op.drop_table('comentarios')
     op.drop_table('servicios_prestados')
     op.drop_table('favoritos')
+    op.drop_table('document')
     op.drop_table('servicio_registrados')
     op.drop_table('user')
     # ### end Alembic commands ###

@@ -9,9 +9,17 @@ import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
+import swal from "sweetalert";
 
 const Register = props => {
 	const { store, actions } = useContext(Context);
+	const [checked1, setChecked1] = useState(false);
+	const [checked2, setChecked2] = useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [password2, setPassword2] = useState("");
+	const [typeUser, setTypeuser] = useState("");
+	const [userName, setUsername] = useState("");
 
 	const ER_Email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	const ER_PassWord = /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
@@ -67,7 +75,7 @@ const Register = props => {
 				<div
 					className="background"
 					style={{
-						backgroundImage: `url(https://3000-fuchsia-louse-dz4d70xf.ws-us03.gitpod.io/backGround.png)`
+						backgroundImage: `url(https://3000-bronze-horse-kqv9azmc.ws-us03.gitpod.io/backGround.png)`
 					}}>
 					<Container>
 						<div>
@@ -99,7 +107,7 @@ const Register = props => {
 									borderRadius: "10px",
 									width: "730px"
 								}}>
-								{store.user.token !== null ? (
+								{store.user.isLogin ? (
 									<Container>
 										<Row>
 											<Col className="text-center mt-3 mb-5">
