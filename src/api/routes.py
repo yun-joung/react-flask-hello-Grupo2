@@ -311,6 +311,7 @@ def addComment():
             if not request.is_json:
                 return jsonify({"msg": "El body o contenido esta vacio"}), 400
 
+            id_user= request.json.get("id_user")
             id_servicios_prestados= request.json.get("id_servicios_prestados")
             id_servicio_registrados= request.json.get("id_servicio_registrados")
             text_comment= request.json.get("text_comment")
@@ -324,7 +325,10 @@ def addComment():
                 return jsonify({"msg":"el texto del comentario esta vacio"}), 400
             if not evaluacion:
                 return jsonify({"msg":"la evaluacion esta vacia"}), 400
-
+            
+            comment = Comentarios.get_comentario_servicioprestado(id_user, id_servicios_prestados)
+            if comment:return jsonify({"msg":"Usted ya ha calificado este servicio"}), 200  
+            
             comentarios = Comentarios()
             comentarios.id_servicios_prestados = request.json.get("id_servicios_prestados", None)
             comentarios.id_servicio_registrados = request.json.get("id_servicio_registrados", None)

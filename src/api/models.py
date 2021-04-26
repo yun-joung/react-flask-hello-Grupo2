@@ -185,6 +185,7 @@ class Favoritos(db.Model):
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id_user_compra=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     id_servicios_prestados = db.Column(db.Integer, db.ForeignKey('servicios_prestados.id'), nullable=False)
     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
     text_comment = db.Column(db.String(250), nullable=True)
@@ -203,7 +204,11 @@ class Comentarios(db.Model):
         # comentarios_query = Comentarios.query.all()
         # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
         return list(map(lambda x: x.serialize(), Comentarios.query.all()))
-   
+
+    def get_comentario_servicioprestado(id_user, id_servicios_prestados):
+        comment=Comentarios.query.filter_by(id_user_compra=id_user, id_servicios_prestados=id_servicios_prestados)
+        if not comment: return False
+        return True
   
 class Document(db.Model):
     __tablename__ = 'document'

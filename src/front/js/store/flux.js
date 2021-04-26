@@ -338,7 +338,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			addComment: async (text_comment, assessment, id) => {
+			addComment: async (text_comment, assessment, id, idcompra) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
@@ -346,7 +346,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							id_servicios_prestados: "1",
+							id_user: getStore().user.id,
+							id_servicios_prestados: idcompra,
 							id_servicio_registrados: id,
 							text_comment: text_comment,
 							evaluacion: assessment

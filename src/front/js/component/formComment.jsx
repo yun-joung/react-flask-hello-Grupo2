@@ -5,11 +5,13 @@ import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
 import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const Formcomment = () => {
+export const Formcomment = props => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
 	const { id } = store.serviceRegistrado;
+	const { idcompra } = props;
 	console.log(id);
 	const [assessment, setAssessment] = useState(0);
 	// const [color, setColor] = useState();
@@ -41,7 +43,7 @@ export const Formcomment = () => {
 									<Button
 										variant="outline-primary"
 										onClick={() => {
-											actions.addComment(text_comment, assessment, id);
+											actions.addComment(text_comment, assessment, id, idcompra);
 											setComment("");
 											setAssessment(0);
 										}}>
@@ -75,4 +77,8 @@ export const Formcomment = () => {
 			</div>
 		</>
 	);
+};
+
+Formcomment.propTypes = {
+	idcompra: PropTypes.number
 };
