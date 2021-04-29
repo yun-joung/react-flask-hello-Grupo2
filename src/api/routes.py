@@ -82,8 +82,10 @@ def register():
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
-        return ({"status_code":401,
-            "msg":"Este correo electrónico ya ha sido registrado"}), 401
+        return ({"msg":"Este correo electrónico ya ha sido registrado"}), 401
+    userName_query = User.query.filter_by(userName=userName).first()
+    if userName_query:
+        return ({"msg":"Este userName ya ha sido registrado"}), 401
     # if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
     #     photo_filename = secure_filename(photo.filename)
     #     photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
@@ -92,29 +94,30 @@ def register():
 
     user = User()
     user.email = email
-    user.password = password
+    user.password = generate_password_hash(password)
     user.tipo_user = tipo_user
     user.userName = userName
     #user.photo = photo_filename
     print(user)
     db.session.add(user)
     db.session.commit()
+    if user:
+        expiracion = datetime.timedelta(days=3)
+        access_token = create_access_token(identity=user.email, expires_delta=expiracion)
 
-    expiracion = datetime.timedelta(days=3)
-    access_token = create_access_token(identity=user.email, expires_delta=expiracion)
-
-    response_token = {
-        "msg": "Added successfully",
-        "email": user.email,
-        "userId":user.id,
-        "userName": user.userName,
-        "tipo_user": user.tipo_user,
-        "token": access_token,
-        "userName" : user.userName
-        #"photo" : user.photo
-    }
-  
-    return jsonify(response_token), 200    
+        response_token = {
+            "msg": "Added successfully",
+            "email": user.email,
+            "userId":user.id,
+            "userName": user.userName,
+            "tipo_user": user.tipo_user,
+            "token": access_token,
+            "userName" : user.userName
+            #"photo" : user.photo
+        }
+        return jsonify(response_token), 200    
+    else:
+        return jsonify({"msg": "register failed"}), 401
 
 @api.route('/user', methods=["GET"])
 def get_all_users():
@@ -127,6 +130,7 @@ def get_user_by_id(id):
     return jsonify(user)
 
 @api.route('/servicio-registrados', methods=["POST"])
+@jwt_required()
 def add_servicio():
     id_user= request.form.get("id_user",None)
     userName= request.form.get("userName",None)

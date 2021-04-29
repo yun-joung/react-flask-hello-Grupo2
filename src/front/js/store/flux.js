@@ -389,7 +389,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("--data--", data);
 						setStore({ user: data });
 
-						if (data.msg === "Este correo electrónico ya ha sido registrado") {
+						if (data.msg === "Este userName ya ha sido registrado") {
+							sweetAlert("Error", "Este nombre de usuario ya ha sido registrado", "error");
+						} else if (data.msg === "Este correo electrónico ya ha sido registrado") {
 							sweetAlert("Error", "Este correo electrónico ya ha sido registrado", "error");
 						} else {
 							localStorage.setItem("token", data.token);

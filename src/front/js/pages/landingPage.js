@@ -16,13 +16,11 @@ import PropTypes from "prop-types";
 const LandingPage = props => {
 	const { store, actions } = useContext(Context);
 
-	console.log(store.user);
-
 	const { id } = props.match.params;
-	console.log("tipo de token", typeof store.user.token);
+	//console.log("tipo de token", typeof store.user.token);
 
 	if (store.user.isLogin === true) {
-		console.log("existe un usuario");
+		//console.log("existe un usuario");
 		props.history.push("/home");
 	}
 
