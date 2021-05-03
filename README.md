@@ -9,7 +9,9 @@ https://github.com/yun-joung/react-flask-hello-Grupo2
 
 
 Using python, flask (backend) + reactjs, Sass, Css, Bootstrp, Html, flux (frontend)
+
 Api : Heroku-postgres
+
 Full responsive application
 
 ### Front-End Manual Installation:
