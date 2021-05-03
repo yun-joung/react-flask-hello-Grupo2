@@ -1,6 +1,8 @@
 # Cotec - Freelancer, Client Web Matching & Selling Service
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/4GeeksAcademy/react-flask-hello.git)
 
+
+
 ### Demo
 https://github.com/yun-joung/react-flask-hello-Grupo2
 
@@ -8,9 +10,11 @@ https://github.com/yun-joung/react-flask-hello-Grupo2
 
 
 
-Using python, flask (backend) + reactjs, Sass, Css, Bootstrp, Html, flux (frontend)
-Api : Heroku-postgres
-Full responsive application
+- Using python, flask (backend) + reactjs, Sass, Css, Bootstrp, Html, flux (frontend)
+- Api : Heroku-postgres or Boilerplate of 4GeeksAcademy
+- Full responsive application
+
+
 
 ### Front-End Manual Installation:
 
@@ -18,6 +22,8 @@ Full responsive application
 
 1. Install the packages: `$ npm install`
 2. Start coding! start the webpack dev server `$ npm run start`
+
+
 
 ### Back-End (in the case of using HeroKu)
 
@@ -39,6 +45,8 @@ BASENAME=/
 BACKEND_URL=https://proyecto-final-cotec2.herokuapp.com/
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
 ### Back-End Manual Installation (in the case of using boilerplate of 4GeeksAcademy, need to use Gitpod):
 
 It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
@@ -56,6 +64,7 @@ It is recomended to install the backend first, make sure you have Python 3.8, Pi
 4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
 5. Run the migrations: `$ pipenv run upgrade`
 6. Run the application: `$ pipenv run start
+
 
 
 ## Publish your website!
