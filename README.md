@@ -1,9 +1,12 @@
 # Cotec - Freelancer, Client Web Matching & Selling Service
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/4GeeksAcademy/react-flask-hello.git)
 
-<p align="center">
-<a href="https://youtu.be/JCL8xv5wyTo"></a>
-</p>
+### Demo
+https://github.com/yun-joung/react-flask-hello-Grupo2
+
+[![Video Label](src/youtube.png)](https://youtu.be/JCL8xv5wyTo)
+
+
 
 Using python, flask (backend) + reactjs, Sass, Css, Bootstrp, Html, flux (frontend)
 Api : Heroku-postgres
