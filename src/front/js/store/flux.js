@@ -3,6 +3,8 @@ import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			url: "https://3000-coffee-vicuna-masn2nz4.ws-us03.gitpod.io/",
+
 			login_data: {
 				userLogin: "",
 				userPass: ""
@@ -55,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
-			searchInfo: [],
+			searchInfo: null,
 			serviceInfoById: {},
 			CompraByService: [],
 			comment: {
@@ -111,23 +113,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ serviceRegistrado: data });
 					})
 					.catch(error => console.log(error));
-			},
-
-			addServicio: servicio => {
-				console.log(servicio);
-				fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
-					method: "POST",
-					body: JSON.stringify(servicio),
-					headers: { "Content-type": "application/json" }
-				})
-					.then(resp => resp.json())
-					.then(data => {
-						console.log("--servicio registrado --", data);
-						setStore({ serviceRegistrado: data });
-						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
-					})
-					.catch(error => console.log("Error loading message from backend", error));
-				sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
 			},
 
 			handleUpdateServicio: evento => {

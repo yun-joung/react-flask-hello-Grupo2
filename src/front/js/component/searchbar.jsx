@@ -13,13 +13,13 @@ const SearchBar = props => {
 		e.preventDefault();
 		let { search } = e.target;
 		actions.searchInfo(search.value);
-		{
-			store.searchInfo.length === 0 && (
-				<ListGroup className="searchDopdown mt-3 " style={{ marginLeft: "30px" }}>
-					<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
-				</ListGroup>
-			);
-		}
+		// {
+		// 	store.searchInfo.length === 0 && (
+		// 		<ListGroup className="searchDopdown mt-3 " style={{ marginLeft: "30px" }}>
+		// 			<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
+		// 		</ListGroup>
+		// 	);
+		// }
 	};
 
 	return (
@@ -42,13 +42,20 @@ const SearchBar = props => {
 			<ListGroup
 				className="searchDopdown mt-3 float-right d-none d-lg-block d-xl-block "
 				style={{ marginLeft: "30px" }}>
-				{store.searchInfo.map(item => {
-					return (
-						<ListGroup.Item key={item.id} href={"/servicio/category/" + item.id} action>
-							{item.name_servicio}
-						</ListGroup.Item>
-					);
-				})}
+				{!!store.searchInfo && store.searchInfo.length === 0 ? (
+					<ListGroup className="searchDopdown mt-3 " style={{ marginLeft: "30px" }}>
+						<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
+					</ListGroup>
+				) : (
+					!!store.searchInfo &&
+					store.searchInfo.map(item => {
+						return (
+							<ListGroup.Item key={item.id} href={"/servicio/category/" + item.id} action>
+								{item.name_servicio}
+							</ListGroup.Item>
+						);
+					})
+				)}
 			</ListGroup>
 		</>
 	);

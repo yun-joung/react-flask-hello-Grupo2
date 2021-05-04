@@ -23,40 +23,42 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import swal from "sweetalert";
 import UploadButtons from "../component/uploadBut";
+import { ConnectedFocusError } from "focus-formik-error";
 
 const validationSchema = yup.object().shape({
-	tipo_membresia: yup.string().required("* 1. Tamaño del equipo es obligatorio"),
-	category: yup.string().required("* 2. Categoria del servicio es obligatorio"),
+	tipo_membresia: yup.string().required("* Tamaño del equipo es obligatorio"),
+	category: yup.string().required("* Categoria del servicio es obligatorio"),
 	subcategory: yup
 		.string()
 		.min(3, "Minimo 3 caracteres")
 		.max(50, "Máximo 50 caracteres")
-		.required("* 2. Subcategoria de tu servici es obligatorio"),
-	tipo_cobro: yup.string().required("* 3. Tipo del cobro es obligatorio"),
-	valor: yup.number("Ingresar solamente numero sin , . icon").required("* 3. Valor del servicio es obligatorio"),
+		.required("* Subcategoria de tu servici es obligatorio"),
+	tipo_cobro: yup.string().required("* Tipo del cobro es obligatorio"),
+	valor: yup.number("Ingresar solamente numero sin , . icon").required("* Valor del servicio es obligatorio"),
 	name_servicio: yup
 		.string()
 		.min(3, "Minimo 3 caracteres")
 		.max(50, "Máximo 50 caracteres")
-		.required("* 4. Nombre del servicio es obligatorio"),
+		.required("* Nombre del servicio es obligatorio"),
 	descrip_servicio: yup
 		.string()
 		.max(250, "Máximo 250 caracteres")
-		.required("* 5. Descripción del servicio es obligatorio"),
+		.required("* Descripción del servicio es obligatorio"),
 	duracion: yup.string().max(30, "Máximo 30 caracteres"),
 	revision: yup
 		.string()
 		.max(30, "Máximo 30 caracteres")
-		.required("* 7. Numero de correcciones es obligatorio"),
-	experiencia: yup.string().required("* 10. Experiencia es obligatorio"),
+		.required("* Numero de correcciones es obligatorio"),
+	experiencia: yup.string().required("* Experiencia es obligatorio"),
 	portafolio: yup.string().max(250, "Máximo 250 caracteres"),
-	portafolioFoto: yup.string().required("* 8. Por favor, subir Profil imagen del servicio"),
+	portafolioFoto: yup.string().required("* Por favor, subir Profil imagen del servicio"),
 	merit: yup.string().max(250, "Máximo 250 caracteres")
 });
 
 const RegisterService = props => {
 	const { store, actions } = useContext(Context);
 	const [registrado, setRegistrado] = useState(false);
+	const [error, setError] = useState(false);
 	const [state, setState] = useState({
 		tipo_membresia: null,
 		category: null,
@@ -106,7 +108,10 @@ const RegisterService = props => {
 	const addServicio = form => {
 		fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
 			method: "POST",
-			body: form
+			body: form,
+			headers: {
+				Authorization: `Bearer ${store.user.token}`
+			}
 		})
 			.then(resp => resp.json())
 			.then(data => {
@@ -115,7 +120,11 @@ const RegisterService = props => {
 					...state,
 					serviceRegistrado: data
 				});
-				sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+				if (data.error === "Missing Authorization Header") {
+					sweetAlert("¡Error!", "Missing Authorization Header", "error");
+				} else {
+					sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+				}
 			})
 			.catch(error => console.log("Error loading message from backend", error));
 	};
@@ -127,7 +136,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-bronze-horse-kqv9azmc.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(${store.url}/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -184,6 +193,7 @@ const RegisterService = props => {
 						}}>
 						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting, setFieldValue }) => (
 							<Form>
+								<ConnectedFocusError />
 								<Form.Group>
 									<Form.Label>
 										<h5>
@@ -196,7 +206,6 @@ const RegisterService = props => {
 										value={values.tipo_membresia}
 										className={touched.tipo_membresia && errors.tipo_membresia ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.tipo_membresia}
 										style={{
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
@@ -228,7 +237,6 @@ const RegisterService = props => {
 										value={values.category}
 										className={touched.category && errors.category ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.category}
 										style={{
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
@@ -257,7 +265,6 @@ const RegisterService = props => {
 										value={values.subcategory}
 										className={touched.subcategory && errors.subcategory ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.valor}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 									/>
 									<FormText className="text-muted">
@@ -281,7 +288,6 @@ const RegisterService = props => {
 										value={values.tipo_cobro}
 										className={touched.tipo_cobro && errors.tipo_cobro ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.tipo_cobro}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 										<option default>
 											Seleccionar si el tipo de cobro es Por hora o Por proyecto
@@ -305,7 +311,6 @@ const RegisterService = props => {
 										value={values.valor}
 										className={touched.valor && errors.valor ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.valor}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 									/>
 									<FormText className="text-muted">
@@ -336,7 +341,6 @@ const RegisterService = props => {
 										value={values.name_servicio}
 										className={touched.name_servicio && errors.name_servicio ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.name_servicio}
 									/>
 									<FormText className="text-muted">
 										{touched.name_servicio && errors.name_servicio ? (
@@ -362,7 +366,6 @@ const RegisterService = props => {
 										className={touched.descrip_servicio && errors.descrip_servicio ? "error" : null}
 										value={values.descrip_servicio}
 										onChange={handleChange}
-										//isInvalid={!!errors.descrip_servicio}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.descrip_servicio && errors.descrip_servicio ? (
@@ -385,7 +388,6 @@ const RegisterService = props => {
 										value={values.duracion}
 										className={touched.duracion && errors.duracion ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.duracion}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.duracion && errors.duracion ? (
@@ -410,7 +412,6 @@ const RegisterService = props => {
 										value={values.revision}
 										className={touched.revision && errors.revision ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.revision}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.revision && errors.revision ? (
@@ -435,6 +436,7 @@ const RegisterService = props => {
 										}}
 									/>
 								</Form.Group>
+								<br />
 								<Form.Group>
 									<Form.Label>
 										<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
@@ -448,7 +450,6 @@ const RegisterService = props => {
 										value={values.portafolio}
 										className={touched.portafolio && errors.portafolio ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.portafolio}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.portafolio && errors.portafolio ? (
@@ -469,7 +470,6 @@ const RegisterService = props => {
 										value={values.experiencia}
 										className={touched.experiencia && errors.experiencia ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.experiencia}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 										<option default>Seleccionar rango de años</option>
 										<option>1 año</option>
@@ -500,7 +500,6 @@ const RegisterService = props => {
 										value={values.merit}
 										className={touched.merit && errors.merit ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.merit}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.merit && errors.merit ? (
@@ -535,7 +534,6 @@ const RegisterService = props => {
 											variant="primary"
 											size="lg"
 											type="submit"
-											disable={isSubmitting}
 											onClick={handleSubmit}
 											style={{ marginBottom: "40px", marginTop: "40px" }}>
 											<strong>Registra tu servicio</strong>
