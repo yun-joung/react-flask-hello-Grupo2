@@ -49,8 +49,7 @@ def login():
         }), 401
 
     #password check
-    user = User.query.filter_by(password=password).first()
-    if not user:
+    if not check_password_hash(user.password, password):
         return jsonify({"msg": "The password is not correct",
         "status": 401
         }), 401
@@ -62,11 +61,6 @@ def login():
         "user": user.serialize(),
         "token": access_token,
         "expires": expiracion.total_seconds()*1000,
-        # "id": user.id,
-        # "email": user.email,
-        # "tipo_user": user.tipo_user,
-        # "photo": user.photo,
-        # "userName": user.userName
         }
 
     return jsonify(data), 200

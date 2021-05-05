@@ -404,7 +404,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						if (data.msg === "The email is not correct") {
 							sweetAlert("Error", "Este email no esta registrado ", "error");
 						} else if (data.msg === "The password is not correct") {
-							sweetAlert("Error", "Contraseña erronea", "error");
+							sweetAlert("Error", "Contraseña o email erronea", "error");
 						} else {
 							localStorage.setItem("token", data.token);
 							localStorage.setItem("user", JSON.stringify(data.user.email));
@@ -494,8 +494,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"user_Lg37b3jwPEh5fSo53yOsV"
 						);
 						sweetAlert(
-							"¡Excelente!",
-							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas.",
+							"¡Muchas Gracias por tu compra!",
+							"El oferente ha sido informado de su requerimiento de servicio. y debería tomar contacto con usted dentro de las siguientes 2 horas.",
 							"success"
 						);
 					})
