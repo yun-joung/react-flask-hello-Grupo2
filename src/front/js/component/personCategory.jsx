@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 export const PersonCategory = props => {
 	return (
 		<div>
-			<Card className="g-2">
+			<Card className="g-2 mt-2">
 				<Card.Img variant="top" src={props.img} />
 				<Card.Body>
 					<Card.Title>{props.name}</Card.Title>

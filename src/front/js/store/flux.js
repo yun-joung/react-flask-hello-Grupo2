@@ -3,6 +3,8 @@ import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			url: "https://3000-blush-mastodon-jdnb947e.ws-us03.gitpod.io/",
+
 			login_data: {
 				userLogin: "",
 				userPass: ""
@@ -55,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			serviceByIdUser: [],
 			favoritos: [],
 			serviceInfo: [],
-			searchInfo: [],
+			searchInfo: null,
 			serviceInfoById: {},
 			CompraByService: [],
 			comment: {
@@ -111,23 +113,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ serviceRegistrado: data });
 					})
 					.catch(error => console.log(error));
-			},
-
-			addServicio: servicio => {
-				console.log(servicio);
-				fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
-					method: "POST",
-					body: JSON.stringify(servicio),
-					headers: { "Content-type": "application/json" }
-				})
-					.then(resp => resp.json())
-					.then(data => {
-						console.log("--servicio registrado --", data);
-						setStore({ serviceRegistrado: data });
-						sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
-					})
-					.catch(error => console.log("Error loading message from backend", error));
-				sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
 			},
 
 			handleUpdateServicio: evento => {
@@ -389,7 +374,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("--data--", data);
 						setStore({ user: data });
 
-						if (data.msg === "Este correo electrónico ya ha sido registrado") {
+						if (data.msg === "Este userName ya ha sido registrado") {
+							sweetAlert("Error", "Este nombre de usuario ya ha sido registrado", "error");
+						} else if (data.msg === "Este correo electrónico ya ha sido registrado") {
 							sweetAlert("Error", "Este correo electrónico ya ha sido registrado", "error");
 						} else {
 							localStorage.setItem("token", data.token);
@@ -417,7 +404,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						if (data.msg === "The email is not correct") {
 							sweetAlert("Error", "Este email no esta registrado ", "error");
 						} else if (data.msg === "The password is not correct") {
-							sweetAlert("Error", "Contraseña erronea", "error");
+							sweetAlert("Error", "Contraseña o email erronea", "error");
 						} else {
 							localStorage.setItem("token", data.token);
 							localStorage.setItem("user", JSON.stringify(data.user.email));
@@ -507,8 +494,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"user_Lg37b3jwPEh5fSo53yOsV"
 						);
 						sweetAlert(
-							"¡Excelente!",
-							"El oferente ha sido informado de su requerimiento de servicio y debería tomar contacto con usted dentro de las siguientes 2 horas.",
+							"¡Muchas Gracias por tu compra!",
+							"El oferente ha sido informado de su requerimiento de servicio. y debería tomar contacto con usted dentro de las siguientes 2 horas.",
 							"success"
 						);
 					})
