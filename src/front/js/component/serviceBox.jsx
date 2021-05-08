@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Jumbotron, Row, Col } from "react-bootstrap";
+import { cotecBenefit1, cotecBenefit2, cotecBenefit3 } from "../../img/image";
 
 export const ServiceBox = () => {
 	return (
@@ -10,40 +11,43 @@ export const ServiceBox = () => {
 				<h2>¿Qué es lo fabuloso de Cotec?</h2>
 				<br />
 				<Row>
-					<Col md={1}>
-						<i className="fas fa-wallet icon" />
+					<Col md={4}>
+						<img src={cotecBenefit1} className="cotecBenefit" />
 					</Col>
-					<Col md={11}>
+					<Col md={8}>
 						<h4>Lo mejor para tu presupuesto</h4>
 						<p>
-							Encuentra servicios de la mejor Calidad a los mejores precios. No pagues tarifas extras una
-							vez qeu tu trabajo haya finalizado!{" "}
+							Encuentra servicios de la mejor Calidad a los mejores precios. <br />
+							No pagues tarifas extras una vez qeu tu trabajo haya finalizado!{" "}
 						</p>
 					</Col>
 				</Row>
-				<Row className="my-3">
-					<Col md={1}>
-						<i className="fas fa-history icon" />
+				<Row className="my-5">
+					<Col md={4} className="d-block d-sm-block d-md-none">
+						<img src={cotecBenefit2} className="cotecBenefit" />
 					</Col>
-					<Col md={11}>
+					<Col md={8}>
 						<h4>Trabajos de Excelencia en el menor tiempo, Garantizado!</h4>
 						<p>
-							Encuentra a los mejores profesionales freelancers, para empezar a trabajar en tus proyectos
-							y sólo en pocos minutos!
+							Encuentra a los mejores profesionales freelancers, <br />
+							para empezar a trabajar en tus proyectos y sólo en pocos minutos!
 						</p>
+					</Col>
+					<Col md={4} className="d-none d-md-block d-xl-block">
+						<img src={cotecBenefit2} className="cotecBenefit" />
 					</Col>
 				</Row>
 				<Row>
-					<Col md={1}>
-						<i className="far fa-credit-card icon" />
+					<Col md={4}>
+						<img src={cotecBenefit3} className="cotecBenefit" />
 					</Col>
-					<Col md={11}>
-						<h4>Pagos protegidos, Trabajos garantizados. Siempre</h4>
+					<Col md={8}>
+						<h4>Alta satisfacion de Clientes!</h4>
 						<p>
-							Siempre sabrás el valor total de tu trabajo por adelantado. Tu pago solo se liberará una vez
-							aprobado el trabajo.
+							{" "}
+							Nuestra systema de calificación ayuda los clientes a elejir mejor freelancer o compania, no
+							deja este ventaja!!
 						</p>
-						<h4>No olvides calificar a nuestros freelancers y dejar comentarios acerca de su trabajo</h4>
 					</Col>
 				</Row>
 			</Jumbotron>
