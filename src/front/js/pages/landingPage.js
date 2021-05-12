@@ -18,10 +18,8 @@ const LandingPage = props => {
 	const { store, actions } = useContext(Context);
 
 	const { id } = props.match.params;
-	//console.log("tipo de token", typeof store.user.token);
 
 	if (store.user.isLogin === true) {
-		//console.log("existe un usuario");
 		props.history.push("/home");
 	}
 
@@ -62,13 +60,9 @@ const LandingPage = props => {
 								Contrata en línea
 								<br />a los mejores equipos!
 							</h1>
-							<SearchBar />
-							{/* <Form inline className="mt-2  sb d-flex float-left ">
-								<Button variant="btn">
-									<i className="fas fa-search search" />
-								</Button>
-								<FormControl type="text" placeholder="Buscar" className="mr-sm-2 search" />
-							</Form> */}
+							<div>
+								<SearchBar />
+							</div>
 							<Link to="/home">
 								<Button
 									variant="outline-light"

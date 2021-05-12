@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import "../../styles/index.scss";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Form, FormControl, Navbar, Nav, Col, Container } from "react-bootstrap";
 import { logoAzul } from "../../img/image";
@@ -9,6 +10,7 @@ import { Context } from "../store/appContext";
 
 const MyNavbar = props => {
 	const { store, actions } = useContext(Context);
+
 	useEffect(() => {
 		actions.getToken();
 	}, []);
@@ -51,19 +53,19 @@ const MyNavbar = props => {
 						<Navbar.Collapse id="basic-navbar-nav">
 							<Nav className="navbar-nav justify-content-between w-100">
 								{/* <Nav.Link as={Link} to="/home" >Home</Nav.Link> */}
-								<Nav.Link href="/servicio/Desarrollo_It" className="h5 text-dark">
+								<Nav.Link href="/servicio/Desarrollo_It" className="h5 text-dark ">
 									Desarrolloar/IT
 								</Nav.Link>
-								<Nav.Link href="/servicio/Diseño" className="h5 text-dark">
+								<Nav.Link href="/servicio/Diseño" className="h5 text-dark ">
 									Diseño
 								</Nav.Link>
-								<Nav.Link href="/servicio/Contabilidad" className="h5 text-dark">
+								<Nav.Link href="/servicio/Contabilidad" className="h5 text-dark ">
 									Contabilidad
 								</Nav.Link>
-								<Nav.Link href="/servicio/Marketing" className="h5 text-dark">
+								<Nav.Link href="/servicio/Marketing" className="h5 text-dark ">
 									Marketing
 								</Nav.Link>
-								<Nav.Link href="/servicio/Ley" className="h5 text-dark">
+								<Nav.Link href="/servicio/Ley" className="h5 text-dark ">
 									Ley/Derecho
 								</Nav.Link>
 							</Nav>

@@ -3,7 +3,7 @@ import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			url: "https://3000-blush-mastodon-jdnb947e.ws-us03.gitpod.io/",
+			url: "https://3000-tan-pike-qkh16n9z.ws-us04.gitpod.io/",
 
 			login_data: {
 				userLogin: "",
@@ -128,7 +128,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
 					method: "PUT",
 					body: JSON.stringify(store.serviceRegistrado),
-					headers: { "Content-type": "application/json" }
+					headers: {
+						"Content-type": "application/json",
+						Authorization: `Bearer ${store.user.token}`
+					}
 				})
 					.then(resp => resp.json())
 					.then(data => {
@@ -148,7 +151,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
 						method: "DELETE",
-						headers: { "Content-Type": "application/json" }
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
+						}
 					});
 					const json = await response.json();
 					console.log(json);
@@ -191,7 +197,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						process.env.BACKEND_URL + "/api/servicio-registrados/user/" + localStorage.getItem("id"),
 						{
 							method: "GET",
-							headers: { "Content-Type": "application/json" }
+							headers: {
+								"Content-Type": "application/json"
+								// Authorization: `Bearer ${store.user.token}`
+							}
 						}
 					);
 					const json = await response.json();
@@ -240,7 +249,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/favoritos", {
 						method: "POST",
-						headers: { "Content-Type": "application/json" },
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
+						},
 						body: JSON.stringify(favorito)
 					});
 					const json = await response.json();
@@ -279,7 +291,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/favoritos/" + id, {
 						method: "DELETE",
-						headers: { "Content-Type": "application/json" }
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
+						}
 					});
 					const json = await response.json();
 					console.log(json);
@@ -309,27 +324,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("-->", JSON.stringify(userLocal));
 			},
 
-			createContact: async (e, email, password, confirm, checked) => {
-				e.preventDefault();
-				try {
-					const response = await fetch("http://0.0.0.0:3001/register", {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							email: `${email}`,
-							password: `${password}`,
-							confirm: `${confirm}`,
-							checked: `${checked}`
-						})
-					});
-					const json = await response.json();
-					console.log(json);
-					setStore({ newContact: JSON.stringify(json) });
-					getActions().getAgenda();
-				} catch (error) {
-					console.log(error);
-				}
-			},
 			addComment: async comment => {
 				const store = getStore();
 				setStore({ comments: [...store.comments, comment] });
@@ -337,7 +331,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
 						headers: {
-							"Content-Type": "application/json"
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
 						},
 						body: JSON.stringify(comment)
 					});
@@ -477,7 +472,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {
 					method: "POST",
 					body: JSON.stringify(buyservice),
-					headers: { "Content-type": "application/json" }
+					headers: { "Content-type": "application/json", Authorization: `Bearer ${store.user.token}` }
 				})
 					.then(data => data.json())
 					.then(data => {

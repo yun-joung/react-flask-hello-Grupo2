@@ -306,7 +306,7 @@ const RegisterService = props => {
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="Ingresa el valor del servicio"
+										placeholder="Ingresa el valor del servicio, ej: 100000"
 										name="valor"
 										value={values.valor}
 										className={touched.valor && errors.valor ? "error" : null}
