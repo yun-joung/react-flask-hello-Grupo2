@@ -413,6 +413,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch(error => console.log("Error loading message from backend", error));
 			},
+			setAdminLogin: user => {
+				fetch(process.env.BACKEND_URL + "/api/admin-login", {
+					method: "POST",
+					body: JSON.stringify(user),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("--data--", data);
+						setStore({ user: data });
+						if (data.msg === "admin ruta") {
+							sweetAlert("Error", "Contraseña o email erronea", "error");
+						} else {
+							localStorage.setItem("token", data.token);
+							localStorage.setItem("user", JSON.stringify(data.user.email));
+							localStorage.setItem("tipo_user", "admin");
+							localStorage.setItem("userName", "Administrador");
+							localStorage.setItem("isLogin", JSON.stringify(true));
+							setStore({ user: { isLogin: true } });
+							sweetAlert("¡Bienvenido!", "Su secion ha iniciado exitosamente", "success");
+							history.push("/admin");
+						}
+					})
+					.catch(error => console.log("Error loading message from backend", error));
+			},
 			sendEmail: user => {
 				fetch(process.env.BACKEND_URL + "/api/passwordrecovery1", {
 					method: "PUT",

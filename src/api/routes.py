@@ -66,7 +66,7 @@ def login():
     return jsonify(data), 200
 
 @api.route('/admin-login', methods=['POST'])
-def login():
+def adminLogin():
     
     email = request.json.get("email", None)
     password = request.json.get("password", None)
@@ -77,30 +77,18 @@ def login():
     if not password:
         return jsonify({"msg":"Password required"}), 400
 
-    #email check
-    user = User.query.filter_by(email=email).first()
-    if not user:
-        return jsonify({"msg": "The email is not correct",
-        "status": 401
-        }), 401
-
-    #password check
-    if not check_password_hash(user.password, password):
-        return jsonify({"msg": "The password is not correct",
-        "status": 401
-        }), 401
-
-    expiracion = datetime.timedelta(days=3)
-    access_token = create_access_token(identity=user.email, expires_delta=expiracion)
-
-    data = {
-        "user": user.serialize(),
-        "token": access_token,
-        "expires": expiracion.total_seconds()*1000,
+    if email == 'admin@cotec.cl' and password == 'Cotec1234':
+        expiracion = datetime.timedelta(days=3)
+        token = create_access_token(identity=email, expires_delta=expiracion)
+        data = {
+            "access_token" : token,
+            "user": {
+                "email": email
+            }
         }
-
-    return jsonify(data), 200
-
+        return jsonify(data), 200
+    else: 
+        return jsonify({ "msg" : "admin ruta"}), 401
 
 @api.route('/register', methods=['POST'])
 def register():

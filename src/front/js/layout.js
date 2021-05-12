@@ -18,6 +18,7 @@ import MiCompra from "./pages/MiCompra";
 import MiServicioId from "./pages/MiServicioId";
 import MiDato from "./pages/MiDato";
 import Admin from "./pages/Admin";
+import LoginAdmin from "./pages/loginAdmin";
 import { GraciasCompra } from "./pages/GraciasCompra";
 import ServicioindividualComments from "./pages/servicio-Individual-comment";
 import MyScrollUpButton from "./component/ScrollupButton";
@@ -74,6 +75,9 @@ const Layout = () => {
 
 						<Route exact path="/MiEvaluacion">
 							<MiCompra />
+						</Route>
+						<Route exact path="/login-admin">
+							<LoginAdmin />
 						</Route>
 						<Route exact path="/Admin">
 							<Admin />
