@@ -357,7 +357,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			setRegister: user => {
+			setRegister: (user, history) => {
 				console.log(user);
 				fetch(process.env.BACKEND_URL + "/api/register", {
 					method: "POST",
@@ -382,11 +382,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 							sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
+							history.push("/home");
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
 			},
-			setLogin: user => {
+			setLogin: (user, history) => {
 				fetch(process.env.BACKEND_URL + "/api/login", {
 					method: "POST",
 					body: JSON.stringify(user),
@@ -409,6 +410,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 							sweetAlert("¡Bienvenido!", "Su secion ha iniciado exitosamente", "success");
+							history.push("/home");
 						}
 					})
 					.catch(error => console.log("Error loading message from backend", error));
@@ -426,14 +428,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						if (data.msg === "admin ruta") {
 							sweetAlert("Error", "Contraseña o email erronea", "error");
 						} else {
-							localStorage.setItem("token", data.token);
+							localStorage.setItem("token", data.access_token);
 							localStorage.setItem("user", JSON.stringify(data.user.email));
 							localStorage.setItem("tipo_user", "admin");
 							localStorage.setItem("userName", "Administrador");
+							localStorage.setItem("id", "0");
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 							sweetAlert("¡Bienvenido!", "Su secion ha iniciado exitosamente", "success");
-							history.push("/admin");
 						}
 					})
 					.catch(error => console.log("Error loading message from backend", error));
@@ -481,7 +483,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				return { total5, total4, total3, total2, total1 };
 			},
-			cerrarSesion: () => {
+			cerrarSesion: history => {
 				const store = getStore();
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");
@@ -491,6 +493,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("isLogin");
 				setStore({ user: { isLogin: false } });
 				//setStore({ favoritos: "" });
+				history.push("/");
 			},
 			buyService: buyservice => {
 				const store = getStore();

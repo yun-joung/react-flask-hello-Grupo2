@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { logoBlanco, man } from "../../img/image";
-import { withRouter } from "react-router-dom";
-import { Container, Button, Form, FormControl, Row, Col, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { withRouter, useHistory } from "react-router-dom";
+import { Container, Button, Form, FormControl, Row, Col, ButtonGroup, ToggleButton, Jumbotron } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
@@ -20,19 +20,20 @@ const Register = props => {
 	const [password2, setPassword2] = useState("");
 	const [typeUser, setTypeuser] = useState("");
 	const [userName, setUsername] = useState("");
+	const history = useHistory();
 
 	const ER_Email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	const ER_PassWord = /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
 	const Inputvalues = {
 		email: yup
 			.string()
-			.required("* El email es obligatorio")
-			.matches(ER_Email, "* Formato de email inválido"),
+			.required("El email es obligatorio")
+			.matches(ER_Email, "Formato de email inválido"),
 		password: yup
 			.string()
-			.min(8, "*  Al menos 8 carácteres. Una mezcla de letras mayúsculas, minúsculas y numero.")
-			.required("*  La contraseña es obligatorio")
-			.matches(ER_PassWord, "*  Formato de contraseña no válido"),
+			.min(8, "Al menos 8 carácteres. Una mezcla de letras mayúsculas, minúsculas y numero.")
+			.required("La contraseña es obligatorio")
+			.matches(ER_PassWord, "Formato de contraseña no válido"),
 		confirmPassword: yup.string().when("password", {
 			is: val => (val && val.length > 0 ? true : false),
 			then: yup.string().oneOf([yup.ref("password")], "Ambas contraseñas deben ser iguales")
@@ -41,7 +42,7 @@ const Register = props => {
 			.string()
 			.min(2, "Minimo 2 caracteres")
 			.max(100, "Máximo 100 caracteres")
-			.required("* El nombre de usuario obligatorio")
+			.required("El nombre de usuario obligatorio")
 	};
 
 	const validationSchema = yup.object().shape(Inputvalues);
@@ -55,7 +56,7 @@ const Register = props => {
 			initialValues={{ email: "", password: "", confirmPassword: "", tipo_user: "", userName: "" }}
 			validationSchema={validationSchema}
 			onSubmit={(values, { setSubmitting, resetForm }) => {
-				actions.setRegister(values);
+				actions.setRegister(values, history);
 				setSubmitting(true);
 				resetForm();
 				setSubmitting(false);
@@ -93,25 +94,18 @@ const Register = props => {
 								</Link>
 							</Row>
 							<Row>
-								<Col md={2} />
-								<Col md={7}>
+								<Col>
 									<div className="transBox" />
-									<h2 className="text-white mt-3">Obtenga su cuenta gratis</h2>
+									<h2 className="text-white mt-3 textShadow mx-auto" style={{ maxWidth: "700px" }}>
+										Obtenga su cuenta gratis
+									</h2>
 								</Col>
 							</Row>
-							<div
-								className="container iconBox shadow-lg p-3 pt-5"
-								style={{
-									height: "100%",
-									backgroundColor: "white",
-									borderRadius: "10px",
-									width: "730px"
-								}}>
-								{store.user.isLogin ? (
+							<Jumbotron className="whiteBox shadow-lg p-5 mx-auto" style={{ maxWidth: "700px" }}>
+								{/* {store.user.isLogin ? (
 									<Container>
 										<Row>
 											<Col className="text-center mt-3 mb-5">
-												{/* <span>User: {JSON.stringify(store.user)}</span> */}
 												La sesión ya se encuentra iniciada
 											</Col>
 										</Row>
@@ -128,110 +122,104 @@ const Register = props => {
 											</Link>
 										</Row>
 									</Container>
-								) : (
-									<Form noValidate onSubmit={handleSubmit} className="justify-contents-center">
-										<Form.Group as={Row} controlId="validationFormik01">
-											<Col sm={1}></Col>
-											<Form.Label as={Col} sm={3}>
-												<h6>Nombre de usuario</h6>
-											</Form.Label>
-											<Col sm={6}>
-												<Form.Control
-													type="text"
-													name="userName"
-													value={values.userName}
-													onChange={handleChange}
-													isInvalid={!!errors.userName}
-												/>
-												<Form.Control.Feedback type="invalid">
-													{errors.userName}
-												</Form.Control.Feedback>
-											</Col>
-											<Col sm={1}></Col>
-										</Form.Group>
+								) : ( */}
+								<Form noValidate onSubmit={handleSubmit} className="justify-contents-center">
+									<Form.Group as={Row}>
+										<Form.Label as={Col} sm={12} md={4}>
+											<h6>Nombre de usuario</h6>
+										</Form.Label>
+										<Col sm={12} md={8}>
+											<Form.Control
+												type="text"
+												name="userName"
+												value={values.userName}
+												onChange={handleChange}
+												isInvalid={!!errors.userName}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{errors.userName}
+											</Form.Control.Feedback>
+										</Col>
+									</Form.Group>
 
-										<Form.Group as={Row} controlId="validationFormik02">
-											<Col sm={1}></Col>
-											<Form.Label as={Col} sm={3}>
-												<h6>Correo electrónico</h6>
-											</Form.Label>
-											<Col sm={6}>
-												<Form.Control
-													type="email"
-													name="email"
-													value={values.email}
-													onChange={handleChange}
-													isInvalid={!!errors.email}
-												/>
-												<Form.Control.Feedback type="invalid">
-													{errors.email}
-												</Form.Control.Feedback>
-											</Col>
-											<Col sm={1}></Col>
-										</Form.Group>
+									<Form.Group as={Row}>
+										<Form.Label as={Col} sm={12} md={4}>
+											<h6>Correo electrónico</h6>
+										</Form.Label>
+										<Col sm={12} md={8}>
+											<Form.Control
+												type="email"
+												name="email"
+												value={values.email}
+												onChange={handleChange}
+												isInvalid={!!errors.email}
+											/>
+											<Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+										</Col>
+									</Form.Group>
 
-										<Form.Group as={Row} controlId="formHorizontalpassword">
-											<Col sm={1}></Col>
-											<Form.Label as={Col} sm={3}>
-												<h6>Contraseña</h6>
-											</Form.Label>
-											<Col sm={6}>
-												<Form.Control
-													type="password"
-													name="password"
-													value={values.password}
-													onChange={handleChange}
-													isInvalid={!!errors.password}
-												/>
-												<Form.Control.Feedback type="invalid">
-													{errors.password}
-												</Form.Control.Feedback>
-											</Col>
-											<Col sm={1}></Col>
-										</Form.Group>
-										<Form.Group as={Row} className="pb-3" controlId="formHorizontalconfirmPassword">
-											<Col sm={1}></Col>
-											<Form.Label as={Col} sm={3}>
-												<h6>Confirmar contraseña</h6>
-											</Form.Label>
-											<Col sm={6}>
-												<Form.Control
-													type="password"
-													name="confirmPassword"
-													onChange={handleChange}
-													isInvalid={!!errors.confirmPassword}
-												/>
-												<Form.Control.Feedback type="invalid">
-													{errors.confirmPassword}
-												</Form.Control.Feedback>
-											</Col>
-											<Col sm={1}></Col>
-										</Form.Group>
-										<div className="row" style={{ justifyContent: "center" }}>
-											<div role="group" aria-labelledby="my-radio-group" id="my-radio-group">
-												<label>
-													<Field type="radio" name="tipo_user" value="seller" />
-													<span>Quiero ofrecer mis servicios</span>
-												</label>{" "}
-												<label>
-													<Field type="radio" name="tipo_user" value="buyer" />
-													<span>Quiero contratar servicios</span>
-												</label>
-												<div style={{ color: "white" }}>Tipo de user: {values.tipo_user}</div>
-											</div>
+									<Form.Group as={Row}>
+										<Form.Label as={Col} sm={12} md={4}>
+											<h6>Contraseña</h6>
+										</Form.Label>
+										<Col sm={12} md={8}>
+											<Form.Control
+												type="password"
+												name="password"
+												value={values.password}
+												onChange={handleChange}
+												isInvalid={!!errors.password}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{errors.password}
+											</Form.Control.Feedback>
+										</Col>
+									</Form.Group>
+									<Form.Group as={Row} className="pb-3">
+										<Form.Label as={Col} sm={12} md={4}>
+											<h6>Confirmar contraseña</h6>
+										</Form.Label>
+										<Col sm={12} md={8}>
+											<Form.Control
+												type="password"
+												name="confirmPassword"
+												onChange={handleChange}
+												isInvalid={!!errors.confirmPassword}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{errors.confirmPassword}
+											</Form.Control.Feedback>
+										</Col>
+									</Form.Group>
+									<Row style={{ justifyContent: "center" }}>
+										<div role="group" aria-labelledby="my-radio-group" id="my-radio-group">
+											<label>
+												<Field type="radio" name="tipo_user" value="seller" />
+												<span>&nbsp;&nbsp;Quiero ofrecer mis servicios&nbsp;&nbsp;</span>
+											</label>{" "}
+											<label>
+												<Field type="radio" name="tipo_user" value="buyer" />
+												<span>
+													&nbsp;&nbsp;&nbsp;&nbsp;Quiero contratar
+													servicios&nbsp;&nbsp;&nbsp;&nbsp;
+												</span>
+											</label>
+											<div style={{ color: "white" }}>Tipo de user: {values.tipo_user}</div>
 										</div>
-										<Row style={{ justifyContent: "center" }}>
-											<Button
-												variant="primary"
-												size="lg"
-												type="submit"
-												style={{ marginBottom: "40px", width: "300px" }}>
-												<strong>Crear cuenta</strong>
-											</Button>
-										</Row>
-									</Form>
-								)}
-							</div>
+									</Row>
+									<Row className="mt-3 mb-5" style={{ justifyContent: "center" }}>
+										<Button
+											variant="primary"
+											size="lg"
+											type="submit"
+											style={{ borderRadius: "1.78rem" }}
+											block>
+											<strong>Crear cuenta</strong>
+										</Button>
+									</Row>
+								</Form>
+								{/* )} */}
+							</Jumbotron>
 						</div>
 					</Container>
 				</div>

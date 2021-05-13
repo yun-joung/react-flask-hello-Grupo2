@@ -36,7 +36,7 @@ const ImageBox = () => {
 					<h5 className=" d-md-none d-xxl-none">
 						¿Necesita un servicio exclusivo para empresas? <br />
 					</h5>
-					<Link to="/home">
+					<Link to="/service-empresa">
 						<Button
 							variant="light"
 							className="mt-3 px-2"

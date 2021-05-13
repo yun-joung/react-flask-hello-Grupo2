@@ -3,7 +3,8 @@ import logoAzul from "./cotecAzul.png";
 import logoGris from "./cotecGris.png";
 import man from "./man.png";
 import backGround from "./backGround.png";
-import homeImage from "./homeSlide1.gif";
+import homeImage from "./homeSlides1.gif";
+import companyImage from "./homeSlides2.gif";
 import homeSlideA from "./homeSlideA.jpg";
 import homeSlideB from "./homeSlideB.jpg";
 import homeSlideC from "./homeSlideC.jpg";
@@ -69,7 +70,8 @@ export {
 	cotecBenefit1,
 	cotecBenefit2,
 	cotecBenefit3,
-	homeImage
+	homeImage,
+	companyImage
 	// DesarrollarIT,
 	// Freelancer
 };

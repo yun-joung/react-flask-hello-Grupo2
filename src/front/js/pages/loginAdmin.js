@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Row, Col, Container, Button, Form, Jumbotron } from "react-bootstrap";
@@ -19,11 +19,9 @@ const validationSchema = yup.object().shape({
 
 const LoginAdmin = props => {
 	const { store, actions } = React.useContext(Context);
-	const history = useHistory();
-
-	useEffect(() => {
-		if (store.isLogin == true) history.push("/admin");
-	}, [history]);
+	if (store.user.isLogin === true) {
+		props.history.push("/admin");
+	}
 
 	return (
 		<Formik
@@ -37,15 +35,17 @@ const LoginAdmin = props => {
 				setTimeout;
 			}}>
 			{({ values, errors, handlerClick, isInvalid, handleChange, handleSubmit, history }) => (
-				<div className="backGray">
+				<div className="backGrayB">
 					<Container>
 						<Row>
 							<Col>
 								<div className="transBox" />
-								<h1 className="text-white mt-3">Login de Administración</h1>
+								<h1 className="text-white mt-3 textShadow mx-auto" style={{ maxWidth: "700px" }}>
+									Login de Administración
+								</h1>
 							</Col>
 						</Row>
-						<Jumbotron className="whiteBox shadow-lg p-3 pt-5 pr-5 pl-5">
+						<Jumbotron className="whiteBox shadow-lg p-5 mx-auto" style={{ maxWidth: "700px" }}>
 							<Form noValidate onSubmit={handleSubmit}>
 								<Form.Group controlId="formBasicEmail">
 									<Form.Label>Email address</Form.Label>
@@ -82,4 +82,8 @@ const LoginAdmin = props => {
 	);
 };
 
-export default LoginAdmin;
+export default withRouter(LoginAdmin);
+
+LoginAdmin.propTypes = {
+	history: PropTypes.object
+};

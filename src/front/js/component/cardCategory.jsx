@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 export const CardCategory = props => {
 	return (
 		<div>
-			<Card className="bg-dark text-white categoryContainer" style={{ border: "none" }}>
+			<Card className="bg-dark text-white categoryContainer mt-3" style={{ border: "none" }}>
 				<Card.Img
 					variant="top"
 					height="250px"

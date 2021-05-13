@@ -22,6 +22,7 @@ import LoginAdmin from "./pages/loginAdmin";
 import { GraciasCompra } from "./pages/GraciasCompra";
 import ServicioindividualComments from "./pages/servicio-Individual-comment";
 import MyScrollUpButton from "./component/ScrollupButton";
+import { ServiceEmpresa } from "./pages/servicioEmpresa";
 
 //create your first component
 const Layout = () => {
@@ -42,9 +43,8 @@ const Layout = () => {
 						<Route exact path="/home">
 							<Home />
 						</Route>
-						<Route exact path="/servicio/:category" component={ServicioCategory} />
 						<Route exact path="/servicio/category/:id" component={Servicioindividual} />
-
+						<Route exact path="/servicio/:category" component={ServicioCategory} />
 						<Route exact path="/MiServicio" component={MiServicio} />
 						<Route exact path="/MiServicio/id/:id" component={MiServicioId} />
 						<Route exact path="/MiDato" component={MiDato} />
@@ -69,10 +69,12 @@ const Layout = () => {
 						<Route exact path="/registerservice">
 							<RegisterService />
 						</Route>
+						<Route exact path="/service-empresa">
+							<ServiceEmpresa />
+						</Route>
 						<Route exact path="/compra">
 							<GraciasCompra />
 						</Route>
-
 						<Route exact path="/MiEvaluacion">
 							<MiCompra />
 						</Route>

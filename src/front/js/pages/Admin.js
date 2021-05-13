@@ -12,9 +12,9 @@ import UserUpdate from "../component/UserUpdate.jsx";
 const Admin = props => {
 	const { store, actions } = React.useContext(Context);
 
-	useEffect(() => {
-		if (!store.isLogin) history.push("/login-admin");
-	}, [history]);
+	if (!store.user.tipo_user === "admin") {
+		props.history.push("/login-admin");
+	}
 
 	return (
 		<div className="backGray">
@@ -35,4 +35,6 @@ const Admin = props => {
 
 export default withRouter(Admin);
 
-Admin.propTypes = {};
+Admin.propTypes = {
+	history: PropTypes.object
+};
