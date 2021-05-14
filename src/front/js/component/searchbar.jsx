@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Form, FormControl, Col, Container, ListGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
 
 const SearchBar = props => {
 	const { store, actions } = useContext(Context);
+	let { pathname } = useLocation();
 	const [isOpen, setIsOpen] = useState(false);
 	const { id } = props;
 	const item = store.searchInfo;
@@ -38,23 +39,20 @@ const SearchBar = props => {
 				</Button>
 			</Form>
 			<ListGroup
-				className="searchDopdown mt-3 float-right d-none d-lg-block d-xl-block"
-				style={{ marginLeft: "30px" }}>
+				className={` float-left d-none d-lg-block d-xl-block + ${
+					pathname == "/" ? "searchDopdown2" : "searchDopdown mt-5"
+				}`}>
 				{/* {!!store.searchInfo && store.searchInfo.length === 0 ? ( */}
 				{isOpen === true && !!store.searchInfo && store.searchInfo.length === 0 ? (
 					<ListGroup>
 						<ListGroup.Item action>No hay servicio correspondiente</ListGroup.Item>
 					</ListGroup>
 				) : (
-					isOpen === true &&
 					!!store.searchInfo &&
 					store.searchInfo.map(item => {
 						return (
 							<ListGroup.Item key={item.id} href={"/servicio/category/" + item.id} action>
 								{item.name_servicio}
-								<Button variant="btn" className="p-0" type="submit">
-									<i className="fas fa-search pr-3" />
-								</Button>
 							</ListGroup.Item>
 						);
 					})

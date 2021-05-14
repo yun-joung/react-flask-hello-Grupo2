@@ -3,6 +3,8 @@ import logoAzul from "./cotecAzul.png";
 import logoGris from "./cotecGris.png";
 import man from "./man.png";
 import backGround from "./backGround.png";
+import homeImage from "./homeSlides1.gif";
+import companyImage from "./homeSlides2.gif";
 import homeSlideA from "./homeSlideA.jpg";
 import homeSlideB from "./homeSlideB.jpg";
 import homeSlideC from "./homeSlideC.jpg";
@@ -16,6 +18,7 @@ import personD from "./personD.jpg";
 import serviceDiseno from "./serviceDiseno.jpg";
 import serviceIt from "./serviceIt.jpg";
 import serviceMarketing from "./serviceMarketing.jpg";
+import serviceApp from "./serviceApp.jpg";
 import freelancer from "./freelancer.gif";
 import icon1 from "./overIcon-01.jpg";
 import icon2 from "./overIcon-02.jpg";
@@ -52,6 +55,7 @@ export {
 	serviceDiseno,
 	serviceIt,
 	serviceMarketing,
+	serviceApp,
 	freelancer,
 	icon1,
 	icon2,
@@ -65,7 +69,9 @@ export {
 	iconOver5,
 	cotecBenefit1,
 	cotecBenefit2,
-	cotecBenefit3
+	cotecBenefit3,
+	homeImage,
+	companyImage
 	// DesarrollarIT,
 	// Freelancer
 };

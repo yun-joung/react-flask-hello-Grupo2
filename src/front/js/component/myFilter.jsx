@@ -11,7 +11,6 @@ export const MyFilter = () => {
 	let { pathname } = useLocation();
 	const { store, actions } = useContext(Context);
 	const item = store.serviceRegistrado;
-	console.log(pathname);
 
 	return (
 		<>

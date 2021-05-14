@@ -39,7 +39,7 @@ def login():
         return jsonify({"msg":"Email required"}), 400
 
     if not password:
-        return jsonify({"msg":"Password required"}), 400\
+        return jsonify({"msg":"Password required"}), 400
 
     #email check
     user = User.query.filter_by(email=email).first()
@@ -64,6 +64,31 @@ def login():
         }
 
     return jsonify(data), 200
+
+@api.route('/admin-login', methods=['POST'])
+def adminLogin():
+    
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if not email:
+        return jsonify({"msg":"Email required"}), 400
+
+    if not password:
+        return jsonify({"msg":"Password required"}), 400
+
+    if email == 'admin@cotec.cl' and password == 'Cotec1234':
+        expiracion = datetime.timedelta(days=3)
+        token = create_access_token(identity=email, expires_delta=expiracion)
+        data = {
+            "access_token" : token,
+            "user": {
+                "email": email
+            }
+        }
+        return jsonify(data), 200
+    else: 
+        return jsonify({ "msg" : "admin ruta"}), 401
 
 @api.route('/register', methods=['POST'])
 def register():
@@ -207,6 +232,7 @@ def get_servicio_id_user(id):
     return jsonify(Servicio_registrados.get_servicio_id_user(id))
 
 @api.route('/servicio-registrados/<int:id>', methods=["PUT"])
+@jwt_required()
 def update_servicio(id):
     tipo_membresia = request.json.get("tipo_membresia",None)
     subcategory = request.json.get('subcategory',None)
@@ -240,6 +266,7 @@ def update_servicio(id):
         }), 200
 
 @api.route('/servicio-registrados/<int:id>', methods=["DELETE"])
+@jwt_required()
 def  delete_servicio(id):
     Servicio_registrados.delete_servicio(id)
     return jsonify({"servicio eliminado": True})
@@ -253,6 +280,7 @@ def service_search(search):
     return jsonify(Servicio_registrados.service_search(search))
 
 @api.route('/favoritos', methods=["POST"])
+@jwt_required()
 def add_favorito():
     if request.method == 'POST':
         id_user= request.json.get("id_user")
@@ -282,11 +310,13 @@ def get_favoritos_by_user(_id_user):
     return jsonify(favoritos)
 
 @api.route('/favoritos/<int:id>', methods=["DELETE"])
+@jwt_required()
 def delete_favorito(id):
     Favoritos.delete_favorito(id)
     return jsonify({"success": True})
 
 @api.route('/comentarios', methods=["POST"])
+@jwt_required()
 def addComment():  
         if request.method == 'POST':
             if not request.is_json:

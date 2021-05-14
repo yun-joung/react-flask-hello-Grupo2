@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
-import { serviceDiseno, serviceMarketing, serviceIt } from "../../img/image.js";
 import { Row, Col, Container, Card, Button, Accordion } from "react-bootstrap";
 import { CategoryBox } from "../component/categoryBox.jsx";
 import { MyFilterAdmin } from "../component/myFilter_Admin.jsx";
@@ -13,7 +12,10 @@ import UserUpdate from "../component/UserUpdate.jsx";
 const Admin = props => {
 	const { store, actions } = React.useContext(Context);
 
-	React.useEffect(() => {
+	if (!!store.user.tipo_user === "admin") {
+		props.history.push("/login-admin");
+	}
+	useEffect(() => {
 		actions.getToken();
 	}, []);
 
@@ -36,4 +38,6 @@ const Admin = props => {
 
 export default withRouter(Admin);
 
-Admin.propTypes = {};
+Admin.propTypes = {
+	history: PropTypes.object
+};

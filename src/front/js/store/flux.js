@@ -3,7 +3,7 @@ import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			url: "https://3000-blush-mastodon-jdnb947e.ws-us03.gitpod.io/",
+			url: "https://3000-lavender-snail-4xztmo5b.ws-us04.gitpod.io/",
 
 			login_data: {
 				userLogin: "",
@@ -128,7 +128,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
 					method: "PUT",
 					body: JSON.stringify(store.serviceRegistrado),
-					headers: { "Content-type": "application/json" }
+					headers: {
+						"Content-type": "application/json",
+						Authorization: `Bearer ${store.user.token}`
+					}
 				})
 					.then(resp => resp.json())
 					.then(data => {
@@ -148,7 +151,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
 						method: "DELETE",
-						headers: { "Content-Type": "application/json" }
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
+						}
 					});
 					const json = await response.json();
 					console.log(json);
@@ -191,7 +197,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						process.env.BACKEND_URL + "/api/servicio-registrados/user/" + localStorage.getItem("id"),
 						{
 							method: "GET",
-							headers: { "Content-Type": "application/json" }
+							headers: {
+								"Content-Type": "application/json"
+								// Authorization: `Bearer ${store.user.token}`
+							}
 						}
 					);
 					const json = await response.json();
@@ -240,7 +249,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/favoritos", {
 						method: "POST",
-						headers: { "Content-Type": "application/json" },
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
+						},
 						body: JSON.stringify(favorito)
 					});
 					const json = await response.json();
@@ -279,7 +291,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/favoritos/" + id, {
 						method: "DELETE",
-						headers: { "Content-Type": "application/json" }
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
+						}
 					});
 					const json = await response.json();
 					console.log(json);
@@ -309,27 +324,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("-->", JSON.stringify(userLocal));
 			},
 
-			createContact: async (e, email, password, confirm, checked) => {
-				e.preventDefault();
-				try {
-					const response = await fetch("http://0.0.0.0:3001/register", {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							email: `${email}`,
-							password: `${password}`,
-							confirm: `${confirm}`,
-							checked: `${checked}`
-						})
-					});
-					const json = await response.json();
-					console.log(json);
-					setStore({ newContact: JSON.stringify(json) });
-					getActions().getAgenda();
-				} catch (error) {
-					console.log(error);
-				}
-			},
 			addComment: async comment => {
 				const store = getStore();
 				setStore({ comments: [...store.comments, comment] });
@@ -337,7 +331,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
 						headers: {
-							"Content-Type": "application/json"
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${store.user.token}`
 						},
 						body: JSON.stringify(comment)
 					});
@@ -362,7 +357,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			setRegister: user => {
+			setRegister: (user, history) => {
 				console.log(user);
 				fetch(process.env.BACKEND_URL + "/api/register", {
 					method: "POST",
@@ -387,11 +382,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 							sweetAlert("¡Excelente!", "Su cuenta ha sido creada exitosamente", "success");
+							history.push("/home");
 						}
 					})
 					.catch(error => console.log("error creating account in the backend", error));
 			},
-			setLogin: user => {
+			setLogin: (user, history) => {
 				fetch(process.env.BACKEND_URL + "/api/login", {
 					method: "POST",
 					body: JSON.stringify(user),
@@ -411,6 +407,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("tipo_user", JSON.stringify(data.user.tipo_user));
 							localStorage.setItem("id", JSON.stringify(data.user.id));
 							localStorage.setItem("userName", JSON.stringify(data.user.userName));
+							localStorage.setItem("isLogin", JSON.stringify(true));
+							setStore({ user: { isLogin: true } });
+							sweetAlert("¡Bienvenido!", "Su secion ha iniciado exitosamente", "success");
+							history.push("/home");
+						}
+					})
+					.catch(error => console.log("Error loading message from backend", error));
+			},
+			setAdminLogin: user => {
+				fetch(process.env.BACKEND_URL + "/api/admin-login", {
+					method: "POST",
+					body: JSON.stringify(user),
+					headers: { "Content-type": "application/json" }
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("--data--", data);
+						setStore({ user: data });
+						if (data.msg === "admin ruta") {
+							sweetAlert("Error", "Contraseña o email erronea", "error");
+						} else {
+							localStorage.setItem("token", data.access_token);
+							localStorage.setItem("user", JSON.stringify(data.user.email));
+							localStorage.setItem("tipo_user", "admin");
+							localStorage.setItem("userName", "Administrador");
+							localStorage.setItem("id", "0");
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
 							sweetAlert("¡Bienvenido!", "Su secion ha iniciado exitosamente", "success");
@@ -461,7 +483,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				return { total5, total4, total3, total2, total1 };
 			},
-			cerrarSesion: () => {
+			cerrarSesion: history => {
 				const store = getStore();
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");
@@ -471,13 +493,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("isLogin");
 				setStore({ user: { isLogin: false } });
 				//setStore({ favoritos: "" });
+				history.push("/");
 			},
 			buyService: buyservice => {
 				const store = getStore();
 				fetch(process.env.BACKEND_URL + "/api/buyservice", {
 					method: "POST",
 					body: JSON.stringify(buyservice),
-					headers: { "Content-type": "application/json" }
+					headers: { "Content-type": "application/json", Authorization: `Bearer ${store.user.token}` }
 				})
 					.then(data => data.json())
 					.then(data => {
