@@ -17,7 +17,7 @@ export const CardCategory = props => {
 					style={{ border: "none", objectFit: "cover" }}
 				/>
 				<div className="overlay">
-					<div className="overlayTextTitle">
+					<div className="overlayTextTitle ">
 						{props.title}
 						<br />
 					</div>

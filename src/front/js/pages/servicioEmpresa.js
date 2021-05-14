@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { companyImage } from "../../img/image";
 import { Button, Form, Jumbotron, Col, Container, Row } from "react-bootstrap";
 import { Footer } from "../component/footer";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 export const ServiceEmpresa = () => {
 	const { store, actions } = useContext(Context);
+	useEffect(() => {
+		Aos.init({ duration: 1500 });
+	}, []);
 	return (
 		<>
 			<header>
@@ -20,7 +25,7 @@ export const ServiceEmpresa = () => {
 				<p className="company-text-h">¿Necesita un servicio exclusivo para empresa?</p>
 				<p className="company-text">cotec tiene el servicio exclusivo para tu</p>
 				<Container className="contect">
-					<Jumbotron className="whiteBox shadow-lg p-5 mb-5 align-item-center">
+					<Jumbotron className="whiteBox shadow-lg p-5 mb-5 align-item-center" data-aos="fade-up">
 						<Form>
 							<Form.Row>
 								<h1 className="mt-2 mb-5 mx-auto">Solicitar Servicio</h1>

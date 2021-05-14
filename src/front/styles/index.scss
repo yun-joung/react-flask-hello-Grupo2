@@ -247,6 +247,8 @@ z-index: 1000;
 }
 .LandingpageIcon:hover{
     transform: scale(1.1);
+    -webkit-transform: translate(0%, -15%);
+    -ms-transform: translate(0%, -15%);
    
 }
 
@@ -269,7 +271,7 @@ color:map-get($theme-colors, 'primary')
 }
 .overlay{
     position: absolute;
-    bottom: 0;
+    bottom: -30;
     left: 0;
     right: 0;
     background-color: rgba(61, 60, 66, 0.7);

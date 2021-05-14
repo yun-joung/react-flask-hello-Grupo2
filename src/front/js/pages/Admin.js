@@ -12,9 +12,12 @@ import UserUpdate from "../component/UserUpdate.jsx";
 const Admin = props => {
 	const { store, actions } = React.useContext(Context);
 
-	if (!store.user.tipo_user === "admin") {
+	if (!!store.user.tipo_user === "admin") {
 		props.history.push("/login-admin");
 	}
+	useEffect(() => {
+		actions.getToken();
+	}, []);
 
 	return (
 		<div className="backGray">
