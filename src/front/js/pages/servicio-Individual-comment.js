@@ -80,7 +80,7 @@ const ServicioindividualComments = props => {
 				<Row>
 					<Col mt={5}>
 						<Formcomment comments={store.comments} idcompra={id} />
-						{/* <MyListComments /> */}
+						<MyListComments />
 					</Col>
 				</Row>
 			</Container>

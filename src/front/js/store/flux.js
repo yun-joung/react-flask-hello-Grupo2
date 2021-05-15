@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				name_servicio: ""
 			},
 			comments: {
-				id: "",
+				id_user: "",
 				id_servicios_prestados: "",
 				id_servicio_registrados: "",
 				text_comment: "",

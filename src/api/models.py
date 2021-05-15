@@ -12,6 +12,7 @@ class User(db.Model):
     photo = db.Column(db.String(100))
     servicio_registrados = db.relationship('Servicio_registrados', backref='user',lazy=True)
     servicios_prestados = db.relationship('Servicios_prestados', backref='user',lazy=True)
+    comentarios = db.relationship('Comentarios', backref='user',lazy=True)
     def __repr__(self):
         return "<User %r>" % self.id
     def serialize(self):
@@ -181,6 +182,7 @@ class Favoritos(db.Model):
         delete=Favoritos.query.filter_by(id=id).first()
         db.session.delete(delete)
         db.session.commit()
+  
 
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
@@ -195,6 +197,7 @@ class Comentarios(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "id_user_compra": self.user.id,
             "id_servicios_prestados": self.servicios_prestados.id,
             "id_servicio_registrados": self.servicio_registrados.id,
             "text_comment":self.text_comment,
