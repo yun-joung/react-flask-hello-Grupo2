@@ -79,13 +79,13 @@ const RegisterService = props => {
 
 	const userId = JSON.parse(JSON.stringify(store.user.id));
 	const userName = JSON.parse(JSON.stringify(store.user.userName));
-	const email = store.user.user;
+	const email = JSON.parse(JSON.stringify(store.user.user));
 
 	const handleSubmit = values => {
 		let formData = new FormData();
 		formData.append("id_user", userId);
 		formData.append("userName", userName);
-		formData.append("email_oferente", email);
+		formData.append("email", email);
 		formData.append("tipo_membresia", values.tipo_membresia);
 		formData.append("category", values.category);
 		formData.append("subcategory", values.subcategory);
@@ -136,7 +136,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(${store.url}/backGround.png)`
+				backgroundImage: `url(https://3000-gray-shrew-sd06ypbc.ws-us04.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -539,18 +539,18 @@ const RegisterService = props => {
 											<strong>Registra tu servicio</strong>
 										</Button>
 									)}
-									{/* {JSON.stringify(store.user.id)}
-									{JSON.stringify(tipo_membresia)}
-									{JSON.stringify(category)}
-									{JSON.stringify(subcategory)}
-									{JSON.stringify(tipo_cobro)}
-									{JSON.stringify(valor)}
-									{JSON.stringify(name_servicio)}
-									{JSON.stringify(descrip_servicio)}
-									{JSON.stringify(experiencia)}
-									{JSON.stringify(portafolio)}
-									{JSON.stringify(portafolioFoto)}
-									{JSON.stringify(merit)} */}
+									{JSON.stringify(store.user.user)}
+									{/* // {JSON.stringify(tipo_membresia)}
+									// {JSON.stringify(category)}
+									// {JSON.stringify(subcategory)}
+									// {JSON.stringify(tipo_cobro)}
+									// {JSON.stringify(valor)}
+									// {JSON.stringify(name_servicio)}
+									// {JSON.stringify(descrip_servicio)}
+									// {JSON.stringify(experiencia)}
+									// {JSON.stringify(portafolio)}
+									// {JSON.stringify(portafolioFoto)}
+									// {JSON.stringify(merit)} */}
 								</Row>
 							</Form>
 						)}
