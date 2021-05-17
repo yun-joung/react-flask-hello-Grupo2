@@ -3,7 +3,7 @@ import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			url: "https://3000-lavender-snail-4xztmo5b.ws-us04.gitpod.io/",
+			url: "https://3000-blue-takin-k5zwa1as.ws-us04.gitpod.io/",
 
 			login_data: {
 				userLogin: "",
@@ -181,7 +181,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
 						method: "GET",
-						headers: { "Content-Type": "application/json" }
+						headers: {
+							"Content-Type": "application/json"
+						}
 					});
 					const json = await response.json();
 					console.log("--serviceRegistradoID--", json);

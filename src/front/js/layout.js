@@ -23,6 +23,7 @@ import { GraciasCompra } from "./pages/GraciasCompra";
 import ServicioindividualComments from "./pages/servicio-Individual-comment";
 import MyScrollUpButton from "./component/ScrollupButton";
 import { ServiceEmpresa } from "./pages/servicioEmpresa";
+import RegisterServiceForm from "./component/registerServicio/RegisterServiceForm";
 
 //create your first component
 const Layout = () => {
@@ -67,7 +68,7 @@ const Layout = () => {
 							<Register />
 						</Route>
 						<Route exact path="/registerservice">
-							<RegisterService />
+							<RegisterServiceForm />
 						</Route>
 						<Route exact path="/service-empresa">
 							<ServiceEmpresa />

@@ -271,7 +271,7 @@ color:map-get($theme-colors, 'primary')
 }
 .overlay{
     position: absolute;
-    bottom: -30;
+    bottom: 0;
     left: 0;
     right: 0;
     background-color: rgba(61, 60, 66, 0.7);
@@ -436,4 +436,17 @@ header {
   color: white;
   margin-bottom: 20px;
 }
+}
+.NumberFormat{
+    background: lightgray;
+    width: 100%;
+    padding: 6px 12px 6px 12px;
+    border-radius: 5px;
+    border:none;
+}
+.NumberFormatB{
+    background: lightgray;
+    width: 100%;
+    padding: 6px 12px 6px 12px;
+    border-radius: 5px;
 }
