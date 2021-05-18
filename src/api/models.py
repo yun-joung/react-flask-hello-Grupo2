@@ -38,21 +38,6 @@ class User(db.Model):
         user_to_update.password = _password if _password is not None else user_to_update.password
         db.session.commit()
 
-
-# servicio_registrados = Servicio_registrados()
-
-# 
-#     servicio_registrados.category = category,
-#     servicio_registrados.subcategory = subcategory,
-#     servicio_registrados.tipo_cobro = tipo_cobro,
-#     servicio_registrados.valor = valor,
-#     servicio_registrados.name_servicio = name_servicio,
-#     servicio_registrados.descrip_servicio = descrip_servicio,
-#     servicio_registrados.duracion = duracion,
-#     servicio_registrados.revision = revision,
-#     servicio_registrados.portafolio = portafolio,
-#     servicio_registrados.portafolioFoto = portafolioFoto
-
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
@@ -102,13 +87,8 @@ class Servicio_registrados(db.Model):
             "portafolio": self.portafolio,
             "portafolioFoto": self.portafolioFoto,
         }
-<<<<<<< HEAD
     def add_servicio(_id_user, userName, email_oferente, tipo_membresia, rut, tipo_tamano, experiencia, photo, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision,  portafolio, portafolioFoto):
         new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, email_oferente=email_oferente, tipo_membresia=tipo_membresia, rut=rut, tipo_tamano=tipo_tamano, experiencia= experiencia, photo=photo, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, portafolio=portafolio, portafolioFoto=portafolioFoto)
-=======
-    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit, email_oferente):
-        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, portafolioFoto=portafolioFoto, merit=merit, email_oferente=email_oferente)
->>>>>>> f66b0437ee68c8999db8119b876e9c32b74d34ed
         db.session.add(new_servicio)
         db.session.commit()
     def get_servicio(_id):
@@ -152,7 +132,7 @@ class Servicios_prestados(db.Model):
     id_user_compra = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
     cantidad_servicio = db.Column(db.Integer,nullable=False)
-    total_valor_servicio = db.Column(db.Integer,nullable=False)
+    total_valor_servicio = db.Column(db.String(50),nullable=False)
     name_servicio = db.Column(db.String(50))
     fecha_inicio = db.Column(db.DateTime)
     fecha_termino = db.Column(db.DateTime)
