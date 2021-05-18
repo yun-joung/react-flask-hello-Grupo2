@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
-import { logoBlanco, man } from "../../img/image";
+import { logoBlanco } from "../../img/image";
 import { withRouter } from "react-router-dom";
 import {
 	Container,
@@ -16,25 +16,37 @@ import {
 	FormText
 } from "react-bootstrap";
 import { Footer } from "../component/footer";
-import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
-import { Formik } from "formik";
-import * as yup from "yup";
 import swal from "sweetalert";
-import { useForm, useStep } from "react-hooks-helper";
-import { ConnectedFocusError } from "focus-formik-error";
 import EquipoForm from "../component/registerServicio/equipoForm";
 import ServiceForm from "../component/registerServicio/ServiceForm";
 import Confirm from "../component/registerServicio/Confirm";
-import Submit from "../component/registerServicio/Submit";
-import SubirProfile from "../component/registerServicio/SubirProfile";
 import { Stepper, Step, StepLabel, Typography } from "@material-ui/core";
 
 const RegisterService = () => {
 	const { store, actions } = useContext(Context);
 	const [activeStep, setActiveStep] = useState(0);
+	const [registrado, setRegistrado] = useState(false);
 	const data = store.serviceRegistrado;
+	const [state, setState] = useState({
+		tipo_membresia: null,
+		rut: null,
+		tipo_tamano: null,
+		experiencia: null,
+		photo: null,
+		category: null,
+		subcategory: null,
+		tipo_cobro: null,
+		valor: null,
+		name_servicio: null,
+		descrip_servicio: null,
+		duracion: null,
+		revision: null,
+		portafolio: null,
+		portafolioFoto: null,
+		serviceRegistrado: null
+	});
 
 	function getSteps() {
 		return ["Tu equipo", "Tu servicio", "Confirm dato"];
@@ -47,16 +59,23 @@ const RegisterService = () => {
 	const handleBack = () => {
 		setActiveStep(prevActiveStep => prevActiveStep - 1);
 	};
+	const handleReset = () => {
+		setActiveStep(0);
+	};
 
-	const userId = JSON.parse(JSON.stringify(store.user.id));
-	const userName = JSON.parse(JSON.stringify(store.user.userName));
+	const userId = store.user.id;
+	const userName = store.user.userName;
 	const email = store.user.user;
-	const handleSubmit = data => {
+	const handleSubmit = () => {
 		let formData = new FormData();
 		formData.append("id_user", userId);
 		formData.append("userName", userName);
 		formData.append("email_oferente", email);
 		formData.append("tipo_membresia", data.tipo_membresia);
+		formData.append("rut", data.rut);
+		formData.append("tipo_tamano", data.tipo_tamano);
+		formData.append("experiencia", data.experiencia);
+		formData.append("photo", data.photo);
 		formData.append("category", data.category);
 		formData.append("subcategory", data.subcategory);
 		formData.append("tipo_cobro", data.tipo_cobro);
@@ -65,13 +84,11 @@ const RegisterService = () => {
 		formData.append("descrip_servicio", data.descrip_servicio);
 		formData.append("duracion", data.duracion);
 		formData.append("revision", data.revision);
-		formData.append("proceso", data.proceso);
-		formData.append("experiencia", data.experiencia);
 		formData.append("portafolio", data.portafolio);
-		formData.append("merit", data.merit);
 		formData.append("portafolioFoto", data.portafolioFoto);
 
 		addServicio(formData);
+		setRegistrado(true);
 	};
 
 	function getStepContent(stepIndex) {
@@ -81,7 +98,15 @@ const RegisterService = () => {
 			case 1:
 				return <ServiceForm handleNext={handleNext} handleBack={handleBack} />;
 			case 2:
-				return <Confirm handleBack={handleBack} handleSubmit={handleSubmit} />;
+				return (
+					<Confirm
+						handleBack={handleBack}
+						handleSubmit={handleSubmit}
+						handleReset={handleReset}
+						registrado={registrado}
+						setRegistrado={setRegistrado}
+					/>
+				);
 			default:
 				return "Paso 404";
 		}
@@ -107,6 +132,7 @@ const RegisterService = () => {
 				} else {
 					sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
 				}
+				props.history.push("/home");
 			})
 			.catch(error => console.log("Error loading message from backend", error));
 	};
@@ -146,7 +172,7 @@ const RegisterService = () => {
 					</Col>
 				</Row>
 				<div className="whiteBox shadow-lg pt-3">
-					<Stepper className="whiteBox mt-3" activeStep={activeStep} alternativeLabel>
+					<Stepper className="whiteBox mt-3" activeStep={activeStep + 1} alternativeLabel>
 						{steps.map(label => (
 							<Step key={label}>
 								<StepLabel>{label}</StepLabel>
@@ -155,18 +181,6 @@ const RegisterService = () => {
 					</Stepper>
 					<>{getStepContent(activeStep)}</>
 				</div>
-				{/* {JSON.stringify(store.user.id)}
-				{JSON.stringify(tipo_membresia)}
-				{JSON.stringify(category)}
-				{JSON.stringify(subcategory)}
-				{JSON.stringify(tipo_cobro)}
-				{JSON.stringify(valor)}
-				{JSON.stringify(name_servicio)}
-				{JSON.stringify(descrip_servicio)}
-				{JSON.stringify(experiencia)}
-				{JSON.stringify(portafolio)}
-				{JSON.stringify(portafolioFoto)}
-				{JSON.stringify(merit)} */}
 
 				<div className="transBox" />
 				<div className="transBox" />

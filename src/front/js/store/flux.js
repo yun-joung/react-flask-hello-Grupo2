@@ -24,7 +24,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			serviceRegistrado: {
 				id_user: "",
 				userName: "",
+				email_oferente: "",
 				tipo_membresia: "",
+				rut: "",
+				tipo_tamano: "",
+				experiencia: "",
+				photo: "",
 				category: "",
 				subcategory: "",
 				tipo_cobro: "",
@@ -33,12 +38,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				descrip_servicio: "",
 				duracion: "",
 				revision: "",
-				proceso: "",
-				experiencia: "",
 				portafolio: "",
-				portafolioFoto: "",
-				merit: "",
-				email_oferente: ""
+				portafolioFoto: ""
 			},
 			userAll: [],
 			favorito: {

@@ -4,7 +4,7 @@ import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Row, Col, Container, Jumbotron, Button, ProgressBar } from "react-bootstrap";
 import Individuallnfo from "../component/individualInfo.jsx";
-import { IndividualCard } from "../component/IndividualCard.jsx";
+import IndividualCard from "../component/IndividualCard.jsx";
 import { Promedio } from "../component/Promedio.jsx";
 import { Formcomment } from "../component/formComment.jsx";
 import { MyListComments } from "../component/MyListComments.jsx";
@@ -43,10 +43,10 @@ const Servicioindividual = props => {
 					</Col>
 				</Row>
 				<Row>
-					<Col md={8}>
+					<Col md={8} className="mb-3">
 						<Portafolio img={process.env.BACKEND_URL + "/upload/servicio/" + item.portafolioFoto} />
 					</Col>
-					<Col md={4}>
+					<Col md={4} className="mt-3">
 						<Individuallnfo
 							id={item.id}
 							name_servicio={item.name_servicio}
@@ -197,7 +197,7 @@ const Servicioindividual = props => {
 						</div>
 					</Col>
 				</Row>
-				<hr />
+
 				<Row>
 					<Col mt={5}>
 						<ul>

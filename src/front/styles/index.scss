@@ -26,10 +26,26 @@ h1, h2, h3, h4, h5{
     font-family: 'Catamaran', sans-serif;
     font-weight: 700;
     }
+p{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+.pBold{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
 .transBox{
     width: 100%;
     height: 50px;
     border-radius: 10px;
+}
+.LandingLoading {
+    background: #F2F2F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 100vh;
 }
 .whiteBox{
     background-color:white;
@@ -62,7 +78,7 @@ h1, h2, h3, h4, h5{
     left: 0;
     bottom: 0;
     right: 0;
-    height:150%;
+    height:100%;
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
@@ -152,6 +168,13 @@ path {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.textOverFlowS{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  width: 80%;
+}
 .textOverFlow{
   overflow: hidden;
   white-space: nowrap;
@@ -171,7 +194,7 @@ path {
 }
 
 .backGray{
-    background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9023984593837535) 17%, rgb(186, 202, 255) 100%);
+    background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9023984593837535) 17%, rgba(186,232,255,1) 100%);
 }
 
 .backGrayB{
@@ -249,11 +272,20 @@ inset: 0px auto auto 0px;
 margin: 0 0 0 3%;
 z-index: 1000;
 }
-.card:hover {
+.cardPerson:hover {
   transform: scale(1.03);
   box-shadow: 0 13px 30px -5px hsla(240, 30.1%, 28%, 0.12), 0 8px 32px -8px hsla(0, 0%, 0%, 0.14), 0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
 }
+.cardProduct{
+  width: 100%;
+  height: 35vh;
+  object-fit: cover
+}
 
+.cardProduct:hover {
+  transform: scale(1.03);
+  box-shadow: 0 13px 30px -5px hsla(240, 30.1%, 28%, 0.12), 0 8px 32px -8px hsla(0, 0%, 0%, 0.14), 0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
+}
 .LandingpageIcon{
     width:100px;
     margin-bottom: 10px;
@@ -368,6 +400,11 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.PorfolioCarucel{
+  width: 100%;
+  height: 400px;
+  object-fit: cover
+}
 }
 
 @media screen and (min-width:1000px) and (max-width:1200px){
@@ -398,6 +435,11 @@ header {
   top: 160%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.PorfolioCarucel{
+  width: 100%;
+  height: 400px;
+  object-fit: cover
 }
 }
 
@@ -449,17 +491,24 @@ header {
   color: white;
   margin-bottom: 20px;
 }
+
 }
+
+
 .NumberFormat{
-    background: lightgray;
+    background: #F2F2F2;
     width: 100%;
     padding: 6px 12px 6px 12px;
     border-radius: 5px;
-    border:none;
+    border: 1px solid #ced4da;
 }
 .NumberFormatB{
-    background: lightgray;
+    background: #F2F2F2;
     width: 100%;
     padding: 6px 12px 6px 12px;
     border-radius: 5px;
+}
+.NabTab {
+    background: rgb(215, 215, 215);
+    color: #1b1a1a;
 }

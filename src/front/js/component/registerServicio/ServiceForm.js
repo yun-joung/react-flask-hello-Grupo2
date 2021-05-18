@@ -1,8 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../../../styles/home.scss";
 import "../../../styles/index.scss";
-import { logoBlanco, man } from "../../../img/image";
-import { withRouter, Link } from "react-router-dom";
 import {
 	Container,
 	Button,
@@ -18,10 +16,6 @@ import {
 import { Footer } from "../../component/footer";
 import { Context } from "../../store/appContext";
 import PropTypes from "prop-types";
-import { Formik } from "formik";
-import * as yup from "yup";
-import swal from "sweetalert";
-import { ConnectedFocusError } from "focus-formik-error";
 import NumberFormat from "react-number-format";
 
 const ServiceForm = ({ handleNext, handleBack }) => {
@@ -36,7 +30,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				</h2>
 				<Form.Group>
 					<Form.Label>
-						<h5 style={{ fontWeight: "400" }}>
+						<h5 className="pBold">
 							1. ¿A qué Categoría y subcategoría pertenece tu servicio?{" "}
 							<span style={{ color: "red" }}>*</span>
 						</h5>
@@ -48,7 +42,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 						// className={touched.category && errors.category ? "error" : null}
 						onChange={actions.handleChangeService}
 						style={{
-							backgroundColor: "lightgray",
+							backgroundColor: "#F2F2F2",
 							marginBottom: "10px"
 						}}>
 						<option default>Seleccionar categoría de servicio</option>
@@ -69,12 +63,12 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 					<Form.Control
 						as="textarea"
 						type="text"
-						placeholder="Subcategory ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
+						placeholder="ej: E-commerce develop, Mobile develop, Wordpress/Shopify..."
 						name="subcategory"
 						value={store.serviceRegistrado.subcategory}
 						// className={touched.subcategory && errors.subcategory ? "error" : null}
 						onChange={actions.handleChangeService}
-						style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
+						style={{ backgroundColor: "#F2F2F2", marginBottom: "10px" }}
 					/>
 					{/* <FormText className="text-muted">
 								{touched.subcategory && errors.subcategory ? (
@@ -85,7 +79,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				<br />
 				<Form.Group>
 					<Form.Label>
-						<h5 style={{ fontWeight: "400" }}>
+						<h5 className="pBold">
 							2. ¿Cuánto cuesta tu servicio?<span style={{ color: "red" }}>*</span>
 						</h5>
 					</Form.Label>
@@ -95,7 +89,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 						value={store.serviceRegistrado.tipo_cobro}
 						// className={touched.tipo_cobro && errors.tipo_cobro ? "error" : null}
 						onChange={actions.handleChangeService}
-						style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
+						style={{ backgroundColor: "#F2F2F2", marginBottom: "10px" }}>
 						<option default>Seleccionar si el tipo de cobro es Por hora o Por proyecto</option>
 						<option>Hora</option>
 						<option>Proyecto</option>
@@ -111,7 +105,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 						thousandSeparator={"."}
 						decimalSeparator={","}
 						prefix={"$"}
-						placeholder="Ingresa el valor del servicio, ej: 100000"
+						placeholder="ej: 100.000"
 						name="valor"
 						value={store.serviceRegistrado.valor}
 						className="NumberFormat"
@@ -129,7 +123,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				<br />
 				<Form.Group>
 					<Form.Label>
-						<h5 style={{ fontWeight: "400" }}>
+						<h5 className="pBold">
 							3. ¿Qué Nombre identifica tu Servicio?
 							<span style={{ color: "red" }}>*</span>
 						</h5>
@@ -153,7 +147,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				<br />
 				<Form.Group>
 					<Form.Label>
-						<h5 style={{ fontWeight: "400" }}>
+						<h5 className="pBold">
 							4. Describe las características de tu servicio
 							<span style={{ color: "red" }}>*</span>
 						</h5>
@@ -177,7 +171,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				<br />
 				<Form.Group>
 					<Form.Label>
-						<h5 style={{ fontWeight: "400" }}>5. Plazo estimado para ejecutar el proyecto</h5>
+						<h5 className="pBold">5. Plazo estimado para ejecutar el proyecto</h5>
 					</Form.Label>
 					<Form.Control
 						as="textarea"
@@ -198,7 +192,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				<br />
 				<Form.Group>
 					<Form.Label>
-						<h5 style={{ fontWeight: "400" }}>
+						<h5 className="pBold">
 							6. Numero de correcciones permitidas a tu cliente previo a entregable final
 							<span style={{ color: "red" }}>*</span>
 						</h5>
@@ -222,9 +216,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				<br />
 				<Form.Group>
 					<Form.Label>
-						<h5 style={{ fontWeight: "400" }}>
-							7. Portafolio que quisieras mostrar a tus potenciales clientes
-						</h5>
+						<h5 className="pBold">7. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
 					</Form.Label>
 					<Form.Control
 						as="textarea"
@@ -244,11 +236,16 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 				</Form.Group>
 				<Form.Group>
 					<Form.Label>
-						<h5>
+						<h5 className="pBold">
 							8. Profile foto de tu servicio <span style={{ color: "red" }}>*</span>
 						</h5>
 					</Form.Label>
-					<Form.File id="file" name="portafolioFoto" type="file" onChange={actions.handleChangeServicefile} />
+					<Form.File
+						id="portafolioFoto"
+						name="portafolioFoto"
+						type="file"
+						onChange={actions.handleChangeServicefile}
+					/>
 				</Form.Group>
 				<br />
 				<Row style={{ justifyContent: "center" }}>
@@ -267,7 +264,7 @@ const ServiceForm = ({ handleNext, handleBack }) => {
 	);
 };
 
-export default withRouter(ServiceForm);
+export default ServiceForm;
 
 ServiceForm.propTypes = {
 	handleBack: PropTypes.any,

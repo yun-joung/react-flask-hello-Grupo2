@@ -97,7 +97,6 @@ def register():
     password = request.json.get("password", None)
     tipo_user = request.json.get("tipo_user", None)
     userName = request.json.get("userName", None)
-    #photo = request.files['photo']
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
@@ -105,11 +104,7 @@ def register():
     userName_query = User.query.filter_by(userName=userName).first()
     if userName_query:
         return ({"msg":"Este userName ya ha sido registrado"}), 401
-    # if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
-    #     photo_filename = secure_filename(photo.filename)
-    #     photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
-    # else:
-    #     return jsonify({"msg":"Extension not allowed"}), 400
+
 
     user = User()
     user.email = email
@@ -153,7 +148,12 @@ def get_user_by_id(id):
 def add_servicio():
     id_user= request.form.get("id_user",None)
     userName= request.form.get("userName",None)
+    email_oferente = request.form.get('email',None)
     tipo_membresia = request.form.get("tipo_membresia",None)
+    rut = request.form.get('rut',None)
+    tipo_tamano = request.form.get('tipo_tamano',None)
+    experiencia = request.form.get('experiencia',None)
+    photo = request.files['photo']
     category = request.form.get('category',None)
     subcategory = request.form.get('subcategory',None)
     tipo_cobro = request.form.get('tipo_cobro',None)
@@ -162,12 +162,8 @@ def add_servicio():
     descrip_servicio = request.form.get('descrip_servicio',None)
     duracion = request.form.get('duracion',None)
     revision = request.form.get('revision',None)
-    proceso = request.form.get('proceso',None)
-    experiencia = request.form.get('experiencia',None)
     portafolio = request.form.get('portafolio',None)
-    #portafolioFoto = request.files['portafolioFoto']
-    merit = request.form.get('merit',None)
-    email_oferente = request.form.get('email',None)
+    portafolioFoto = request.files['portafolioFoto']
             
     if not tipo_membresia:
         return jsonify({"msg":"el tipo_membresia esta vacio"}), 400
@@ -185,16 +181,26 @@ def add_servicio():
         return jsonify({"msg":"el descripcion de servicio esta vacio"}), 400
     if not experiencia:
         return jsonify({"msg":"su experiencia esta vacio"}), 400
-    # if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
-    #     portafolio_filename = secure_filename(portafolioFoto.filename)
-    #     portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic/", portafolio_filename))
-    # else:
-    #     return jsonify({"msg":"Extension not allowed"}), 400
-            
+    if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
+        portafolio_filename = secure_filename(portafolioFoto.filename)
+        portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic/", portafolio_filename))
+    else:
+        return jsonify({"msg":"Extension not allowed"}), 400
+    if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
+        photo_filename = secure_filename(photo.filename)
+        photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
+    else:
+        return jsonify({"msg":"Extension not allowed"}), 400
+
     servicio_registrados = Servicio_registrados()
-    servicio_registrados.id_user = id_user,
-    servicio_registrados.userName = userName,
+    servicio_registrados.id_user= id_user,
+    servicio_registrados.userName= userName,
+    servicio_registrados.email_oferente = email_oferente,
     servicio_registrados.tipo_membresia = tipo_membresia,
+    servicio_registrados.rut = rut,
+    servicio_registrados.tipo_tamano = tipo_tamano,
+    servicio_registrados.experiencia = experiencia,
+    servicio_registrados.photo = photo_filename,
     servicio_registrados.category = category,
     servicio_registrados.subcategory = subcategory,
     servicio_registrados.tipo_cobro = tipo_cobro,
@@ -203,12 +209,8 @@ def add_servicio():
     servicio_registrados.descrip_servicio = descrip_servicio,
     servicio_registrados.duracion = duracion,
     servicio_registrados.revision = revision,
-    servicio_registrados.proceso = proceso,
-    servicio_registrados.experiencia = experiencia,
     servicio_registrados.portafolio = portafolio,
-    #servicio_registrados.portafolioFoto = portafolio_filename,
-    servicio_registrados.merit = merit
-    servicio_registrados.email_oferente = email_oferente
+    servicio_registrados.portafolioFoto = portafolio_filename
 
     print(servicio_registrados)
     db.session.add(servicio_registrados)

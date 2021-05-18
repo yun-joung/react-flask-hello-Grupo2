@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: eedc1ebb3645
+Revision ID: dfb3a7efb05f
 Revises: 
-Create Date: 2021-05-17 16:42:20.940366
+Create Date: 2021-05-18 15:39:23.680426
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'eedc1ebb3645'
+revision = 'dfb3a7efb05f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,21 +33,22 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('id_user', sa.Integer(), nullable=False),
     sa.Column('userName', sa.String(length=50), nullable=True),
+    sa.Column('email_oferente', sa.String(length=100), nullable=True),
     sa.Column('tipo_membresia', sa.String(length=50), nullable=False),
+    sa.Column('rut', sa.String(length=50), nullable=True),
+    sa.Column('tipo_tamano', sa.String(length=50), nullable=False),
+    sa.Column('photo', sa.String(length=100), nullable=True),
+    sa.Column('experiencia', sa.String(length=50), nullable=False),
     sa.Column('category', sa.String(length=50), nullable=False),
     sa.Column('subcategory', sa.String(length=50), nullable=False),
     sa.Column('tipo_cobro', sa.String(length=50), nullable=False),
-    sa.Column('valor', sa.Integer(), nullable=False),
+    sa.Column('valor', sa.String(length=50), nullable=False),
     sa.Column('name_servicio', sa.String(length=50), nullable=False),
     sa.Column('descrip_servicio', sa.String(length=250), nullable=False),
     sa.Column('duracion', sa.String(length=30), nullable=True),
     sa.Column('revision', sa.String(length=30), nullable=False),
-    sa.Column('proceso', sa.String(length=250), nullable=True),
-    sa.Column('experiencia', sa.String(length=50), nullable=False),
     sa.Column('portafolio', sa.String(length=250), nullable=True),
     sa.Column('portafolioFoto', sa.String(length=100), nullable=True),
-    sa.Column('merit', sa.String(length=250), nullable=True),
-    sa.Column('email_oferente', sa.String(length=100), nullable=True),
     sa.ForeignKeyConstraint(['id_user'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
