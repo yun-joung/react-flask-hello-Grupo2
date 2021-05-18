@@ -215,8 +215,9 @@ class Comentarios(db.Model):
         # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
         return list(map(lambda x: x.serialize(), Comentarios.query.all()))
 
-    def get_comentario_servicioprestado(id_user, id_servicios_prestados):
-        comment=Comentarios.query.filter_by(id_user_compra=id_user, id_servicios_prestados=id_servicios_prestados)
+    def get_comentario_servicioprestado(id_user, id_servicios_prestados, id_servicio_registrados):
+        comment=Comentarios.query.filter_by(id_user_compra=id_user, id_servicios_prestados=id_servicios_prestados, id_servicio_registrados=id_servicio_registrados)
+        print(comment)
         if not comment: return False
         return True
   

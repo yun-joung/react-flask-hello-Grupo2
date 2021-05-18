@@ -345,26 +345,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			addComment: async (text_comment, assessment, id, idcompra) => {
+			addComment: async ({ text_comment, evaluacion, id_servicios_prestados, id_servicio_registrados }) => {
 				try {
+					console.log(id_servicio_registrados);
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
-							Authorization: `Bearer ${store.user.token}`
+							Authorization: `Bearer ${getStore().user.token}`
 						},
 						body: JSON.stringify({
 							id_user: getStore().user.id,
-							id_servicios_prestados: idcompra,
-							id_servicio_registrados: id,
+							id_servicios_prestados: id_servicios_prestados,
+							id_servicio_registrados: id_servicio_registrados,
 							text_comment: text_comment,
-							evaluacion: assessment
+							evaluacion: evaluacion
 						})
 					});
 					const json = await response.json();
 					console.log(json);
+					console.log({ text_comment, evaluacion, id_servicios_prestados, id_servicio_registrados });
 					// setStore({ comments: JSON.stringify(json) });
-					getActions().listComments();
+					getActions().listComments(id_servicio_registrados);
 				} catch (error) {
 					console.log(error);
 				}

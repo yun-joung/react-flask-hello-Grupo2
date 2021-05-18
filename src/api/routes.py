@@ -344,18 +344,20 @@ def addComment():
             if not evaluacion:
                 return jsonify({"msg":"la evaluacion esta vacia"}), 400
             
-            comment = Comentarios.get_comentario_servicioprestado(id_user, id_servicios_prestados)
-            if comment:return jsonify({"msg":"Usted ya ha calificado este servicio"}), 200  
-            
+            comment = Comentarios.get_comentario_servicioprestado(id_user_compra, id_servicios_prestados, id_servicio_registrados)
+            # if comment:return jsonify({"msg":"Usted ya ha calificado este servicio"}), 200  
+            # print(comment)
+
             comentarios = Comentarios()
             comentarios.id_user_compra = request.json.get("id_user", None)
             comentarios.id_servicios_prestados = request.json.get("id_servicios_prestados", None)
             comentarios.id_servicio_registrados = request.json.get("id_servicio_registrados", None)
             comentarios.text_comment= request.json.get("text_comment", None)
             comentarios.evaluacion= request.json.get("evaluacion", None)
-
+        
             db.session.add(comentarios)
             db.session.commit()
+            print (comentarios)
             return jsonify({"Respuesta":"OK"}), 200    
 
 @api.route('/comentarios/<int:id>', methods=["GET"])

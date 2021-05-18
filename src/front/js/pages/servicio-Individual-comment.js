@@ -22,14 +22,15 @@ const ServicioindividualComments = props => {
 	const [assessment, setAssessment] = useState(0);
 	const { total1, total2, total3, total4, total5 } = actions.getTotales(store.comments);
 	const item = store.serviceRegistrado;
-	const { id } = props.match.params;
+	console.log(item);
+	const { id, idservicio } = props.match.params;
 
 	useEffect(() => {
-		actions.listComments(id);
+		actions.listComments(idservicio);
 	}, []);
 
 	useEffect(() => {
-		actions.getServiceInfoById(id);
+		actions.getServiceInfoById(idservicio);
 	}, []);
 
 	return (
@@ -79,23 +80,11 @@ const ServicioindividualComments = props => {
 					</Col>
 				</Row>
 				<div className="transBox" />
-				<Row mb={5}>
-					<Col md={3}>
-						<Promedio />
-					</Col>
-				</Row>
-				<Row>
-					<Col mt={5}>
-						<Formcomment comments={store.comments} idcompra={id} />
-						<MyListComments />
-					</Col>
-				</Row>
-				<hr />
 				<div className="container">
 					<div className="row">
 						<div className="col p-0">
 							<h2>Comentarios</h2>
-							<header className="text-left my-3">
+							<header className="text-left my-3" style={{ background: "none" }}>
 								<ButtomStar value={"1"} assessment={assessment} onClick={() => setAssessment(1)} />
 								<ButtomStar value={"2"} assessment={assessment} onClick={() => setAssessment(2)} />
 								<ButtomStar value={"3"} assessment={assessment} onClick={() => setAssessment(3)} />
@@ -119,7 +108,7 @@ const ServicioindividualComments = props => {
 											onClick={() => {
 												actions.addComment({
 													id_servicios_prestados: id,
-													id_servicio_registrados: id,
+													id_servicio_registrados: item.id,
 													text_comment: text_comment,
 													evaluacion: assessment
 												});

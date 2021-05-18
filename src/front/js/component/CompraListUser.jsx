@@ -9,11 +9,11 @@ import { withRouter, Link } from "react-router-dom";
 
 const CompraListUser = props => {
 	const { store, actions } = React.useContext(Context);
-	const { id } = props;
+	const { id, idservicio } = props;
 
 	return (
 		<>
-			<Link to={"/MiCompra/id/" + id}>
+			<Link to={"/MiCompra/id/" + id + "/servicio/" + idservicio}>
 				<Table>
 					<thead>
 						<tr>
@@ -45,5 +45,6 @@ CompraListUser.propTypes = {
 	index: PropTypes.number,
 	name_servicio: PropTypes.string,
 	fecha_inicio: PropTypes.date,
-	total_valor_servicio: PropTypes.number
+	total_valor_servicio: PropTypes.number,
+	idservicio: PropTypes.number
 };
