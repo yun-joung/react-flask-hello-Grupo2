@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as yup from "yup";
 import swal from "sweetalert";
-import UploadButtons from "../../component/uploadBut";
 import { ConnectedFocusError } from "focus-formik-error";
 import { Stepper, Step, StepLabel, Typography } from "@material-ui/core";
 import { Container, Form, Jumbotron, Row, Col, Button } from "react-bootstrap";
@@ -188,4 +187,4 @@ const RegisterServiceForm = props => {
 	);
 };
 
-export default withRouter(RegisterServiceForm);
+//export default withRouter(RegisterServiceForm);

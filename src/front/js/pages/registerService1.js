@@ -33,59 +33,105 @@ import { Stepper, Step, StepLabel, Typography } from "@material-ui/core";
 
 const RegisterService = () => {
 	const { store, actions } = useContext(Context);
-	const [activeStep, setActiveStep] = useState(0);
-	const data = store.serviceRegistrado;
+	//const [formData, setForm] = useForm(defaultData);
+    const [activeStep, setActiveStep] = useState(0);
+    const [avatar, setAvatar] = useState("");
+	const [data, setData] = useState({
+		tipo_membresia: "",
+		category: "",
+		subcategory: "",
+		tipo_cobro: "",
+		valor: "",
+		name_servicio: "",
+		descrip_servicio: "",
+		duracion: "",
+		revision: "",
+		proceso: "",
+		experiencia: "",
+		portafolio: "",
+		portafolioFoto: "",
+		merit: "",
+		serviceRegistrado: ""
+	});
 
 	function getSteps() {
-		return ["Tu equipo", "Tu servicio", "Confirm dato"];
+		return ["Tu equipo", "Tu servicio", "Subir profile" , "Confirm dato"];
 	}
 	const steps = getSteps();
-
 	const handleNext = () => {
 		setActiveStep(preActiveStep => preActiveStep + 1);
 	};
 	const handleBack = () => {
 		setActiveStep(prevActiveStep => prevActiveStep - 1);
 	};
-
-	const userId = JSON.parse(JSON.stringify(store.user.id));
-	const userName = JSON.parse(JSON.stringify(store.user.userName));
-	const email = store.user.user;
-	const handleSubmit = data => {
-		let formData = new FormData();
-		formData.append("id_user", userId);
-		formData.append("userName", userName);
-		formData.append("email_oferente", email);
-		formData.append("tipo_membresia", data.tipo_membresia);
-		formData.append("category", data.category);
-		formData.append("subcategory", data.subcategory);
-		formData.append("tipo_cobro", data.tipo_cobro);
-		formData.append("valor", data.valor);
-		formData.append("name_servicio", data.name_servicio);
-		formData.append("descrip_servicio", data.descrip_servicio);
-		formData.append("duracion", data.duracion);
-		formData.append("revision", data.revision);
-		formData.append("proceso", data.proceso);
-		formData.append("experiencia", data.experiencia);
-		formData.append("portafolio", data.portafolio);
-		formData.append("merit", data.merit);
-		formData.append("portafolioFoto", data.portafolioFoto);
-
-		addServicio(formData);
+	const handleReset = () => {
+		setActiveStep(0);
 	};
+	const handleChange = e => {
+		e.preventDefault();
+		setData[e.target.name] = e.target.value;
+    };
+     const handleDateChange = (date) => {
+        setDate(date);
+    };
+    const [size, setSize] = useState("");
+    const onChangeAvatar = (e) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onloadend = () => {
+            console.log(reader.result)
+            setAvatar(reader.result);
+        }
+    }
+    const onChangeSizeSelect = (e) =>{
+        setSize(e.target.value);
+    } 
 
 	function getStepContent(stepIndex) {
 		switch (stepIndex) {
 			case 0:
-				return <EquipoForm handleNext={handleNext} />;
+				return <EquipoForm data={data} setData={setData} handleNext={handleNext} handleChange={handleChange} />;
 			case 1:
-				return <ServiceForm handleNext={handleNext} handleBack={handleBack} />;
-			case 2:
-				return <Confirm handleBack={handleBack} handleSubmit={handleSubmit} />;
+				return (
+					<ServiceForm data={data} setData={setData} handleNext={handleNext} handleChange={handleChange} />
+                );
+            case 2:
+				return <SubirProfile data={data}  setData={setData} handleNext={handleNext} handleChange={handleChange} onChangeAvatar={onChangeAvatar}/>;
+			default:
+			case 3:
+				return <Confirm data={data} />;
 			default:
 				return "Paso 404";
 		}
 	}
+
+	const userId = JSON.parse(JSON.stringify(store.user.id));
+	const userName = JSON.parse(JSON.stringify(store.user.userName));
+	const email = store.user.user;
+
+	const handleSubmit = values => {
+		let formData = new FormData();
+		formData.append("id_user", userId);
+		formData.append("userName", userName);
+		formData.append("email_oferente", email);
+		formData.append("tipo_membresia", values.tipo_membresia);
+		formData.append("category", values.category);
+		formData.append("subcategory", values.subcategory);
+		formData.append("tipo_cobro", values.tipo_cobro);
+		formData.append("valor", values.valor);
+		formData.append("name_servicio", values.name_servicio);
+		formData.append("descrip_servicio", values.descrip_servicio);
+		formData.append("duracion", values.duracion);
+		formData.append("revision", values.revision);
+		formData.append("proceso", values.proceso);
+		formData.append("experiencia", values.experiencia);
+		formData.append("portafolio", values.portafolio);
+		formData.append("merit", values.merit);
+		formData.append("portafolioFoto", values.portafolioFoto);
+
+		addServicio(formData);
+		setRegistrado(true);
+	};
 
 	const addServicio = form => {
 		fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
@@ -116,9 +162,9 @@ const RegisterService = () => {
 	}, []);
 	return (
 		<div
-			className="backgrounds"
+			className="background"
 			style={{
-				backgroundImage: `url(${store.url}/backGrounds.png)`
+				backgroundImage: `url(${store.url}/backGround.png)`
 			}}>
 			<Container>
 				<Row>
@@ -145,7 +191,7 @@ const RegisterService = () => {
 						</p>
 					</Col>
 				</Row>
-				<div className="whiteBox shadow-lg pt-3">
+				<div className="whiteBox shadow-lg">
 					<Stepper className="whiteBox mt-3" activeStep={activeStep} alternativeLabel>
 						{steps.map(label => (
 							<Step key={label}>
@@ -156,17 +202,17 @@ const RegisterService = () => {
 					<>{getStepContent(activeStep)}</>
 				</div>
 				{/* {JSON.stringify(store.user.id)}
-				{JSON.stringify(tipo_membresia)}
-				{JSON.stringify(category)}
-				{JSON.stringify(subcategory)}
-				{JSON.stringify(tipo_cobro)}
-				{JSON.stringify(valor)}
-				{JSON.stringify(name_servicio)}
-				{JSON.stringify(descrip_servicio)}
-				{JSON.stringify(experiencia)}
-				{JSON.stringify(portafolio)}
-				{JSON.stringify(portafolioFoto)}
-				{JSON.stringify(merit)} */}
+                {JSON.stringify(tipo_membresia)}
+                {JSON.stringify(category)}
+                {JSON.stringify(subcategory)}
+                {JSON.stringify(tipo_cobro)}
+                {JSON.stringify(valor)}
+                {JSON.stringify(name_servicio)}
+                {JSON.stringify(descrip_servicio)}
+                {JSON.stringify(experiencia)}
+                {JSON.stringify(portafolio)}
+                {JSON.stringify(portafolioFoto)}
+                {JSON.stringify(merit)} */}
 
 				<div className="transBox" />
 				<div className="transBox" />

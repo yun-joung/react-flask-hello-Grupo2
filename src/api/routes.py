@@ -165,7 +165,7 @@ def add_servicio():
     proceso = request.form.get('proceso',None)
     experiencia = request.form.get('experiencia',None)
     portafolio = request.form.get('portafolio',None)
-    portafolioFoto = request.files['portafolioFoto']
+    #portafolioFoto = request.files['portafolioFoto']
     merit = request.form.get('merit',None)
     email_oferente = request.form.get('email',None)
             
@@ -185,11 +185,11 @@ def add_servicio():
         return jsonify({"msg":"el descripcion de servicio esta vacio"}), 400
     if not experiencia:
         return jsonify({"msg":"su experiencia esta vacio"}), 400
-    if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
-        portafolio_filename = secure_filename(portafolioFoto.filename)
-        portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic/", portafolio_filename))
-    else:
-        return jsonify({"msg":"Extension not allowed"}), 400
+    # if portafolioFoto and allowed_file(portafolioFoto.filename, ALLOWED_EXTENSIONS):
+    #     portafolio_filename = secure_filename(portafolioFoto.filename)
+    #     portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic/", portafolio_filename))
+    # else:
+    #     return jsonify({"msg":"Extension not allowed"}), 400
             
     servicio_registrados = Servicio_registrados()
     servicio_registrados.id_user = id_user,
@@ -206,7 +206,7 @@ def add_servicio():
     servicio_registrados.proceso = proceso,
     servicio_registrados.experiencia = experiencia,
     servicio_registrados.portafolio = portafolio,
-    servicio_registrados.portafolioFoto = portafolio_filename,
+    #servicio_registrados.portafolioFoto = portafolio_filename,
     servicio_registrados.merit = merit
     servicio_registrados.email_oferente = email_oferente
 

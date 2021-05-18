@@ -115,6 +115,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log(error));
 			},
 
+			handleChangeService: e => {
+				const { serviceRegistrado } = getStore();
+				serviceRegistrado[e.target.name] = e.target.value;
+				setStore({ serviceRegistrado: serviceRegistrado });
+			},
+			handleChangeServicefile: e => {
+				const { serviceRegistrado } = getStore();
+				serviceRegistrado[e.target.name] = event.target.files[0];
+				setStore({ serviceRegistrado: serviceRegistrado });
+			},
+
 			handleUpdateServicio: evento => {
 				const store = getStore();
 				let { serviceRegistrado } = store;
