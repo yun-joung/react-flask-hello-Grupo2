@@ -107,14 +107,6 @@ const LandingPage = props => {
 							<PersonBox title="Profesionales más solicitados" />
 							<ServiceBox />
 							<br />
-							{/* <Button variant="primary">Primary</Button>
-					<Button variant="secondary">Secondary</Button>
-					<Button variant="success">Success</Button>
-					<Button variant="outline-primary">Primary</Button>
-					<Button variant="outline-secondary">Secondary</Button>
-					<Button variant="outline-success">Success</Button>
-					<Button variant="light">Light</Button>
-					<Button variant="outline-light">Light</Button> */}
 						</div>
 					</Container>
 					<Footer />

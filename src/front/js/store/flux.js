@@ -16,7 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {
 				isLogin: false,
 				token: "",
-				email: "",
+				user: "",
 				id: "",
 				userName: "",
 				tipo_user: ""
@@ -423,7 +423,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localStorage.setItem("userName", JSON.stringify(data.user.userName));
 							localStorage.setItem("isLogin", JSON.stringify(true));
 							setStore({ user: { isLogin: true } });
-							sweetAlert("¡Bienvenido!", "Su secion ha iniciado exitosamente", "success");
+							sweetAlert("¡Bienvenido!", "Su sesión ha iniciado exitosamente", "success");
 							history.push("/home");
 						}
 					})

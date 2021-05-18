@@ -102,8 +102,13 @@ class Servicio_registrados(db.Model):
             "portafolio": self.portafolio,
             "portafolioFoto": self.portafolioFoto,
         }
+<<<<<<< HEAD
     def add_servicio(_id_user, userName, email_oferente, tipo_membresia, rut, tipo_tamano, experiencia, photo, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision,  portafolio, portafolioFoto):
         new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, email_oferente=email_oferente, tipo_membresia=tipo_membresia, rut=rut, tipo_tamano=tipo_tamano, experiencia= experiencia, photo=photo, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, portafolio=portafolio, portafolioFoto=portafolioFoto)
+=======
+    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit, email_oferente):
+        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, portafolioFoto=portafolioFoto, merit=merit, email_oferente=email_oferente)
+>>>>>>> f66b0437ee68c8999db8119b876e9c32b74d34ed
         db.session.add(new_servicio)
         db.session.commit()
     def get_servicio(_id):

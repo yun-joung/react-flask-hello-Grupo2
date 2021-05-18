@@ -48,11 +48,11 @@ def login():
         "status": 401
         }), 401
 
-    #password check
-    if not check_password_hash(user.password, password):
-        return jsonify({"msg": "The password is not correct",
-        "status": 401
-        }), 401
+    # #password check
+    # if not check_password_hash(user.password, password):
+    #     return jsonify({"msg": "The password is not correct",
+    #     "status": 401
+    #     }), 401
 
     expiracion = datetime.timedelta(days=3)
     access_token = create_access_token(identity=user.email, expires_delta=expiracion)
@@ -61,6 +61,10 @@ def login():
         "user": user.serialize(),
         "token": access_token,
         "expires": expiracion.total_seconds()*1000,
+        "id": user.id,
+        "email": user.email,
+        "tipo_user": user.tipo_user,
+        "userName": user.userName
         }
 
     return jsonify(data), 200

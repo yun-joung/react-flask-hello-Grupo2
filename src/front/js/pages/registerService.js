@@ -48,10 +48,16 @@ const RegisterService = () => {
 		serviceRegistrado: null
 	});
 
+<<<<<<< HEAD
 	function getSteps() {
 		return ["Tu equipo", "Tu servicio", "Confirm dato"];
 	}
 	const steps = getSteps();
+=======
+	const userId = JSON.parse(JSON.stringify(store.user.id));
+	const userName = JSON.parse(JSON.stringify(store.user.userName));
+	const email = JSON.parse(JSON.stringify(store.user.user));
+>>>>>>> f66b0437ee68c8999db8119b876e9c32b74d34ed
 
 	const handleNext = () => {
 		setActiveStep(preActiveStep => preActiveStep + 1);
@@ -70,6 +76,7 @@ const RegisterService = () => {
 		let formData = new FormData();
 		formData.append("id_user", userId);
 		formData.append("userName", userName);
+<<<<<<< HEAD
 		formData.append("email_oferente", email);
 		formData.append("tipo_membresia", data.tipo_membresia);
 		formData.append("rut", data.rut);
@@ -86,6 +93,23 @@ const RegisterService = () => {
 		formData.append("revision", data.revision);
 		formData.append("portafolio", data.portafolio);
 		formData.append("portafolioFoto", data.portafolioFoto);
+=======
+		formData.append("email", email);
+		formData.append("tipo_membresia", values.tipo_membresia);
+		formData.append("category", values.category);
+		formData.append("subcategory", values.subcategory);
+		formData.append("tipo_cobro", values.tipo_cobro);
+		formData.append("valor", values.valor);
+		formData.append("name_servicio", values.name_servicio);
+		formData.append("descrip_servicio", values.descrip_servicio);
+		formData.append("duracion", values.duracion);
+		formData.append("revision", values.revision);
+		formData.append("proceso", values.proceso);
+		formData.append("experiencia", values.experiencia);
+		formData.append("portafolio", values.portafolio);
+		formData.append("merit", values.merit);
+		formData.append("portafolioFoto", values.portafolioFoto);
+>>>>>>> f66b0437ee68c8999db8119b876e9c32b74d34ed
 
 		addServicio(formData);
 		setRegistrado(true);
@@ -144,7 +168,11 @@ const RegisterService = () => {
 		<div
 			className="backgrounds"
 			style={{
+<<<<<<< HEAD
 				backgroundImage: `url(${store.url}/backGrounds.png)`
+=======
+				backgroundImage: `url(https://3000-gray-shrew-sd06ypbc.ws-us04.gitpod.io/backGround.png)`
+>>>>>>> f66b0437ee68c8999db8119b876e9c32b74d34ed
 			}}>
 			<Container>
 				<Row>
@@ -182,6 +210,57 @@ const RegisterService = () => {
 					<>{getStepContent(activeStep)}</>
 				</div>
 
+<<<<<<< HEAD
+=======
+								<br />
+								<Row style={{ justifyContent: "center" }}>
+									{registrado !== false ? (
+										<ButtonGroup className="mb-2">
+											<Link to="/home">
+												<Button
+													variant="primary"
+													size="lg"
+													style={{ marginBottom: "40px", marginTop: "40px" }}>
+													<strong>volver a home</strong>
+												</Button>
+											</Link>
+											<Button
+												variant="outline-primary"
+												size="lg"
+												href="#frist"
+												style={{ marginBottom: "40px", marginTop: "40px" }}
+												onClick={() => setRegistrado(false)}>
+												<strong>Registrar otro servicio</strong>
+											</Button>
+										</ButtonGroup>
+									) : (
+										<Button
+											variant="primary"
+											size="lg"
+											type="submit"
+											onClick={handleSubmit}
+											style={{ marginBottom: "40px", marginTop: "40px" }}>
+											<strong>Registra tu servicio</strong>
+										</Button>
+									)}
+									{JSON.stringify(store.user.user)}
+									{/* // {JSON.stringify(tipo_membresia)}
+									// {JSON.stringify(category)}
+									// {JSON.stringify(subcategory)}
+									// {JSON.stringify(tipo_cobro)}
+									// {JSON.stringify(valor)}
+									// {JSON.stringify(name_servicio)}
+									// {JSON.stringify(descrip_servicio)}
+									// {JSON.stringify(experiencia)}
+									// {JSON.stringify(portafolio)}
+									// {JSON.stringify(portafolioFoto)}
+									// {JSON.stringify(merit)} */}
+								</Row>
+							</Form>
+						)}
+					</Formik>
+				</Jumbotron>
+>>>>>>> f66b0437ee68c8999db8119b876e9c32b74d34ed
 				<div className="transBox" />
 				<div className="transBox" />
 				<div className="transBox" />
