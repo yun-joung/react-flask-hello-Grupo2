@@ -86,7 +86,7 @@ class Servicio_registrados(db.Model):
             "merit":self.merit,
             "email_oferente":self.email_oferente
         }
-    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit, email_oferente ):
+    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit, email_oferente):
         new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, portafolioFoto=portafolioFoto, merit=merit, email_oferente=email_oferente)
         db.session.add(new_servicio)
         db.session.commit()
@@ -102,7 +102,7 @@ class Servicio_registrados(db.Model):
     def get_servicio_by_category(_category):
         servicio_category = Servicio_registrados.query.filter_by(category=_category).all()
         return list(map(lambda x: x.serialize(), servicio_category))
-    def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio,_portafolioFoto, _merit):
+    def update_servicio(id,_tipo_membresia, _subcategory, _tipo_cobro, _valor, _name_servicio, _descrip_servicio, _duracion, _revision, _proceso, _experiencia, _portafolio, _merit):
         servicio_update = Servicio_registrados.query.get(id)
         servicio_update.tipo_membresia = _tipo_membresia 
         servicio_update.subcategory = _subcategory
@@ -115,7 +115,6 @@ class Servicio_registrados(db.Model):
         servicio_update.proceso = _proceso 
         servicio_update.experiencia = _experiencia 
         servicio_update.portafolio = _portafolio 
-        servicio_update.portafolioFoto = _portafolioFoto
         servicio_update.merit = _merit
         db.session.commit()
     def delete_servicio(id):
@@ -151,9 +150,17 @@ class Servicios_prestados(db.Model):
             "fecha_inicio": self.fecha_inicio,
             "fecha_termino": self.fecha_termino
         }
+
     def get_servicioCompra_id_user(id):
         servicioCompra = Servicios_prestados.query.filter_by(id_user_compra=id).all()
         return list(map(lambda x: x.serialize(), servicioCompra))
+    def get_Compra_id_servicio(id):
+        CompraByService =Servicios_prestados.query.filter_by(id_servicio_registrados=id).all()
+        return list(map(lambda x: x.serialize(), CompraByService))
+    def get_all_compra():
+        allCompra = Servicios_prestados.query.all()
+        db.session.commit()
+        return list(map(lambda x: x.serialize(), Servicios_prestados.query.all()))
 
 class Favoritos(db.Model):
     __tablename__ = 'favoritos'
@@ -203,7 +210,7 @@ class Comentarios(db.Model):
             "text_comment":self.text_comment,
             "evaluacion": self.evaluacion
         }
-    def get_all_comentarios(id):
+    def get_comentarios(id):
         # comentarios_query = Comentarios.query.all()
         # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
         return list(map(lambda x: x.serialize(), Comentarios.query.all()))
@@ -213,6 +220,7 @@ class Comentarios(db.Model):
         if not comment: return False
         return True
   
+
 class Document(db.Model):
     __tablename__ = 'document'
     id = db.Column(db.Integer, primary_key=True, nullable=False)

@@ -23,40 +23,42 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import swal from "sweetalert";
 import UploadButtons from "../component/uploadBut";
+import { ConnectedFocusError } from "focus-formik-error";
 
 const validationSchema = yup.object().shape({
-	tipo_membresia: yup.string().required("* 1. Tamaño del equipo es obligatorio"),
-	category: yup.string().required("* 2. Categoria del servicio es obligatorio"),
+	tipo_membresia: yup.string().required("* Tamaño del equipo es obligatorio"),
+	category: yup.string().required("* Categoria del servicio es obligatorio"),
 	subcategory: yup
 		.string()
 		.min(3, "Minimo 3 caracteres")
 		.max(50, "Máximo 50 caracteres")
-		.required("* 2. Subcategoria de tu servici es obligatorio"),
-	tipo_cobro: yup.string().required("* 3. Tipo del cobro es obligatorio"),
-	valor: yup.number("Ingresar solamente numero sin , . icon").required("* 3. Valor del servicio es obligatorio"),
+		.required("* Subcategoria de tu servici es obligatorio"),
+	tipo_cobro: yup.string().required("* Tipo del cobro es obligatorio"),
+	valor: yup.number("Ingresar solamente numero sin , . icon").required("* Valor del servicio es obligatorio"),
 	name_servicio: yup
 		.string()
 		.min(3, "Minimo 3 caracteres")
 		.max(50, "Máximo 50 caracteres")
-		.required("* 4. Nombre del servicio es obligatorio"),
+		.required("* Nombre del servicio es obligatorio"),
 	descrip_servicio: yup
 		.string()
 		.max(250, "Máximo 250 caracteres")
-		.required("* 5. Descripción del servicio es obligatorio"),
+		.required("* Descripción del servicio es obligatorio"),
 	duracion: yup.string().max(30, "Máximo 30 caracteres"),
 	revision: yup
 		.string()
 		.max(30, "Máximo 30 caracteres")
-		.required("* 7. Numero de correcciones es obligatorio"),
-	experiencia: yup.string().required("* 10. Experiencia es obligatorio"),
+		.required("* Numero de correcciones es obligatorio"),
+	experiencia: yup.string().required("* Experiencia es obligatorio"),
 	portafolio: yup.string().max(250, "Máximo 250 caracteres"),
-	portafolioFoto: yup.string().required("* 8. Por favor, subir Profil imagen del servicio"),
+	portafolioFoto: yup.string().required("* Por favor, subir Profil imagen del servicio"),
 	merit: yup.string().max(250, "Máximo 250 caracteres")
 });
 
 const RegisterService = props => {
 	const { store, actions } = useContext(Context);
 	const [registrado, setRegistrado] = useState(false);
+	const [error, setError] = useState(false);
 	const [state, setState] = useState({
 		tipo_membresia: null,
 		category: null,
@@ -77,13 +79,13 @@ const RegisterService = props => {
 
 	const userId = JSON.parse(JSON.stringify(store.user.id));
 	const userName = JSON.parse(JSON.stringify(store.user.userName));
-	const email = store.user.user;
+	const email = JSON.parse(JSON.stringify(store.user.user));
 
 	const handleSubmit = values => {
 		let formData = new FormData();
 		formData.append("id_user", userId);
 		formData.append("userName", userName);
-		formData.append("email_oferente", email);
+		formData.append("email", email);
 		formData.append("tipo_membresia", values.tipo_membresia);
 		formData.append("category", values.category);
 		formData.append("subcategory", values.subcategory);
@@ -106,7 +108,10 @@ const RegisterService = props => {
 	const addServicio = form => {
 		fetch(process.env.BACKEND_URL + "/api/servicio-registrados", {
 			method: "POST",
-			body: form
+			body: form,
+			headers: {
+				Authorization: `Bearer ${store.user.token}`
+			}
 		})
 			.then(resp => resp.json())
 			.then(data => {
@@ -115,10 +120,13 @@ const RegisterService = props => {
 					...state,
 					serviceRegistrado: data
 				});
-				sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+				if (data.error === "Missing Authorization Header") {
+					sweetAlert("¡Error!", "Missing Authorization Header", "error");
+				} else {
+					sweetAlert("¡Excelente!", "El servicio ha sido registrado correctamente", "success");
+				}
 			})
 			.catch(error => console.log("Error loading message from backend", error));
-		sweetAlert("¡Error!", "Faltan datos por registrar el servicio", "Error");
 	};
 
 	useEffect(() => {
@@ -128,7 +136,7 @@ const RegisterService = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-gray-shrew-sd06ypbc.ws-us04.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -185,10 +193,11 @@ const RegisterService = props => {
 						}}>
 						{({ values, errors, touched, handleSubmit, handleChange, isSubmitting, setFieldValue }) => (
 							<Form>
+								<ConnectedFocusError />
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											1. Tamaño de tu equipo<span style={{ color: "red" }}>*</span>
+											1. Cuántas personas forman tu equipo?<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -197,7 +206,6 @@ const RegisterService = props => {
 										value={values.tipo_membresia}
 										className={touched.tipo_membresia && errors.tipo_membresia ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.tipo_membresia}
 										style={{
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
@@ -219,7 +227,8 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											2. Categoria de tu servicio<span style={{ color: "red" }}>*</span>
+											2. A qué Categoría pertenece tu servicio? / Adicional, escribe una
+											subcategoría<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -228,7 +237,6 @@ const RegisterService = props => {
 										value={values.category}
 										className={touched.category && errors.category ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.category}
 										style={{
 											backgroundColor: "lightgray",
 											marginBottom: "10px"
@@ -257,7 +265,6 @@ const RegisterService = props => {
 										value={values.subcategory}
 										className={touched.subcategory && errors.subcategory ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.valor}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 									/>
 									<FormText className="text-muted">
@@ -272,7 +279,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											3. Costo del servicio<span style={{ color: "red" }}>*</span>
+											3. ¿Cuánto cuesta tu servicio?<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -281,7 +288,6 @@ const RegisterService = props => {
 										value={values.tipo_cobro}
 										className={touched.tipo_cobro && errors.tipo_cobro ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.tipo_cobro}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 										<option default>
 											Seleccionar si el tipo de cobro es Por hora o Por proyecto
@@ -300,12 +306,11 @@ const RegisterService = props => {
 									<Form.Control
 										as="textarea"
 										type="text"
-										placeholder="Ingresa el valor del servicio"
+										placeholder="Ingresa el valor del servicio, ej: 100000"
 										name="valor"
 										value={values.valor}
 										className={touched.valor && errors.valor ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.valor}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}
 									/>
 									<FormText className="text-muted">
@@ -323,7 +328,8 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											4. Nombre del Servicio<span style={{ color: "red" }}>*</span>
+											4. ¿Qué Nombre identifica tu Servicio?
+											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -335,7 +341,6 @@ const RegisterService = props => {
 										value={values.name_servicio}
 										className={touched.name_servicio && errors.name_servicio ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.name_servicio}
 									/>
 									<FormText className="text-muted">
 										{touched.name_servicio && errors.name_servicio ? (
@@ -348,7 +353,8 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											5. Descripción del servicio<span style={{ color: "red" }}>*</span>
+											5. Describe las características de tu servicio
+											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.Control
@@ -360,7 +366,6 @@ const RegisterService = props => {
 										className={touched.descrip_servicio && errors.descrip_servicio ? "error" : null}
 										value={values.descrip_servicio}
 										onChange={handleChange}
-										//isInvalid={!!errors.descrip_servicio}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.descrip_servicio && errors.descrip_servicio ? (
@@ -372,7 +377,7 @@ const RegisterService = props => {
 
 								<Form.Group>
 									<Form.Label>
-										<h5>6. Plazo estimado (meses) para ejecutar el proyecto</h5>
+										<h5>6. Plazo estimado para ejecutar el proyecto</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
@@ -383,7 +388,6 @@ const RegisterService = props => {
 										value={values.duracion}
 										className={touched.duracion && errors.duracion ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.duracion}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.duracion && errors.duracion ? (
@@ -408,7 +412,6 @@ const RegisterService = props => {
 										value={values.revision}
 										className={touched.revision && errors.revision ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.revision}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.revision && errors.revision ? (
@@ -420,7 +423,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											8. Profile foto de tu servicio <span style={{ color: "red" }}>*</span>
+											8. incluye la imagen de tu servicio <span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
 									<Form.File
@@ -433,9 +436,10 @@ const RegisterService = props => {
 										}}
 									/>
 								</Form.Group>
+								<br />
 								<Form.Group>
 									<Form.Label>
-										<h5>8. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
+										<h5>9. Portafolio que quisieras mostrar a tus potenciales clientes</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
@@ -446,7 +450,6 @@ const RegisterService = props => {
 										value={values.portafolio}
 										className={touched.portafolio && errors.portafolio ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.portafolio}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.portafolio && errors.portafolio ? (
@@ -457,7 +460,7 @@ const RegisterService = props => {
 								<Form.Group>
 									<Form.Label>
 										<h5>
-											9. Años de experiencia en esta área
+											10. ¿Cuántos años de Experiencia tienes realizando este servicio?
 											<span style={{ color: "red" }}>*</span>
 										</h5>
 									</Form.Label>
@@ -467,7 +470,6 @@ const RegisterService = props => {
 										value={values.experiencia}
 										className={touched.experiencia && errors.experiencia ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.experiencia}
 										style={{ backgroundColor: "lightgray", marginBottom: "10px" }}>
 										<option default>Seleccionar rango de años</option>
 										<option>1 año</option>
@@ -487,7 +489,7 @@ const RegisterService = props => {
 								<br />
 								<Form.Group>
 									<Form.Label>
-										<h5>10. Detalla los trabajos que haz realizado</h5>
+										<h5>11. Detalla los trabajos que has realizado</h5>
 									</Form.Label>
 									<Form.Control
 										as="textarea"
@@ -498,7 +500,6 @@ const RegisterService = props => {
 										value={values.merit}
 										className={touched.merit && errors.merit ? "error" : null}
 										onChange={handleChange}
-										//isInvalid={!!errors.merit}
 									/>
 									<FormText className="fs-6 text-muted">
 										{touched.merit && errors.merit ? (
@@ -533,24 +534,23 @@ const RegisterService = props => {
 											variant="primary"
 											size="lg"
 											type="submit"
-											disable={isSubmitting}
 											onClick={handleSubmit}
 											style={{ marginBottom: "40px", marginTop: "40px" }}>
 											<strong>Registra tu servicio</strong>
 										</Button>
 									)}
-									{/* {JSON.stringify(store.user.id)}
-									{JSON.stringify(tipo_membresia)}
-									{JSON.stringify(category)}
-									{JSON.stringify(subcategory)}
-									{JSON.stringify(tipo_cobro)}
-									{JSON.stringify(valor)}
-									{JSON.stringify(name_servicio)}
-									{JSON.stringify(descrip_servicio)}
-									{JSON.stringify(experiencia)}
-									{JSON.stringify(portafolio)}
-									{JSON.stringify(portafolioFoto)}
-									{JSON.stringify(merit)} */}
+									{JSON.stringify(store.user.user)}
+									{/* // {JSON.stringify(tipo_membresia)}
+									// {JSON.stringify(category)}
+									// {JSON.stringify(subcategory)}
+									// {JSON.stringify(tipo_cobro)}
+									// {JSON.stringify(valor)}
+									// {JSON.stringify(name_servicio)}
+									// {JSON.stringify(descrip_servicio)}
+									// {JSON.stringify(experiencia)}
+									// {JSON.stringify(portafolio)}
+									// {JSON.stringify(portafolioFoto)}
+									// {JSON.stringify(merit)} */}
 								</Row>
 							</Form>
 						)}

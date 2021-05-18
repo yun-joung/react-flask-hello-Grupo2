@@ -1,20 +1,29 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Form, Button } from "react-bootstrap";
 import CustomProgressBar from "./CustomProgressBar.jsx";
 import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
 import StarRating from "./StarRating.jsx";
+import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const Promedio = () => {
+export const Promedio = props => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
+	const { id } = useParams;
+
 	const getPromedio = comments => {
 		let total = 0;
-		comments.map(item => (total += item.evaluacion));
+		store.comments.map(item => (total += item.evaluacion));
 
 		return Math.round(total / comments.length);
 	};
+
+	useEffect(() => {
+		actions.listComments(id);
+	}, []);
+
 	// const getTotales = comments => {
 	//  let total1 = 0;
 	//  let total2 = 0;
@@ -56,4 +65,9 @@ export const Promedio = () => {
 			</div>
 		</div>
 	);
+};
+
+Promedio.propTypes = {
+	id: PropTypes.number,
+	match: PropTypes.object
 };

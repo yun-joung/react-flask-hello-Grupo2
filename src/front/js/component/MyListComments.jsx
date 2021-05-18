@@ -1,14 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Form, Button } from "react-bootstrap";
 import CustomProgressBar from "./CustomProgressBar.jsx";
 import ButtomStar from "./ButtomStar.jsx";
 import ButtomStar2 from "./ButtomStar2.jsx";
 import StarRating from "./StarRating.jsx";
+import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 
-export const MyListComments = () => {
+export const MyListComments = props => {
 	const { store, actions } = useContext(Context);
 	const [text_comment, setComment] = useState(null);
+	const { id } = useParams;
+	useEffect(() => {
+		actions.listComments(id);
+	}, []);
 
 	return (
 		<ul>
@@ -32,4 +38,9 @@ export const MyListComments = () => {
 				})}
 		</ul>
 	);
+};
+
+MyListComments.propTypes = {
+	id: PropTypes.number,
+	match: PropTypes.object
 };

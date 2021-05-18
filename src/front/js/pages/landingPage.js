@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
-import { logoBlanco, man } from "../../img/image";
+import { logoBlanco, freelancer } from "../../img/image";
 import { withRouter } from "react-router-dom";
 import { Container, Button, Form, FormControl, Row, Col } from "react-bootstrap";
 import { IconBox } from "../component/IconBox.jsx";
@@ -12,17 +12,14 @@ import { LoginModal, LoginModalA } from "../component/Login";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
+import SearchBar from "../component/searchbar.jsx";
 
 const LandingPage = props => {
 	const { store, actions } = useContext(Context);
 
-	console.log(store.user);
-
 	const { id } = props.match.params;
-	console.log("tipo de token", typeof store.user.token);
 
 	if (store.user.isLogin === true) {
-		console.log("existe un usuario");
 		props.history.push("/home");
 	}
 
@@ -33,7 +30,7 @@ const LandingPage = props => {
 		<div
 			className="background"
 			style={{
-				backgroundImage: `url(https://3000-apricot-egret-pn15p368.ws-us03.gitpod.io/backGround.png)`
+				backgroundImage: `url(https://3000-gray-shrew-sd06ypbc.ws-us04.gitpod.io/backGround.png)`
 			}}>
 			<Container>
 				<div>
@@ -57,23 +54,15 @@ const LandingPage = props => {
 						</Col>
 					</Row>
 					<Row>
-						<Col md={7}>
+						<Col md={6}>
 							<div className="transBox" />
 							<h1 className="text-white mt-3">
 								Contrata en línea
 								<br />a los mejores equipos!
 							</h1>
-							<Form inline className="Buscar sb d-flex float-left" style={{ width: "452px" }}>
-								<Button variant="btn">
-									<i className="fas fa-search" />
-								</Button>
-								<FormControl
-									type="text"
-									placeholder="Buscar"
-									className="mr-sm-2 search"
-									style={{ width: "302px" }}
-								/>
-							</Form>
+							<div>
+								<SearchBar />
+							</div>
 							<Link to="/home">
 								<Button
 									variant="outline-light"
@@ -93,11 +82,11 @@ const LandingPage = props => {
 								</Button>
 							</Link>
 						</Col>
-						<Col md={5} sm={12} className="mt-5">
+						<Col md={6} sm={12} className="mb-2">
 							<img
-								src={man}
-								width="450px"
-								height="400px"
+								src={freelancer}
+								width="100%"
+								height="auto"
 								className="d-inline-block align-top "
 								alt="freelancer"
 							/>
@@ -107,15 +96,14 @@ const LandingPage = props => {
 					<PersonBox title="Profesionales más solicitados" />
 					<ServiceBox />
 					<br />
-
-					<Button variant="primary">Primary</Button>
+					{/* <Button variant="primary">Primary</Button>
 					<Button variant="secondary">Secondary</Button>
 					<Button variant="success">Success</Button>
 					<Button variant="outline-primary">Primary</Button>
 					<Button variant="outline-secondary">Secondary</Button>
 					<Button variant="outline-success">Success</Button>
 					<Button variant="light">Light</Button>
-					<Button variant="outline-light">Light</Button>
+					<Button variant="outline-light">Light</Button> */}
 				</div>
 			</Container>
 			<Footer />

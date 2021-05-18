@@ -10,7 +10,6 @@ import { withRouter, Link } from "react-router-dom";
 const ServiceListUserCompra = props => {
 	const { store, actions } = React.useContext(Context);
 	const item = store.BuyServiceByIdUser;
-	const { id } = JSON.parse(JSON.stringify(store.user.id));
 
 	useEffect(() => {
 		actions.getBuyServiceByIdUser();
@@ -36,20 +35,6 @@ const ServiceListUserCompra = props => {
 						);
 					})
 				)}
-				{/* store.buyServiceByUser.length === 0 ? (
-				<li style={{ listStylePosition: "outside" }}>Tu no tienes servicios comprados</li>) : (
-				{store.buyServiceByIdUser.map(item => {
-					return (
-						<CompraListUser
-							key={item.id_user_compra}
-							name_servicio={item.name_servicio}
-							id={item.id_user_compra}
-							fecha_inicio={props.fecha_inicio}
-							total_valor_servicio={props.total_valor_servicio}
-						/>
-					);
-				})}
-				)} */}
 			</Jumbotron>
 		</>
 	);
@@ -57,10 +42,9 @@ const ServiceListUserCompra = props => {
 
 export default withRouter(ServiceListUserCompra);
 
-ServiceListUserCompra.propTypes = {
-	id: PropTypes.number,
-	index: PropTypes.number,
-	name_servicio: PropTypes.string,
-	fecha_inicio: PropTypes.date,
-	total_valor_servicio: PropTypes.number
-};
+// ServiceListUserCompra.propTypes = {
+// 	index: PropTypes.number,
+// 	name_servicio: PropTypes.string,
+// 	fecha_inicio: PropTypes.date,
+// 	total_valor_servicio: PropTypes.number
+// };

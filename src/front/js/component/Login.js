@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { NavDropdown, Dropdown, Row } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
@@ -105,6 +105,7 @@ function MyVerticallyCenteredModal(props) {
 
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
+	const history = useHistory();
 	const { store, actions } = useContext(Context);
 	const [width, setWidth] = React.useState(window.innerWidth);
 
@@ -125,16 +126,16 @@ export function LoginModal(props) {
 						<NavDropdown.Item as={Link} to="/MiDato">
 							Mis datos
 						</NavDropdown.Item>
-						<NavDropdown.Item as={Link} to="#action/3.2">
-							Compra
+						<NavDropdown.Item as={Link} to="/MiCompra">
+							Mis Compras
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to="/registerservice">
-							Vender
+							Registrar servicio
 						</NavDropdown.Item>
 						<NavDropdown.Divider />
 						<NavDropdown.Item
 							onClick={() => {
-								actions.cerrarSesion();
+								actions.cerrarSesion(history);
 								actions.getToken();
 								setModalShow(false);
 							}}>
