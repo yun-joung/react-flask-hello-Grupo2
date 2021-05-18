@@ -4,9 +4,8 @@ import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Row, Col, Jumbotron, Button } from "react-bootstrap";
 import { personB } from "../../img/image.js";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 
 const Individuallnfo = props => {
 	const { store, actions } = useContext(Context);
@@ -95,7 +94,7 @@ export default withRouter(Individuallnfo);
 
 Individuallnfo.propTypes = {
 	name_servicio: PropTypes.string,
-	valor: PropTypes.number,
+	valor: PropTypes.any,
 	tipo_cobro: PropTypes.string,
 	subcategory: PropTypes.string,
 	duracion: PropTypes.string,

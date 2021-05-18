@@ -10,21 +10,21 @@ const Portafolio = props => {
 		setIndex(selectedIndex);
 	};
 	return (
-		<Carousel activeIndex={index} onSelect={handleSelect} className="mb-3">
+		<Carousel activeIndex={index} onSelect={handleSelect} className="mb-3 ">
 			<Carousel.Item>
-				<img className="d-block w-100" src={props.img} alt="First slide" />
+				<img className="d-block w-100 PorfolioCarucel" src={props.img} alt="First slide" />
 				<Carousel.Caption>
 					<p />
 				</Carousel.Caption>
 			</Carousel.Item>
 			<Carousel.Item>
-				<img className="d-block w-100" src={serviceMarketing} alt="Second slide" />
+				<img className="d-block w-100 PorfolioCarucel" src={serviceMarketing} alt="Second slide" />
 				<Carousel.Caption>
 					<p />
 				</Carousel.Caption>
 			</Carousel.Item>
 			<Carousel.Item>
-				<img className="d-block w-100" src={serviceIt} alt="Third slide" />
+				<img className="d-block w-100 PorfolioCarucel" src={serviceIt} alt="Third slide" />
 				<Carousel.Caption>
 					<p />
 				</Carousel.Caption>

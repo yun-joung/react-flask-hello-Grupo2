@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import swal from "sweetalert";
+import { Footer } from "../component/footer";
 
 const Register = props => {
 	const { store, actions } = useContext(Context);
@@ -74,9 +75,9 @@ const Register = props => {
 				handleSubmit
 			}) => (
 				<div
-					className="background"
+					className="backgrounds"
 					style={{
-						backgroundImage: `url(https://3000-gray-shrew-sd06ypbc.ws-us04.gitpod.io/backGround.png)`
+						backgroundImage: `url(${store.url}/backGrounds.png)`
 					}}>
 					<Container>
 						<div>
@@ -221,7 +222,10 @@ const Register = props => {
 								{/* )} */}
 							</Jumbotron>
 						</div>
+						<div className="transBox" />
+						<div className="transBox" />
 					</Container>
+					<Footer />
 				</div>
 			)}
 		</Formik>

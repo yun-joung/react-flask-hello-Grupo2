@@ -3,7 +3,7 @@ import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			url: "https://3000-lavender-snail-4xztmo5b.ws-us04.gitpod.io/",
+			url: "https://3000-blue-takin-k5zwa1as.ws-us04.gitpod.io/",
 
 			login_data: {
 				userLogin: "",
@@ -24,7 +24,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			serviceRegistrado: {
 				id_user: "",
 				userName: "",
+				email_oferente: "",
 				tipo_membresia: "",
+				rut: "",
+				tipo_tamano: "",
+				experiencia: "",
+				photo: "",
 				category: "",
 				subcategory: "",
 				tipo_cobro: "",
@@ -33,12 +38,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				descrip_servicio: "",
 				duracion: "",
 				revision: "",
-				proceso: "",
-				experiencia: "",
 				portafolio: "",
-				portafolioFoto: "",
-				merit: "",
-				email_oferente: ""
+				portafolioFoto: ""
 			},
 			userAll: [],
 			favorito: {
@@ -115,6 +116,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log(error));
 			},
 
+			handleChangeService: e => {
+				const { serviceRegistrado } = getStore();
+				serviceRegistrado[e.target.name] = e.target.value;
+				setStore({ serviceRegistrado: serviceRegistrado });
+			},
+			handleChangeServicefile: e => {
+				const { serviceRegistrado } = getStore();
+				serviceRegistrado[e.target.name] = event.target.files[0];
+				setStore({ serviceRegistrado: serviceRegistrado });
+			},
+
 			handleUpdateServicio: evento => {
 				const store = getStore();
 				let { serviceRegistrado } = store;
@@ -181,7 +193,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/servicio-registrados/" + id, {
 						method: "GET",
-						headers: { "Content-Type": "application/json" }
+						headers: {
+							"Content-Type": "application/json"
+						}
 					});
 					const json = await response.json();
 					console.log("--serviceRegistradoID--", json);
