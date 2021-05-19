@@ -196,6 +196,10 @@ const Servicioindividual = props => {
 							</div>
 						</div>
 					</Col>
+					{/* <Col md={5} style={{ marginLeft: "35px" }}>
+                        <CustomProgressBar comments={store.comments} />
+                        
+					</Col> */}
 				</Row>
 
 				<Row>

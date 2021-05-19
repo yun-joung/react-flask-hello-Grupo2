@@ -28,7 +28,8 @@ const ServiceListUserCompra = props => {
 							<CompraListUser
 								key={item.id_user_compra}
 								name_servicio={item.name_servicio}
-								id={item.id_user_compra}
+								id={item.id}
+								idservicio={item.id_servicio_registrados}
 								fecha_inicio={item.fecha_inicio}
 								total_valor_servicio={item.total_valor_servicio}
 							/>
