@@ -47,6 +47,6 @@ It is recomended to install the backend first, make sure you have Python 3.8, Pi
 6. Finish the configuration of PostgreSQL: `\q`
 7. Start Backend: `pipenv run init`
 8. Migrate the migrations: `$ pipenv run migrate` 
-(if you cannot migrate the backend, you have to delete 'migrations' folder, and try it again from `pipenv run init`)
+(if you can not migrate the backend, you have to delete 'migrations' folder, and try it again from `pipenv run init`)
 10. Run the migrations: `$ pipenv run upgrade`
-11. Run the application: `$ pipenv run start
+11. Run the application: `$ pipenv run start`
