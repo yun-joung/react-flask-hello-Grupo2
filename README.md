@@ -24,12 +24,17 @@ https://github.com/yun-joung/react-flask-hello-Grupo2
 - Change the config of .env 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 DATABASE_URL=postgresql://srjlpwauyjujxc:204984f7b2523e259d4b41c6e2bc72ea4b3dc541918139f4928f94eeaf41edda@ec2-54-224-194-214.compute-1.amazonaws.com:5432/d5d1kqs05p69fv
+
 FLASK_APP_KEY="any key works"
+
 FLASK_APP=src/app.py
+
 FLASK_ENV=development
+
 UPLOAD_FOLDER = "src/static"
 
 BASENAME=/
+
 BACKEND_URL=https://proyecto-final-cotec2.herokuapp.com/
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 - Deply at HeroKu: `$ git push heroku main`
