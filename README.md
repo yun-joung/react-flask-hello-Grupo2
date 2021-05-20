@@ -2,9 +2,7 @@
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/4GeeksAcademy/react-flask-hello.git)
 
 
-### Demo
-https://github.com/yun-joung/react-flask-hello-Grupo2
-
+### Demo Video
 [![Video Label](src/youtube.png)](https://youtu.be/lkcHM-1ZOJA)
 
 
