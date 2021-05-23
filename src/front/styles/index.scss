@@ -115,6 +115,9 @@ path {
 
 .caimg{
   position: relative;
+  width:100%;
+  height: 170px;
+  object-fit: cover;
 }
 .favorito{
   position: absolute; 
@@ -275,11 +278,6 @@ z-index: 1000;
 .cardPerson:hover {
   transform: scale(1.03);
   box-shadow: 0 13px 30px -5px hsla(240, 30.1%, 28%, 0.12), 0 8px 32px -8px hsla(0, 0%, 0%, 0.14), 0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
-}
-.cardProduct{
-  width: 100%;
-  height: 35vh;
-  object-fit: cover
 }
 
 .cardProduct:hover {

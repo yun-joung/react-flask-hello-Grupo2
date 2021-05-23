@@ -40,7 +40,7 @@ const Individuallnfo = props => {
 				<Row className="d-inline-block d-flex">
 					<Col sm={8} style={{ width: "180px" }}>
 						<span className="d-flex">
-							<h2>${props.valor}</h2>
+							<h2>{props.valor}</h2>
 							<p className="mt-2">/{props.tipo_cobro}</p>
 						</span>
 					</Col>

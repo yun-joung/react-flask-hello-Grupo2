@@ -156,15 +156,10 @@ const Confirm = ({ handleBack, handleReset }) => {
 								className=" mr-2 my-5">
 								<strong>Volver a home</strong>
 							</Button>
-							<Button
-								variant="primary"
-								size="lg"
-								type="submit"
-								onClick={handleReset}
-								className=" mr-2 my-5">
-								<strong>Registra otro servicio</strong>
-							</Button>
 						</Link>
+						<Button variant="primary" size="lg" type="submit" onClick={handleReset} className=" mr-2 my-5">
+							<strong>Registra otro servicio</strong>
+						</Button>
 					</>
 				) : (
 					<>

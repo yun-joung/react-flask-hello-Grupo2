@@ -84,7 +84,7 @@ const EquipoForm = ({ handleNext }) => {
 				<Form.Group>
 					<Form.Label>
 						<h5 className="pBold">
-							3. ¿Cuántas personas forman tu equipo?<span style={{ color: "red" }}>*</span>
+							3. ¿Cuántas personas tienes en tu equipo?<span style={{ color: "red" }}>*</span>
 						</h5>
 					</Form.Label>
 					<Form.Control
