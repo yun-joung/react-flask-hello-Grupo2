@@ -97,16 +97,16 @@ const Confirm = ({ handleBack, handleReset }) => {
 						<b>1. Tipo de tu equipo:</b> {store.serviceRegistrado.tipo_membresia}
 					</ListGroup.Item>
 					<ListGroup.Item>
-						<b>2. Rut:</b> {store.serviceRegistrado.experiencia}
+						<b>2. Rut:</b> {store.serviceRegistrado.rut}
 					</ListGroup.Item>
 					<ListGroup.Item>
-						<b>3. Tamaño de tu equipo:</b> {store.serviceRegistrado.tipo_membresia}
+						<b>3. Tamaño de tu equipo:</b> {store.serviceRegistrado.tipo_tamano}
 					</ListGroup.Item>
 					<ListGroup.Item>
 						<b>4. Años de experiencia:</b> {store.serviceRegistrado.experiencia}
 					</ListGroup.Item>
 					<ListGroup.Item>
-						<b>5. Profile Foto:</b>
+						<b>5. Profile Foto:</b> obligatorio
 					</ListGroup.Item>
 				</ListGroup>
 			</Row>
@@ -121,7 +121,7 @@ const Confirm = ({ handleBack, handleReset }) => {
 						<b>1-2. Subategoria de tu servicio:</b> {store.serviceRegistrado.subcategory}
 					</ListGroup.Item>
 					<ListGroup.Item>
-						<b>2. Costo del servicio:</b> {store.serviceRegistrado.valor}/ por
+						<b>2. Costo del servicio:</b> {store.serviceRegistrado.valor}/ por &nbsp;
 						{store.serviceRegistrado.tipo_cobro}
 					</ListGroup.Item>
 					<ListGroup.Item>
@@ -137,10 +137,10 @@ const Confirm = ({ handleBack, handleReset }) => {
 						<b>6. Numero de correcciones permitida:</b> {store.serviceRegistrado.revision}
 					</ListGroup.Item>
 					<ListGroup.Item>
-						<b>7. Profile foto de servicio:</b> {store.serviceRegistrado.portafolio}
+						<b>7. Portafolio:</b> {store.serviceRegistrado.portafolio}
 					</ListGroup.Item>
 					<ListGroup.Item>
-						<b>8. Portafolio:</b>
+						<b>8. Profile foto de servicio</b> obligatorio
 					</ListGroup.Item>
 				</ListGroup>
 			</Row>

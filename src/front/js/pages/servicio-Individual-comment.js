@@ -23,7 +23,7 @@ const ServicioindividualComments = props => {
 	const { total1, total2, total3, total4, total5 } = actions.getTotales(store.comments);
 	const item = store.serviceRegistrado;
 	console.log(item);
-	const { id, idservicio } = props.match.params;
+	const { idservicio } = props.match.params;
 
 	useEffect(() => {
 		actions.listComments(idservicio);
@@ -95,7 +95,7 @@ const ServicioindividualComments = props => {
 											variant="outline-primary"
 											onClick={() => {
 												actions.addComment({
-													id_servicios_prestados: id,
+													id_servicios_prestados: idservicio,
 													id_servicio_registrados: item.id,
 													text_comment: text_comment,
 													evaluacion: assessment

@@ -3,7 +3,7 @@ import emailjs from "emailjs-com";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			url: "https://3000-blue-takin-k5zwa1as.ws-us04.gitpod.io/",
+			url: "https://3000-aqua-mosquito-0654g9sw.ws-us07.gitpod.io/",
 
 			login_data: {
 				userLogin: "",
@@ -48,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				name_servicio: ""
 			},
 			comments: {
-				id: "",
+				id_user_compra: "",
 				id_servicios_prestados: "",
 				id_servicio_registrados: "",
 				text_comment: "",
@@ -62,6 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			serviceInfoById: {},
 			CompraByService: [],
 			comment: {
+				id_user_compra: "1",
 				id_servicios_prestados: "",
 				id_servicio_registrados: "",
 				text_comment: "",
@@ -85,20 +86,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error);
 				}
 			},
-
-			// getUserInfoById: async id => {
-			// 	try {
-			// 		const response = await fetch("https://3001-emerald-booby-ixturige.ws-us03.gitpod.io/api/user/1", {
-			// 			method: "GET",
-			// 			headers: { "Content-Type": "application/json" }
-			// 		});
-			// 		const json = await response.json();
-			// 		console.log("--User--", json);
-			// 		setStore({ user: JSON.stringify(json) });
-			// 	} catch (error) {
-			// 		console.log("Error loading message from backend", error);
-			// 	}
-			// },
 
 			uploadfile: async () => {
 				let FormDate = new FormDate();
@@ -338,38 +325,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("-->", JSON.stringify(userLocal));
 			},
 
-			addComment: async ({
-				comments,
-				text_comment,
-				evaluacion,
-				id_servicios_prestados,
-				id_servicio_registrados
-			}) => {
+			addComment: async comment => {
+				const store = getStore();
+				setStore({ comments: [...store.comments, comment] });
 				try {
-					console.log(id_servicio_registrados);
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
-							Authorization: `Bearer ${getStore().user.token}`
+							Authorization: `Bearer ${store.user.token}`
 						},
-						body: JSON.stringify({
-							id_user_compra: getStore().user.id,
-							id_servicios_prestados: id_servicios_prestados,
-							id_servicio_registrados: id_servicio_registrados,
-							text_comment: text_comment,
-							evaluacion: evaluacion
-						})
+						body: JSON.stringify(comment)
 					});
 					const json = await response.json();
 					console.log(json);
-					console.log({ text_comment, evaluacion, id_servicios_prestados, id_servicio_registrados });
 					// setStore({ comments: JSON.stringify(json) });
-					getActions().listComments(id_servicio_registrados);
+					getActions().listComments();
 				} catch (error) {
 					console.log(error);
 				}
 			},
+
 			listComments: async id => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/comentarios/" + id, {
