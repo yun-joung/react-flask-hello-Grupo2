@@ -11,13 +11,15 @@
 - Full responsive application
 
 
+
 ### Front-End Manual Installation:
 - Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
 1. Install the packages: `$ npm install`
 2. Start coding! start the webpack dev server `$ npm run start`
 
 
-### Back-End Manual Installation (in the case of using boilerplate, need to use Gitpod):
+
+### Back-End Manual Installation (need to use Gitpod):
 It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
 1. Install the python packages: `$ pipenv install`
 2. Install psycopg2: `pipenv install psycopg2`
