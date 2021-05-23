@@ -12,7 +12,6 @@ class User(db.Model):
     photo = db.Column(db.String(100))
     servicio_registrados = db.relationship('Servicio_registrados', backref='user',lazy=True)
     servicios_prestados = db.relationship('Servicios_prestados', backref='user',lazy=True)
-    comentarios = db.relationship('Comentarios', backref='user',lazy=True)
     def __repr__(self):
         return "<User %r>" % self.id
     def serialize(self):
@@ -38,6 +37,19 @@ class User(db.Model):
         user_to_update.email = _email if _email is not None else user_to_update.email
         user_to_update.password = _password if _password is not None else user_to_update.password
         db.session.commit()
+
+# servicio_registrados = Servicio_registrados()
+# 
+#     servicio_registrados.category = category,
+#     servicio_registrados.subcategory = subcategory,
+#     servicio_registrados.tipo_cobro = tipo_cobro,
+#     servicio_registrados.valor = valor,
+#     servicio_registrados.name_servicio = name_servicio,
+#     servicio_registrados.descrip_servicio = descrip_servicio,
+#     servicio_registrados.duracion = duracion,
+#     servicio_registrados.revision = revision,
+#     servicio_registrados.portafolio = portafolio,
+#     servicio_registrados.portafolioFoto = portafolioFoto
 
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
@@ -191,12 +203,10 @@ class Favoritos(db.Model):
         delete=Favoritos.query.filter_by(id=id).first()
         db.session.delete(delete)
         db.session.commit()
-  
 
 class Comentarios(db.Model):
     __tablename__ = 'comentarios'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    id_user_compra=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     id_servicios_prestados = db.Column(db.Integer, db.ForeignKey('servicios_prestados.id'), nullable=False)
     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
     text_comment = db.Column(db.String(250), nullable=True)
@@ -206,7 +216,6 @@ class Comentarios(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "id_user_compra": self.user.id,
             "id_servicios_prestados": self.servicios_prestados.id,
             "id_servicio_registrados": self.servicio_registrados.id,
             "text_comment":self.text_comment,
@@ -221,7 +230,6 @@ class Comentarios(db.Model):
         comment=Comentarios.query.filter_by(id_user_compra=id_user, id_servicios_prestados=id_servicios_prestados, id_servicio_registrados=id_servicio_registrados)
         if not comment: return False
         return True
-  
 
 class Document(db.Model):
     __tablename__ = 'document'
