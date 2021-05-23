@@ -37,27 +37,41 @@ class User(db.Model):
         user_to_update.email = _email if _email is not None else user_to_update.email
         user_to_update.password = _password if _password is not None else user_to_update.password
         db.session.commit()
-        
+
+# servicio_registrados = Servicio_registrados()
+# 
+#     servicio_registrados.category = category,
+#     servicio_registrados.subcategory = subcategory,
+#     servicio_registrados.tipo_cobro = tipo_cobro,
+#     servicio_registrados.valor = valor,
+#     servicio_registrados.name_servicio = name_servicio,
+#     servicio_registrados.descrip_servicio = descrip_servicio,
+#     servicio_registrados.duracion = duracion,
+#     servicio_registrados.revision = revision,
+#     servicio_registrados.portafolio = portafolio,
+#     servicio_registrados.portafolioFoto = portafolioFoto
+
 class Servicio_registrados(db.Model):
     __tablename__ = 'servicio_registrados'
     id = db.Column(db.Integer, primary_key=True)
     id_user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     userName = db.Column(db.String(50))
+    email_oferente = db.Column(db.String(100))
     tipo_membresia = db.Column(db.String(50), nullable=False)
+    rut = db.Column(db.String(50))
+    tipo_tamano = db.Column(db.String(50), nullable=False)
+    photo = db.Column(db.String(100))
+    experiencia = db.Column(db.String(50), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     subcategory = db.Column(db.String(50), nullable=False)
     tipo_cobro = db.Column(db.String(50), nullable=False)
-    valor = db.Column(db.Integer, nullable=False)
+    valor = db.Column(db.String(50), nullable=False)
     name_servicio = db.Column(db.String(50), nullable=False)
     descrip_servicio = db.Column(db.String(250), nullable=False)
     duracion = db.Column(db.String(30))
     revision = db.Column(db.String(30), nullable=False)
-    proceso = db.Column(db.String(250))
-    experiencia = db.Column(db.String(50), nullable=False)
     portafolio = db.Column(db.String(250), nullable=True)
     portafolioFoto = db.Column(db.String(100), nullable=True)
-    merit = db.Column(db.String(250))
-    email_oferente = db.Column(db.String(100))
     servicios_prestados = db.relationship('Servicios_prestados', backref='servicio_registrados',lazy=True)
     favoritos = db.relationship('Favoritos', backref='servicio_registrados',lazy=True)
     comentarios = db.relationship('Comentarios', backref='servicio_registrados',lazy=True)
@@ -69,7 +83,12 @@ class Servicio_registrados(db.Model):
             "id": self.id,
             "id_user": self.user.id,
             "userName": self.userName,
+            "email_oferente":self.email_oferente,
             "tipo_membresia": self.tipo_membresia,
+            "rut":self.rut,
+            "tipo_tamano":self.tipo_tamano,
+            "experiencia": self.experiencia,
+            "photo":self.photo,
             "category": self.category,
             "subcategory": self.subcategory,
             "tipo_cobro": self.tipo_cobro,
@@ -78,15 +97,11 @@ class Servicio_registrados(db.Model):
             "descrip_servicio": self.descrip_servicio,
             "duracion":self.duracion,
             "revision":self.revision,
-            "proceso":self.proceso,
-            "experiencia": self.experiencia,
             "portafolio": self.portafolio,
             "portafolioFoto": self.portafolioFoto,
-            "merit":self.merit,
-            "email_oferente":self.email_oferente
         }
-    def add_servicio(_id_user, userName, tipo_membresia, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision, proceso, experiencia, portafolio, portafolioFoto, merit, email_oferente ):
-        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, tipo_membresia=tipo_membresia, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, proceso= proceso, experiencia= experiencia, portafolio=portafolio, portafolioFoto=portafolioFoto, merit=merit, email_oferente=email_oferente)
+    def add_servicio(_id_user, userName, email_oferente, tipo_membresia, rut, tipo_tamano, experiencia, photo, category, subcategory, tipo_cobro, valor, name_servicio, descrip_servicio, duracion, revision,  portafolio, portafolioFoto):
+        new_servicio = Servicio_registrados(id_user=_id_user, userName=userName, email_oferente=email_oferente, tipo_membresia=tipo_membresia, rut=rut, tipo_tamano=tipo_tamano, experiencia= experiencia, photo=photo, category=category, subcategory=subcategory, tipo_cobro=tipo_cobro, valor=valor, name_servicio=name_servicio, descrip_servicio=descrip_servicio, duracion=duracion, revision=revision, portafolio=portafolio, portafolioFoto=portafolioFoto)
         db.session.add(new_servicio)
         db.session.commit()
     def get_servicio(_id):
@@ -130,7 +145,7 @@ class Servicios_prestados(db.Model):
     id_user_compra = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     id_servicio_registrados = db.Column(db.Integer, db.ForeignKey('servicio_registrados.id'), nullable=False)
     cantidad_servicio = db.Column(db.Integer,nullable=False)
-    total_valor_servicio = db.Column(db.Integer,nullable=False)
+    total_valor_servicio = db.Column(db.String(50),nullable=False)
     name_servicio = db.Column(db.String(50))
     fecha_inicio = db.Column(db.DateTime)
     fecha_termino = db.Column(db.DateTime)
@@ -209,9 +224,12 @@ class Comentarios(db.Model):
     def get_comentarios(id):
         # comentarios_query = Comentarios.query.all()
         # comentarios_query = Comentarios.query.filter_by(id=_id_servicios_prestados).all()
-        ComentarioByService = Comentarios.query.filter_by(id_servicio_registrados=id).all()
-        return list(map(lambda x: x.serialize(), ComentarioByService))
-  
+        return list(map(lambda x: x.serialize(), Comentarios.query.all()))
+
+    def get_comentario_servicioprestado(id_user, id_servicios_prestados, id_servicio_registrados):
+        comment=Comentarios.query.filter_by(id_user_compra=id_user, id_servicios_prestados=id_servicios_prestados, id_servicio_registrados=id_servicio_registrados)
+        if not comment: return False
+        return True
 
 class Document(db.Model):
     __tablename__ = 'document'

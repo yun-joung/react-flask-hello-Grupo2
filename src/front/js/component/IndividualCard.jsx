@@ -1,34 +1,58 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import "../../styles/index.scss";
 import { Button, Card, Nav, Col, Media, Navbar } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { personB } from "../../img/image";
+import { Link, withRouter, useParams } from "react-router-dom";
 
-export const IndividualCard = props => {
+const IndividualCard = props => {
+	const { store, actions } = useContext(Context);
+	const item = store.serviceRegistrado;
+	const { id } = useParams();
+	const handleBuy = e => {
+		e.preventDefault();
+		const usuario = JSON.parse(JSON.stringify(store.user.id));
+		actions.buyService({
+			id_user_compra: usuario,
+			id_servicio_registrados: id,
+			cantidad_servicio: 1,
+			total_valor_servicio: item.valor,
+			name_servicio: item.name_servicio,
+			email: item.email
+		});
+	};
+	useEffect(() => {
+		actions.getServiceInfoById(id);
+	}, []);
+
 	return (
 		<>
-			<Card>
-				<Card.Header>
-					<Navbar sticky="top">
-						<Nav variant="tabs" defaultActiveKey="#first" sticky="top" className="sticky-top">
-							<Nav.Item>
-								<Nav.Link href="#First">Servicio</Nav.Link>
-							</Nav.Item>
-							<Nav.Item>
-								<Nav.Link href="#Second">Sobre el vendedor</Nav.Link>
-							</Nav.Item>
-							<Nav.Item>
-								<Nav.Link href="#Theird">Comentario</Nav.Link>
-							</Nav.Item>
-						</Nav>
-					</Navbar>
-				</Card.Header>
+			<Navbar sticky="top" style={{ padding: "0" }} className="w-100 NabTab ">
+				<Nav fill variant="tabs" defaultActiveKey="#first" sticky="top" style={{ flexBasis: "none" }}>
+					<Nav.Item>
+						<Nav.Link href="#First" className="px-5">
+							<b>Servicio</b>
+						</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link href="#Second" className="px-5">
+							<b>Sobre el vendedor</b>
+						</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link href="#Theird" className="px-5">
+							<b>Comentario</b>
+						</Nav.Link>
+					</Nav.Item>
+				</Nav>
+			</Navbar>
+			<Card id="First">
+				{/* <Card.Header>
+				</Card.Header> */}
 				<Card.Body>
-					<Card.Title className="mt-4" id="First">
-						Nuestro servicio
-					</Card.Title>{" "}
+					<Card.Title className="mt-4">Nuestro servicio</Card.Title>{" "}
 					<Card.Text>{props.descrip_servicio}</Card.Text>
 					{/* <Card.Title className="mt-4">Proceso de trabajo</Card.Title>
 					<Card.Text>
@@ -39,11 +63,8 @@ export const IndividualCard = props => {
 					<Card.Title className="mt-4">Portafolio</Card.Title>
 					<Card.Text>{props.portafolio}</Card.Text>
 					<Card.Title className="mt-4">¿Por qué deberías contratarme?</Card.Title>
-					<Card.Text>{props.merit}</Card.Text>
-					<Card.Title className="mt-4" id="Second">
-						{" "}
-						Sobre el vendedor
-					</Card.Title>
+					<Card.Text id="Second">{props.merit}</Card.Text>
+					<Card.Title className="mt-4"> Sobre el vendedor</Card.Title>
 					<Media className="border p-2 bg-light rounded mb-3">
 						<img
 							src={personB}
@@ -67,14 +88,37 @@ export const IndividualCard = props => {
 							</p>
 						</Media.Body>
 					</Media>
-					<Button variant="outline-primary" size="lg" block>
-						Comprar el servicio
-					</Button>
+					{store.user.isLogin ? (
+						<Link to="/compra">
+							<Button
+								variant="outline-primary"
+								size="lg"
+								onClick={e => {
+									handleBuy(e);
+								}}
+								block>
+								Comprar el servicio
+							</Button>
+						</Link>
+					) : (
+						<Link to="/register">
+							<Button
+								variant="outline-primary"
+								size="lg"
+								onClick={e => {
+									handleBuy(e);
+								}}
+								block>
+								Comprar el servicio
+							</Button>
+						</Link>
+					)}
 				</Card.Body>
 			</Card>
 		</>
 	);
 };
+export default withRouter(IndividualCard);
 
 IndividualCard.propTypes = {
 	descrip_servicio: PropTypes.string,
@@ -83,5 +127,7 @@ IndividualCard.propTypes = {
 	userName: PropTypes.string,
 	experiencia: PropTypes.string,
 	tipo_membresia: PropTypes.string,
-	evaluacion: PropTypes.string
+	evaluacion: PropTypes.string,
+	history: PropTypes.object,
+	id: PropTypes.number
 };

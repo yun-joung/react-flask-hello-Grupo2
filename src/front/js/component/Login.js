@@ -2,10 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { NavDropdown, Dropdown, Row } from "react-bootstrap";
-import { GoogleLogin } from "react-google-login";
 import PropTypes from "prop-types";
 // import useUserSession from "./userSession";
 
@@ -52,7 +51,6 @@ function MyVerticallyCenteredModal(props) {
 				) : (
 					<Form style={{ paddingRight: "30px", paddingLeft: "20px", marginTop: "50px" }}>
 						<Form.Group controlId="formBasicEmail">
-							{/* <Form.Label>Email address</Form.Label> */}
 							<Form.Control
 								type="email"
 								placeholder="Ingresa tu correo electrónico"
@@ -60,7 +58,6 @@ function MyVerticallyCenteredModal(props) {
 							/>
 						</Form.Group>
 						<Form.Group controlId="formBasicPassword">
-							{/* <Form.Label>Password</Form.Label> */}
 							<Form.Control
 								type="password"
 								placeholder="Ingresa tu contraseña"
@@ -86,16 +83,6 @@ function MyVerticallyCenteredModal(props) {
 								<p> Recuperala aquí </p>
 							</Link>
 						</Form.Text>
-
-						{/* <hr/>
-
-                        <GoogleLogin
-                        clientId=""
-                        buttonText="Login"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    /> */}
 					</Form>
 				)}
 			</Modal.Body>
@@ -105,6 +92,7 @@ function MyVerticallyCenteredModal(props) {
 
 export function LoginModal(props) {
 	const [modalShow, setModalShow] = React.useState(false);
+	const history = useHistory();
 	const { store, actions } = useContext(Context);
 	const [width, setWidth] = React.useState(window.innerWidth);
 
@@ -134,7 +122,7 @@ export function LoginModal(props) {
 						<NavDropdown.Divider />
 						<NavDropdown.Item
 							onClick={() => {
-								actions.cerrarSesion();
+								actions.cerrarSesion(history);
 								actions.getToken();
 								setModalShow(false);
 							}}>
@@ -146,7 +134,7 @@ export function LoginModal(props) {
 							{JSON.stringify(store.favoritos.id)}
 						</NavDropdown.Item> */}
 						{store.favoritos.length === 0 ? (
-							<NavDropdown.Item style={{ width: "250px" }}> No hay favorito</NavDropdown.Item>
+							<NavDropdown.Item style={{ width: "300px" }}> No hay favorito</NavDropdown.Item>
 						) : (
 							" "
 						)}
@@ -155,8 +143,9 @@ export function LoginModal(props) {
 								<NavDropdown.Item
 									as={Link}
 									to={"/servicio/category/" + item.id_servicio_registrados}
-									style={{ width: "250px" }}
-									key={index}>
+									style={{ width: "300px" }}
+									key={index}
+									className="textOverFlowS">
 									{item.name_servicio}
 									<Button
 										variant="light"

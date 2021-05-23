@@ -16,8 +16,8 @@ const ButtomStar = props => {
 	);
 };
 ButtomStar.propTypes = {
-	assessment: PropTypes.integer,
-	onClick: PropTypes.function,
+	assessment: PropTypes.any,
+	onClick: PropTypes.any,
 	value: PropTypes.string
 };
 export default ButtomStar;

@@ -39,7 +39,7 @@ def login():
         return jsonify({"msg":"Email required"}), 400
 
     if not password:
-        return jsonify({"msg":"Password required"}), 400\
+        return jsonify({"msg":"Password required"}), 400
 
     #email check
     user = User.query.filter_by(email=email).first()
@@ -48,12 +48,11 @@ def login():
         "status": 401
         }), 401
 
-    #password check
-    user = User.query.filter_by(password=password).first()
-    if not user:
-        return jsonify({"msg": "The password is not correct",
-        "status": 401
-        }), 401
+    # #password check
+    # if not check_password_hash(user.password, password):
+    #     return jsonify({"msg": "The password is not correct",
+    #     "status": 401
+    #     }), 401
 
     expiracion = datetime.timedelta(days=3)
     access_token = create_access_token(identity=user.email, expires_delta=expiracion)
@@ -62,14 +61,38 @@ def login():
         "user": user.serialize(),
         "token": access_token,
         "expires": expiracion.total_seconds()*1000,
-        # "id": user.id,
-        # "email": user.email,
-        # "tipo_user": user.tipo_user,
-        # "photo": user.photo,
-        # "userName": user.userName
+        "id": user.id,
+        "email": user.email,
+        "tipo_user": user.tipo_user,
+        "userName": user.userName
         }
 
     return jsonify(data), 200
+
+@api.route('/admin-login', methods=['POST'])
+def adminLogin():
+    
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if not email:
+        return jsonify({"msg":"Email required"}), 400
+
+    if not password:
+        return jsonify({"msg":"Password required"}), 400
+
+    if email == 'admin@cotec.cl' and password == 'Cotec1234':
+        expiracion = datetime.timedelta(days=3)
+        token = create_access_token(identity=email, expires_delta=expiracion)
+        data = {
+            "access_token" : token,
+            "user": {
+                "email": email
+            }
+        }
+        return jsonify(data), 200
+    else: 
+        return jsonify({ "msg" : "admin ruta"}), 401
 
 @api.route('/register', methods=['POST'])
 def register():
@@ -78,43 +101,41 @@ def register():
     password = request.json.get("password", None)
     tipo_user = request.json.get("tipo_user", None)
     userName = request.json.get("userName", None)
-    #photo = request.files['photo']
 
     email_query = User.query.filter_by(email=email).first()
     if email_query:
-        return ({"status_code":401,
-            "msg":"Este correo electrónico ya ha sido registrado"}), 401
-    # if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
-    #     photo_filename = secure_filename(photo.filename)
-    #     photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
-    # else:
-    #     return jsonify({"msg":"Extension not allowed"}), 400
+        return ({"msg":"Este correo electrónico ya ha sido registrado"}), 401
+    userName_query = User.query.filter_by(userName=userName).first()
+    if userName_query:
+        return ({"msg":"Este userName ya ha sido registrado"}), 401
+
 
     user = User()
     user.email = email
-    user.password = password
+    user.password = generate_password_hash(password)
     user.tipo_user = tipo_user
     user.userName = userName
     #user.photo = photo_filename
     print(user)
     db.session.add(user)
     db.session.commit()
+    if user:
+        expiracion = datetime.timedelta(days=3)
+        access_token = create_access_token(identity=user.email, expires_delta=expiracion)
 
-    expiracion = datetime.timedelta(days=3)
-    access_token = create_access_token(identity=user.email, expires_delta=expiracion)
-
-    response_token = {
-        "msg": "Added successfully",
-        "email": user.email,
-        "userId":user.id,
-        "userName": user.userName,
-        "tipo_user": user.tipo_user,
-        "token": access_token,
-        "userName" : user.userName
-        #"photo" : user.photo
-    }
-  
-    return jsonify(response_token), 200    
+        response_token = {
+            "msg": "Added successfully",
+            "email": user.email,
+            "userId":user.id,
+            "userName": user.userName,
+            "tipo_user": user.tipo_user,
+            "token": access_token,
+            "userName" : user.userName
+            #"photo" : user.photo
+        }
+        return jsonify(response_token), 200    
+    else:
+        return jsonify({"msg": "register failed"}), 401
 
 @api.route('/user', methods=["GET"])
 def get_all_users():
@@ -127,10 +148,16 @@ def get_user_by_id(id):
     return jsonify(user)
 
 @api.route('/servicio-registrados', methods=["POST"])
+@jwt_required()
 def add_servicio():
     id_user= request.form.get("id_user",None)
     userName= request.form.get("userName",None)
+    email_oferente = request.form.get('email',None)
     tipo_membresia = request.form.get("tipo_membresia",None)
+    rut = request.form.get('rut',None)
+    tipo_tamano = request.form.get('tipo_tamano',None)
+    experiencia = request.form.get('experiencia',None)
+    photo = request.files['photo']
     category = request.form.get('category',None)
     subcategory = request.form.get('subcategory',None)
     tipo_cobro = request.form.get('tipo_cobro',None)
@@ -139,12 +166,8 @@ def add_servicio():
     descrip_servicio = request.form.get('descrip_servicio',None)
     duracion = request.form.get('duracion',None)
     revision = request.form.get('revision',None)
-    proceso = request.form.get('proceso',None)
-    experiencia = request.form.get('experiencia',None)
     portafolio = request.form.get('portafolio',None)
     portafolioFoto = request.files['portafolioFoto']
-    merit = request.form.get('merit',None)
-    email_oferente = request.form.get('email',None)
             
     if not tipo_membresia:
         return jsonify({"msg":"el tipo_membresia esta vacio"}), 400
@@ -167,11 +190,21 @@ def add_servicio():
         portafolioFoto.save(os.path.join( current_app.config['UPLOAD_FOLDER']+"/serviciopic/", portafolio_filename))
     else:
         return jsonify({"msg":"Extension not allowed"}), 400
-            
+    if photo and allowed_file(photo.filename, ALLOWED_EXTENSIONS):
+        photo_filename = secure_filename(photo.filename)
+        photo.save(os.path.join(current_app.config['UPLOAD_FOLDER']+"/userpic", photo_filename))
+    else:
+        return jsonify({"msg":"Extension not allowed"}), 400
+
     servicio_registrados = Servicio_registrados()
-    servicio_registrados.id_user = id_user,
-    servicio_registrados.userName = userName,
+    servicio_registrados.id_user= id_user,
+    servicio_registrados.userName= userName,
+    servicio_registrados.email_oferente = email_oferente,
     servicio_registrados.tipo_membresia = tipo_membresia,
+    servicio_registrados.rut = rut,
+    servicio_registrados.tipo_tamano = tipo_tamano,
+    servicio_registrados.experiencia = experiencia,
+    servicio_registrados.photo = photo_filename,
     servicio_registrados.category = category,
     servicio_registrados.subcategory = subcategory,
     servicio_registrados.tipo_cobro = tipo_cobro,
@@ -180,12 +213,8 @@ def add_servicio():
     servicio_registrados.descrip_servicio = descrip_servicio,
     servicio_registrados.duracion = duracion,
     servicio_registrados.revision = revision,
-    servicio_registrados.proceso = proceso,
-    servicio_registrados.experiencia = experiencia,
     servicio_registrados.portafolio = portafolio,
-    servicio_registrados.portafolioFoto = portafolio_filename,
-    servicio_registrados.merit = merit
-    servicio_registrados.email_oferente = email_oferente
+    servicio_registrados.portafolioFoto = portafolio_filename
 
     print(servicio_registrados)
     db.session.add(servicio_registrados)
@@ -209,6 +238,7 @@ def get_servicio_id_user(id):
     return jsonify(Servicio_registrados.get_servicio_id_user(id))
 
 @api.route('/servicio-registrados/<int:id>', methods=["PUT"])
+@jwt_required()
 def update_servicio(id):
     tipo_membresia = request.json.get("tipo_membresia",None)
     subcategory = request.json.get('subcategory',None)
@@ -242,6 +272,7 @@ def update_servicio(id):
         }), 200
 
 @api.route('/servicio-registrados/<int:id>', methods=["DELETE"])
+@jwt_required()
 def  delete_servicio(id):
     Servicio_registrados.delete_servicio(id)
     return jsonify({"servicio eliminado": True})
@@ -255,6 +286,7 @@ def service_search(search):
     return jsonify(Servicio_registrados.service_search(search))
 
 @api.route('/favoritos', methods=["POST"])
+@jwt_required()
 def add_favorito():
     if request.method == 'POST':
         id_user= request.json.get("id_user")
@@ -284,21 +316,27 @@ def get_favoritos_by_user(_id_user):
     return jsonify(favoritos)
 
 @api.route('/favoritos/<int:id>', methods=["DELETE"])
+@jwt_required()
 def delete_favorito(id):
     Favoritos.delete_favorito(id)
     return jsonify({"success": True})
 
 @api.route('/comentarios', methods=["POST"])
+@jwt_required()
 def addComment():  
         if request.method == 'POST':
             if not request.is_json:
                 return jsonify({"msg": "El body o contenido esta vacio"}), 400
 
+            #id_user= request.json.get("id_user")
+            id_user_compra= request.json.get("id_user")
             id_servicios_prestados= request.json.get("id_servicios_prestados")
             id_servicio_registrados= request.json.get("id_servicio_registrados")
             text_comment= request.json.get("text_comment")
             evaluacion= request.json.get("evaluacion")
 
+            if not id_user_compra:
+                return jsonify({"msg":"id_user_compra esta vacio"}), 400
             if not id_servicios_prestados:
                 return jsonify({"msg":"id_servicios_prestados esta vacio"}), 400
             if not id_servicio_registrados:
@@ -307,6 +345,10 @@ def addComment():
                 return jsonify({"msg":"el texto del comentario esta vacio"}), 400
             if not evaluacion:
                 return jsonify({"msg":"la evaluacion esta vacia"}), 400
+
+            comment = Comentarios.get_comentario_servicioprestado(id_user_compra, id_servicios_prestados, id_servicio_registrados)
+            # if comment:return jsonify({"msg":"Usted ya ha calificado este servicio"}), 200  
+            # print(comment)
 
             comentarios = Comentarios()
             comentarios.id_servicios_prestados = request.json.get("id_servicios_prestados", None)
